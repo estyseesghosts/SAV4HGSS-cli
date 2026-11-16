@@ -1,0 +1,441 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using HgssSave.Core;
+using HgssSave.PKHeX;
+
+namespace HgssSave.Cli;
+
+internal static class Commands
+{
+    private static readonly HgssFactory Factory = new();
+
+    internal static int Version(string[] args)
+    {
+        var registry = TryLoadRegistry(args);
+        Emit(w => ReportWriter.WriteVersion(w, Program.CliVersion, Factory.LibraryVersion, registry, Program.CommandNames));
+        return 0;
+    }
+
+    internal static int Inspect(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save inspect INPUT [--symbols PATH] [--flags-limit N]");
+        var registry = TryLoadRegistry(args);
+        var limit = ParseInt(Args.Option(args, "--flags-limit", "200"), "--flags-limit");
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var bytes = session.OriginalBytes;
+        var snapshot = session.Snapshot();
+        var validation = session.ValidateStructural();
+        Emit(w => ReportWriter.WriteInspect(w, "inspect", input, bytes, snapshot, validation, registry, Factory.LibraryVersion, Warnings(registry), limit));
+        return validation.Passed ? 0 : (int)ExitCode.StructuralFailure;
+    }
+
+    internal static int Validate(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save validate INPUT [--level structural]");
+        var level = Args.Option(args, "--level", "structural");
+        if (!string.Equals(level, "structural", StringComparison.OrdinalIgnoreCase))
+            throw HgssException.Unsafe("validate-level", $"Validation level '{level}' is not implemented; only 'structural' is evaluated.");
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var bytes = session.OriginalBytes;
+        Emit(w => ReportWriter.WriteValidate(w, input, bytes, session.Snapshot(), session.ValidateStructural(), registry, Factory.LibraryVersion, Warnings(registry)));
+        return session.ValidateStructural().Passed ? 0 : (int)ExitCode.StructuralFailure;
+    }
+
+    internal static int Diff(string[] args)
+    {
+        var before = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save diff BEFORE AFTER [--max-list N]");
+        var after = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "usage: hgss-save diff BEFORE AFTER [--max-list N]");
+        var maxList = ParseInt(Args.Option(args, "--max-list", "200"), "--max-list");
+        var maxRanges = ParseInt(Args.Option(args, "--max-ranges", "40"), "--max-ranges");
+        var registry = TryLoadRegistry(args);
+        using var sBefore = Factory.OpenWithRegistry(before, registry);
+        using var sAfter = Factory.OpenWithRegistry(after, registry);
+        var result = SaveDiff.Compare(sBefore, sAfter, registry, before, sBefore.OriginalBytes, after, sAfter.OriginalBytes, Factory.KnownRegions, maxList, maxRanges);
+        Emit(w => ReportWriter.WriteDiff(w, result));
+        return 0;
+    }
+
+    internal static int Patch(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save patch INPUT --recipe PATCH --out OUT [--dry-run]");
+        var recipe = Args.Option(args, "--recipe") ?? throw HgssException.BadArguments("args", "patch requires --recipe PATCH.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "patch requires --out OUT.");
+        var document = PatchParser.Parse(ReadFile(recipe), recipe);
+        return RunPatch(input, document, ReadFile(recipe), output, args);
+    }
+
+    internal static int FlagGet(string[] args) => ScalarGet(args, "flag", "usage: hgss-save flag get INPUT ID");
+    internal static int VarGet(string[] args) => ScalarGet(args, "variable", "usage: hgss-save var get INPUT ID");
+
+    internal static int FlagSet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save flag set INPUT ID true|false --out OUT");
+        var id = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "flag set requires an ID.");
+        var value = ParseBool(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "flag set requires a value."));
+        var expect = ParseOptionalBool(Args.Option(args, "--expect"));
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "flag set requires --out OUT.");
+        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new FlagSetOperation(id, value, expect)], []), CanonicalPatchJson($"flag.set:{id}:{value}:{expect}"), output, args);
+    }
+
+    internal static int VarSet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save var set INPUT ID VALUE --out OUT");
+        var id = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "var set requires an ID.");
+        var value = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "var set requires a value."), "value");
+        if ((uint)value > ushort.MaxValue)
+            throw HgssException.BadArguments("var-range", $"Variable value {value} does not fit in 16 bits.");
+        var expectRaw = Args.Option(args, "--expect");
+        int? expect = expectRaw is null ? null : ParseInt(expectRaw, "--expect");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "var set requires --out OUT.");
+        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new VariableSetOperation(id, value, expect)], []), CanonicalPatchJson($"variable.set:{id}:{value}:{expect}"), output, args);
+    }
+
+    internal static int BagSet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save bag set INPUT ITEM QUANTITY --out OUT");
+        var item = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "bag set requires an item.");
+        var quantity = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "bag set requires a quantity."), "quantity");
+        if (quantity < 0 || quantity > 999)
+            throw HgssException.BadArguments("item-range", $"Quantity {quantity} is outside 0..999.");
+        var expectRaw = Args.Option(args, "--expect");
+        int? expect = expectRaw is null ? null : ParseInt(expectRaw, "--expect");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "bag set requires --out OUT.");
+        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BagQuantitySetOperation(item, quantity, expect)], []), CanonicalPatchJson($"inventory.quantity.set:{item}:{quantity}:{expect}"), output, args);
+    }
+
+    internal static int MoneySet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save trainer money set INPUT VALUE --out OUT");
+        var raw = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "trainer money set requires a value.");
+        if (!uint.TryParse(raw, out var value))
+            throw HgssException.BadArguments("money-range", $"Money value '{raw}' is not a non-negative integer.");
+        var expectRaw = Args.Option(args, "--expect");
+        uint? expect = null;
+        if (expectRaw is not null)
+        {
+            if (!uint.TryParse(expectRaw, out var parsed))
+                throw HgssException.BadArguments("money-range", $"Expected money '{expectRaw}' is not a non-negative integer.");
+            expect = parsed;
+        }
+
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "trainer money set requires --out OUT.");
+        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new MoneySetOperation(value, expect)], []), CanonicalPatchJson($"trainer.money.set:{value}:{expect}"), output, args);
+    }
+
+    internal static int FlagsList(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save flags list INPUT [--limit N]");
+        var limit = ParseInt(Args.Option(args, "--limit", "5000"), "--limit");
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        Emit(w => ReportWriter.WriteFlags(w, input, session.OriginalBytes, session.Snapshot(), registry, session.SetFlagIds(), Factory.LibraryVersion, limit));
+        return 0;
+    }
+
+    internal static int VarsList(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save vars list INPUT [--limit N]");
+        var limit = ParseInt(Args.Option(args, "--limit", "500"), "--limit");
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var nonzero = session.WorkValues().Where(p => p.Value != 0).ToDictionary(p => p.Key, p => p.Value);
+        Emit(w => ReportWriter.WriteVars(w, input, session.OriginalBytes, session.Snapshot(), registry, nonzero, Factory.LibraryVersion, limit));
+        return 0;
+    }
+
+    internal static int SymbolsLookup(string[] args)
+    {
+        var reference = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save symbols lookup NAME [--kind KIND]");
+        var registry = RequireRegistry(args);
+        var kindRaw = Args.Option(args, "--kind");
+        var result = kindRaw is null ? registry.Lookup(reference) : registry.LookupAs(reference, ParseKind(kindRaw));
+        Emit(w => ReportWriter.WriteSymbolsLookup(w, registry, reference, result, Factory.LibraryVersion));
+        return result.Resolution == SymbolResolution.Resolved ? 0 : (int)ExitCode.SymbolFailure;
+    }
+
+    internal static int SymbolsSearch(string[] args)
+    {
+        var query = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save symbols search QUERY [--kind K1,K2] [--limit N]");
+        if (string.IsNullOrWhiteSpace(query))
+            throw HgssException.BadArguments("args", "Search query must not be empty.");
+        var registry = RequireRegistry(args);
+        var kinds = ParseKinds(Args.Option(args, "--kind") ?? Args.Option(args, "--kinds"));
+        var limit = ParseInt(Args.Option(args, "--limit", "50"), "--limit");
+        var results = registry.Search(query, kinds, limit);
+        Emit(w => ReportWriter.WriteSymbolsSearch(w, registry, query, kinds ?? AllKinds(), results, Factory.LibraryVersion, limit));
+        return 0;
+    }
+
+    internal static int BuildRegistry(string[] args)
+    {
+        var headers = Args.Option(args, "--headers") ?? throw HgssException.BadArguments("args", "symbols build-registry requires --headers DIR (pinned pokeheartgold checkout).");
+        var commit = Args.Option(args, "--commit") ?? throw HgssException.BadArguments("args", "symbols build-registry requires --commit SHA.");
+        var output = Args.Option(args, "--out", "hgss-us.symbols.json") ?? "hgss-us.symbols.json";
+        var registryId = Args.Option(args, "--registry-id", "hgss-us") ?? "hgss-us";
+        var project = Args.Option(args, "--project", "pokeheartgold") ?? "pokeheartgold";
+        var stats = RegistryBuilder.Build(headers, commit, registryId, project, output);
+        Console.Out.WriteLine($"wrote {stats.Symbols} symbols ({stats.Skipped} skipped) from {stats.Files} headers at {commit} to {output}");
+        Console.Out.WriteLine($"manifest: {stats.ManifestPath}");
+        return 0;
+    }
+
+    internal static int ContainerProbe(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save container probe FILE");
+        var kind = Factory.ProbeContainer(input);
+        var bytes = File.ReadAllBytes(input);
+        Emit(w =>
+        {
+            w.WriteStartObject();
+            w.WriteString("schema", ReportWriter.ReportSchema);
+            w.WriteString("operation", "container.probe");
+            w.WriteStartObject("input");
+            w.WriteString("path", input);
+            w.WriteString("sha256", HashUtil.Sha256(bytes));
+            w.WriteNumber("bytes", bytes.Length);
+            w.WriteEndObject();
+            w.WriteString("container", ContainerStrings.ToDisplay(kind));
+            w.WriteEndObject();
+        });
+        return kind == ContainerKind.Other ? (int)ExitCode.UnsupportedSave : 0;
+    }
+
+    internal static int ContainerUnwrap(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save container unwrap FILE --out OUT");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "container unwrap requires --out OUT.");
+        var force = Args.Flag(args, "--force");
+        var registry = TryLoadRegistry(args);
+        var probed = Factory.ProbeContainer(input);
+        var bytes = Factory.UnwrapContainer(input);
+        WriteOutputAtomic(output, bytes, force);
+        Emit(w => ReportWriter.WriteUnwrap(w, input, probed, output, bytes, Factory.LibraryVersion, registry, []));
+        return 0;
+    }
+
+    internal static int Blank(string[] args)
+    {
+        var game = Args.Option(args, "--game") ?? throw HgssException.BadArguments("args", "blank requires --game HG|SS.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "blank requires --out OUT.");
+        var force = Args.Flag(args, "--force");
+        var kindRaw = Args.Option(args, "--kind") ?? "fresh-structure";
+        var kind = kindRaw.ToLowerInvariant() switch
+        {
+            "fresh-structure" => BlankKind.FreshStructure,
+            "erased-flash" => BlankKind.ErasedFlash,
+            _ => throw HgssException.BadArguments("args", $"Unknown blank kind '{kindRaw}'."),
+        };
+        var options = new BlankOptions(
+            game.ToUpperInvariant(),
+            Args.Option(args, "--trainer-name"),
+            ParseOptionalInt(Args.Option(args, "--tid"), "--tid"),
+            ParseOptionalInt(Args.Option(args, "--sid"), "--sid"),
+            ParseOptionalInt(Args.Option(args, "--gender"), "--gender"),
+            ParseOptionalInt(Args.Option(args, "--language"), "--language"));
+        var registry = TryLoadRegistry(args);
+        var bytes = Factory.SynthesizeBlank(kind, options);
+        WriteOutputAtomic(output, bytes, force);
+        var warnings = kind == BlankKind.FreshStructure
+            ? new[] { "Blank saves are structurally valid only; story state is not verified. Start from a real played save for fixtures." }
+            : new[] { "Erased-flash image has no save structure and cannot be opened; for negative tests only." };
+        Emit(w => ReportWriter.WriteBlank(w, output, bytes, kind, options, Factory.LibraryVersion, registry, warnings));
+        return 0;
+    }
+
+    private static int ScalarGet(string[] args, string field, string usage)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", usage);
+        var reference = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", usage);
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var (label, value) = field switch
+        {
+            "flag" => ResolveFlag(session, registry, reference),
+            _ => ResolveVar(session, registry, reference),
+        };
+        Emit(w => ReportWriter.WriteValue(w, $"{field}.get", input, session.OriginalBytes, label, value, Factory.LibraryVersion, registry, Warnings(registry)));
+        return 0;
+    }
+
+    private static (string Label, string Value) ResolveFlag(ISaveSession session, SymbolRegistry registry, string reference)
+    {
+        var lookup = registry.LookupAs(reference, SymbolKind.PersistentFlag);
+        int id = lookup.Resolution switch
+        {
+            SymbolResolution.Resolved => lookup.Entry!.Id,
+            SymbolResolution.NumericUnreviewed when SymbolRegistry.TryParseNumber(reference, out var n) => n,
+            _ => throw HgssException.Symbol("flag-unknown", $"Flag '{reference}' did not resolve to a persistent save flag in {registry.Revision}."),
+        };
+        if (!session.TryGetFlag(id, out var value))
+            throw HgssException.Precondition("flag-range", $"Flag id {id} is outside the persistent range.");
+        var name = lookup.Entry?.Name ?? registry.NameFor(SymbolKind.PersistentFlag, id);
+        return ($"flag.{name ?? id.ToString()}", value ? "true" : "false");
+    }
+
+    private static (string Label, string Value) ResolveVar(ISaveSession session, SymbolRegistry registry, string reference)
+    {
+        var lookup = registry.LookupAs(reference, SymbolKind.SaveWork);
+        int id = lookup.Resolution switch
+        {
+            SymbolResolution.Resolved => lookup.Entry!.Id,
+            SymbolResolution.NumericUnreviewed when SymbolRegistry.TryParseNumber(reference, out var n) => n,
+            _ => throw HgssException.Symbol("variable-unknown", $"Variable '{reference}' did not resolve to a save-work slot in {registry.Revision}."),
+        };
+        if (!session.TryGetVar(id, out var value))
+            throw HgssException.Precondition("variable-range", $"Variable id {id} is not a save-work slot.");
+        var name = lookup.Entry?.Name ?? registry.NameFor(SymbolKind.SaveWork, id);
+        return ($"variable.{name ?? $"0x{id:X4}"}", value.ToString());
+    }
+
+    private static int RunPatch(string input, PatchDocument document, byte[] patchBytes, string output, string[] args)
+    {
+        var dryRun = Args.Flag(args, "--dry-run");
+        var requireSymbols = Args.Flag(args, "--require-symbols");
+        var maxRanges = ParseInt(Args.Option(args, "--max-ranges", "40"), "--max-ranges");
+        var registry = TryLoadRegistry(args);
+        var inputBytes = ReadFile(input);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols);
+
+        if (!plan.CanApply)
+        {
+            Emit(w => ReportWriter.WritePatch(w, plan, null, null, dryRun, Factory.LibraryVersion));
+            return (int)ExitCode.PreconditionFailed;
+        }
+
+        if (dryRun)
+        {
+            Emit(w => ReportWriter.WritePatch(w, plan, null, null, true, Factory.LibraryVersion));
+            return 0;
+        }
+
+        var result = PatchRunner.Apply(session, plan, Factory, maxRanges);
+        WriteOutputAtomic(output, result.OutputBytes, Args.Flag(args, "--force"));
+        Emit(w => ReportWriter.WritePatch(w, plan, result, output, false, Factory.LibraryVersion));
+        return 0;
+    }
+
+    private static void WriteOutputAtomic(string output, byte[] bytes, bool force)
+    {
+        if (File.Exists(output) && !force)
+            throw HgssException.OutputConflict("output-exists", $"Output '{output}' already exists. Pass --force to overwrite.");
+        var dir = Path.GetDirectoryName(Path.GetFullPath(output));
+        if (!string.IsNullOrEmpty(dir))
+            Directory.CreateDirectory(dir);
+        var temp = Path.Combine(dir ?? ".", ".hgss-save-" + Path.GetRandomFileName());
+        try
+        {
+            File.WriteAllBytes(temp, bytes);
+            File.Move(temp, output, force);
+        }
+        finally
+        {
+            if (File.Exists(temp))
+                File.Delete(temp);
+        }
+    }
+
+    private static SymbolRegistry TryLoadRegistry(string[] args)
+    {
+        var explicitPath = Args.Option(args, "--symbols") ?? Environment.GetEnvironmentVariable("HGSS_SYMBOLS");
+        if (explicitPath is not null)
+            return SymbolRegistry.Load(explicitPath);
+
+        var exeDir = Path.GetDirectoryName(Environment.ProcessPath);
+        var candidates = new List<string?>();
+        if (exeDir is not null)
+            candidates.Add(Path.Combine(exeDir, "hgss-us.symbols.json"));
+        candidates.Add(Path.Combine(Directory.GetCurrentDirectory(), "hgss-us.symbols.json"));
+        candidates.Add(Path.Combine(Directory.GetCurrentDirectory(), "registry", "hgss-us.symbols.json"));
+        foreach (var candidate in candidates)
+        {
+            if (candidate is not null && File.Exists(candidate))
+                return SymbolRegistry.Load(candidate);
+        }
+
+        return SymbolRegistry.Empty;
+    }
+
+    private static SymbolRegistry RequireRegistry(string[] args)
+    {
+        var explicitPath = Args.Option(args, "--symbols") ?? Environment.GetEnvironmentVariable("HGSS_SYMBOLS");
+        if (explicitPath is not null)
+            return SymbolRegistry.Load(explicitPath);
+
+        var registry = TryLoadRegistry(args);
+        if (!ReferenceEquals(registry, SymbolRegistry.Empty))
+            return registry;
+        throw HgssException.Symbol("registry-missing",
+            "Symbol registry not found. Pass --symbols PATH or set HGSS_SYMBOLS; build one with 'symbols build-registry'.");
+    }
+
+    private static IReadOnlyList<string> Warnings(SymbolRegistry registry) =>
+        ReferenceEquals(registry, SymbolRegistry.Empty)
+            ? ["symbol registry not loaded; named flag/variable/item lookup is unavailable"]
+            : [];
+
+    private static byte[] ReadFile(string path)
+    {
+        try
+        {
+            return File.ReadAllBytes(path);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            throw HgssException.OutputConflict("input-io", $"Cannot read '{path}': {e.Message}");
+        }
+    }
+
+    private static byte[] CanonicalPatchJson(string tag) =>
+        System.Text.Encoding.UTF8.GetBytes($"{{\"schema\":\"{PatchDocument.SchemaId}\",\"cli\":\"{Program.CliVersion}\",\"op\":\"{tag}\"}}");
+
+    private static int ParseInt(string? raw, string name)
+    {
+        if (raw is null || !int.TryParse(raw, out var value))
+            throw HgssException.BadArguments("args", $"Option '{name}' needs an integer (got '{raw ?? ""}').");
+        return value;
+    }
+
+    private static int? ParseOptionalInt(string? raw, string name) =>
+        raw is null ? null : ParseInt(raw, name);
+
+    private static bool ParseBool(string raw) => raw.ToLowerInvariant() switch
+    {
+        "true" or "1" => true,
+        "false" or "0" => false,
+        _ => throw HgssException.BadArguments("args", $"Expected true/false (got '{raw}')."),
+    };
+
+    private static bool? ParseOptionalBool(string? raw) =>
+        raw is null ? null : ParseBool(raw);
+
+    private static SymbolKind ParseKind(string raw) => raw.ToLowerInvariant() switch
+    {
+        "flag" or "persistent_flag" => SymbolKind.PersistentFlag,
+        "var" or "variable" or "save_work" => SymbolKind.SaveWork,
+        "map" => SymbolKind.Map,
+        "item" => SymbolKind.Item,
+        "species" => SymbolKind.Species,
+        "move" => SymbolKind.Move,
+        _ => throw HgssException.BadArguments("args", $"Unknown symbol kind '{raw}'."),
+    };
+
+    private static IReadOnlyList<SymbolKind>? ParseKinds(string? raw)
+    {
+        if (raw is null)
+            return null;
+        return raw.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(ParseKind).ToList();
+    }
+
+    private static IReadOnlyList<SymbolKind> AllKinds() =>
+        [SymbolKind.PersistentFlag, SymbolKind.SaveWork, SymbolKind.Map, SymbolKind.Item, SymbolKind.Species, SymbolKind.Move];
+
+    private static void Emit(Action<Utf8JsonWriter> write)
+    {
+        Console.Out.WriteLine(ReportWriter.Serialize(write, indent: true));
+    }
+}

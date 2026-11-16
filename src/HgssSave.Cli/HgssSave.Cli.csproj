@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <AssemblyName>hgss-save</AssemblyName>
+    <RootNamespace>HgssSave.Cli</RootNamespace>
+    <!-- Embeds PKHeX.Core's GPL-3.0-or-later notice requirement: see README licensing section (design §2). -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HgssSave.Core\HgssSave.Core.csproj" />
+    <ProjectReference Include="..\HgssSave.PKHeX\HgssSave.PKHeX.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\registry\*.symbols.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(Filename)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+
+</Project>

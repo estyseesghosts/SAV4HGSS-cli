@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HgssSave.Cli/HgssSave.Cli.csproj" />
+    <Project Path="src/HgssSave.Core/HgssSave.Core.csproj" />
+    <Project Path="src/HgssSave.PKHeX/HgssSave.PKHeX.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HgssSave.Tests/HgssSave.Tests.csproj" />
+  </Folder>
+</Solution>

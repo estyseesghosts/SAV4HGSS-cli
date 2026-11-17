@@ -1,0 +1,32 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-e4-prechallenge",
+  "game": "HG",
+  "base": {
+    "path": "raw-from-noexotic/Pokemon_HeartGoldE4.SAV.raw.sav",
+    "sha256": "CAB74AEF97B2CCB230B813D0DC0DBBE346AA55B8B5D63DC221EBDC92BB713D0E"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 911200, "expect": 911120},
+      {"op": "location.set", "map": 300, "x": 8, "y": 22, "z": 0}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_DEFEATED_WILL", "equals": false},
+      {"field": "flag.FLAG_DEFEATED_KOGA", "equals": false},
+      {"field": "flag.FLAG_DEFEATED_BRUNO", "equals": false},
+      {"field": "flag.FLAG_DEFEATED_KAREN", "equals": false},
+      {"field": "flag.FLAG_UNLOCKED_MT_SILVER", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 300, "x": 8, "y": 22, "z": 0}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "league-entrance-visible", "e4-unbeaten", "mt-silver-locked", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Pre-E4 checkpoint (Master, League entrance): all four Elite Four flags clear, Mt Silver locked. Companion to ss-e4-champion-verify (fresh Champion, flags set): together they pin both sides of the E4 gate for regression. Base is ndssc RLE-decompression of the NO$GBA HG E4 container. Money op is a canary; location op is a verified self-spawn move."
+  }
+}

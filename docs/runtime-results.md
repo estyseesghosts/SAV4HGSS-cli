@@ -47,6 +47,7 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | ss-morty-gym-verify | soulsilver.nds (IPGE) | boot + live-spawn assert (Ecruteak 78,381,182) | ok, running |
 | hg-chuck-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Cianwood 75,185,371) | ok, running |
 | hg-jasmine-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Ecruteak 78,394,184) | ok, running |
+| hg-e4-prechallenge | heartgold.nds (POKEMON HG) | boot + live-spawn assert (League 300,8,22) | ok, running |
 
 ## Continue-to-overworld sequences
 

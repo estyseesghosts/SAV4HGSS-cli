@@ -159,6 +159,15 @@
    "x": 394,
    "y": 184,
    "z": 3
+  },
+  {
+   "map_id": 300,
+   "map_symbol": "MAP_POKEMON_LEAGUE_ENTRANCE",
+   "note": "Master pre-E4 at the League entrance; all four E4 flags clear, Mt Silver locked",
+   "source_save_sha256": "CAB74AEF97B2CCB230B813D0DC0DBBE346AA55B8B5D63DC221EBDC92BB713D0E",
+   "x": 8,
+   "y": 22,
+   "z": 0
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

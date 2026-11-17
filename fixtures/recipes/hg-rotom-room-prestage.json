@@ -1,0 +1,76 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-rotom-room-prestage",
+  "game": "HG",
+  "base": {
+    "path": "Lyra - Rotom.sav",
+    "sha256": "C079B37E1B58F64C320F18407B49ECCE3E48D97957EDB48BCBCB5CA80367BD9B"
+  },
+  "patch": {
+    "operations": [
+      {
+        "op": "trainer.money.set",
+        "value": 3000,
+        "expect": 3000
+      },
+      {
+        "op": "location.set",
+        "map": 59,
+        "x": 1308,
+        "y": 231,
+        "z": 2
+      }
+    ],
+    "assert": [
+      {
+        "field": "flag.FLAG_HIDE_SILPH_ROTOM_HEAT",
+        "equals": false
+      },
+      {
+        "field": "flag.FLAG_HIDE_SILPH_ROTOM_WASH",
+        "equals": false
+      },
+      {
+        "field": "flag.FLAG_HIDE_SILPH_ROTOM_FROST",
+        "equals": false
+      },
+      {
+        "field": "flag.FLAG_HIDE_SILPH_ROTOM_FAN",
+        "equals": false
+      },
+      {
+        "field": "flag.FLAG_HIDE_SILPH_ROTOM_MOW",
+        "equals": false
+      },
+      {
+        "field": "party.0.species",
+        "equals": 479
+      },
+      {
+        "field": "location.spawn",
+        "equals": {
+          "map": 59,
+          "x": 1308,
+          "y": 231,
+          "z": 2
+        }
+      }
+    ]
+  },
+  "position": {
+    "mode": "preserve-base"
+  },
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": [
+      "file-loaded-in-melonds-ds-mode",
+      "saffron-visible",
+      "rotom-gate-conditions-held",
+      "in-game-save-reloads-clean"
+    ]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Rotom appliance-room pre-state (Lyra, HG, Saffron): base Rotom in party, all five appliance hides clear (room never entered; init hides them on entry). Base is `container unwrap` of the DeSmuME .dsv save (.dsv retained as canonical). Gate: scr_seq_0838_T11R0702.s room init hides all appliances (lines 18-22) then unhides owned forms (lines 37-53); interaction requires PlayerHasSpecies ROTOM (lines 92-94) with form change via UpdateRotomForm (line 156). Money op is a no-op canary; location op is a verified self-spawn move."
+  }
+}

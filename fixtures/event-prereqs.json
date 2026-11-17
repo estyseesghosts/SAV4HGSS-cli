@@ -205,6 +205,28 @@
     "SetFlag B1F hides in scr_seq_0024_D18R0102.s:70-72",
     "CreateRoamer in scr_seq_0024_D18R0102.s:76-77"
    ]
+  },
+  {
+   "id": "rotom-silph-appliance-room",
+   "effects": [
+    "Init hides all five appliances, unhides owned forms (scr_seq_0838_T11R0702.s:18-53)",
+    "Form change via UpdateRotomForm (same file:156), warp back to room (same file:178)"
+   ],
+   "items": [
+    "Rotom in party (PlayerHasSpecies SPECIES_ROTOM, same file:92-94)"
+   ],
+   "observed": {
+    "Lyra - Rotom.sav (HG, Saffron, pre)": "all five appliance hides false, party lead ROTOM 479"
+   },
+   "reads": [
+    "PlayerHasSpecies SPECIES_ROTOM in scr_seq_0838_T11R0702.s:92",
+    "CountTranformedRotomsInParty in scr_seq_0838_T11R0702.s:105,146"
+   ],
+   "writes": [
+    "SetFlag appliance hides in scr_seq_0838_T11R0702.s:18-22",
+    "ClearFlag owned-form hides in scr_seq_0838_T11R0702.s:37-53",
+    "UpdateRotomForm in scr_seq_0838_T11R0702.s:156"
+   ]
   }
  ],
  "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",

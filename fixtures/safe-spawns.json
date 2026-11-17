@@ -123,6 +123,15 @@
    "x": 358,
    "y": 370,
    "z": 1
+  },
+  {
+   "map_id": 59,
+   "map_symbol": "MAP_SAFFRON",
+   "note": "Lyra Rotom-room pre-state in Saffron; base Rotom in party, all five appliance hides clear (room never entered)",
+   "source_save_sha256": "C079B37E1B58F64C320F18407B49ECCE3E48D97957EDB48BCBCB5CA80367BD9B",
+   "x": 1308,
+   "y": 231,
+   "z": 2
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

@@ -43,6 +43,7 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | hg-enigma-stone-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Pewter 51,1048,80) | ok, running |
 | hg-whitney-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Goldenrod 76,358,370) | ok, running |
 | hg-burned-tower-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Goldenrod 76,358,370) | ok, running |
+| hg-rotom-room-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Saffron 59,1308,231) | ok, running |
 
 ## Continue-to-overworld sequences
 

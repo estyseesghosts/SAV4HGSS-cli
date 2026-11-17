@@ -80,6 +80,7 @@ Story progress is not one number. The badge bytes, the flags and variables the g
 
 - `preset apply NAME INPUT --out OUT` overwrites the whole story domain with a played milestone (17 presets: HeartGold from 1 badge to Kanto, SoulSilver 1 to 8 badges and Kanto), spawning at a Pokemon Center door. Each preset boots headless in melonDS and spawns on the intended tile (`tools/preset_boot_check.py`).
 - `trainer badges set` changes the badge bytes and applies what the game sets for each newly gained badge (`registry/hgss-us.badge-rules.json`, from the gym scripts, checked against the saves).
+- `story triggers --var V --map M` lists the cutscene and scene-machine triggers in the decomp (map, tiles, `VAR == value`, script, what it writes).
 - `story check` reports where a save contradicts those rules. It finds nothing on the 29 played saves in the corpus and on every applied preset.
 
 Not covered: out-of-order badge sets do not model the world prerequisites (HM gates, scene machines such as `VAR_SCENE_ROCKET_TAKEOVER`); use a preset for a coherent state. Details and the open list are in `docs/state-log.md`.

@@ -29,6 +29,8 @@ READ-ONLY COMMANDS
   flag get INPUT ID [--symbols PATH]                     ID: FLAG_* name or number
   var get INPUT ID [--symbols PATH]                      ID: VAR_* name or number
   story check INPUT [--badge-rules PATH] [--strict]      audit badges against what the game sets for them (flags, vars, counters)
+  story triggers [--var NAME] [--map NAME|ID] [--scene-triggers PATH]
+                                                         cutscene/scene triggers from the decomp: map, tiles, VAR == value, script, what it writes
   preset list [--presets DIR]                            named story presets (JSON index)
   flags list INPUT [--limit N] [--symbols PATH]          all set persistent flags (default 5000)
   vars list INPUT [--limit N] [--symbols PATH]           all non-zero save variables (default 500)

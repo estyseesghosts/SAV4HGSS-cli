@@ -163,6 +163,63 @@ internal static class Commands
         return violations.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
     }
 
+    internal static int StoryTriggers(string[] args)
+    {
+        var candidates = new List<string?>
+        {
+            Args.Option(args, "--scene-triggers"),
+            Environment.GetEnvironmentVariable("HGSS_SCENE_TRIGGERS"),
+            Path.Combine(AppContext.BaseDirectory, "hgss-us.scene-triggers.json"),
+            Path.Combine(Directory.GetCurrentDirectory(), "hgss-us.scene-triggers.json"),
+            Path.Combine(Directory.GetCurrentDirectory(), "registry", "hgss-us.scene-triggers.json"),
+        };
+        var path = candidates.FirstOrDefault(c => !string.IsNullOrEmpty(c) && File.Exists(c))
+            ?? throw HgssException.BadArguments("triggers-missing", "Scene trigger table not found (looked at --scene-triggers, $HGSS_SCENE_TRIGGERS, beside the exe, ./, ./registry).");
+        var varFilter = Args.Option(args, "--var");
+        var mapFilter = Args.Option(args, "--map");
+        System.Text.Json.Nodes.JsonNode? root;
+        try
+        {
+            root = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(path));
+        }
+        catch (System.Text.Json.JsonException e)
+        {
+            throw HgssException.BadArguments("triggers-parse", $"Scene trigger table '{path}' is not valid JSON: {e.Message}");
+        }
+
+        if (root?["schema"]?.GetValue<string>() != "hgss-save.scene-triggers/v1" || root["triggers"] is not System.Text.Json.Nodes.JsonArray all)
+            throw HgssException.BadArguments("triggers-schema", $"Scene trigger table '{path}' must declare schema 'hgss-save.scene-triggers/v1' with a 'triggers' array.");
+        var selected = new System.Text.Json.Nodes.JsonArray();
+        foreach (var t in all)
+        {
+            if (t is null)
+                continue;
+            var sym = t["var"]?.GetValue<string>();
+            if (varFilter is not null && !string.Equals(sym, varFilter, StringComparison.OrdinalIgnoreCase))
+                continue;
+            if (mapFilter is not null)
+            {
+                var name = t["map"]?.GetValue<string>();
+                var id = t["map_id"]?.ToString();
+                if (!string.Equals(name, mapFilter, StringComparison.OrdinalIgnoreCase) && id != mapFilter)
+                    continue;
+            }
+
+            selected.Add(t.DeepClone());
+        }
+
+        var report = new System.Text.Json.Nodes.JsonObject
+        {
+            ["schema"] = "hgss-save.report/v1",
+            ["operation"] = "story.triggers",
+            ["table"] = path,
+            ["count"] = selected.Count,
+            ["triggers"] = selected,
+        };
+        Console.Out.WriteLine(report.ToJsonString(new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
+        return 0;
+    }
+
     private static string FindPresetDir(string[] args)
     {
         var candidates = new List<string?>

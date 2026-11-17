@@ -39,6 +39,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>hgss-us.badge-rules.json</Link>
     </None>
+    <None Include="..\..\registry\hgss-us.scene-triggers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>hgss-us.scene-triggers.json</Link>
+    </None>
     <None Include="..\..\registry\presets\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>presets\%(Filename)%(Extension)</Link>

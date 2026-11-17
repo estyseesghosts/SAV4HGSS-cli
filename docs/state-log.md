@@ -133,6 +133,14 @@ Test: `preset apply hg-06-mineral` on the clean HG base (counter 3), then (A) `t
 
 So the derived counter is load-bearing: writing badge 6 without the counter (the `--raw` path) would have produced a save in which the takeover never starts.
 
+## F11. The cutscene trigger table
+
+`tools/scene_triggers.py` extracts every "VAR == value" trigger from the decomp: 187 zone-event coordinate triggers (`files/fielddata/eventdata/zone_event/*.json`, fields `var`, `val`, `x`, `z`, `w`, `h`, `scriptId`) and 128 map header on-frame triggers (`InitScriptGoToIfEqual` in `scr_seq_*_hdr.s`), 315 in all over 169 variables (27 of them script temp vars). Each entry carries the script and everything it can write. It is shipped as `registry/hgss-us.scene-triggers.json` and queried with `hgss-save story triggers --var/--map`.
+
+This makes the scene machines readable. `VAR_SCENE_ROCKET_TAKEOVER`: the Mahogany header sets it to 2 when `VAR_MIDGAME_BADGES == 4` (F10); stepping on Goldenrod Tunnel B1F with the var at 2 runs `scr_seq_D37R0102_004`, which sets 3 (`scr_seq_0094_D37R0102.s:695`); the Radio Tower 1F trigger at 3 runs `scr_seq_D23R0101_009`, which sets 4 or 2 (`scr_seq_0029_D23R0101.s:457,463`); a Goldenrod trigger also waits on 3.
+
+To stage a given cutscene: set its variable to `value`, put the player in its map (frame triggers fire on load; coord triggers need the player to step on `area`). Not yet automated: the tile coordinates are tile data, so reaching a coord trigger from a warp needs walking.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

@@ -73,7 +73,8 @@ public static class PatchPlanner
         bool requireSymbols,
         string? recipeDirectory = null,
         string? safeSpawnsPath = null,
-        string? warpSpawnsPath = null)
+        string? warpSpawnsPath = null,
+        string? badgeRulesPath = null)
     {
         var identity = session.Identity;
         var warnings = new List<string>();
@@ -93,7 +94,7 @@ public static class PatchPlanner
             && !string.Equals(document.SymbolRegistryRevision, registry.Revision, StringComparison.OrdinalIgnoreCase))
             failures.Add($"patch requires registry '{document.SymbolRegistryRevision}' but the loaded registry is '{registry.Revision}'.");
 
-        foreach (var operation in document.Operations)
+        foreach (var operation in ExpandBadgeConsequences(session, document.Operations, badgeRulesPath))
         {
             var planned = PlanOperation(session, operation, registry, requireSymbols, warnings, recipeDirectory, safeSpawnsPath, warpSpawnsPath);
             if (planned is null)
@@ -133,6 +134,26 @@ public static class PatchPlanner
 
         var canApply = failures.Count == 0 && conflicts.Count == 0;
         return new PatchPlan(document, inputPath, baseSha, HashUtil.Sha256(patchBytes), registry.Revision, operations, assertions, conflicts, failures, warnings, canApply);
+    }
+
+    /// <summary>
+    /// Replaces each <c>trainer.badges.set</c> that asks for consequences with itself plus the writes the game makes
+    /// when the newly gained badges are won (BadgeRules). Expanded against the input save, before any write.
+    /// </summary>
+    private static IEnumerable<PatchOperation> ExpandBadgeConsequences(ISaveSession session, IReadOnlyList<PatchOperation> operations, string? rulesPath)
+    {
+        BadgeRules? rules = null;
+        foreach (var operation in operations)
+        {
+            yield return operation;
+            if (operation is not BadgesSetOperation { Consequences: true } badges)
+                continue;
+            rules ??= BadgeRules.LoadDefault(rulesPath);
+            var trainer = session.Trainer;
+            foreach (var extra in rules.Expand(session, trainer.JohtoBadges, trainer.KantoBadges,
+                         badges.Johto ?? trainer.JohtoBadges, badges.Kanto ?? trainer.KantoBadges))
+                yield return extra;
+        }
     }
 
     private static PlannedOperation? PlanOperation(

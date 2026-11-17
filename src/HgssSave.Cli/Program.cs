@@ -269,7 +269,7 @@ internal static class Args
         "--recipe", "--out", "--outdir", "--bases", "--report", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
         "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
-        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction", "--johto", "--kanto", "--presets",
+        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction", "--johto", "--kanto", "--presets", "--badge-rules",
     };
 
     internal static string? Option(string[] args, string name, string? @default = null)

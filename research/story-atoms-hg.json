@@ -1,0 +1,3523 @@
+[
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0858_T22FS0101",
+  "flags_on": [
+   "FLAG_GOT_EGG_FROM_ELMS_ASSISTANT"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0232_R32",
+  "flags_on": [
+   "FLAG_UNK_074",
+   "FLAG_UNK_208"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_408D": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0233_R32PC0101",
+  "flags_on": [
+   "FLAG_GOT_OLD_ROD"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0874_T23R0501",
+  "flags_on": [
+   "FLAG_UNK_077",
+   "FLAG_UNK_07C"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0060_D26R0102",
+  "flags_on": [
+   "FLAG_BEAT_AZALEA_ROCKETS",
+   "FLAG_UNK_1A9",
+   "FLAG_UNK_1AA",
+   "FLAG_UNK_1D5"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0869_T23GYM0102",
+  "flags_on": [
+   "FLAG_GOT_TM89_FROM_BUGSY"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0149+2",
+  "flags_on": [
+   "FLAG_HIDE_VIOLET_SHOP_LAB_AIDE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0866_T23+1",
+  "flags_on": [
+   "FLAG_UNK_19F"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0060_D26R0102+2",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_FARFETCHD_1_LOST",
+   "FLAG_HIDE_FARFETCHD_2_LOST",
+   "FLAG_HIDE_AZALEA_SLOWPOKES",
+   "FLAG_HIDE_ILEX_APPRENTICE"
+  ],
+  "vars": {
+   "VAR_UNK_4080": [
+    0,
+    4
+   ],
+   "VAR_FARFETCHD1_STICKS1": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0060_D26R0102+1",
+  "flags_on": [
+   "FLAG_UNK_1AC"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4075": [
+    0,
+    1
+   ],
+   "VAR_FARFETCHD1_STICKS2": [
+    0,
+    1
+   ],
+   "VAR_FARFETCHD2_STICKS4": [
+    0,
+    1
+   ],
+   "VAR_UNK_40F4": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0242_R35R0201+2",
+  "flags_on": [
+   "FLAG_UNK_1C4"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0857_T22+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_ELMS_LAB_AIDE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0149+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_AZALEA_ROCKET_HARASSING_CIVILIAN",
+   "FLAG_AZALEA_HARASSED_CIVILIAN"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "0144",
+  "flags_on": [
+   "FLAG_HIDE_MYSTERY_GIFT_DELIVERYMAN"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_D25R0101_GREAT_BALL",
+   "FLAG_HIDE_ITEMBALL_D25R0101_AWAKENING",
+   "FLAG_HIDE_ITEMBALL_R32_SHELL_BELL"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_TWINS_AMY_AND_MIMI",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT",
+   "FLAG_TRAINER_TEAM_ROCKET_F_GRUNT",
+   "FLAG_TRAINER_POKE_MANIAC_LARRY",
+   "FLAG_TRAINER_YOUNGSTER_ALBERT",
+   "FLAG_TRAINER_YOUNGSTER_GORDON",
+   "FLAG_TRAINER_FISHERMAN_RALPH",
+   "FLAG_TRAINER_BUG_CATCHER_BENNY",
+   "FLAG_TRAINER_BUG_CATCHER_AL",
+   "FLAG_TRAINER_BUG_CATCHER_JOSH",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_2",
+   "FLAG_TRAINER_FIREBREATHER_BILL",
+   "FLAG_TRAINER_BIRD_KEEPER_GS_PETER",
+   "FLAG_TRAINER_HIKER_DANIEL"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_FLYPOINT_AZALEA"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_MYSTERY_GIFT_CHECK": [
+    1,
+    0
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0857_T22+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_VIOLET_CITY_OW": [
+    2,
+    4
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0037_D24R0101+6",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_SINJOH_MYSTRI_ROOM": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 0,
+  "from": "1:53:40",
+  "to": "3:01:42",
+  "badges": "00000011/00000000",
+  "script": "shared:0112_D44R0103+4",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_ELMS_LAB": [
+    6,
+    7
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0092_D36R0101",
+  "flags_on": [
+   "FLAG_FOUND_FIRST_FARFETCHD",
+   "FLAG_FOUND_SECOND_FARFETCHD",
+   "FLAG_GOT_HM01",
+   "FLAG_FARFETCHD_NOTICED_YOU",
+   "FLAG_UNK_126",
+   "FLAG_UNK_23D"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_FARFETCHD2_STICKS1": [
+    0,
+    2
+   ],
+   "VAR_FARFETCHD2_STICKS2": [
+    0,
+    2
+   ],
+   "VAR_FARFETCHD2_STICKS3": [
+    0,
+    2
+   ],
+   "VAR_UNK_40E9": [
+    0,
+    1
+   ]
+  },
+  "needs": {
+   "step0:0060_D26R0102": [
+    "FLAG_BEAT_AZALEA_ROCKETS"
+   ]
+  }
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0886_T25GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM45_FROM_WHITNEY",
+   "FLAG_UNK_0B7",
+   "FLAG_HIDE_PARK_SOUTH_GATE_POKEATHLON_ENTHUSIASTS_LOCKED"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40DA": [
+    0,
+    1
+   ],
+   "VAR_UNK_410A": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0029_D23R0101",
+  "flags_on": [
+   "FLAG_GOT_RADIO_CARD",
+   "FLAG_HIDE_ROCKET_TAKEOVER_6",
+   "FLAG_UNK_318",
+   "FLAG_UNK_AA5"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0903_T25R1005",
+  "flags_on": [
+   "FLAG_TRADE_GOLDENROD_CITY_DROWZEE_MACHOP",
+   "FLAG_HIDE_GOLDENROD_DEPT_STORE_5F_RETURN_FRUSTRATION_LADY"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0060_D26R0102+2",
+  "flags_on": [
+   "FLAG_HIDE_FARFETCHD_1_LOST",
+   "FLAG_HIDE_FARFETCHD_2_LOST",
+   "FLAG_HIDE_ILEX_APPRENTICE"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_FARFETCHD1_STICKS1": [
+    1,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0060_D26R0102+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_UNK_1AC"
+  ],
+  "vars": {
+   "VAR_UNK_4075": [
+    1,
+    2
+   ],
+   "VAR_FARFETCHD1_STICKS2": [
+    1,
+    2
+   ],
+   "VAR_FARFETCHD2_STICKS4": [
+    1,
+    2
+   ],
+   "VAR_UNK_40F4": [
+    1,
+    0
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0030_D23R0102+7",
+  "flags_on": [
+   "FLAG_HIDE_ROCKET_TAKEOVER_1"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0885_T25",
+  "flags_on": [
+   "FLAG_HIDE_ROCKET_TAKEOVER_4",
+   "FLAG_HIDE_ROCKET_TAKEOVER_5"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0237_R34",
+  "flags_on": [
+   "FLAG_UNK_1D2"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0149+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_PARK_SOUTH_GATE_POKEATHLON_ENTHUSIASTS_UNLOCKED"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "0238_R34R0101",
+  "flags_on": [
+   "FLAG_UNK_22D"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_D36R0101_ETHER",
+   "FLAG_HIDE_ITEMBALL_R34_TM63"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_BEAUTY_VICTORIA",
+   "FLAG_TRAINER_LASS_CARRIE",
+   "FLAG_TRAINER_YOUNGSTER_SAMUEL",
+   "FLAG_TRAINER_BEAUTY_SAMANTHA",
+   "FLAG_TRAINER_LASS_CATHY"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_HATCHED_TOGEPI_EGG",
+   "FLAG_SYS_FLYPOINT_ECRUTEAK"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0034_D23R0106+11",
+  "flags_on": [
+   "FLAG_UNK_998"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0237_R34+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_408E": [
+    0,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 1,
+  "from": "3:01:42",
+  "to": "4:06:45",
+  "badges": "00000111/00000000",
+  "script": "shared:0795_T07R0107+3",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_ELEVATOR_LAST_FLOOR": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0890_T25R0201",
+  "flags_on": [
+   "FLAG_UNK_089"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0922_T27GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM30_FROM_MORTY"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0243_R36",
+  "flags_on": [
+   "FLAG_UNK_0B4",
+   "FLAG_UNK_0B5",
+   "FLAG_CAUGHT_SUDOWOODO",
+   "FLAG_HIDE_ROUTE_36_FLOWERSHOP_GIRL"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0093_D37R0101",
+  "flags_on": [
+   "FLAG_UNK_14C"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0094_D37R0102",
+  "flags_on": [
+   "FLAG_UNK_1B0",
+   "FLAG_UNK_1B1",
+   "FLAG_UNK_1B2",
+   "FLAG_UNK_1B3",
+   "FLAG_UNK_1B4"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0243_R36+1",
+  "flags_on": [
+   "FLAG_HIDE_ROUTE_36_SUDOWOODO"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0242_R35R0201+2",
+  "flags_on": [
+   "FLAG_UNK_1C3"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0923_T27PC0101",
+  "flags_on": [
+   "FLAG_UNK_1C5",
+   "FLAG_SYS_MET_BILL"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_410D": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0023_D18R0101",
+  "flags_on": [
+   "FLAG_HIDE_BURNED_TOWER_1F_RIVAL"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40A2": [
+    0,
+    1
+   ],
+   "VAR_UNK_40A6": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0024_D18R0102",
+  "flags_on": [
+   "FLAG_HIDE_BURNED_TOWER_1F_EUSINE",
+   "FLAG_HIDE_BURNED_TOWER_B1F_RAIKOU",
+   "FLAG_HIDE_BURNED_TOWER_B1F_ENTEI",
+   "FLAG_HIDE_BURNED_TOWER_B1F_SUICUNE",
+   "FLAG_HIDE_BURNED_TOWER_1F_MORTY",
+   "FLAG_HIDE_BURNED_TOWER_1F_RAIKOU",
+   "FLAG_HIDE_BURNED_TOWER_1F_ENTEI",
+   "FLAG_HIDE_BURNED_TOWER_1F_SUICUNE",
+   "FLAG_UNK_247"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40A1": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0240_R35",
+  "flags_on": [
+   "FLAG_UNK_1CE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0149+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_GOLDENROD_FLOWERSHOP_GIRL",
+   "FLAG_HIDE_GOLDENROD_BILL"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0024_D18R0102+2",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_CIANWOOD_SUICUNE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0024_D18R0102+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_ECRUTEAK_OLD_MAN"
+  ],
+  "vars": {
+   "VAR_UNK_4076": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0025_D22R0101+2",
+  "flags_on": [
+   "FLAG_UNK_27F"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "0025_D22R0101",
+  "flags_on": [
+   "FLAG_UNK_288"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_R35_TM66",
+   "FLAG_HIDE_ITEMBALL_D22R0101_SOOTHE_BELL",
+   "FLAG_HIDE_ITEMBALL_D22R0101_TM28",
+   "FLAG_HIDE_ITEMBALL_R35_PARLYZ_HEAL"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_SCHOOL_KID_M_ALAN",
+   "FLAG_TRAINER_MEDIUM_MARTHA",
+   "FLAG_TRAINER_PICNICKER_KIM",
+   "FLAG_TRAINER_MEDIUM_GRACE",
+   "FLAG_TRAINER_PSYCHIC_M_MARK",
+   "FLAG_TRAINER_MEDIUM_EDITH",
+   "FLAG_TRAINER_MEDIUM_GEORGINA",
+   "FLAG_TRAINER_BEAUTY_KASSANDRA"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_FLYPOINT_CIANWOOD"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0024_D18R0102+3",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4079": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0034_D23R0106+4",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40F8": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 2,
+  "from": "4:06:45",
+  "to": "6:12:39",
+  "badges": "00001111/00000000",
+  "script": "shared:0875_T24+6",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_MIDGAME_BADGES": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0928_T27R0501",
+  "flags_on": [
+   "FLAG_GOT_HM03",
+   "FLAG_UNK_23A"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4090": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0881_T24R0501",
+  "flags_on": [
+   "FLAG_GOT_SECRETPOTION"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0877_T24GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM01_FROM_CHUCK"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step2:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ]
+  }
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0875_T24",
+  "flags_on": [
+   "FLAG_GOT_HM02"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step2:shared:0034_D23R0106+4": [
+    "VAR_UNK_40F8"
+   ],
+   "step2:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ]
+  }
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0066_D27R0107",
+  "flags_on": [
+   "FLAG_UNK_1D8"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0962_W40",
+  "flags_on": [
+   "FLAG_UNK_206"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0249_R39",
+  "flags_on": [
+   "FLAG_UNK_228",
+   "FLAG_HIDE_ROUTE_39_LT_SURGE"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_408F": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "shared:0013_D11R0102+44",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_CAMERON"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0022_D17R1101",
+  "flags_on": [
+   "FLAG_UNK_2CA"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_D27R0105_TM87",
+   "FLAG_HIDE_ITEMBALL_D27R0106_SUPER_REPEL",
+   "FLAG_HIDE_ITEMBALL_D27R0107_SUPER_POTION",
+   "FLAG_HIDE_ITEMBALL_D27R0103_RARE_CANDY",
+   "FLAG_HIDE_ITEMBALL_R38_MAX_POTION",
+   "FLAG_HIDE_ITEMBALL_R42_TM65"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_SWIMMER_F_ELAINE",
+   "FLAG_TRAINER_SWIMMER_M_SIMON",
+   "FLAG_TRAINER_GENTLEMAN_PRESTON",
+   "FLAG_TRAINER_BIRD_KEEPER_GS_THEO",
+   "FLAG_TRAINER_SWIMMER_F_SUSIE",
+   "FLAG_TRAINER_BLACK_BELT_YOSHI",
+   "FLAG_TRAINER_BLACK_BELT_LAO",
+   "FLAG_TRAINER_BLACK_BELT_LUNG",
+   "FLAG_TRAINER_SAILOR_HUEY",
+   "FLAG_TRAINER_SAILOR_TERRELL",
+   "FLAG_TRAINER_SAILOR_ROBERTO",
+   "FLAG_TRAINER_LASS_CONNIE",
+   "FLAG_TRAINER_BIRD_KEEPER_GS_DENIS",
+   "FLAG_TRAINER_BLACK_BELT_NOB",
+   "FLAG_TRAINER_BEAUTY_VALERIE",
+   "FLAG_TRAINER_GENTLEMAN_ALFRED"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_FLYPOINT_GOLDENROD",
+   "FLAG_SYS_FLYPOINT_OLIVINE"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_BUENAS_PASSWORD_SET": [
+    0,
+    15
+   ],
+   "VAR_UNK_4041": [
+    0,
+    55
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0029_D23R0101",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_UNK_AA5"
+  ],
+  "vars": {},
+  "needs": {
+   "step1:0029_D23R0101": [
+    "FLAG_GOT_RADIO_CARD",
+    "FLAG_UNK_AA5"
+   ]
+  }
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0911_T26",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4078": [
+    0,
+    1
+   ]
+  },
+  "needs": {
+   "step2:shared:0034_D23R0106+4": [
+    "VAR_UNK_40F8"
+   ]
+  }
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "0252_R42",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4091": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "shared:0066_D27R0107+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_LIGHTHOUSE_JASMINE": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "shared:0920_T27+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_410C": [
+    0,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "shared:0875_T24+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4116": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 3,
+  "from": "6:12:39",
+  "to": "8:43:28",
+  "badges": "00011111/00000000",
+  "script": "shared:0875_T24+6",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_MIDGAME_BADGES": [
+    1,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "0913_T26GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM23_FROM_JASMINE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step2:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ],
+   "step3:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ]
+  }
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "0911_T26",
+  "flags_on": [
+   "FLAG_UNK_0F5",
+   "FLAG_UNK_249"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step2:shared:0034_D23R0106+4": [
+    "VAR_UNK_40F8"
+   ]
+  }
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "0066_D27R0107",
+  "flags_on": [
+   "FLAG_UNK_1D7",
+   "FLAG_UNK_1DA",
+   "FLAG_UNK_1DB",
+   "FLAG_UNK_96A"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step3:0066_D27R0107": [
+    "FLAG_UNK_1D8"
+   ],
+   "step3:0881_T24R0501": [
+    "FLAG_GOT_SECRETPOTION"
+   ],
+   "step3:shared:0066_D27R0107+1": [
+    "VAR_SCENE_LIGHTHOUSE_JASMINE"
+   ]
+  }
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "shared:0066_D27R0107+2",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_JASMINE_IN_GYM"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "shared:0066_D27R0107+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_OLIVINE_GYM_GENTLEMAN",
+   "FLAG_HIDE_OLIVINE_GYM_GIRL"
+  ],
+  "vars": {
+   "VAR_SCENE_LIGHTHOUSE_JASMINE": [
+    1,
+    3
+   ],
+   "VAR_UNK_410E": [
+    0,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "shared:0013_D11R0102+44",
+  "flags_on": [
+   "FLAG_HIDE_CAMERON"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "shared:0119_D47R0101+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4057": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "shared:0029_D23R0101+8",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_ROCKET_TAKEOVER": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 4,
+  "from": "8:43:28",
+  "to": "10:49:40",
+  "badges": "00111111/00000000",
+  "script": "shared:0875_T24+6",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_MIDGAME_BADGES": [
+    2,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0875_T24+2",
+  "flags_on": [
+   "FLAG_UNK_0C5"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "0938_T29",
+  "flags_on": [
+   "FLAG_GOT_RED_SCALE",
+   "FLAG_CAUGHT_RED_GYARADOS",
+   "FLAG_UNK_1FC",
+   "FLAG_UNK_1FE",
+   "FLAG_UNK_289",
+   "FLAG_UNK_28B",
+   "FLAG_UNK_28C"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "0090_D35R0103",
+  "flags_on": [
+   "FLAG_ROCKET_HIDEOUT_CLEARED",
+   "FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_1",
+   "FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_2",
+   "FLAG_REMOVED_ROCKET_HIDEOUT_B3F_ELECTRODE_3",
+   "FLAG_HIDE_MAHOGANY_SHOP_SHADY_SALESMAN",
+   "FLAG_HIDE_ROCKET_HIDEOUT_B3F_ELECTRODE_1_AND_4",
+   "FLAG_HIDE_ROCKET_HIDEOUT_B3F_ELECTRODE_2_AND_5",
+   "FLAG_HIDE_ROCKET_HIDEOUT_B3F_ELECTRODE_3_AND_6",
+   "FLAG_UNK_1F9",
+   "FLAG_HIDE_ROUTE_43_GATE_ROCKETS",
+   "FLAG_UNK_96B",
+   "FLAG_UNK_96C",
+   "FLAG_UNK_96D"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "0932_T28GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM07_FROM_PRYCE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step2:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ],
+   "step3:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ],
+   "step4:shared:0875_T24+6": [
+    "VAR_MIDGAME_BADGES"
+   ]
+  }
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0090_D35R0103+1",
+  "flags_on": [
+   "FLAG_UNK_0D3"
+  ],
+  "flags_off": [
+   "FLAG_HIDE_ROUTE_43_GATE_GUARD"
+  ],
+  "vars": {
+   "VAR_UNK_410F": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "0930_T28",
+  "flags_on": [
+   "FLAG_GOT_RAGECANDYBAR"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step2:shared:0034_D23R0106+4": [
+    "VAR_UNK_40F8"
+   ]
+  }
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0825_T10R0701+1",
+  "flags_on": [
+   "FLAG_HIDE_LAKE_OF_RAGE_RED_GYARADOS"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0088_D35R0101+1",
+  "flags_on": [
+   "FLAG_UNK_1E5",
+   "FLAG_HIDE_ROCKET_HIDEOUT_B3F_GIOVANNI"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40A8": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "0091_D35R0104",
+  "flags_on": [
+   "FLAG_HIDE_ROCKET_HIDEOUT_B3F_LANCE",
+   "FLAG_HIDE_ROCKET_HIDEOUT_B3F_MURKROW_1"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0089_D35R0102+1",
+  "flags_on": [
+   "FLAG_UNK_1E8"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40A9": [
+    0,
+    4
+   ],
+   "VAR_ROCKET_TRAP_KOFFING_1": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_VOLTORB_1": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_GEODUDE_1": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_VOLTORB_2": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_GEODUDE_2": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_VOLTORB_3": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_VOLTORB_4": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_KOFFING_2": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_KOFFING_3": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_GEODUDE_3": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_GEODUDE_4": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_KOFFING_4": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_VOLTORB_5": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_VOLTORB_6": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_KOFFING_5": [
+    0,
+    1
+   ],
+   "VAR_ROCKET_TRAP_GEODUDE_5": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0149+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_LAKE_OF_RAGE_FISHERMEN",
+   "FLAG_HIDE_LAKE_OF_RAGE_ACE_TRAINER_LOIS"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_D35R0102_HYPER_POTION",
+   "FLAG_HIDE_ITEMBALL_D35R0102_GUARD_SPEC_",
+   "FLAG_HIDE_ITEMBALL_D35R0102_NUGGET",
+   "FLAG_HIDE_ITEMBALL_D35R0103_TM46",
+   "FLAG_HIDE_ITEMBALL_D35R0104_TM49",
+   "FLAG_HIDE_ITEMBALL_D35R0104_FULL_HEAL",
+   "FLAG_HIDE_ITEMBALL_D35R0104_PROTEIN",
+   "FLAG_HIDE_ITEMBALL_D35R0104_X_SPECIAL",
+   "FLAG_HIDE_ITEMBALL_R42_SUPER_POTION",
+   "FLAG_HIDE_ITEMBALL_D38R0101_ETHER",
+   "FLAG_HIDE_ITEMBALL_D38R0101_REVIVE",
+   "FLAG_HIDE_ITEMBALL_D38R0102_NUGGET",
+   "FLAG_HIDE_ITEMBALL_D35R0104_ULTRA_BALL"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_POKE_MANIAC_SHANE",
+   "FLAG_TRAINER_POKE_MANIAC_RON",
+   "FLAG_TRAINER_HIKER_BENJAMIN",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_16",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_17",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_19",
+   "FLAG_TRAINER_PICNICKER_TIFFANY",
+   "FLAG_TRAINER_CAMPER_SPENCER",
+   "FLAG_TRAINER_TEAM_ROCKET_F_GRUNT_5",
+   "FLAG_TRAINER_SCIENTIST_GS_ROSS",
+   "FLAG_TRAINER_SCIENTIST_GS_MITCH",
+   "FLAG_TRAINER_SCIENTIST_GS_GREGG",
+   "FLAG_TRAINER_SKIER_DIANA",
+   "FLAG_TRAINER_SKIER_JILL",
+   "FLAG_TRAINER_BOARDER_DEANDRE",
+   "FLAG_TRAINER_BOARDER_PATTON",
+   "FLAG_TRAINER_BOARDER_GERARDO",
+   "FLAG_TRAINER_POKE_MANIAC_HARRISON",
+   "FLAG_TRAINER_SUPER_NERD_MARKUS"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0034_D23R0106+3",
+  "flags_on": [
+   "FLAG_ROCKET_TAKEOVER_ACTIVE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_FLYPOINT_MAHOGANY",
+   "FLAG_SYS_FLYPOINT_LAKE_OF_RAGE"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_BUENAS_PASSWORD_SET": [
+    15,
+    25
+   ],
+   "VAR_UNK_4036": [
+    0,
+    25096
+   ],
+   "VAR_UNK_4041": [
+    55,
+    99
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0029_D23R0101+8",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_ROCKET_TAKEOVER": [
+    1,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0089_D35R0102+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40AC": [
+    0,
+    10
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "0089_D35R0102",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40AD": [
+    0,
+    2
+   ],
+   "VAR_UNK_40AE": [
+    0,
+    2
+   ],
+   "VAR_UNK_40AF": [
+    0,
+    2
+   ],
+   "VAR_UNK_40B0": [
+    0,
+    2
+   ],
+   "VAR_UNK_40B1": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 5,
+  "from": "10:49:40",
+  "to": "14:19:05",
+  "badges": "01111111/00000000",
+  "script": "shared:0875_T24+6",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_MIDGAME_BADGES": [
+    3,
+    5
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0031_D23R0103",
+  "flags_on": [
+   "FLAG_UNK_090",
+   "FLAG_UNK_1BF"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0034_D23R0106+1",
+  "flags_on": [
+   "FLAG_UNK_093"
+  ],
+  "flags_off": [
+   "FLAG_HIDE_MAHOGANY_SHOP_SALESWOMAN",
+   "FLAG_HIDE_BLACKTHORN_GYM_GUARD_ASIDE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0034_D23R0106",
+  "flags_on": [
+   "FLAG_BEAT_RADIO_TOWER_ROCKETS",
+   "FLAG_HIDE_BLACKTHORN_GYM_GUARD_INFRONT",
+   "FLAG_UNK_97D"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_407A": [
+    0,
+    1
+   ]
+  },
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step2:shared:0034_D23R0106+4": [
+    "VAR_UNK_40F8"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0943_T30GYM0101",
+  "flags_on": [
+   "FLAG_UNK_0D1",
+   "FLAG_UNK_138",
+   "FLAG_HIDE_BLACKTHORN_DEN_GUARD_INFRONT"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4120": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0111_D44R0102+1",
+  "flags_on": [
+   "FLAG_GOT_TM59_FROM_CLAIR"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0112_D44R0103",
+  "flags_on": [
+   "FLAG_UNK_0EA"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40C3": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0021_D17R0110+1",
+  "flags_on": [
+   "FLAG_UNK_105"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0112_D44R0103+2",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_ELMS_LAB_FRIEND"
+  ],
+  "vars": {
+   "VAR_UNK_407B": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0885_T25",
+  "flags_on": [
+   "FLAG_HIDE_ROCKET_TAKEOVER_3"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step1:0029_D23R0101": [
+    "FLAG_GOT_RADIO_CARD"
+   ],
+   "step1:0886_T25GYM0101": [
+    "VAR_UNK_40DA"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0094_D37R0102",
+  "flags_on": [
+   "FLAG_UNK_1C0"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0097_D37R0105",
+  "flags_on": [
+   "FLAG_UNK_1C1"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0149+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_BLACKTHRON_DEN_GUARD_ASIDE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0941_T30",
+  "flags_on": [
+   "FLAG_UNK_204"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0099_D39R0101",
+  "flags_on": [
+   "FLAG_UNK_239"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40E8": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0121_D48R0101",
+  "flags_on": [
+   "FLAG_HIDE_CLIFFS_EDGE_GATE_CHUCK"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step4:0911_T26": [
+    "FLAG_UNK_0F5"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0134_D52R0102",
+  "flags_on": [
+   "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
+   "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE_HIKER"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0021_D17R0110+4",
+  "flags_on": [
+   "FLAG_HIDE_NEW_BARK_FRIENDS_ROOM_FRIEND"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0260_R47",
+  "flags_on": [
+   "FLAG_HIDE_ROUTE_47_CHUCK",
+   "FLAG_UNK_9C9"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0058_D25R0103",
+  "flags_on": [
+   "FLAG_HIDE_UNION_CAVE_LAPRAS",
+   "FLAG_DAILY_CAUGHT_LAPRAS"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_D37R0105_TM82",
+   "FLAG_HIDE_ITEMBALL_D37R0105_MAX_ETHER",
+   "FLAG_HIDE_ITEMBALL_D23R0104_ULTRA_BALL",
+   "FLAG_HIDE_ITEMBALL_D37R0103_BURN_HEAL",
+   "FLAG_HIDE_ITEMBALL_D37R0103_AMULET_COIN",
+   "FLAG_HIDE_ITEMBALL_D37R0105_ULTRA_BALL",
+   "FLAG_HIDE_ITEMBALL_D37R0104_FULL_HEAL",
+   "FLAG_HIDE_ITEMBALL_D37R0104_SMOKE_BALL",
+   "FLAG_HIDE_ITEMBALL_D39R0101_HM07",
+   "FLAG_HIDE_ITEMBALL_D44R0102_DRAGON_FANG",
+   "FLAG_HIDE_ITEMBALL_D17R0105_RARE_CANDY",
+   "FLAG_HIDE_ITEMBALL_D39R0101_PROTEIN",
+   "FLAG_HIDE_ITEMBALL_D39R0104_NEVERMELTICE",
+   "FLAG_HIDE_ITEMBALL_D44R0102_MAX_ELIXIR",
+   "FLAG_HIDE_ITEMBALL_R47_LAGGING_TAIL",
+   "FLAG_HIDE_ITEMBALL_R47_WAVE_INCENSE",
+   "FLAG_HIDE_ITEMBALL_R47_WHITE_FLUTE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_HIKER_ANTHONY",
+   "FLAG_TRAINER_ACE_TRAINER_M_PAULO",
+   "FLAG_TRAINER_ACE_TRAINER_M_MIKE",
+   "FLAG_TRAINER_ACE_TRAINER_M_CODY",
+   "FLAG_TRAINER_ACE_TRAINER_F_LOLA",
+   "FLAG_TRAINER_ACE_TRAINER_F_FRAN",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_8",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_9",
+   "FLAG_TRAINER_POKE_MANIAC_ANDREW",
+   "FLAG_TRAINER_ACE_TRAINER_F_GWEN",
+   "FLAG_TRAINER_TEAM_ROCKET_GRUNT_22",
+   "FLAG_TRAINER_PSYCHIC_M_PHIL",
+   "FLAG_TRAINER_EXECUTIVE_ARIANA_ARIANA",
+   "FLAG_TRAINER_ACE_TRAINER_M_KOBE",
+   "FLAG_TRAINER_ACE_TRAINER_F_PIPER",
+   "FLAG_TRAINER_TWINS_CLEA_AND_GIL",
+   "FLAG_TRAINER_EXECUTIVE_PROTON_PROTON_2",
+   "FLAG_TRAINER_YOUNG_COUPLE_DUFF_AND_EDA",
+   "FLAG_TRAINER_DOUBLE_TEAM_THOM_AND_KAE",
+   "FLAG_TRAINER_HIKER_DEVIN",
+   "FLAG_TRAINER_CAMPER_GRANT"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0034_D23R0106+3",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_ROCKET_TAKEOVER_ACTIVE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_FLYPOINT_BLACKTHORN",
+   "FLAG_SYS_FLYPOINT_SAFARI"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_BUENAS_PASSWORD_SET": [
+    25,
+    4
+   ],
+   "VAR_UNK_4041": [
+    99,
+    66
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0029_D23R0101+8",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_ROCKET_TAKEOVER": [
+    2,
+    5
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0021_D17R0110+3",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_NEW_BARK_EAST_EXIT": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0029_D23R0101",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_409F": [
+    0,
+    1
+   ]
+  },
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step1:0029_D23R0101": [
+    "FLAG_GOT_RADIO_CARD",
+    "FLAG_UNK_AA5"
+   ],
+   "step3:0029_D23R0101": [
+    "FLAG_UNK_AA5"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0096_D37R0104",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40A0": [
+    0,
+    1
+   ]
+  },
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ]
+  }
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0111_D44R0102+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40C4": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0033_D23R0105+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40E7": [
+    0,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "0019_D17R0101",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40F3": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 6,
+  "from": "14:19:05",
+  "to": "17:56:24",
+  "badges": "11111111/00000000",
+  "script": "shared:0112_D44R0103+4",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_ELMS_LAB": [
+    7,
+    8
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0928_T27R0501",
+  "flags_on": [
+   "FLAG_UNK_103"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step3:shared:0920_T27+1": [
+    "VAR_UNK_410C"
+   ],
+   "step3:0928_T27R0501": [
+    "FLAG_GOT_HM03"
+   ]
+  }
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0021_D17R0110",
+  "flags_on": [
+   "FLAG_UNK_108",
+   "FLAG_UNK_10A",
+   "FLAG_CAUGHT_HO_OH"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0112_D44R0103+2",
+  "flags_on": [
+   "FLAG_HIDE_ELMS_LAB_FRIEND"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0941_T30",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_UNK_204"
+  ],
+  "vars": {},
+  "needs": {
+   "step4:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step5:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step6:shared:0029_D23R0101+8": [
+    "VAR_SCENE_ROCKET_TAKEOVER"
+   ],
+   "step6:shared:0111_D44R0102+2": [
+    "VAR_UNK_40C4"
+   ],
+   "step6:0943_T30GYM0101": [
+    "FLAG_UNK_0D1"
+   ]
+  }
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0843_T20R0101",
+  "flags_on": [
+   "FLAG_UNK_23B"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step0:shared:0112_D44R0103+4": [
+    "VAR_SCENE_ELMS_LAB"
+   ],
+   "step6:shared:0112_D44R0103+4": [
+    "VAR_SCENE_ELMS_LAB"
+   ],
+   "step1:engine:other": [
+    "FLAG_SYS_HATCHED_TOGEPI_EGG"
+   ]
+  }
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0021_D17R0110+4",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS",
+   "FLAG_HIDE_NEW_BARK_FRIENDS_ROOM_FRIEND"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0213_R22R0101",
+  "flags_on": [
+   "FLAG_UNK_270",
+   "FLAG_SYS_FLYPOINT_VICTORY_ROAD"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_D45R0101_MOON_STONE",
+   "FLAG_HIDE_ITEMBALL_D43R0101_FULL_HEAL",
+   "FLAG_HIDE_ITEMBALL_D43R0101_POTION",
+   "FLAG_HIDE_ITEMBALL_D43R0102_TM26",
+   "FLAG_HIDE_ITEMBALL_D43R0102_HP_UP",
+   "FLAG_HIDE_ITEMBALL_D43R0103_ULTRA_BALL",
+   "FLAG_HIDE_ITEMBALL_D43R0103_TM79",
+   "FLAG_HIDE_ITEMBALL_R27_DESTINY_KNOT"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_ACE_TRAINER_M_GAVEN",
+   "FLAG_TRAINER_ACE_TRAINER_M_BRIAN",
+   "FLAG_TRAINER_ACE_TRAINER_F_REENA",
+   "FLAG_TRAINER_ACE_TRAINER_F_MEGAN",
+   "FLAG_TRAINER_PSYCHIC_M_ELI"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_UNK_989",
+   "FLAG_SYS_FLYPOINT_INDIGO"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_BUENAS_PASSWORD_SET": [
+    4,
+    15
+   ],
+   "VAR_UNK_4041": [
+    66,
+    56
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0058_D25R0103",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_DAILY_CAUGHT_LAPRAS"
+  ],
+  "vars": {},
+  "needs": {
+   "step6:0058_D25R0103": [
+    "FLAG_DAILY_CAUGHT_LAPRAS"
+   ]
+  }
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0024_D18R0102+3",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4079": [
+    2,
+    4
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0021_D17R0110+3",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_NEW_BARK_EAST_EXIT": [
+    1,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0221_R27",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_408A": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "0110_D43R0103",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40C5": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0021_D17R0110+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40FA": [
+    0,
+    2
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0112_D44R0103+4",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_ELMS_LAB": [
+    8,
+    9
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0920_T27+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_410C": [
+    3,
+    6
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 7,
+  "from": "17:56:24",
+  "to": "20:24:18",
+  "badges": "11111111/00000000",
+  "script": "shared:0213_R22R0101+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4110": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "shared:0819_T10R0101+1",
+  "flags_on": [
+   "FLAG_DEFEATED_WILL",
+   "FLAG_DEFEATED_KOGA",
+   "FLAG_DEFEATED_BRUNO",
+   "FLAG_DEFEATED_KAREN"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "shared:0149+2",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_WILLS_ROOM_RETREAT",
+   "FLAG_HIDE_KOGAS_ROOM_RETREAT",
+   "FLAG_HIDE_BRUNOS_ROOM_RETREAT",
+   "FLAG_HIDE_KARENS_ROOM_RETREAT",
+   "FLAG_HIDE_OLIVINE_PORT_OAK",
+   "FLAG_HIDE_LAKE_OF_RAGE_PRYCE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "0819_T10R0101",
+  "flags_on": [
+   "FLAG_HIDE_WILLS_ROOM_EXIT",
+   "FLAG_HIDE_KOGAS_ROOM_EXIT",
+   "FLAG_HIDE_BRUNOS_ROOM_EXIT",
+   "FLAG_HIDE_KARENS_ROOM_EXIT"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "shared:0104_D40R0107+3",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_WHIRL_ISLAND_LUGIA"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_GAME_CLEAR"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "0825_T10R0701",
+  "flags_on": [
+   "FLAG_UNK_97E"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step7:0021_D17R0110": [
+    "FLAG_CAUGHT_HO_OH"
+   ],
+   "step2:0243_R36": [
+    "FLAG_CAUGHT_SUDOWOODO"
+   ],
+   "step5:0938_T29": [
+    "FLAG_CAUGHT_RED_GYARADOS"
+   ]
+  }
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "0824_T10R0601",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40C8": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "shared:0825_T10R0701+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_PLAYERS_HOUSE_1F": [
+    2,
+    3
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 8,
+  "from": "20:24:18",
+  "to": "22:04:51",
+  "badges": "11111111/00000000",
+  "script": "shared:0152_P01R0101+1",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_411A": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0007_D02R0101",
+  "flags_on": [
+   "FLAG_UNK_0E3",
+   "FLAG_UNK_25C"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40F5": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0152_P01R0101+3",
+  "flags_on": [
+   "FLAG_BOAT_ARRIVED"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0162_P01R0307",
+  "flags_on": [
+   "FLAG_UNK_0ED"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0843_T20R0101",
+  "flags_on": [
+   "FLAG_GOT_SS_TICKET_FROM_ELM"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {
+   "step8:engine:other": [
+    "FLAG_GAME_CLEAR"
+   ],
+   "step7:0021_D17R0110": [
+    "FLAG_UNK_108"
+   ],
+   "step0:shared:0112_D44R0103+4": [
+    "VAR_SCENE_ELMS_LAB"
+   ],
+   "step6:shared:0112_D44R0103+4": [
+    "VAR_SCENE_ELMS_LAB"
+   ],
+   "step7:shared:0112_D44R0103+4": [
+    "VAR_SCENE_ELMS_LAB"
+   ],
+   "step1:engine:other": [
+    "FLAG_SYS_HATCHED_TOGEPI_EGG"
+   ]
+  }
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0782_T06R0301",
+  "flags_on": [
+   "FLAG_GOT_RARE_CANDY_FROM_FAN_CLUB_CHAIRMAN"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0786_T07GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM19_FROM_ERIKA"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0809_T08GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM84_FROM_JANINE",
+   "FLAG_HIDE_FUCHSIA_GYM_LASS_LINDA_DISGUISED",
+   "FLAG_HIDE_FUCHSIA_GYM_CAMPER_BARRY_DISGUISED",
+   "FLAG_HIDE_FUCHSIA_GYM_LASS_ALICE_DISGUISED",
+   "FLAG_HIDE_FUCHSIA_GYM_PICNICKER_CINDY_DISGUISED"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0833_T11R0501",
+  "flags_on": [
+   "FLAG_GOT_TM29_FROM_MR_PSYCHIC"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0183_R05R0401",
+  "flags_on": [
+   "FLAG_GOT_CLEANSE_TAG_FROM_ROUTE_5_GRANDMA"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0155_P01R0104",
+  "flags_on": [
+   "FLAG_UNK_168",
+   "FLAG_SYS_FLYPOINT_VERMILION"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0778_T06GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM34_FROM_LT_SURGE",
+   "FLAG_HIDE_VERMILION_GYM_STOPS"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0829_T11GYM0101",
+  "flags_on": [
+   "FLAG_GOT_TM48_FROM_SABRINA"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0156_P01R0301",
+  "flags_on": [
+   "FLAG_UNK_215"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0157_P01R0302",
+  "flags_on": [
+   "FLAG_HIDE_SS_AQUA_CAPTAINS_ROOM_GRANDDAUGHTER"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0158_P01R0303",
+  "flags_on": [
+   "FLAG_UNK_21A"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0152_P01R0101+2",
+  "flags_on": [
+   "FLAG_UNK_22A"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40DC": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0152_P01R0101+1",
+  "flags_on": [
+   "FLAG_UNK_22B",
+   "FLAG_UNK_22C"
+  ],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_411A": [
+    1,
+    0
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0149+2",
+  "flags_on": [
+   "FLAG_HIDE_OLIVINE_PORT_OAK"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0785_T07",
+  "flags_on": [
+   "FLAG_UNK_25D",
+   "FLAG_UNK_2E1"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0149+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_FUCHSIA_GYM_LASS_LINDA_REVEALED",
+   "FLAG_HIDE_FUCHSIA_GYM_CAMPER_BARRY_REVEALED",
+   "FLAG_HIDE_FUCHSIA_GYM_LASS_ALICE_REVEALED",
+   "FLAG_HIDE_FUCHSIA_GYM_PICNICKER_CINDY_REVEALED",
+   "FLAG_HIDE_ROUTE_47_CRASHER_WAKE"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0013_D11R0102+44",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_CAMERON"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0025_D22R0101+2",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_UNK_27F"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0832_T11R0101",
+  "flags_on": [
+   "FLAG_UNK_2B5",
+   "FLAG_UNK_2B6",
+   "FLAG_UNK_2B7",
+   "FLAG_UNK_2B8",
+   "FLAG_UNK_2B9",
+   "FLAG_UNK_2BA",
+   "FLAG_UNK_2BB",
+   "FLAG_UNK_2BC",
+   "FLAG_UNK_2BD",
+   "FLAG_UNK_2BE",
+   "FLAG_UNK_2BF",
+   "FLAG_UNK_2C0",
+   "FLAG_UNK_2C1",
+   "FLAG_UNK_2C2",
+   "FLAG_UNK_2C3",
+   "FLAG_UNK_2C4"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0153_P01R0102",
+  "flags_on": [
+   "FLAG_UNK_2C9"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0007_D02R0101+1",
+  "flags_on": [],
+  "flags_off": [
+   "FLAG_HIDE_DRAGONS_DEN_RIVAL"
+  ],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0834_T11R0601",
+  "flags_on": [
+   "FLAG_HIDE_SAFFRON_TRAIN_STATION_LT_SURGE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "0790_T07R0102",
+  "flags_on": [
+   "FLAG_HIDE_CELADON_DEPT_STORE_2F_CRASHER_WAKE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "engine:HIDE_ITEMBALL",
+  "flags_on": [
+   "FLAG_HIDE_ITEMBALL_R26_MAX_ELIXIR",
+   "FLAG_HIDE_ITEMBALL_T06_LUCK_INCENSE"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "engine:TRAINER",
+  "flags_on": [
+   "FLAG_TRAINER_PICNICKER_CINDY",
+   "FLAG_TRAINER_CAMPER_BARRY",
+   "FLAG_TRAINER_LASS_LINDA",
+   "FLAG_TRAINER_LASS_ALICE",
+   "FLAG_TRAINER_PSYCHIC_M_FRANKLIN",
+   "FLAG_TRAINER_GUITARIST_VINCENT",
+   "FLAG_TRAINER_BIRD_KEEPER_GS_BOB",
+   "FLAG_TRAINER_TWINS_JO_AND_ZOE",
+   "FLAG_TRAINER_PICNICKER_TANYA",
+   "FLAG_TRAINER_GENTLEMAN_GREGORY",
+   "FLAG_TRAINER_BEAUTY_JULIA",
+   "FLAG_TRAINER_LASS_MICHELLE",
+   "FLAG_TRAINER_MEDIUM_REBECCA",
+   "FLAG_TRAINER_MEDIUM_DARCY",
+   "FLAG_TRAINER_JUGGLER_HORTON",
+   "FLAG_TRAINER_PSYCHIC_M_JARED",
+   "FLAG_TRAINER_BLACK_BELT_MANFORD",
+   "FLAG_TRAINER_BIRD_KEEPER_GS_JUSTIN"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "engine:other",
+  "flags_on": [
+   "FLAG_SYS_GOT_BIKE_SHOP_CALL",
+   "FLAG_SYS_FLYPOINT_PEWTER",
+   "FLAG_SYS_FLYPOINT_CERULEAN",
+   "FLAG_SYS_FLYPOINT_LAVENDER",
+   "FLAG_SYS_FLYPOINT_CELADON",
+   "FLAG_SYS_FLYPOINT_FUCHSIA",
+   "FLAG_SYS_FLYPOINT_SAFFRON"
+  ],
+  "flags_off": [],
+  "vars": {},
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0156_P01R0301+4",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_SS_AQUA": [
+    0,
+    7
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0007_D02R0101+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_40FC": [
+    0,
+    1
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0825_T10R0701+2",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_SCENE_PLAYERS_HOUSE_1F": [
+    3,
+    4
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0795_T07R0107+3",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_ELEVATOR_LAST_FLOOR": [
+    1,
+    0
+   ]
+  },
+  "needs": {}
+ },
+ {
+  "step": 9,
+  "from": "22:04:51",
+  "to": "25:13:00",
+  "badges": "11111111/00111100",
+  "script": "shared:0015_D11R0106+7",
+  "flags_on": [],
+  "flags_off": [],
+  "vars": {
+   "VAR_UNK_4135": [
+    0,
+    4
+   ]
+  },
+  "needs": {}
+ }
+]

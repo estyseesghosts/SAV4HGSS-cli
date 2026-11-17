@@ -1,0 +1,874 @@
+{
+ "schema": "hgss-save.badge-rules/v1",
+ "badges": [
+  {
+   "id": 0,
+   "name": "ZEPHYR",
+   "script": "scr_seq_0859_T22GYM0101.s:75",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_BIRD_KEEPER_GS_ROD",
+     "id": 1389,
+     "value": true,
+     "at": "scr_seq_0859_T22GYM0101.s:77",
+     "status": "confirmed 27/27"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_BIRD_KEEPER_GS_ABE",
+     "id": 1410,
+     "value": true,
+     "at": "scr_seq_0859_T22GYM0101.s:78",
+     "status": "confirmed 27/27"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_192",
+     "id": 402,
+     "value": true,
+     "at": "scr_seq_0859_T22GYM0101.s:80",
+     "status": "confirmed 27/27"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_0F4",
+     "id": 244,
+     "value": true,
+     "at": "scr_seq_0859_T22GYM0101.s:82",
+     "status": "confirmed 27/27"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_HIDE_WIFI_CLUB_CLOSED_LADY",
+     "id": 403,
+     "value": true,
+     "at": "scr_seq_0859_T22GYM0101.s:83",
+     "status": "confirmed 27/27"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM51_FROM_FALKNER",
+     "id": 115,
+     "value": true,
+     "at": "scr_seq_0859_T22GYM0101.s:95",
+     "status": "confirmed 27/27"
+    },
+    {
+     "kind": "item",
+     "name": "TM51",
+     "id": 378,
+     "quantity": 1,
+     "at": "scr_seq_0859_T22GYM0101.s:95",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_SCENE_VIOLET_CITY_OW",
+     "why": "held in 0 of 27 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0859_T22GYM0101.s:79"
+    },
+    {
+     "name": "VAR_SCENE_ELMS_LAB",
+     "why": "held in 7 of 27 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0859_T22GYM0101.s:81"
+    },
+    {
+     "name": "FLAG_HIDE_NEW_BARK_FRIENDS_ROOM_FRIEND",
+     "why": "held in 26 of 27 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0859_T22GYM0101.s:96"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "name": "HIVE",
+   "script": "scr_seq_0869_T23GYM0102.s:82",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_BUG_CATCHER_AL",
+     "id": 1428,
+     "value": true,
+     "at": "scr_seq_0869_T23GYM0102.s:83",
+     "status": "confirmed 24/24"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_BUG_CATCHER_BENNY",
+     "id": 1427,
+     "value": true,
+     "at": "scr_seq_0869_T23GYM0102.s:84",
+     "status": "confirmed 24/24"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_BUG_CATCHER_JOSH",
+     "id": 1429,
+     "value": true,
+     "at": "scr_seq_0869_T23GYM0102.s:85",
+     "status": "confirmed 24/24"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_TWINS_AMY_AND_MIMI",
+     "id": 1370,
+     "value": true,
+     "at": "scr_seq_0869_T23GYM0102.s:86",
+     "status": "confirmed 24/24"
+    }
+   ],
+   "skipped": []
+  },
+  {
+   "id": 2,
+   "name": "PLAIN",
+   "script": "scr_seq_0886_T25GYM0101.s:125",
+   "effects": [
+    {
+     "kind": "var",
+     "name": "VAR_UNK_410A",
+     "id": 16650,
+     "value": 2,
+     "at": "scr_seq_0886_T25GYM0101.s:126",
+     "status": "confirmed 21/21"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_084",
+     "id": 132,
+     "value": false,
+     "at": "scr_seq_0886_T25GYM0101.s:127",
+     "status": "confirmed 21/21 (already true elsewhere)"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "FLAG_UNK_998",
+     "why": "held in 20 of 21 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0886_T25GYM0101.s:128"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "FOG",
+   "script": "scr_seq_0922_T27GYM0101.s:115",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM30_FROM_MORTY",
+     "id": 166,
+     "value": true,
+     "at": "scr_seq_0922_T27GYM0101.s:129",
+     "status": "confirmed 20/20"
+    },
+    {
+     "kind": "item",
+     "name": "TM30",
+     "id": 357,
+     "quantity": 1,
+     "at": "scr_seq_0922_T27GYM0101.s:129",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_MIDGAME_BADGES",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0922_T27GYM0101.s:116"
+    },
+    {
+     "name": "FLAG_UNK_998",
+     "why": "held in 19 of 20 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0922_T27GYM0101.s:118"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "STORM",
+   "script": "scr_seq_0877_T24GYM0101.s:40",
+   "effects": [],
+   "skipped": [
+    {
+     "name": "VAR_MIDGAME_BADGES",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0877_T24GYM0101.s:43"
+    },
+    {
+     "name": "VAR_UNK_4116",
+     "why": "held in 0 of 18 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0877_T24GYM0101.s:45"
+    },
+    {
+     "name": "VAR_SCENE_ROCKET_TAKEOVER",
+     "why": "held in 1 of 18 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0877_T24GYM0101.s:48"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "MINERAL",
+   "script": "scr_seq_0913_T26GYM0101.s:134",
+   "effects": [],
+   "skipped": [
+    {
+     "name": "VAR_MIDGAME_BADGES",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0913_T26GYM0101.s:135"
+    },
+    {
+     "name": "VAR_SCENE_ROCKET_TAKEOVER",
+     "why": "held in 1 of 17 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0913_T26GYM0101.s:139"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "GLACIER",
+   "script": "scr_seq_0932_T28GYM0101.s:87",
+   "effects": [],
+   "skipped": [
+    {
+     "name": "VAR_MIDGAME_BADGES",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0932_T28GYM0101.s:88"
+    },
+    {
+     "name": "VAR_SCENE_ROCKET_TAKEOVER",
+     "why": "held in 0 of 16 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0932_T28GYM0101.s:92"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "RISING",
+   "script": "scr_seq_0112_D44R0103.s:152",
+   "effects": [],
+   "skipped": [
+    {
+     "name": "FLAG_UNK_998",
+     "why": "held in 9 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:182"
+    },
+    {
+     "name": "FLAG_UNK_0EA",
+     "why": "held in 8 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:183"
+    },
+    {
+     "name": "FLAG_HIDE_VICTORY_ROAD_CLAIR",
+     "why": "held in 0 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:184"
+    },
+    {
+     "name": "VAR_UNK_40C4",
+     "why": "held in 0 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:185"
+    },
+    {
+     "name": "FLAG_HIDE_NEW_BARK_FRIENDS_ROOM_FRIEND",
+     "why": "held in 1 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:186"
+    },
+    {
+     "name": "VAR_UNK_40C3",
+     "why": "held in 8 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:187"
+    },
+    {
+     "name": "VAR_UNK_407B",
+     "why": "held in 0 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:188"
+    },
+    {
+     "name": "VAR_SCENE_ELMS_LAB",
+     "why": "held in 1 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:189"
+    },
+    {
+     "name": "FLAG_HIDE_ELMS_LAB_FRIEND",
+     "why": "held in 1 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:190"
+    },
+    {
+     "name": "VAR_SCENE_NEW_BARK_EAST_EXIT",
+     "why": "held in 1 of 10 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0112_D44R0103.s:191"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "BOULDER",
+   "script": "scr_seq_0752_T03GYM0101.s:97",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_CAMPER_JERRY",
+     "id": 1668,
+     "value": true,
+     "at": "scr_seq_0752_T03GYM0101.s:100",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_HIKER_EDWIN",
+     "id": 2045,
+     "value": true,
+     "at": "scr_seq_0752_T03GYM0101.s:101",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM80_FROM_BROCK",
+     "id": 383,
+     "value": true,
+     "at": "scr_seq_0752_T03GYM0101.s:114",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "item",
+     "name": "TM80",
+     "id": 407,
+     "quantity": 1,
+     "at": "scr_seq_0752_T03GYM0101.s:114",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0752_T03GYM0101.s:98"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "CASCADE",
+   "script": "scr_seq_0760_T04GYM0101.s:216",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_SWIMMER_F_DIANA",
+     "id": 1657,
+     "value": true,
+     "at": "scr_seq_0760_T04GYM0101.s:219",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_SWIMMER_F_BRIANA",
+     "id": 1658,
+     "value": true,
+     "at": "scr_seq_0760_T04GYM0101.s:220",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_SWIMMER_F_JOY",
+     "id": 2038,
+     "value": true,
+     "at": "scr_seq_0760_T04GYM0101.s:221",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_SAILOR_PARKER",
+     "id": 2036,
+     "value": true,
+     "at": "scr_seq_0760_T04GYM0101.s:222",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_SAILOR_EDDIE",
+     "id": 2037,
+     "value": true,
+     "at": "scr_seq_0760_T04GYM0101.s:223",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM03_FROM_MISTY",
+     "id": 384,
+     "value": true,
+     "at": "scr_seq_0760_T04GYM0101.s:237",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "item",
+     "name": "TM03",
+     "id": 330,
+     "quantity": 1,
+     "at": "scr_seq_0760_T04GYM0101.s:237",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0760_T04GYM0101.s:217"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "THUNDER",
+   "script": "scr_seq_0778_T06GYM0101.s:290",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_HIDE_VERMILION_GYM_STOPS",
+     "id": 794,
+     "value": true,
+     "at": "scr_seq_0778_T06GYM0101.s:293",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_GUITARIST_VINCENT",
+     "id": 1592,
+     "value": true,
+     "at": "scr_seq_0778_T06GYM0101.s:300",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_GENTLEMAN_GREGORY",
+     "id": 1697,
+     "value": true,
+     "at": "scr_seq_0778_T06GYM0101.s:301",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_JUGGLER_HORTON",
+     "id": 1756,
+     "value": true,
+     "at": "scr_seq_0778_T06GYM0101.s:302",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM34_FROM_LT_SURGE",
+     "id": 385,
+     "value": true,
+     "at": "scr_seq_0778_T06GYM0101.s:314",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "item",
+     "name": "TM34",
+     "id": 361,
+     "quantity": 1,
+     "at": "scr_seq_0778_T06GYM0101.s:314",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0778_T06GYM0101.s:291"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "RAINBOW",
+   "script": "scr_seq_0786_T07GYM0101.s:107",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_TWINS_JO_AND_ZOE",
+     "id": 1686,
+     "value": true,
+     "at": "scr_seq_0786_T07GYM0101.s:110",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_LASS_MICHELLE",
+     "id": 1716,
+     "value": true,
+     "at": "scr_seq_0786_T07GYM0101.s:111",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_PICNICKER_TANYA",
+     "id": 1696,
+     "value": true,
+     "at": "scr_seq_0786_T07GYM0101.s:112",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_BEAUTY_JULIA",
+     "id": 1706,
+     "value": true,
+     "at": "scr_seq_0786_T07GYM0101.s:113",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM19_FROM_ERIKA",
+     "id": 292,
+     "value": true,
+     "at": "scr_seq_0786_T07GYM0101.s:125",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "item",
+     "name": "TM19",
+     "id": 346,
+     "quantity": 1,
+     "at": "scr_seq_0786_T07GYM0101.s:125",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0786_T07GYM0101.s:108"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "SOUL",
+   "script": "scr_seq_0809_T08GYM0101.s:519",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_PICNICKER_CINDY",
+     "id": 1443,
+     "value": true,
+     "at": "scr_seq_0809_T08GYM0101.s:522",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_CAMPER_BARRY",
+     "id": 1444,
+     "value": true,
+     "at": "scr_seq_0809_T08GYM0101.s:523",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_LASS_LINDA",
+     "id": 1496,
+     "value": true,
+     "at": "scr_seq_0809_T08GYM0101.s:524",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_LASS_ALICE",
+     "id": 1543,
+     "value": true,
+     "at": "scr_seq_0809_T08GYM0101.s:525",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM84_FROM_JANINE",
+     "id": 301,
+     "value": true,
+     "at": "scr_seq_0809_T08GYM0101.s:537",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "item",
+     "name": "TM84",
+     "id": 411,
+     "quantity": 1,
+     "at": "scr_seq_0809_T08GYM0101.s:537",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0809_T08GYM0101.s:520"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "name": "MARSH",
+   "script": "scr_seq_0829_T11GYM0101.s:61",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_998",
+     "id": 2456,
+     "value": true,
+     "at": "scr_seq_0829_T11GYM0101.s:64",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_PSYCHIC_M_FRANKLIN",
+     "id": 1590,
+     "value": true,
+     "at": "scr_seq_0829_T11GYM0101.s:65",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_PSYCHIC_M_JARED",
+     "id": 1775,
+     "value": true,
+     "at": "scr_seq_0829_T11GYM0101.s:66",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_MEDIUM_REBECCA",
+     "id": 1728,
+     "value": true,
+     "at": "scr_seq_0829_T11GYM0101.s:67",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_MEDIUM_DARCY",
+     "id": 1729,
+     "value": true,
+     "at": "scr_seq_0829_T11GYM0101.s:68",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM48_FROM_SABRINA",
+     "id": 386,
+     "value": true,
+     "at": "scr_seq_0829_T11GYM0101.s:80",
+     "status": "confirmed 2/2"
+    },
+    {
+     "kind": "item",
+     "name": "TM48",
+     "id": 375,
+     "quantity": 1,
+     "at": "scr_seq_0829_T11GYM0101.s:80",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0829_T11GYM0101.s:62"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "name": "VOLCANO",
+   "script": "scr_seq_0015_D11R0106.s:91",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_265",
+     "id": 613,
+     "value": true,
+     "at": "scr_seq_0015_D11R0106.s:93",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_HIDE_ROUTE_19_WORKMEN_CLOSED",
+     "id": 665,
+     "value": true,
+     "at": "scr_seq_0015_D11R0106.s:94",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_HIDE_ROUTE_19_WORKMEN_OPEN",
+     "id": 666,
+     "value": false,
+     "at": "scr_seq_0015_D11R0106.s:95",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_13F",
+     "id": 319,
+     "value": true,
+     "at": "scr_seq_0015_D11R0106.s:97",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_140",
+     "id": 320,
+     "value": true,
+     "at": "scr_seq_0015_D11R0106.s:98",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_13C",
+     "id": 316,
+     "value": true,
+     "at": "scr_seq_0015_D11R0106.s:99",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM50_FROM_BLAINE",
+     "id": 381,
+     "value": true,
+     "at": "scr_seq_0015_D11R0106.s:111",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "item",
+     "name": "TM50",
+     "id": 377,
+     "quantity": 1,
+     "at": "scr_seq_0015_D11R0106.s:111",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0015_D11R0106.s:92"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "name": "EARTH",
+   "script": "scr_seq_0743_T02GYM0101.s:54",
+   "effects": [
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_998",
+     "id": 2456,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:56",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_ACE_TRAINER_M_ARABELLA",
+     "id": 2041,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:58",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_ACE_TRAINER_F_SALMA",
+     "id": 2043,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:59",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_ACE_TRAINER_M_BONITA",
+     "id": 2042,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:60",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_TRAINER_DOUBLE_TEAM_ELAN_AND_IDA",
+     "id": 2044,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:61",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_UNK_97F",
+     "id": 2431,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:62",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_HIDE_CERULEAN_CITY_MAN_OUTSIDE_CAVE",
+     "id": 783,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:64",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "flag",
+     "name": "FLAG_GOT_TM92_FROM_BLUE",
+     "id": 382,
+     "value": true,
+     "at": "scr_seq_0743_T02GYM0101.s:77",
+     "status": "confirmed 1/1"
+    },
+    {
+     "kind": "item",
+     "name": "TM92",
+     "id": 419,
+     "quantity": 1,
+     "at": "scr_seq_0743_T02GYM0101.s:77",
+     "status": "from FLAG_GOT_TM flag"
+    }
+   ],
+   "skipped": [
+    {
+     "name": "VAR_UNK_4135",
+     "why": "AddVar counter; only VAR_MIDGAME_BADGES is a verified counter rule",
+     "at": "scr_seq_0743_T02GYM0101.s:55"
+    },
+    {
+     "name": "FLAG_HIDE_ROUTE_10_ZAPDOS",
+     "why": "held in 0 of 1 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0743_T02GYM0101.s:63"
+    },
+    {
+     "name": "VAR_UNK_4096",
+     "why": "held in 0 of 1 saves with the badge; later story overwrote it",
+     "at": "scr_seq_0743_T02GYM0101.s:65"
+    }
+   ]
+  }
+ ],
+ "counters": [
+  {
+   "var": "VAR_MIDGAME_BADGES",
+   "id": 16692,
+   "badges": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "hold_from": 4,
+   "rule": "value = number of owned badges among the list while below hold_from; at or above it keep max(count, current) because the takeover script raises it to 5",
+   "source": [
+    "scr_seq_0877_T24GYM0101.s:43",
+    "scr_seq_0913_T26GYM0101.s:135",
+    "scr_seq_0922_T27GYM0101.s:116",
+    "scr_seq_0932_T28GYM0101.s:88",
+    "scr_seq_0875_T24.s:46,86"
+   ]
+  }
+ ]
+}

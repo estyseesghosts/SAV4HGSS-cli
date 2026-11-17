@@ -30,6 +30,9 @@ public sealed record VariableSetOperation(string Reference, int Value, int? Expe
 /// <summary>Johto/Kanto badge bitmasks (PlayerProfile.johtoBadges/kantoBadges, player_data.c:114-150); null leaves that byte untouched.</summary>
 public sealed record BadgesSetOperation(int? Johto, int? Kanto) : PatchOperation
 {
+    /// <summary>Also apply what the game does when each newly gained badge is won (BadgeRules); default false in recipes.</summary>
+    public bool Consequences { get; init; }
+
     public override string OpName => "trainer.badges.set";
 }
 
@@ -282,7 +285,7 @@ public static class PatchParser
             "flag.set" => new[] { "op", "id", "value", "expect" },
             "variable.set" => new[] { "op", "id", "value", "expect" },
             "trainer.money.set" => new[] { "op", "value", "expect" },
-        "trainer.badges.set" => new[] { "op", "johto", "kanto" },
+        "trainer.badges.set" => new[] { "op", "johto", "kanto", "consequences" },
             "inventory.quantity.set" => new[] { "op", "item", "quantity", "expect" },
             "party.slot.import" => new[] { "op", "slot", "file", "expect_species", "update_dex" },
             "party.slot.clear" => new[] { "op", "slot" },
@@ -381,7 +384,8 @@ public static class PatchParser
                 int? kanto = item.TryGetProperty("kanto", out _) ? RequireIntInRange(item, "kanto", op, origin, 0, 255) : null;
                 if (johto is null && kanto is null)
                     throw HgssException.BadArguments("patch-badges", $"trainer.badges.set needs johto and/or kanto ({origin}).");
-                return new BadgesSetOperation(johto, kanto);
+                var consequences = item.TryGetProperty("consequences", out _) && RequireBool(item, "consequences", op, origin);
+                return new BadgesSetOperation(johto, kanto) { Consequences = consequences };
             }
             case "location.warp":
             {

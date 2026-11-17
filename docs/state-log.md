@@ -107,6 +107,18 @@ Result on all 10 consecutive steps of the HG "Master" lineage (1gyn through posE
 
 Scope: this replays states between saves we already have, so the recipes are only as good as those milestones. The 11 HG milestones are one playthrough; choices that differ between playthroughs are not separated yet (open item 3).
 
+## F8. Badges are the hub of a dependency web; the game's own scripts say what each badge changes
+
+Writing only the badge byte leaves the save incoherent. Three layers are tied to it, each checked against the 29 census saves.
+
+1. **Gym-script consequences.** After `GiveBadge` each gym script sets flags and vars (`research/badge-effects.json`, from `tools/script_effects.py`; every row cites file and line). `tools/make_badge_rules.py` classifies each effect against the census. Examples that hold in every save owning the badge: Zephyr sets `FLAG_GOT_TM51_FROM_FALKNER`, `FLAG_UNK_192`, `FLAG_UNK_0F4`, `FLAG_HIDE_WIFI_CLUB_CLOSED_LADY` and the two Bird Keeper trainer flags (27/27); Fog sets `FLAG_GOT_TM30_FROM_MORTY` (20/20); Hive sets four Bug Catcher/Twins trainer flags (24/24). Many `SetVar` effects are overwritten by later story (for example `VAR_SCENE_VIOLET_CITY_OW` set to 1 by Zephyr is never 1 in any later save), so a badge's block is not the final value of those symbols; the rules file lists them as `skipped` instead of copying them.
+2. **Derived counter.** `VAR_MIDGAME_BADGES` (0x4134) equals the number of Fog, Storm, Mineral and Glacier badges while that is below 4 (29/29 saves). At 4 the map header scripts (`scr_seq_0684_T26_hdr.s:13`, `scr_seq_0703_T28_hdr.s:12`, `scr_seq_0875_T24.s:46`) compare it to 4, start the Rocket takeover and set it to 5 (`scr_seq_0875_T24.s:86`); every save with all four badges holds 5. The count is order-independent, so any set of those four badges drives the same trigger.
+3. **Scene machines.** `VAR_SCENE_ROCKET_TAKEOVER` goes 0, 1 (three midgame badges), 2/4 (takeover in progress), 5 (done); it is read by the scripts of Mahogany, Goldenrod, Lake of Rage, Ecruteak and Blackthorn (`research/story-atoms-hg.json`, edges from the data-flow graph in `research/script-graph.json`). Other gates found the same way: `FLAG_GOT_SECRETPOTION` and `VAR_SCENE_LIGHTHOUSE_JASMINE` before Jasmine's gym (`scr_seq_0913_T26GYM0101.s` reads `VAR_UNK_410E`), `FLAG_GAME_CLEAR` for the post-game reads of Bugsy, Whitney, Jasmine, Morty, Pryce, `FLAG_BEAT_AZALEA_ROCKETS` before the Goldenrod radio-tower scripts.
+
+Gym scripts themselves have no story guards (Falkner reads only his own TM flag); order is enforced by the world: HM badge checks, NPC placement flags (`FLAG_HIDE_*`) and the scene vars above.
+
+Implemented: `trainer badges set` applies layers 1 and 2 for newly gained badges (`hgss-us.badge-rules.json`, `--raw` to skip). Layer 3 and the world prerequisites for out-of-order badge sets are covered only by `preset apply`, whose states are whole played milestones. `FLAG_UNK_189` is a transient script lock (set and cleared around cutscenes in 60+ scripts); no preset or rule sets it.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

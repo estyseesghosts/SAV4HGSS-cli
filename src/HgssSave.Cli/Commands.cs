@@ -185,7 +185,7 @@ internal static class Commands
         if (johto is null && kanto is null)
             throw HgssException.BadArguments("args", "trainer badges set needs --johto and/or --kanto.");
         var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "trainer badges set requires --out OUT.");
-        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BadgesSetOperation(johto, kanto)], []), CanonicalPatchJson($"trainer.badges.set:{johto}:{kanto}"), output, args);
+        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BadgesSetOperation(johto, kanto) { Consequences = !Args.Flag(args, "--raw") }], []), CanonicalPatchJson($"trainer.badges.set:{johto}:{kanto}:{!Args.Flag(args, "--raw")}"), output, args);
     }
 
     internal static int FlagsList(string[] args)
@@ -617,7 +617,7 @@ internal static class Commands
         var inputBytes = ReadFile(input);
         using var session = Factory.OpenWithRegistry(input, registry);
         var warpSpawns = Args.Option(args, "--warp-spawns");
-        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory, safeSpawns, warpSpawns);
+        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory, safeSpawns, warpSpawns, Args.Option(args, "--badge-rules"));
 
         if (!plan.CanApply)
         {

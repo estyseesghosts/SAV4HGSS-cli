@@ -166,6 +166,27 @@
     "ClearFlag FLAG_HIDE_ILEX_FOREST_SPIKY_EAR_PICHU in scr_seq_0092_D36R0101.s:1743",
     "ClearFlag FLAG_HIDE_ILEX_FOREST_OLD_MAN in scr_seq_0092_D36R0101.s:1799"
    ]
+  },
+  {
+   "id": "enigma-stone-pewter",
+   "effects": [
+    "SetVar VAR_UNK_4083,1, ClearFlag BEFORE_LATIS hide, SetFlag AFTER_LATIS hide (scr_seq_0755_T03R0101.s:47-49)",
+    "TakeItem ITEM_ENIGMA_STONE later (same file:603)"
+   ],
+   "items": [
+    "ITEM_ENIGMA_STONE in bag (HasItem same file:40,536)"
+   ],
+   "observed": {
+    "Lyra - Enigma Stone.sav (HG, Pewter, pre)": "stone=1, BEFORE-hide=true, AFTER-hide=true, VAR_UNK_4083=0"
+   },
+   "reads": [
+    "VAR_UNK_4083 not 1..5 in scr_seq_0755_T03R0101.s:30-39",
+    "HasItem ITEM_ENIGMA_STONE in scr_seq_0755_T03R0101.s:40"
+   ],
+   "writes": [
+    "SetVar VAR_UNK_4083,1 in scr_seq_0755_T03R0101.s:47",
+    "TakeItem ITEM_ENIGMA_STONE in scr_seq_0755_T03R0101.s:603"
+   ]
   }
  ],
  "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",

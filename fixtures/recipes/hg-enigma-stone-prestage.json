@@ -1,0 +1,31 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-enigma-stone-prestage",
+  "game": "HG",
+  "base": {
+    "path": "Lyra - Enigma Stone.sav",
+    "sha256": "6E17BA8AF61F57FAC071F181B99FE9E04AF5AF1998139A572F6350AA3A85FF60"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 3000, "expect": 3000},
+      {"op": "location.set", "map": 51, "x": 1048, "y": 80, "z": 3}
+    ],
+    "assert": [
+      {"field": "bag.ITEM_ENIGMA_STONE", "equals": 1},
+      {"field": "flag.FLAG_HIDE_STEVEN_IN_HOUSE_BEFORE_LATIS", "equals": true},
+      {"field": "flag.FLAG_HIDE_STEVEN_IN_HOUSE_AFTER_LATIS", "equals": true},
+      {"field": "variable.VAR_UNK_4083", "equals": 0},
+      {"field": "location.spawn", "equals": {"map": 51, "x": 1048, "y": 80, "z": 3}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "pewter-visible", "enigma-gate-conditions-held", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Enigma Stone pre-state (Lyra, HG, Pewter): stone in bag, both Steven-in-house actors hidden, VAR_UNK_4083=0. Base is `container unwrap` of the DeSmuME .dsv save (.dsv retained as canonical). Gate: scr_seq_0755_T03R0101.s:29-50 (scr_seq_T03R0101_014) checks VAR_UNK_4083 then HasItem ITEM_ENIGMA_STONE, sets VAR 1 and swaps the Steven hide flags; later TakeItem at line 603. Money op is a no-op canary; location op is a verified self-spawn move."
+  }
+}

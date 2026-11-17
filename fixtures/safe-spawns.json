@@ -105,6 +105,15 @@
    "x": 16,
    "y": 57,
    "z": 65535
+  },
+  {
+   "map_id": 51,
+   "map_symbol": "MAP_PEWTER",
+   "note": "Lyra Enigma Stone pre-state in Pewter; stone in bag, Steven-in-house actors hidden, VAR_UNK_4083=0",
+   "source_save_sha256": "6E17BA8AF61F57FAC071F181B99FE9E04AF5AF1998139A572F6350AA3A85FF60",
+   "x": 1048,
+   "y": 80,
+   "z": 3
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

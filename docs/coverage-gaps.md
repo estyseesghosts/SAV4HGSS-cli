@@ -3,7 +3,7 @@
 ## Spawns are allowlisted, not arbitrary
 
 `location.set` only writes exact `fixtures/safe-spawns.json` entries
-(12 verified tiles). This is deliberate: story validity needs actors,
+(13 verified tiles). This is deliberate: story validity needs actors,
 warps, and script context the save cannot encode, so teleports stay
 refused (exit 8 `location-unverified`).
 

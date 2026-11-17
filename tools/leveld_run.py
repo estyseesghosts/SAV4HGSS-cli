@@ -309,26 +309,33 @@ def main() -> int:
                 emu.advance_frames(target - advanced)
                 advanced = target
 
-        def maybe_snapshot() -> None:
-            if advanced in state_at:
-                name = state_at[advanced]
-                dest = states_dir / f"{name}.mcpr"
-                ok = bool(lib.lib.melonds_savestate_save(str(dest).encode()))
-                states.append({"frame": advanced, "name": name, "file": dest.name, "ok": ok})
-                if not ok:
-                    raise RuntimeError(f"Savestate save failed at frame {advanced}.")
+        saved_state_frames: set[int] = set()
+
+        def snapshot_crossed(prev: int) -> None:
+            for f in sorted(state_at):
+                if prev < f <= advanced and f not in saved_state_frames:
+                    name = state_at[f]
+                    dest = states_dir / f"{name}.mcpr"
+                    ok = bool(lib.lib.melonds_savestate_save(str(dest).encode()))
+                    states.append({"frame": f, "name": name, "file": dest.name, "ok": ok})
+                    saved_state_frames.add(f)
+                    if not ok:
+                        raise RuntimeError(f"Savestate save failed at frame {f}.")
 
         for target in milestones:
             while action_idx < len(actions) and actions[action_idx][0] <= target:
                 af, kind, payload = actions[action_idx]
+                prev = advanced
                 advance_to(af)
-                maybe_snapshot()
+                snapshot_crossed(prev)
                 apply_action(af, kind, payload)
+                prev = advanced
                 advanced += payload[-1]
-                maybe_snapshot()
+                snapshot_crossed(prev)
                 action_idx += 1
+            prev = advanced
             advance_to(target)
-            maybe_snapshot()
+            snapshot_crossed(prev)
             raw = lib.screenshot_bytes()
             top = raw[:256 * 192 * 3]
             bottom = raw[256 * 192 * 3:512 * 192 * 3]
@@ -350,18 +357,19 @@ def main() -> int:
         # Remaining actions/frames past the last milestone.
         while action_idx < len(actions):
             af, kind, payload = actions[action_idx]
+            prev = advanced
             advance_to(af)
-            maybe_snapshot()
+            snapshot_crossed(prev)
             apply_action(af, kind, payload)
+            prev = advanced
             advanced += payload[-1]
-            maybe_snapshot()
+            snapshot_crossed(prev)
             action_idx += 1
-        for frame in sorted(state_at):
-            if frame > advanced and frame <= args.frames:
-                advance_to(frame)
-                maybe_snapshot()
         if advanced < args.frames:
+            prev = advanced
             emu.advance_frames(args.frames - advanced)
+            advanced = args.frames
+            snapshot_crossed(prev)
         report["inputs"] = events
         report["savestates"] = states
         if args.extract_save.strip():

@@ -249,3 +249,25 @@ Two corrections this work forced:
 - Red is beaten on the postgame base (`FLAG_UNK_25F` set by
   `scr_seq_0107_D41R0108.s:26`); Mt Silver pre-Red needs a base from
   before that fight.
+
+## 9. Cianwood trek and fly-map navigation (in progress)
+
+Goal was Olivine pre-Jasmine by play: HG 5gyn base (Chuck beaten,
+Jasmine TM flag clear, `FLAG_SYS_FLYPOINT_OLIVINE` set) → surf east
+or fly. Surf failed first: the east beach (185,371)→(191,371)→south
+(191,379) is a rock-edged dead end (cliff south, building north,
+water east never prompts despite a conscious Goldeen with
+MOVE_SURF=57); town-south ends at an unwalkable cliff face (185,374).
+Fly works mechanically: party menu opens by touch, d-pad drives the
+party cursor (DOWN,DOWN,RIGHT lands on Spearow), A opens its submenu,
+FLY tap opens the Johto map. MOVE_FLY=19 confirmed on Spearow.
+Probed cursor graph from the Cianwood map cursor (description text
+as readout, white-frame highlight tracked by screenshot diffing):
+LEFT→Route 47 (dead end), RIGHT→Route 41→Whirl Islands→blank→
+Goldenrod (sticks); UP/DOWN from Cianwood do nothing short, blank
+when held; A on routes/blank safely does nothing. States banked in
+`leveld-out/`: `fly-party-state/party.mcpr`, `fly-map-state/flymap.mcpr`,
+`fly-blank-a/blank.mcpr`. NOT YET FOUND: any path to the Olivine
+(Ecruteak/Violet/Azalea) cursor stops. Next: precise tap on the
+west-coast icon with diff-tracked highlight, or enumerate UP/DOWN
+from Whirl/Goldenrod with longer settle windows.

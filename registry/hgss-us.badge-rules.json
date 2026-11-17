@@ -870,5 +870,85 @@
     "scr_seq_0875_T24.s:46,86"
    ]
   }
+ ],
+ "grants": [
+  {
+   "flag": "FLAG_GOT_HM01",
+   "flag_id": 128,
+   "item": "ITEM_HM01",
+   "item_id": 420,
+   "source": "scr_seq_0092_D36R0101.s:1293 (Ilex Forest)"
+  },
+  {
+   "flag": "FLAG_GOT_HM02",
+   "flag_id": 187,
+   "item": "ITEM_HM02",
+   "item_id": 421,
+   "source": "scr_seq_0875_T24.s:39 (Cianwood)"
+  },
+  {
+   "flag": "FLAG_GOT_HM03",
+   "flag_id": 162,
+   "item": "ITEM_HM03",
+   "item_id": 422,
+   "source": "scr_seq_0928_T27R0501.s:378 (Ecruteak Dance Theater)"
+  },
+  {
+   "flag": "FLAG_GOT_HM08",
+   "flag_id": 389,
+   "item": "ITEM_HM08",
+   "item_id": 427,
+   "source": "scr_seq_0740_T01R0301.s:208"
+  }
+ ],
+ "field_gates": [
+  {
+   "move": "Cut",
+   "badge": 1,
+   "name": "BADGE_HIVE",
+   "source": "src/field_move.c:189"
+  },
+  {
+   "move": "Fly",
+   "badge": 4,
+   "name": "BADGE_STORM",
+   "source": "src/field_move.c:221"
+  },
+  {
+   "move": "Surf",
+   "badge": 3,
+   "name": "BADGE_FOG",
+   "source": "src/field_move.c:254"
+  },
+  {
+   "move": "Strength",
+   "badge": 2,
+   "name": "BADGE_PLAIN",
+   "source": "src/field_move.c:295"
+  },
+  {
+   "move": "Rock Smash",
+   "badge": 0,
+   "name": "BADGE_ZEPHYR",
+   "source": "src/field_move.c:330"
+  },
+  {
+   "move": "Waterfall",
+   "badge": 7,
+   "name": "BADGE_RISING",
+   "source": "src/field_move.c:365"
+  },
+  {
+   "move": "Rock Climb",
+   "badge": 15,
+   "name": "BADGE_EARTH",
+   "source": "src/field_move.c:397"
+  },
+  {
+   "move": "Whirlpool",
+   "badge": 6,
+   "name": "BADGE_GLACIER",
+   "source": "src/field_move.c:608"
+  }
  ]
 }

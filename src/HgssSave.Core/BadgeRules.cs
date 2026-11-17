@@ -21,13 +21,32 @@ public sealed class BadgeRules
 
     public sealed record Counter(string Name, int VarId, int[] Badges, int HoldFrom);
 
+    /// <summary>An HM given by a script: the script sets the flag and gives the item together (29 of 29 played saves agree).</summary>
+    public sealed record Grant(string Flag, int FlagId, string Item, int ItemId, string Source);
+
+    /// <summary>A field move that needs a badge to use (src/field_move.c).</summary>
+    public sealed record FieldGate(string Move, int Badge, string Name, string Source);
+
     private readonly Dictionary<int, List<Effect>> _byBadge;
 
-    private BadgeRules(Dictionary<int, List<Effect>> byBadge, List<Counter> counters, string path)
+    private BadgeRules(Dictionary<int, List<Effect>> byBadge, List<Counter> counters, List<Grant> grants, List<FieldGate> gates, string path)
     {
         _byBadge = byBadge;
         Counters = counters;
+        Grants = grants;
+        FieldGates = gates;
         Path = path;
+    }
+
+    public IReadOnlyList<Grant> Grants { get; }
+
+    public IReadOnlyList<FieldGate> FieldGates { get; }
+
+    /// <summary>Field moves whose badge is missing; the move cannot be used in the field until it is won.</summary>
+    public IEnumerable<FieldGate> LockedFieldMoves(ISaveSession session)
+    {
+        var mask = FullMask(session.Trainer.JohtoBadges, session.Trainer.KantoBadges);
+        return FieldGates.Where(g => ((mask >> g.Badge) & 1) == 0);
     }
 
     public string Path { get; }
@@ -114,6 +133,15 @@ public sealed class BadgeRules
             }
         }
 
+        foreach (var g in Grants)
+        {
+            var flag = session.TryGetFlag(g.FlagId, out var f) && f;
+            var item = session.TryGetBagQuantity(g.ItemId, out var q, out _) && q > 0;
+            if (flag != item)
+                result.Add(new Violation("hm-grant", g.Flag, g.FlagId, item ? "true" : "false", flag ? "true" : "false",
+                    $"{g.Item} {(item ? "is" : "is not")} in the bag; {g.Source} sets the flag and gives the item together"));
+        }
+
         foreach (var counter in Counters)
         {
             var count = counter.Badges.Count(b => ((mask >> b) & 1) != 0);
@@ -182,7 +210,17 @@ public sealed class BadgeRules
             foreach (var c in root.GetProperty("counters").EnumerateArray())
                 counters.Add(new Counter(c.GetProperty("var").GetString()!, c.GetProperty("id").GetInt32(),
                     c.GetProperty("badges").EnumerateArray().Select(x => x.GetInt32()).ToArray(), c.GetProperty("hold_from").GetInt32()));
-            return new BadgeRules(byBadge, counters, path);
+            var grants = new List<Grant>();
+            if (root.TryGetProperty("grants", out var gs))
+                foreach (var g in gs.EnumerateArray())
+                    grants.Add(new Grant(g.GetProperty("flag").GetString()!, g.GetProperty("flag_id").GetInt32(), g.GetProperty("item").GetString()!,
+                        g.GetProperty("item_id").GetInt32(), g.GetProperty("source").GetString()!));
+            var gates = new List<FieldGate>();
+            if (root.TryGetProperty("field_gates", out var fg))
+                foreach (var g in fg.EnumerateArray())
+                    gates.Add(new FieldGate(g.GetProperty("move").GetString()!, g.GetProperty("badge").GetInt32(), g.GetProperty("name").GetString()!,
+                        g.GetProperty("source").GetString()!));
+            return new BadgeRules(byBadge, counters, grants, gates, path);
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {

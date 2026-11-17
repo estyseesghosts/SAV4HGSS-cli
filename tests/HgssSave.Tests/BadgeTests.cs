@@ -108,4 +108,14 @@ public sealed class StoryAuditTests
         using var full = Factory.OpenBytes(Build("""{"op":"trainer.badges.set","johto":121,"consequences":true}"""), "full");
         Assert.Empty(rules.Audit(full));
     }
+
+    [Fact]
+    public void HmFlagWithoutItemFailsAuditAndLocksFieldMoves()
+    {
+        var rules = BadgeRules.Load(Rules);
+        using var s = Factory.OpenBytes(Build("""{"op":"flag.set","id":128,"value":true}"""), "hm");
+        Assert.Contains(rules.Audit(s), v => v.Rule == "hm-grant" && v.Symbol == "FLAG_GOT_HM01");
+        Assert.Contains(rules.LockedFieldMoves(s), g => g.Move == "Cut" && g.Badge == 1);
+        Assert.Equal(8, rules.LockedFieldMoves(s).Count());
+    }
 }

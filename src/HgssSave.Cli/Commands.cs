@@ -143,6 +143,10 @@ internal static class Commands
             w.WriteString("rules", rules.Path);
             w.WriteNumber("badges_johto", session.Trainer.JohtoBadges);
             w.WriteNumber("badges_kanto", session.Trainer.KantoBadges);
+            w.WriteStartArray("locked_field_moves");
+            foreach (var g in rules.LockedFieldMoves(session))
+                w.WriteStringValue($"{g.Move} (needs {g.Name}; {g.Source})");
+            w.WriteEndArray();
             w.WriteNumber("violation_count", violations.Count);
             w.WriteStartArray("violations");
             foreach (var v in violations)

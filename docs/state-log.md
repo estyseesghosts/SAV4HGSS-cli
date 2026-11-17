@@ -141,6 +141,16 @@ This makes the scene machines readable. `VAR_SCENE_ROCKET_TAKEOVER`: the Mahogan
 
 To stage a given cutscene: set its variable to `value`, put the player in its map (frame triggers fire on load; coord triggers need the player to step on `area`). Not yet automated: the tile coordinates are tile data, so reaching a coord trigger from a warp needs walking.
 
+## F12. HM grants and badge gates
+
+Two more prerequisite layers, both in `registry/hgss-us.badge-rules.json` and checked by `story check`.
+
+HM grants: four scripts set an HM flag and give the item in one block: `FLAG_GOT_HM01` (`scr_seq_0092_D36R0101.s:1293`, Ilex Forest), `HM02` (`scr_seq_0875_T24.s:39`, Cianwood), `HM03` (`scr_seq_0928_T27R0501.s:378`, Ecruteak Dance Theater), `HM08` (`scr_seq_0740_T01R0301.s:208`). Across the saves the flag and the item agree in 29 of 29, so unlike TMs (consumed) an HM flag without its item is an inconsistency. HM04-HM07 have no grant flag in `flags.h`; their gives are not tracked.
+
+Field gates: `src/field_move.c` refuses a move without its badge: Cut/Hive (189), Fly/Storm (221), Surf/Fog (254), Strength/Plain (295), Rock Smash/Zephyr (330), Waterfall/Rising (365), Rock Climb/Earth (397), Whirlpool/Glacier (608). Whirlpool is a move, not an HM item (HM05 is Defog). A missing badge is not an inconsistency (a player can own the HM and lack the badge), so `story check` lists these as `locked_field_moves` for information.
+
+Grant flags follow story order in the HG lineage: HM01 appears by 3 badges, HM02/HM03 by 5, which is the pattern a closure resolver has to reproduce. Not yet implemented: closure (asking for badge N and receiving the HM, scene vars and NPC flags that must precede it).
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

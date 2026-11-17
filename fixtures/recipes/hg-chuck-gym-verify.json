@@ -1,0 +1,30 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-chuck-gym-verify",
+  "game": "HG",
+  "base": {
+    "path": "raw-from-noexotic/Pokemon_HeartGold5gyn.SAV.raw.sav",
+    "sha256": "0BE278E8143C13E67364A94A6548C5C884A51849F1154B7D2397D1D5D4220B36"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 140000, "expect": 139988},
+      {"op": "location.set", "map": 75, "x": 185, "y": 371, "z": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM30_FROM_MORTY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM01_FROM_CHUCK", "equals": true},
+      {"field": "flag.FLAG_GOT_TM23_FROM_JASMINE", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 75, "x": 185, "y": 371, "z": 1}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "cianwood-spawn-visible", "chuck-tm-in-bag-history", "jasmine-not-yet-beaten", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "5th-gym checkpoint (Master, Cianwood): Morty/Chuck TM flags set, Jasmine TM flag clear. Observed bit pattern 1111100. Base is ndssc RLE-decompression of the NO$GBA HG 5gyn container. Self-spawn move exercises the location gate."
+  }
+}

@@ -44,6 +44,9 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | hg-whitney-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Goldenrod 76,358,370) | ok, running |
 | hg-burned-tower-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Goldenrod 76,358,370) | ok, running |
 | hg-rotom-room-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Saffron 59,1308,231) | ok, running |
+| ss-morty-gym-verify | soulsilver.nds (IPGE) | boot + live-spawn assert (Ecruteak 78,381,182) | ok, running |
+| hg-chuck-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Cianwood 75,185,371) | ok, running |
+| hg-jasmine-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Ecruteak 78,394,184) | ok, running |
 
 ## Continue-to-overworld sequences
 

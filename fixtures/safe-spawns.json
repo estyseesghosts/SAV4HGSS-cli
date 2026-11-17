@@ -132,6 +132,33 @@
    "x": 1308,
    "y": 231,
    "z": 2
+  },
+  {
+   "map_id": 78,
+   "map_symbol": "MAP_ECRUTEAK",
+   "note": "M@ster 4-badge Ecruteak spawn; post-Morty, pre-Chuck",
+   "source_save_sha256": "02B54E537D850275E58BB0B3F1B7C93EC3425CD77BDA3E7512B00C63A540FD2B",
+   "x": 381,
+   "y": 182,
+   "z": 3
+  },
+  {
+   "map_id": 75,
+   "map_symbol": "MAP_CIANWOOD",
+   "note": "Master 5-badge Cianwood spawn; post-Chuck, pre-Jasmine",
+   "source_save_sha256": "0BE278E8143C13E67364A94A6548C5C884A51849F1154B7D2397D1D5D4220B36",
+   "x": 185,
+   "y": 371,
+   "z": 1
+  },
+  {
+   "map_id": 78,
+   "map_symbol": "MAP_ECRUTEAK",
+   "note": "Master 6-badge Ecruteak spawn; post-Jasmine, pre-Pryce",
+   "source_save_sha256": "64287599DE6A3EF316E8740091772A4F9F16914C407EFCB0B059BD0A918B6B3A",
+   "x": 394,
+   "y": 184,
+   "z": 3
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

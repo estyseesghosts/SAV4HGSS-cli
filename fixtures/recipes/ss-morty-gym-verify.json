@@ -1,0 +1,30 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-morty-gym-verify",
+  "game": "SS",
+  "base": {
+    "path": "raw-from-noexotic/Pokemon_SoulSilver4gyn.SAV.raw.sav",
+    "sha256": "02B54E537D850275E58BB0B3F1B7C93EC3425CD77BDA3E7512B00C63A540FD2B"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 409200, "expect": 409138},
+      {"op": "location.set", "map": 78, "x": 381, "y": 182, "z": 3}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM45_FROM_WHITNEY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM30_FROM_MORTY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM01_FROM_CHUCK", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 78, "x": 381, "y": 182, "z": 3}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "ecruteak-spawn-visible", "morty-tm-in-bag-history", "chuck-not-yet-beaten", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "4th-gym checkpoint (M@ster, Ecruteak): Whitney/Morty TM flags set, Chuck TM flag clear. Observed bit pattern 1111000. Base is ndssc RLE-decompression of the NO$GBA SS 4gyn container. Self-spawn move exercises the location gate."
+  }
+}

@@ -114,6 +114,15 @@
    "x": 1048,
    "y": 80,
    "z": 3
+  },
+  {
+   "map_id": 76,
+   "map_symbol": "MAP_GOLDENROD",
+   "note": "Master 3-badge Goldenrod spawn; post-Whitney, pre-Ecruteak/Burned Tower",
+   "source_save_sha256": "98CDA5B438E668E5AF06E2BD387068F6EFD0DDBC532C8EF50B8CEBE133970028",
+   "x": 358,
+   "y": 370,
+   "z": 1
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

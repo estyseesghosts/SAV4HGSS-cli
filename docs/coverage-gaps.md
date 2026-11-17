@@ -3,7 +3,7 @@
 ## Spawns are allowlisted, not arbitrary
 
 `location.set` only writes exact `fixtures/safe-spawns.json` entries
-(13 verified tiles). This is deliberate: story validity needs actors,
+(14 verified tiles). This is deliberate: story validity needs actors,
 warps, and script context the save cannot encode, so teleports stay
 refused (exit 8 `location-unverified`).
 
@@ -18,19 +18,22 @@ decode the movement grids, then validate every verdict against known
 player tiles from real saves (including all 10 registered spawns)
 before any patch op trusts it.
 
-## NO$GBA `.SAV` gym-era files are not decodable here
+## NO$GBA `.SAV` gym-era files: decoded via ndssc (was blocked)
 
-The `Pokemon_HeartGold1-8gyn.SAV`, `Pokemon_SoulSilver4gyn.SAV`,
-`Celebi/E4/posE4` files (NO$GBA `NocashGbaBackupMedia` container,
-~159KB) do not contain PKHeX-valid general/storage blocks at any file
-offset: a CRC16-CCITT scan (implementation verified against the
-`PokemonSS1gyn.sav` stored checksums) finds zero valid blocks, and the
-magic-adjacent size fields (0xF628/0x12310) imply block starts at
-negative file offsets, so no contiguous-block placement fits. They are
-stale/partial dumps, not usable bases. What unblocks the Whitney /
-Ecruteak / Chuck / Jasmine-era coverage they would give: re-dump those
-saves as raw `0x80000` (the format every working save uses) and the
-existing fixture pattern applies directly.
+`3DS/ndssc` (No$GBA NDS Save Converter, after the DeSmuME wiki
+No-gba-save-format doc) decodes the container: 32-byte magic, an
+`SRAM` chunk whose `u32` at `0x44` is a compressed flag, packed size at
+`0x48`, and unpacked size at `0x4C`. Our files are RLE-compressed
+(`0x44=1`, packed `0x26CDA`, unpacked `0x80000`) — which is why raw
+footer bytes were visible but no PKHeX-valid block existed at any
+offset. All 13 files convert to byte-exact `0x80000` images with
+structural pass and valid checksums; raws live in
+`hgss-saves/raw-from-noexotic/` (`.SAV` originals retained as
+canonical). This unlocked the full HG Master gym lineage (Violet,
+Azalea, Goldenrod, Ecruteak ×2, Cianwood, Mahogany, Blackthorn),
+Celebi/E4/posE4 files, and the M@ster SS 4gyn Ecruteak base. Still
+missing: saves near Olivine pre-Jasmine, Lake pre-Gyarados, and
+gym-puzzle interiors.
 
 ## Beats with no nearby real base
 

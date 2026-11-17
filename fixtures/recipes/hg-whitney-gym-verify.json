@@ -1,0 +1,31 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-whitney-gym-verify",
+  "game": "HG",
+  "base": {
+    "path": "raw-from-noexotic/Pokemon_HeartGold3gyn.SAV.raw.sav",
+    "sha256": "98CDA5B438E668E5AF06E2BD387068F6EFD0DDBC532C8EF50B8CEBE133970028"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 162300, "expect": 162244},
+      {"op": "location.set", "map": 76, "x": 358, "y": 370, "z": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM51_FROM_FALKNER", "equals": true},
+      {"field": "flag.FLAG_GOT_TM89_FROM_BUGSY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM45_FROM_WHITNEY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM30_FROM_MORTY", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 76, "x": 358, "y": 370, "z": 1}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "goldenrod-spawn-visible", "whitney-tm-in-bag-history", "morty-not-yet-beaten", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "3rd-gym checkpoint (Master, Goldenrod): Falkner/Bugsy/Whitney TM flags set, Morty TM flag clear. Observed bit pattern 1110. Base is ndssc RLE-decompression of the NO$GBA container (see docs/coverage-gaps.md); self-spawn move exercises the location gate."
+  }
+}

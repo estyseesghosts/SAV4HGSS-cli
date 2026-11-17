@@ -187,6 +187,24 @@
     "SetVar VAR_UNK_4083,1 in scr_seq_0755_T03R0101.s:47",
     "TakeItem ITEM_ENIGMA_STONE in scr_seq_0755_T03R0101.s:603"
    ]
+  },
+  {
+   "id": "burned-tower-dogs-flee",
+   "effects": [
+    "SetFlag B1F hides x3 (scr_seq_0024_D18R0102.s:70-72)",
+    "CreateRoamer 0/1 (same file:76-77)",
+    "ClearFlag B1F EUSINE hide, show Eusine (same file:79-81)"
+   ],
+   "items": [],
+   "observed": {
+    "Pokemon_HeartGold3gyn (HG, Goldenrod, pre)": "all six tower hides false, roamer vars 0",
+    "Pokemon_HeartGold4gyn (HG, Ecruteak, post)": "all six tower hides true"
+   },
+   "reads": [],
+   "writes": [
+    "SetFlag B1F hides in scr_seq_0024_D18R0102.s:70-72",
+    "CreateRoamer in scr_seq_0024_D18R0102.s:76-77"
+   ]
   }
  ],
  "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",

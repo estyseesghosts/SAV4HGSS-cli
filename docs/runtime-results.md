@@ -41,6 +41,8 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | hg-arceus-event-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Alph 113,441,287) | ok, running |
 | hg-pichu-event-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Ilex 117,16,57) | ok, running |
 | hg-enigma-stone-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Pewter 51,1048,80) | ok, running |
+| hg-whitney-gym-verify | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Goldenrod 76,358,370) | ok, running |
+| hg-burned-tower-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Goldenrod 76,358,370) | ok, running |
 
 ## Continue-to-overworld sequences
 

@@ -1,0 +1,35 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-burned-tower-prestage",
+  "game": "HG",
+  "base": {
+    "path": "raw-from-noexotic/Pokemon_HeartGold3gyn.SAV.raw.sav",
+    "sha256": "98CDA5B438E668E5AF06E2BD387068F6EFD0DDBC532C8EF50B8CEBE133970028"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 162400, "expect": 162244},
+      {"op": "location.set", "map": 76, "x": 358, "y": 370, "z": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_HIDE_BURNED_TOWER_1F_RIVAL", "equals": false},
+      {"field": "flag.FLAG_HIDE_BURNED_TOWER_1F_MORTY", "equals": false},
+      {"field": "flag.FLAG_HIDE_BURNED_TOWER_1F_EUSINE", "equals": false},
+      {"field": "flag.FLAG_HIDE_BURNED_TOWER_B1F_RAIKOU", "equals": false},
+      {"field": "flag.FLAG_HIDE_BURNED_TOWER_B1F_ENTEI", "equals": false},
+      {"field": "flag.FLAG_HIDE_BURNED_TOWER_B1F_SUICUNE", "equals": false},
+      {"field": "variable.VAR_ROAMER_RAIKOU_STATUS", "equals": 0},
+      {"field": "variable.VAR_ROAMER_ENTEI_STATUS", "equals": 0},
+      {"field": "location.spawn", "equals": {"map": 76, "x": 358, "y": 370, "z": 1}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "goldenrod-spawn-visible", "tower-actors-unhidden", "dogs-not-yet-fled", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Burned Tower pre-state (Master, Goldenrod, pre-Ecruteak): all six tower actor hides clear, roamers inactive. Base is ndssc RLE-decompression of the NO$GBA container. The dogs-flee movie (scr_seq_0024_D18R0102.s:22-89) sets the three B1F hides (lines 70-72) and creates roamers 0/1 (lines 76-77) with Eusine appearing (lines 79-81). Money ops are canaries; location op is a verified self-spawn move."
+  }
+}

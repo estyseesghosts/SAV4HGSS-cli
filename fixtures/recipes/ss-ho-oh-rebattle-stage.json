@@ -1,0 +1,28 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-ho-oh-rebattle-stage",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver16gyns.sav",
+    "sha256": "AF325B8027E00DD44A2B9E85B08BD1EAC540DD62362B12ABF782DCFDEB488183"
+  },
+  "patch": {
+    "operations": [
+      {"op": "flag.set", "id": "FLAG_CAUGHT_HO_OH", "value": false},
+      {"op": "inventory.quantity.set", "item": "ITEM_RAINBOW_WING", "quantity": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_CAUGHT_HO_OH", "equals": false},
+      {"field": "bag.ITEM_RAINBOW_WING", "equals": 1}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "route-38-spawn-visible", "rainbow-wing-in-bag", "bell-tower-event-actor-present", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Postgame Route 38 base (M@ster, 16 badges). Re-battle staging: CAUGHT_HO_OH cleared, RAINBOW_WING granted. Script refs: SetFlag FLAG_CAUGHT_HO_OH scr_seq_0021_D17R0110.s:100, GoToIfSet scr_seq_0019_D17R0101.s:16. Travel to Bell Tower in-game; no teleport."
+  }
+}

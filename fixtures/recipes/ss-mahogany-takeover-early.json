@@ -1,0 +1,27 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-mahogany-takeover-early",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver7gyn.sav",
+    "sha256": "C5DDD8346C75F2AC229525E5AA9991267C022B1FB9D28B58E8CA1B7ABB8593C5"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 443000, "expect": 442934}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_BEAT_RADIO_TOWER_ROCKETS", "equals": false},
+      {"field": "variable.VAR_SCENE_ROCKET_TAKEOVER", "equals": 2}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "mahogany-spawn-visible", "rocket-hideout-entrance-reachable", "takeover-not-yet-resolved", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Mahogany verified spawn (M@ster, 7 badges). Takeover scene var reads 2 and radio-tower flag false per Mahogany->Blackthorn diff. Pre-takeover staging point; walk to the hideout in-game."
+  }
+}

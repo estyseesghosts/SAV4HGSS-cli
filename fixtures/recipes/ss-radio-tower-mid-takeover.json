@@ -1,0 +1,27 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-radio-tower-mid-takeover",
+  "game": "SS",
+  "base": {
+    "path": "Pokémon HGSS (before wing).sav",
+    "sha256": "965481C8F876CDE83F2056F0EC8FD28DB8996B0869CEC9D86BA7F06C9C833B09"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 447000, "expect": 446974}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_BEAT_RADIO_TOWER_ROCKETS", "equals": false},
+      {"field": "variable.VAR_SCENE_ROCKET_TAKEOVER", "equals": 4}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "radio-tower-observation-deck-loads", "takeover-script-active", "wing-event-prerequisite-visible", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Observation-deck save mid-takeover (M@ster, scene var 4, rockets flag false). Same-trainer chain Mahogany(2)->here(4)->Blackthorn(5). Do not save inside the takeover script; stage only."
+  }
+}

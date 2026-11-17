@@ -1,0 +1,27 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-dragons-den-shrine",
+  "game": "HG",
+  "base": {
+    "path": "Pre-Dratini.sav",
+    "sha256": "7238010360891408339D11BA976C62FA808DDA87DFBB7DC2DC9FC196D41AD18E"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 53400, "expect": 53331}
+    ],
+    "assert": [
+      {"field": "location.map_id", "equals": 288},
+      {"field": "party.count", "equals": 2}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "dragons-den-shrine-loads", "dratini-event-actor-present", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Dragons Den shrine interior (Desmond, 46h HG postgame). HG-side coverage to complement the SS lineage fixtures. Shrine quiz/Dratini event staging point."
+  }
+}

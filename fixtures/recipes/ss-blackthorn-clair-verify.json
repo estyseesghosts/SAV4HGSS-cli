@@ -1,0 +1,28 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-blackthorn-clair-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver8gyn.sav",
+    "sha256": "F4EB1EE4FE1D3381340EBBC3EFBE5C8E85DFCD3A7E14344BC8F877A32D339101"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 330200, "expect": 330130}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM59_FROM_CLAIR", "equals": true},
+      {"field": "flag.FLAG_BEAT_RADIO_TOWER_ROCKETS", "equals": true},
+      {"field": "variable.VAR_SCENE_ROCKET_TAKEOVER", "equals": 5}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "blackthorn-spawn-visible", "clair-tm59-in-bag-history", "takeover-resolved", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Blackthorn verified spawn (M@ster, 8 badges). Mahogany->Blackthorn diff sets TM59_FROM_CLAIR, BEAT_RADIO_TOWER_ROCKETS, scene var 2->5, Kimono Girls cleared. 8th-badge checkpoint."
+  }
+}

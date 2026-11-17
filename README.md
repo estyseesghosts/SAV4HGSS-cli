@@ -129,7 +129,7 @@ Level D runtime stays manual per fixture; see `docs/runtime-validation.md` for t
 
 ## Verification
 
-`dotnet test` runs 48 tests: strict open/reject paths, flag/var/money/bag/party/box round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all three committed fixtures (Violet money, Azalea rockets, Lugia pre-event staging) on the same-trainer M@ster lineage plus early/post-game files; Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/bell/wing story paths. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
+`dotnet test` runs 48 tests: strict open/reject paths, flag/var/money/bag/party/box round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all eight committed fixtures on the same-trainer M@ster lineage plus early/post-game and HG files (Violet money, Azalea rockets, Mahogany early-takeover, Radio Tower mid-takeover, Blackthorn/Clair, Lugia pre-event, Ho-Oh rebattle, Dragons Den shrine); Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/Ho-Oh/bell/wing story paths. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
 
 ## License
 

@@ -1,0 +1,31 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-olivine-pre-jasmine",
+  "game": "HG",
+  "base": {
+    "path": "raw-from-noexotic/Pokemon_HeartGold5gyn.SAV.raw.sav",
+    "sha256": "0BE278E8143C13E67364A94A6548C5C884A51849F1154B7D2397D1D5D4220B36"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 140200, "expect": 139988},
+      {"op": "location.set", "map": 77, "x": 272, "y": 258, "z": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM30_FROM_MORTY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM01_FROM_CHUCK", "equals": true},
+      {"field": "flag.FLAG_GOT_TM23_FROM_JASMINE", "equals": false},
+      {"field": "flag.FLAG_GOT_TM07_FROM_PRYCE", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 77, "x": 272, "y": 258, "z": 1}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "olivine-spawn-visible", "chuck-tm-in-bag-history", "jasmine-not-yet-beaten", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Olivine pre-Jasmine checkpoint (Master, 5gyn story state at the Olivine fly landing): Morty/Chuck TM flags set, Jasmine/Pryce TM flags clear. Spawn coords 77/272/258/z1 observed live by playing the HG 5gyn base Cianwood->Olivine by Fly in headless melonDS and extracting the in-game save (played SHA ff87a6e5...). That played save also shows only played deltas vs staged (location, time, partition flip, transient FLAG_TEMP_x4000, per-map FLAG_HIDE_CAMERON set by Olivine map script - not asserted, transient actor visibility). Base is ndssc RLE-decompression of the NO$GBA HG 5gyn container."
+  }
+}

@@ -168,6 +168,15 @@
    "x": 8,
    "y": 22,
    "z": 0
+  },
+  {
+   "map_id": 77,
+   "map_symbol": "MAP_OLIVINE",
+   "note": "Master 5-badge Olivine landing by Fly from Cianwood; post-Chuck, pre-Jasmine (played in-emulator, in-game save)",
+   "source_save_sha256": "FF87A6E5A332E246A02B365C5A2D3C91F163CCA8DE9D798892A5B52912DFAFF1",
+   "x": 272,
+   "y": 258,
+   "z": 1
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

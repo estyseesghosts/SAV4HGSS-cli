@@ -201,9 +201,10 @@ only passed by coincidence (Z equaled direction there).
 
 ## 7. Open gaps and what unblocks each
 
-- Olivine pre-Jasmine, Lake pre-Gyarados, gym-puzzle interiors: no
-  base near any of them; backward resets refused. Unblocked by
-  legitimately played raw saves at those points.
+- Lake pre-Gyarados, gym-puzzle interiors: no base near any of
+  them; backward resets refused. Unblocked by legitimately played raw
+  saves at those points. (Olivine pre-Jasmine was here until Nov 2026;
+  filled by play as `hg-olivine-pre-jasmine`, see §9.)
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.
@@ -267,7 +268,26 @@ LEFT→Route 47 (dead end), RIGHT→Route 41→Whirl Islands→blank→
 Goldenrod (sticks); UP/DOWN from Cianwood do nothing short, blank
 when held; A on routes/blank safely does nothing. States banked in
 `leveld-out/`: `fly-party-state/party.mcpr`, `fly-map-state/flymap.mcpr`,
-`fly-blank-a/blank.mcpr`. NOT YET FOUND: any path to the Olivine
-(Ecruteak/Violet/Azalea) cursor stops. Next: precise tap on the
-west-coast icon with diff-tracked highlight, or enumerate UP/DOWN
-from Whirl/Goldenrod with longer settle windows.
+`fly-blank-a/blank.mcpr`.
+RESOLVED by reading decomp instead of guessing
+(`pokeheartgold@4e95633`: `overlay_101_021F79B4.c` fly rects,
+`overlay_101_021E9270.c:739-747` fly check at `(playerX, playerY-2)`
+vs description at `(playerX, playerY)`, `fly_map.c:115-116` cursor
+starts at the player's world-matrix tile). Cianwood description is
+(5,12-13) but its fly rect is (5,10-11); Olivine needs cursor (8,10):
+description (8-9,9-10) plus fly rect (8-9,7-8) at Y-2=8. Path from
+Cianwood: UP,UP (through blanks at y11/10) then RIGHT,RIGHT,RIGHT
+along the blank corridor (Route 40 at (6,11), blanks, no stop) then
+UP once → "Olivine City" readout. A opens the fly context menu, A
+confirms (fade + fly animation over the Olivine PokeCenter), landing
+in front of the PokeCenter. In-game save needs X,RIGHT,A,A,A + one
+more A on the YES/NO overwrite prompt (the start menu remembers its
+cursor: this base opens on POKEMON, so RIGHT lands on SAVE with no
+DOWN; the SS proof needed DOWN because its base opened on POKEDEX).
+Played save `leveld-out/fly-oli-save5/played.sav` (SHA
+`ff87a6e5...`): valid HG, location Olivine 77/272/258/z1, Jasmine +
+Pryce TM flags clear, Morty/Chuck set, only played deltas vs staged
+(time, partition flip, transient `FLAG_TEMP_x4000`, per-map
+`FLAG_HIDE_CAMERON` set by Olivine's map script). Staged as fixture
+`hg-olivine-pre-jasmine` (recipe + safe-spawn #20, boot-verified with
+2 agreeing RAM copies, runtime recorded).

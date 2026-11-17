@@ -271,6 +271,25 @@ public static class PatchPlanner
                     []);
             }
 
+            case BadgesSetOperation badges:
+            {
+                var trainer = session.Trainer;
+                var original = $"{trainer.JohtoBadges},{trainer.KantoBadges}";
+                var requested = $"{badges.Johto ?? trainer.JohtoBadges},{badges.Kanto ?? trainer.KantoBadges}";
+                return new PlannedOperation(
+                    operation,
+                    "badges",
+                    "trainer.badges",
+                    null,
+                    SymbolResolution.Resolved,
+                    requested,
+                    original,
+                    null,
+                    true,
+                    original != requested,
+                    []);
+            }
+
             case BagQuantitySetOperation quantity:
             {
                 var lookup = registry.LookupAs(quantity.Reference, SymbolKind.Item);

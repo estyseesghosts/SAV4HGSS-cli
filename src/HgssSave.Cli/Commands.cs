@@ -127,6 +127,27 @@ internal static class Commands
         return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new MoneySetOperation(value, expect)], []), CanonicalPatchJson($"trainer.money.set:{value}:{expect}"), output, args);
     }
 
+    internal static int BadgesSet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save trainer badges set INPUT [--johto MASK] [--kanto MASK] --out OUT");
+        int? Mask(string name)
+        {
+            var raw = Args.Option(args, name);
+            if (raw is null)
+                return null;
+            if (!int.TryParse(raw, out var v) || v is < 0 or > 255)
+                throw HgssException.BadArguments("badges-range", $"{name} '{raw}' is not an integer 0..255.");
+            return v;
+        }
+
+        var johto = Mask("--johto");
+        var kanto = Mask("--kanto");
+        if (johto is null && kanto is null)
+            throw HgssException.BadArguments("args", "trainer badges set needs --johto and/or --kanto.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "trainer badges set requires --out OUT.");
+        return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BadgesSetOperation(johto, kanto)], []), CanonicalPatchJson($"trainer.badges.set:{johto}:{kanto}"), output, args);
+    }
+
     internal static int FlagsList(string[] args)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save flags list INPUT [--limit N]");

@@ -53,6 +53,9 @@ public interface ISaveSession : IDisposable
 
     void SetMoney(uint money);
 
+    /// <summary>Writes the Johto and/or Kanto badge byte; null leaves it untouched.</summary>
+    void SetBadges(int? johto, int? kanto);
+
     /// <summary>Reads the quantity of an item in the bag; false when the item is not in any pocket.</summary>
     bool TryGetBagQuantity(int itemId, out int quantity, out PouchKind pouch);
 

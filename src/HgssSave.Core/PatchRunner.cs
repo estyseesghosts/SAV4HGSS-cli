@@ -123,6 +123,9 @@ public static class PatchRunner
                 session.SetVar(id, variable.Value);
                 break;
             }
+            case BadgesSetOperation badges:
+                session.SetBadges(badges.Johto, badges.Kanto);
+                break;
             case MoneySetOperation money:
                 session.SetMoney(money.Value);
                 break;
@@ -220,6 +223,8 @@ public static class PatchRunner
                     return null;
                 return value.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
+            case BadgesSetOperation:
+                return $"{session.Trainer.JohtoBadges},{session.Trainer.KantoBadges}";
             case MoneySetOperation:
                 return session.Trainer.Money.ToString(System.Globalization.CultureInfo.InvariantCulture);
             case BagQuantitySetOperation:

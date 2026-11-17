@@ -27,6 +27,12 @@ public sealed record VariableSetOperation(string Reference, int Value, int? Expe
     public override string? SymbolReference => Reference;
 }
 
+/// <summary>Johto/Kanto badge bitmasks (PlayerProfile.johtoBadges/kantoBadges, player_data.c:114-150); null leaves that byte untouched.</summary>
+public sealed record BadgesSetOperation(int? Johto, int? Kanto) : PatchOperation
+{
+    public override string OpName => "trainer.badges.set";
+}
+
 public sealed record MoneySetOperation(uint Value, uint? Expect) : PatchOperation
 {
     public override string OpName => "trainer.money.set";
@@ -276,6 +282,7 @@ public static class PatchParser
             "flag.set" => new[] { "op", "id", "value", "expect" },
             "variable.set" => new[] { "op", "id", "value", "expect" },
             "trainer.money.set" => new[] { "op", "value", "expect" },
+        "trainer.badges.set" => new[] { "op", "johto", "kanto" },
             "inventory.quantity.set" => new[] { "op", "item", "quantity", "expect" },
             "party.slot.import" => new[] { "op", "slot", "file", "expect_species", "update_dex" },
             "party.slot.clear" => new[] { "op", "slot" },
@@ -284,7 +291,7 @@ public static class PatchParser
             "location.set" => new[] { "op", "map", "x", "y", "z" },
         "location.warp" => new[] { "op", "map", "warp", "direction" },
             "dex.set" => new[] { "op", "species", "seen", "caught" },
-            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear, location.set, location.warp, dex.set."),
+            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, trainer.badges.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear, location.set, location.warp, dex.set."),
         };
 
         foreach (var key in item.EnumerateObject())
@@ -367,6 +374,14 @@ public static class PatchParser
                 var y = RequireIntInRange(item, "y", op, origin, 0, 0xFFFF);
                 var z = RequireIntInRange(item, "z", op, origin, 0, 0xFFFF);
                 return new LocationSetOperation(map, x, y, z);
+            }
+            case "trainer.badges.set":
+            {
+                int? johto = item.TryGetProperty("johto", out _) ? RequireIntInRange(item, "johto", op, origin, 0, 255) : null;
+                int? kanto = item.TryGetProperty("kanto", out _) ? RequireIntInRange(item, "kanto", op, origin, 0, 255) : null;
+                if (johto is null && kanto is null)
+                    throw HgssException.BadArguments("patch-badges", $"trainer.badges.set needs johto and/or kanto ({origin}).");
+                return new BadgesSetOperation(johto, kanto);
             }
             case "location.warp":
             {

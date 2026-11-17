@@ -87,6 +87,9 @@ ITEM is `ITEM_*` or a number. QUANTITY 0..999 (0 removes). `--expect` is the req
 ### `trainer money set INPUT VALUE --out OUT [--expect N]`
 VALUE is a non-negative integer (values above the PKHeX HGSS maximum are refused with `money-range`). `--expect` is the required current money.
 
+### `trainer badges set INPUT [--johto MASK] [--kanto MASK] --out OUT`
+MASK is 0..255; bit n is badge n in game order (Johto: Zephyr, Hive, Plain, Fog, Storm, Mineral, Glacier, Rising; Kanto: Boulder, Cascade, Thunder, Rainbow, Soul, Marsh, Volcano, Earth). At least one of the two is required; an omitted mask is left unchanged. Badges are bytes in the trainer block (`PlayerProfile.johtoBadges/kantoBadges`, player_data.c), with no flag mirror. Values outside 0..255 exit 2 (`badges-range`).
+
 ### `dex set INPUT SPECIES --seen BOOL --caught BOOL --out OUT`
 SPECIES 1..493. `--seen` and `--caught` are both required.
 
@@ -169,6 +172,7 @@ For `patch`. Ids accept names or numbers. Full example in the README.
 | `flag.set` | `id`, `value`, optional `expect` |
 | `variable.set` | `id`, `value`, optional `expect` |
 | `trainer.money.set` | `value`, optional `expect` |
+| `trainer.badges.set` | `johto` and/or `kanto`, each 0..255 |
 | `inventory.quantity.set` | `item`, `quantity`, optional `expect` |
 | `party.slot.import` | `slot`, `file`, optional `expect_species`, `update_dex` |
 | `party.slot.clear` | `slot` |

@@ -39,6 +39,7 @@ WRITING COMMANDS (all require --out OUT.sav; all accept the common patch options
   var set INPUT ID VALUE --out OUT [--expect N]          VALUE 0..65535
   bag set INPUT ITEM QUANTITY --out OUT [--expect N]     ITEM: ITEM_* name or number; QUANTITY 0..999
   trainer money set INPUT VALUE --out OUT [--expect N]
+  trainer badges set INPUT [--johto MASK] [--kanto MASK] --out OUT   MASK 0..255, bit n = badge n (Johto: Zephyr..Rising; Kanto: Boulder..Earth)
   dex set INPUT SPECIES --seen BOOL --caught BOOL --out OUT   SPECIES 1..493
   location set INPUT MAP X Y Z --out OUT [--safe-spawns PATH] refuses tiles not in safe-spawns.json
   location warp INPUT MAP WARP --out OUT [--direction 0..3] [--warp-spawns PATH]

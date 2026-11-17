@@ -146,6 +146,14 @@ public sealed class HgssSession : ISaveSession
         _sav.SetWork(index, (ushort)value);
     }
 
+    public void SetBadges(int? johto, int? kanto)
+    {
+        if (johto is not null)
+            _sav.Badges = (byte)johto.Value;
+        if (kanto is not null)
+            _sav.Badges16 = kanto.Value;
+    }
+
     public void SetMoney(uint money)
     {
         if (money > (uint)_sav.MaxMoney)

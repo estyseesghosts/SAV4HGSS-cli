@@ -14,7 +14,7 @@ internal static class Program
     private static readonly string[] CommandList =
     [
         "version", "inspect", "validate", "diff", "patch",
-        "flag get", "flag set", "var get", "var set", "bag set", "trainer money set",
+        "flag get", "flag set", "var get", "var set", "bag set", "trainer money set", "trainer badges set",
         "party export", "party import", "party clear",
         "box export", "box import", "box clear",
         "location set", "location warp", "dex set",
@@ -162,10 +162,19 @@ internal static class Program
         };
     }
 
-    private static int TrainerVerb(string[] args) =>
-        args.Length > 1 && args[0].ToLowerInvariant() == "money" && args[1].ToLowerInvariant() == "set"
-            ? Commands.MoneySet(args[2..])
-            : Usage("usage: hgss-save trainer money set INPUT VALUE --out OUT [--expect N]");
+    private static int TrainerVerb(string[] args)
+    {
+        if (args.Length > 1 && args[1].ToLowerInvariant() == "set")
+        {
+            switch (args[0].ToLowerInvariant())
+            {
+                case "money": return Commands.MoneySet(args[2..]);
+                case "badges": return Commands.BadgesSet(args[2..]);
+            }
+        }
+
+        return Usage("usage: hgss-save trainer money set|badges set ...");
+    }
 
     private static int SymbolsVerb(string[] args)
     {
@@ -247,7 +256,7 @@ internal static class Args
         "--recipe", "--out", "--outdir", "--bases", "--report", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
         "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
-        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction",
+        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction", "--johto", "--kanto",
     };
 
     internal static string? Option(string[] args, string name, string? @default = null)

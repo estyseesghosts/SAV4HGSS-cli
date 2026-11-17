@@ -35,10 +35,20 @@ hgss-save var get INPUT.sav VAR_PLAYER_STARTER
 hgss-save var set INPUT.sav VAR_PLAYER_STARTER 2 --out OUT.sav
 hgss-save bag set INPUT.sav ITEM_POTION 10 --out OUT.sav
 hgss-save trainer money set INPUT.sav 50000 --out OUT.sav
+hgss-save party export INPUT.sav 0 --out slot0.pk4
+hgss-save party import INPUT.sav 0 slot0.pk4 --out OUT.sav [--expect-species 25] [--no-dex]
+hgss-save party clear INPUT.sav 0 --out OUT.sav
+hgss-save box export INPUT.sav 0 0 --out box00.pk4
+hgss-save box import INPUT.sav 0 0 box00.pk4 --out OUT.sav [--expect-species 25] [--no-dex]
+hgss-save box clear INPUT.sav 0 0 --out OUT.sav
 hgss-save flags list INPUT.sav [--limit N]
 hgss-save vars list INPUT.sav [--limit N]
 hgss-save symbols lookup FLAG_CAUGHT_LUGIA [--kind flag]
 hgss-save symbols search lugia [--kind flag,var,map,item] [--limit N]
+hgss-save script index --scripts 3DS/pokeheartgold --commit <sha> --out registry/hgss-us.script-refs.json
+hgss-save script references FLAG_CAUGHT_LUGIA [--script-refs R] [--limit N]
+hgss-save fixture build fixtures/recipes/ss-violet-safe-money.json --bases <checkpoint-dir> --outdir <out>
+hgss-save fixture verify <out>/ss-violet-safe-money.manifest.json --outdir <out>
 hgss-save container probe FILE
 hgss-save container unwrap FILE.dsv --out OUT.sav
 hgss-save blank --game HG|SS --out OUT.sav [--trainer-name N] [--tid N] [--sid N] [--gender 0|1] [--language 2]
@@ -58,13 +68,15 @@ hgss-save blank --game HG|SS --out OUT.sav [--trainer-name N] [--tid N] [--sid N
     {"op": "flag.set", "id": "FLAG_CAUGHT_LUGIA", "value": true, "expect": false},
     {"op": "variable.set", "id": "VAR_PLAYER_STARTER", "value": 2},
     {"op": "trainer.money.set", "value": 50000},
-    {"op": "inventory.quantity.set", "item": "ITEM_POTION", "quantity": 10}
+    {"op": "inventory.quantity.set", "item": "ITEM_POTION", "quantity": 10},
+    {"op": "party.slot.import", "slot": 0, "file": "lugia.pk4", "expect_species": 249},
+    {"op": "box.slot.clear", "box": 0, "slot": 0}
   ],
-  "assert": [{"field": "trainer.money", "equals": 50000}]
+  "assert": [{"field": "trainer.money", "equals": 50000}, {"field": "party.0.species", "equals": 249}]
 }
 ```
 
-Ids accept names or numbers (`279`, `0x117`). Operations are idempotent `set` semantics with expected-original-state checks; conflicting writes to one field are rejected. Every operation re-reads from the exported save before the report is accepted.
+Ids accept names or numbers (`279`, `0x117`). Operations are idempotent `set` semantics with expected-original-state checks; conflicting writes to one field are rejected. Every operation re-reads from the exported save before the report is accepted. Party/box imports take known-good `.pk4` templates (136-byte stored or 236-byte party, PK4 checksum verified, species 1..493); they are never synthesized from a bare species id. File paths resolve relative to the recipe directory.
 
 ## Safety model
 
@@ -85,6 +97,27 @@ hgss-save symbols build-registry --headers 3DS/pokeheartgold --commit <sha> --ou
 
 The builder evaluates `#define` integer expressions with a restricted evaluator (no C toolchain, no eval). Non-integer or unresolvable macros are listed under `skipped`, never guessed. `source-manifest.json` records the commit and per-kind counts.
 
+## Script references
+
+`registry/hgss-us.script-refs.json` indexes every `FLAG_*`/`VAR_*`/`ITEM_*` read or write in `files/fielddata/script/scr_seq/*.s` at the pinned commit, with file:line evidence and the enclosing `ScrDef` label. Access is `read` (`GoToIfSet`, `Compare`, ...), `write` (`SetFlag`, `SetVar`, `GiveItem`, ...), or `check` (`HasItem`, ...). Rebuild offline with:
+
+```powershell
+hgss-save script index --scripts 3DS/pokeheartgold --commit <sha> --out registry/hgss-us.script-refs.json
+```
+
+Example evidence used by the Lugia fixture: `SetFlag FLAG_CAUGHT_LUGIA` in `scr_seq_0104_D40R0107.s:112`, `GoToIfSet FLAG_CAUGHT_LUGIA` in `scr_seq_0103_D40R0104.s:34`, `HasItem ITEM_SILVER_WING` in `scr_seq_0884_T24R0801.s:46`.
+
+## Fixtures
+
+`fixtures/recipes/*.json` stage curated story states from legitimately played base saves (never committed; resolve via `--bases DIR`). `fixtures/safe-spawns.json` records verified map/x/y spawns taken from real saves (Violet, Azalea, Mahogany, Blackthorn, New Bark, Dragons Den Shrine, Cherrygrove). Build and verify with:
+
+```powershell
+hgss-save fixture build fixtures/recipes/ss-violet-safe-money.json --bases <checkpoint-dir> --outdir <out> [--force]
+hgss-save fixture verify <out>/ss-violet-safe-money.manifest.json --outdir <out>
+```
+
+Level D runtime stays manual per fixture; see `docs/runtime-validation.md` for the melonDS DS-mode checklist (stage `<romname>.sav`, boot, run checkpoints, re-save, re-inspect).
+
 ## Format notes
 
 - Active general and storage blocks can live in opposite partitions; selection uses major/minor revision counters (`SAV4.cs:180-184`, `SAV4BlockDetection.cs:19-33`), not checksums.
@@ -96,7 +129,7 @@ The builder evaluates `#define` integer expressions with a restricted evaluator 
 
 ## Verification
 
-`dotnet test` runs 40 tests on synthesized saves: strict open/reject paths, flag/var/money/bag round-trips, aliasing, transaction policy, byte audit, containers, and registry spot checks. Real saves in `3DS/hgss-saves` were used to verify inspect/patch/diff on HG and SS at several progression points (early, mid, post-game); Pearl/Platinum/White saves are correctly rejected with exit 3. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual step per fixture.
+`dotnet test` runs 48 tests: strict open/reject paths, flag/var/money/bag/party/box round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all three committed fixtures (Violet money, Azalea rockets, Lugia pre-event staging) on the same-trainer M@ster lineage plus early/post-game files; Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/bell/wing story paths. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
 
 ## License
 

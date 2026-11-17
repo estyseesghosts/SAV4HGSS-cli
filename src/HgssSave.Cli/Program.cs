@@ -15,8 +15,12 @@ internal static class Program
     [
         "version", "inspect", "validate", "diff", "patch",
         "flag get", "flag set", "var get", "var set", "bag set", "trainer money set",
+        "party export", "party import", "party clear",
+        "box export", "box import", "box clear",
         "flags list", "vars list",
         "symbols lookup", "symbols search", "symbols build-registry",
+        "script index", "script references",
+        "fixture build", "fixture verify",
         "container probe", "container unwrap", "blank",
     ];
 
@@ -61,6 +65,10 @@ internal static class Program
             "trainer" => TrainerVerb(rest),
             "flags" => ExpectList(rest, "flags") ? Commands.FlagsList(rest[1..]) : Usage("usage: hgss-save flags list INPUT [--limit N]"),
             "vars" => ExpectList(rest, "vars") ? Commands.VarsList(rest[1..]) : Usage("usage: hgss-save vars list INPUT [--limit N]"),
+            "party" => PartyVerb(rest),
+            "box" => BoxVerb(rest),
+            "script" => ScriptVerb(rest),
+            "fixture" => FixtureVerb(rest),
             "symbols" => SymbolsVerb(rest),
             "container" => ContainerVerb(rest),
             "blank" => Commands.Blank(rest),
@@ -97,6 +105,32 @@ internal static class Program
             ? Commands.BagSet(args[1..])
             : Usage("usage: hgss-save bag set INPUT ITEM QUANTITY --out OUT [--expect N]");
 
+    private static int PartyVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save party export|import|clear ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "export" => Commands.PartyExport(args[1..]),
+            "import" => Commands.PartyImport(args[1..]),
+            "clear" => Commands.PartyClear(args[1..]),
+            _ => Usage("usage: hgss-save party export|import|clear ..."),
+        };
+    }
+
+    private static int BoxVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save box export|import|clear ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "export" => Commands.BoxExport(args[1..]),
+            "import" => Commands.BoxImport(args[1..]),
+            "clear" => Commands.BoxClear(args[1..]),
+            _ => Usage("usage: hgss-save box export|import|clear ..."),
+        };
+    }
+
     private static int TrainerVerb(string[] args) =>
         args.Length > 1 && args[0].ToLowerInvariant() == "money" && args[1].ToLowerInvariant() == "set"
             ? Commands.MoneySet(args[2..])
@@ -112,6 +146,30 @@ internal static class Program
             "search" => Commands.SymbolsSearch(args[1..]),
             "build-registry" => Commands.BuildRegistry(args[1..]),
             _ => Usage("usage: hgss-save symbols lookup|search|build-registry ..."),
+        };
+    }
+
+    private static int ScriptVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save script index|references ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "index" => Commands.ScriptIndex(args[1..]),
+            "references" => Commands.ScriptReferences(args[1..]),
+            _ => Usage("usage: hgss-save script index|references ..."),
+        };
+    }
+
+    private static int FixtureVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save fixture build|verify ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "build" => Commands.FixtureBuild(args[1..]),
+            "verify" => Commands.FixtureVerify(args[1..]),
+            _ => Usage("usage: hgss-save fixture build|verify ..."),
         };
     }
 
@@ -154,10 +212,10 @@ internal static class Args
 {
     private static readonly HashSet<string> ValueOptions = new(StringComparer.Ordinal)
     {
-        "--recipe", "--out", "--symbols", "--kind", "--kinds", "--limit", "--level",
+        "--recipe", "--out", "--outdir", "--bases", "--symbols", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
-        "--headers", "--commit", "--registry-id", "--project", "--max-list",
-        "--flags-limit", "--expect", "--max-ranges",
+        "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
+        "--flags-limit", "--expect", "--expect-species", "--max-ranges",
     };
 
     internal static string? Option(string[] args, string name, string? @default = null)

@@ -236,6 +236,44 @@ public static class ReportWriter
         writer.WriteEndObject();
     }
 
+    public static void WriteScriptRefs(
+        Utf8JsonWriter writer,
+        string symbol,
+        string indexPath,
+        IReadOnlyList<ScriptRef> refs,
+        string libraryVersion,
+        int limit)
+    {
+        writer.WriteStartObject();
+        writer.WriteString("schema", ReportSchema);
+        writer.WriteString("operation", "script.references");
+        writer.WriteString("symbol", symbol);
+        writer.WriteString("index", indexPath);
+        writer.WriteString("pkhex_core_version", libraryVersion);
+        writer.WriteNumber("limit", limit);
+        writer.WriteNumber("ref_count", refs.Count);
+        writer.WriteBoolean("truncated", refs.Count > limit);
+        writer.WriteStartArray("refs");
+        foreach (var r in refs.Take(limit))
+        {
+            writer.WriteStartObject();
+            writer.WriteString("symbol", r.Symbol);
+            writer.WriteString("access", r.Access);
+            writer.WriteString("command", r.Command);
+            writer.WriteString("file", r.File);
+            writer.WriteNumber("line", r.Line);
+            writer.WriteNullableString("context", r.Context);
+            writer.WriteString("confidence", r.Confidence);
+            writer.WriteEndObject();
+        }
+
+        writer.WriteEndArray();
+        WriteWarnings(writer, refs.Count == 0
+            ? [$"'{symbol}' has no indexed script references; it may be engine-read, unused, or outside scr_seq."]
+            : []);
+        writer.WriteEndObject();
+    }
+
     public static void WritePatch(
         Utf8JsonWriter writer,
         PatchPlan plan,
@@ -517,6 +555,8 @@ public static class ReportWriter
         JohtoBadgesAssertion badges => badges.Value.ToString(CultureInfo.InvariantCulture),
         KantoBadgesAssertion badges => badges.Value.ToString(CultureInfo.InvariantCulture),
         PartyCountAssertion party => party.Value.ToString(CultureInfo.InvariantCulture),
+        PartySpeciesAssertion species => species.Value.ToString(CultureInfo.InvariantCulture),
+        BoxSpeciesAssertion species => species.Value.ToString(CultureInfo.InvariantCulture),
         MapAssertion map => map.Value.ToString(CultureInfo.InvariantCulture),
         GameAssertion game => game.Value,
         ChecksumsAssertion checksums => checksums.Value ? "true" : "false",
@@ -831,4 +871,105 @@ public static class ReportWriter
         8 => "Korean",
         _ => "unknown",
     };
+
+    public static string SerializeManifest(FixtureManifest manifest, FixtureRecipe recipe)
+    {
+        using var buffer = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(buffer, new JsonWriterOptions { Indented = true }))
+        {
+            writer.WriteStartObject();
+            writer.WriteString("schema", FixtureManifest.SchemaId);
+            writer.WriteString("fixture_id", manifest.FixtureId);
+            writer.WriteString("input_sha256", manifest.InputSha256);
+            writer.WriteString("patch_sha256", manifest.PatchSha256);
+            writer.WriteString("output_sha256", manifest.OutputSha256);
+            writer.WriteString("pkhex_core_version", manifest.PkhexCoreVersion);
+            writer.WriteString("pokeheartgold_commit", manifest.RegistryRevision.Contains('@') ? manifest.RegistryRevision.Split('@')[1] : manifest.RegistryRevision);
+            writer.WriteString("symbol_registry", manifest.RegistryRevision);
+            writer.WriteString("game", manifest.Game);
+            writer.WriteString("structural_validation", manifest.StructuralValidation);
+            writer.WriteString("semantic_validation", manifest.SemanticValidation);
+            if (manifest.RuntimeResult is null)
+                writer.WriteNull("runtime_result");
+            else
+                writer.WriteString("runtime_result", manifest.RuntimeResult);
+            writer.WriteString("recipe_id", recipe.Id);
+            writer.WriteString("base_path", recipe.BasePath);
+            writer.WriteString("review_status", recipe.ReviewStatus);
+            writer.WriteEndObject();
+            writer.Flush();
+        }
+
+        return System.Text.Encoding.UTF8.GetString(buffer.ToArray());
+    }
+
+    public static (FixtureManifest Manifest, string OutputFile) ParseManifest(byte[] bytes, string origin)
+    {
+        using var doc = JsonDocument.Parse(bytes);
+        var root = doc.RootElement;
+        string Get(string name)
+        {
+            if (!root.TryGetProperty(name, out var v) || v.ValueKind != JsonValueKind.String)
+                throw HgssException.BadArguments("fixture-manifest", $"Manifest is missing '{name}' ({origin}).");
+            return v.GetString()!;
+        }
+
+        var manifest = new FixtureManifest(
+            root.TryGetProperty("schema", out var s) ? s.GetString() ?? "" : "",
+            Get("fixture_id"), Get("input_sha256"), Get("patch_sha256"), Get("output_sha256"),
+            Get("pkhex_core_version"), Get("symbol_registry"), Get("game"),
+            Get("structural_validation"), Get("semantic_validation"),
+            root.TryGetProperty("runtime_result", out var r) && r.ValueKind == JsonValueKind.String ? r.GetString() : null);
+        if (manifest.Schema != FixtureManifest.SchemaId)
+            throw HgssException.BadArguments("fixture-manifest-schema", $"Manifest schema '{manifest.Schema}' is not supported (expected {FixtureManifest.SchemaId}).");
+        return (manifest, manifest.FixtureId + ".sav");
+    }
+
+    public static void WriteFixtureBuild(
+        Utf8JsonWriter writer,
+        FixtureRecipe recipe,
+        string basePath,
+        byte[] inputBytes,
+        PatchResult result,
+        string outputPath,
+        string manifestPath,
+        string libraryVersion)
+    {
+        writer.WriteStartObject();
+        writer.WriteString("schema", ReportSchema);
+        writer.WriteString("operation", "fixture.build");
+        writer.WriteString("fixture_id", recipe.Id);
+        writer.WriteString("game", recipe.Game);
+        WriteInput(writer, basePath, inputBytes);
+        writer.WriteString("output_path", outputPath);
+        writer.WriteString("output_sha256", result.OutputSha256);
+        writer.WriteString("manifest_path", manifestPath);
+        writer.WriteString("review_status", recipe.ReviewStatus);
+        WriteStringList(writer, "runtime_checkpoints", recipe.RuntimeCheckpoints);
+        WriteValidation(writer, result.Validation);
+        WriteByteAudit(writer, result.Audit, result.RequestedBytes, result.BookkeepingBytes);
+        WriteWarnings(writer, ["semantic: not-evaluated; story validity requires runtime verification in melonDS."]);
+        writer.WriteEndObject();
+    }
+
+    public static void WriteFixtureVerify(
+        Utf8JsonWriter writer,
+        string manifestPath,
+        FixtureManifest manifest,
+        string outputPath,
+        StructuralValidation validation,
+        string libraryVersion)
+    {
+        writer.WriteStartObject();
+        writer.WriteString("schema", ReportSchema);
+        writer.WriteString("operation", "fixture.verify");
+        writer.WriteString("fixture_id", manifest.FixtureId);
+        writer.WriteString("manifest", manifestPath);
+        writer.WriteString("output", outputPath);
+        writer.WriteString("output_sha256", manifest.OutputSha256);
+        WriteValidation(writer, validation);
+        writer.WriteString("pkhex_core_version", libraryVersion);
+        WriteWarnings(writer, []);
+        writer.WriteEndObject();
+    }
 }

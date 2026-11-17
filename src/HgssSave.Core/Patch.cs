@@ -38,6 +38,26 @@ public sealed record BagQuantitySetOperation(string Reference, int Quantity, int
     public override string? SymbolReference => Reference;
 }
 
+public sealed record PartyImportOperation(int Slot, string File, int? ExpectSpecies, bool UpdateDex) : PatchOperation
+{
+    public override string OpName => "party.slot.import";
+}
+
+public sealed record PartyClearOperation(int Slot) : PatchOperation
+{
+    public override string OpName => "party.slot.clear";
+}
+
+public sealed record BoxImportOperation(int Box, int Slot, string File, int? ExpectSpecies, bool UpdateDex) : PatchOperation
+{
+    public override string OpName => "box.slot.import";
+}
+
+public sealed record BoxClearOperation(int Box, int Slot) : PatchOperation
+{
+    public override string OpName => "box.slot.clear";
+}
+
 public abstract record PatchAssertion
 {
     public abstract string Field { get; }
@@ -81,6 +101,16 @@ public sealed record KantoBadgesAssertion(int Value) : PatchAssertion
 public sealed record PartyCountAssertion(int Value) : PatchAssertion
 {
     public override string Field => "party.count";
+}
+
+public sealed record PartySpeciesAssertion(int Slot, int Value) : PatchAssertion
+{
+    public override string Field => $"party.{Slot}.species";
+}
+
+public sealed record BoxSpeciesAssertion(int Box, int Slot, int Value) : PatchAssertion
+{
+    public override string Field => $"box.{Box}.{Slot}.species";
 }
 
 public sealed record MapAssertion(int Value) : PatchAssertion
@@ -207,7 +237,11 @@ public static class PatchParser
             "variable.set" => new[] { "op", "id", "value", "expect" },
             "trainer.money.set" => new[] { "op", "value", "expect" },
             "inventory.quantity.set" => new[] { "op", "item", "quantity", "expect" },
-            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set."),
+            "party.slot.import" => new[] { "op", "slot", "file", "expect_species", "update_dex" },
+            "party.slot.clear" => new[] { "op", "slot" },
+            "box.slot.import" => new[] { "op", "box", "slot", "file", "expect_species", "update_dex" },
+            "box.slot.clear" => new[] { "op", "box", "slot" },
+            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear."),
         };
 
         foreach (var key in item.EnumerateObject())
@@ -241,12 +275,48 @@ public static class PatchParser
                 return new MoneySetOperation(value, expect);
             }
             case "inventory.quantity.set":
-            default:
             {
                 var itemRef = RequireReference(item, "item", op, origin);
                 var quantity = RequireIntInRange(item, "quantity", op, origin, 0, 999);
                 var expect = item.TryGetProperty("expect", out _) ? RequireIntInRange(item, "expect", op, origin, 0, 999) : (int?)null;
                 return new BagQuantitySetOperation(itemRef, quantity, expect);
+            }
+            case "party.slot.import":
+            {
+                var slot = RequireIntInRange(item, "slot", op, origin, 0, 5);
+                var file = RequireString(item, "file", origin);
+                var expectSpecies = item.TryGetProperty("expect_species", out _)
+                    ? RequireIntInRange(item, "expect_species", op, origin, 1, 493)
+                    : (int?)null;
+                var updateDex = item.TryGetProperty("update_dex", out _)
+                    ? RequireBool(item, "update_dex", op, origin)
+                    : true;
+                return new PartyImportOperation(slot, file, expectSpecies, updateDex);
+            }
+            case "party.slot.clear":
+            {
+                var slot = RequireIntInRange(item, "slot", op, origin, 0, 5);
+                return new PartyClearOperation(slot);
+            }
+            case "box.slot.import":
+            {
+                var box = RequireIntInRange(item, "box", op, origin, 0, 17);
+                var slot = RequireIntInRange(item, "slot", op, origin, 0, 29);
+                var file = RequireString(item, "file", origin);
+                var expectSpecies = item.TryGetProperty("expect_species", out _)
+                    ? RequireIntInRange(item, "expect_species", op, origin, 1, 493)
+                    : (int?)null;
+                var updateDex = item.TryGetProperty("update_dex", out _)
+                    ? RequireBool(item, "update_dex", op, origin)
+                    : true;
+                return new BoxImportOperation(box, slot, file, expectSpecies, updateDex);
+            }
+            case "box.slot.clear":
+            default:
+            {
+                var box = RequireIntInRange(item, "box", op, origin, 0, 17);
+                var slot = RequireIntInRange(item, "slot", op, origin, 0, 29);
+                return new BoxClearOperation(box, slot);
             }
         }
     }
@@ -288,6 +358,21 @@ public static class PatchParser
             default:
             {
                 var (prefix, reference) = SplitPrefixedField(field, origin);
+                if (prefix == "party")
+                {
+                    var parts = reference.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length == 2 && int.TryParse(parts[0], out var slot) && slot >= 0 && slot <= 5 && parts[1] == "species")
+                        return new PartySpeciesAssertion(slot, RequireIntValue(value, field, origin, 0, 493));
+                    throw HgssException.BadArguments("patch-assert-field", $"Unknown assertion field '{field}' ({origin}). Expected 'party.<0-5>.species'.");
+                }
+                if (prefix == "box")
+                {
+                    var parts = reference.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length == 3 && int.TryParse(parts[0], out var box) && box >= 0 && box <= 17
+                        && int.TryParse(parts[1], out var slot) && slot >= 0 && slot <= 29 && parts[2] == "species")
+                        return new BoxSpeciesAssertion(box, slot, RequireIntValue(value, field, origin, 0, 493));
+                    throw HgssException.BadArguments("patch-assert-field", $"Unknown assertion field '{field}' ({origin}). Expected 'box.<0-17>.<0-29>.species'.");
+                }
                 return prefix switch
                 {
                     "flag" => new FlagAssertion(reference, RequireBoolValue(value, field, origin)),

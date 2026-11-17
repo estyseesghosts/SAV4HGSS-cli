@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace HgssSave.Core;
@@ -69,7 +70,8 @@ public static class PatchPlanner
         string inputPath,
         byte[] inputBytes,
         byte[] patchBytes,
-        bool requireSymbols)
+        bool requireSymbols,
+        string? recipeDirectory = null)
     {
         var identity = session.Identity;
         var warnings = new List<string>();
@@ -91,7 +93,7 @@ public static class PatchPlanner
 
         foreach (var operation in document.Operations)
         {
-            var planned = PlanOperation(session, operation, registry, requireSymbols, warnings);
+            var planned = PlanOperation(session, operation, registry, requireSymbols, warnings, recipeDirectory);
             if (planned is null)
                 continue;
 
@@ -136,7 +138,8 @@ public static class PatchPlanner
         PatchOperation operation,
         SymbolRegistry registry,
         bool requireSymbols,
-        List<string> warnings)
+        List<string> warnings,
+        string? recipeDirectory = null)
     {
         switch (operation)
         {
@@ -310,8 +313,121 @@ public static class PatchPlanner
                     []);
             }
 
+            case PartyImportOperation party:
+            {
+                var resolved = ResolvePkFile(party.File, recipeDirectory);
+                var preview = PreviewPk(session, resolved);
+                if (party.ExpectSpecies is not null && preview.Species != party.ExpectSpecies.Value)
+                    throw HgssException.Precondition("pk-expect", $"party slot {party.Slot} import file holds species {preview.Species} but expected {party.ExpectSpecies.Value}.");
+                var current = session.PartySpecies(party.Slot);
+                return new PlannedOperation(
+                    operation,
+                    $"party:{party.Slot}",
+                    $"party.{party.Slot}.species",
+                    null,
+                    SymbolResolution.Resolved,
+                    preview.Species.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    current.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    party.ExpectSpecies?.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    party.ExpectSpecies is null || preview.Species == party.ExpectSpecies.Value,
+                    current != preview.Species,
+                    [$"pk file: {resolved} species {preview.Species} {preview.SpeciesName} lv{preview.Level} checksum-valid:{preview.ChecksumValid}"]);
+            }
+
+            case PartyClearOperation clear:
+            {
+                if ((uint)clear.Slot >= 6)
+                    throw HgssException.Precondition("party-range", $"Party slot {clear.Slot} is outside 0..5.");
+                var current = session.PartySpecies(clear.Slot);
+                return new PlannedOperation(
+                    operation,
+                    $"party:{clear.Slot}",
+                    $"party.{clear.Slot}.species",
+                    null,
+                    SymbolResolution.Resolved,
+                    "0",
+                    current.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    null,
+                    true,
+                    current != 0,
+                    []);
+            }
+
+            case BoxImportOperation box:
+            {
+                var resolved = ResolvePkFile(box.File, recipeDirectory);
+                var preview = PreviewPk(session, resolved);
+                if (box.ExpectSpecies is not null && preview.Species != box.ExpectSpecies.Value)
+                    throw HgssException.Precondition("pk-expect", $"box {box.Box} slot {box.Slot} import file holds species {preview.Species} but expected {box.ExpectSpecies.Value}.");
+                var current = session.BoxSpecies(box.Box, box.Slot);
+                return new PlannedOperation(
+                    operation,
+                    $"box:{box.Box}:{box.Slot}",
+                    $"box.{box.Box}.{box.Slot}.species",
+                    null,
+                    SymbolResolution.Resolved,
+                    preview.Species.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    current.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    box.ExpectSpecies?.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    box.ExpectSpecies is null || preview.Species == box.ExpectSpecies.Value,
+                    current != preview.Species,
+                    [$"pk file: {resolved} species {preview.Species} {preview.SpeciesName} lv{preview.Level} checksum-valid:{preview.ChecksumValid}"]);
+            }
+
+            case BoxClearOperation clear:
+            {
+                var current = session.BoxSpecies(clear.Box, clear.Slot);
+                return new PlannedOperation(
+                    operation,
+                    $"box:{clear.Box}:{clear.Slot}",
+                    $"box.{clear.Box}.{clear.Slot}.species",
+                    null,
+                    SymbolResolution.Resolved,
+                    "0",
+                    current.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    null,
+                    true,
+                    current != 0,
+                    []);
+            }
+
             default:
                 throw HgssException.BadArguments("patch-unknown-op", $"Unsupported operation '{operation.OpName}'.");
+        }
+    }
+
+    private static string ResolvePkFile(string file, string? recipeDirectory)
+    {
+        if (Path.IsPathRooted(file))
+            return file;
+        if (!string.IsNullOrEmpty(recipeDirectory))
+            return Path.GetFullPath(Path.Combine(recipeDirectory, file));
+        return Path.GetFullPath(file);
+    }
+
+    private static PkPreview PreviewPk(ISaveSession session, string resolved)
+    {
+        byte[] bytes;
+        try
+        {
+            bytes = File.ReadAllBytes(resolved);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or NotSupportedException)
+        {
+            throw HgssException.BadArguments("pk-file", $"Cannot read pk file '{resolved}': {e.Message}");
+        }
+
+        try
+        {
+            return session.PreviewPkFile(bytes);
+        }
+        catch (HgssException)
+        {
+            throw;
+        }
+        catch (Exception e)
+        {
+            throw HgssException.BadArguments("pk-file", $"Invalid pk file '{resolved}': {e.Message}");
         }
     }
 
@@ -370,6 +486,34 @@ public static class PatchPlanner
             {
                 var count = session.Snapshot().Party.Count(p => p.Present);
                 return (count.ToString(System.Globalization.CultureInfo.InvariantCulture), count == party.Value, null, null, null);
+            }
+            case PartySpeciesAssertion species:
+            {
+                int actual;
+                try
+                {
+                    actual = session.PartySpecies(species.Slot);
+                }
+                catch (HgssException e)
+                {
+                    return ("", false, $"assertion field '{species.Field}': {e.Message}", null, null);
+                }
+
+                return (actual.ToString(System.Globalization.CultureInfo.InvariantCulture), actual == species.Value, null, null, null);
+            }
+            case BoxSpeciesAssertion species:
+            {
+                int actual;
+                try
+                {
+                    actual = session.BoxSpecies(species.Box, species.Slot);
+                }
+                catch (HgssException e)
+                {
+                    return ("", false, $"assertion field '{species.Field}': {e.Message}", null, null);
+                }
+
+                return (actual.ToString(System.Globalization.CultureInfo.InvariantCulture), actual == species.Value, null, null, null);
             }
             case MapAssertion map:
                 return (session.Location.MapId.ToString(System.Globalization.CultureInfo.InvariantCulture), session.Location.MapId == map.Value, null, null, null);

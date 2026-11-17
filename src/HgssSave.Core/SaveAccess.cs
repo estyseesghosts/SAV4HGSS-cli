@@ -70,6 +70,25 @@ public interface ISaveSession : IDisposable
     /// <summary>True when the item id belongs to one of the HGSS pockets, regardless of current quantity.</summary>
     bool IsPocketableItem(int itemId);
 
+    /// <summary>Validated preview of a .pk4 file: species, checksum status, level and display name.</summary>
+    PkPreview PreviewPkFile(byte[] pkFileBytes);
+
+    int PartySpecies(int slot);
+
+    int BoxSpecies(int box, int slot);
+
+    void ImportPartySlot(int slot, byte[] pkFileBytes, bool updateDex);
+
+    void ClearPartySlot(int slot);
+
+    void ImportBoxSlot(int box, int slot, byte[] pkFileBytes, bool updateDex);
+
+    void ClearBoxSlot(int box, int slot);
+
+    byte[] ExportPartySlot(int slot);
+
+    byte[] ExportBoxSlot(int box, int slot);
+
     /// <summary>Serializes with checksum repair. Does not write to disk.</summary>
     ExportOutcome Export();
 }

@@ -1,0 +1,27 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-azalea-rockets-verify",
+  "game": "SS",
+  "base": {
+    "path": "PokemonSS2gyn.sav",
+    "sha256": "959E9B26BC84FA7C6D70A5CED4BF28AD37BD0E569C6C174C8DC845AC468B6310"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 12000, "expect": 11896}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_BEAT_AZALEA_ROCKETS", "equals": true},
+      {"field": "trainer.money", "equals": 12000}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "azalea-slowpoke-plot-resolved", "rocket-plot-flags-intact", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Azalea Town verified spawn (M@ster, 3 badges). FLAG_BEAT_AZALEA_ROCKETS asserted true per same-trainer Violet->Azalea diff (35 flags, Slowpoke hides cleared, flypoint Azalea). Patch is money-only; story flags read-only."
+  }
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace HgssSave.Core;
@@ -131,8 +132,50 @@ public static class PatchRunner
                 session.SetBagQuantity(id, quantity.Quantity);
                 break;
             }
+            case PartyImportOperation party:
+            {
+                var bytes = ReadPkFile(planned, party.File);
+                session.ImportPartySlot(party.Slot, bytes, party.UpdateDex);
+                break;
+            }
+            case PartyClearOperation clear:
+                session.ClearPartySlot(clear.Slot);
+                break;
+            case BoxImportOperation box:
+            {
+                var bytes = ReadPkFile(planned, box.File);
+                session.ImportBoxSlot(box.Box, box.Slot, bytes, box.UpdateDex);
+                break;
+            }
+            case BoxClearOperation clear:
+                session.ClearBoxSlot(clear.Box, clear.Slot);
+                break;
             default:
                 throw HgssException.BadArguments("patch-unknown-op", $"Unsupported operation '{planned.Operation.OpName}'.");
+        }
+    }
+
+    private static byte[] ReadPkFile(PlannedOperation planned, string file)
+    {
+        var resolved = file;
+        if (!Path.IsPathRooted(resolved))
+            resolved = Path.GetFullPath(resolved);
+        // Planner notes carry the resolved absolute path in Notes[0] as "pk file: <path> ...".
+        if (planned.Notes.Count > 0 && planned.Notes[0].StartsWith("pk file: ", StringComparison.Ordinal))
+        {
+            var remainder = planned.Notes[0]["pk file: ".Length..];
+            var end = remainder.IndexOf(" species ", StringComparison.Ordinal);
+            if (end > 0)
+                resolved = remainder[..end];
+        }
+
+        try
+        {
+            return File.ReadAllBytes(resolved);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or NotSupportedException)
+        {
+            throw HgssException.BadArguments("pk-file", $"Cannot read pk file '{resolved}': {e.Message}");
         }
     }
 
@@ -174,6 +217,14 @@ public static class PatchRunner
                 var found = session.TryGetBagQuantity(id, out var quantity, out _);
                 return (found ? quantity : 0).ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
+            case PartyImportOperation party:
+                return session.PartySpecies(party.Slot).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            case PartyClearOperation clear:
+                return session.PartySpecies(clear.Slot).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            case BoxImportOperation box:
+                return session.BoxSpecies(box.Box, box.Slot).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            case BoxClearOperation clear:
+                return session.BoxSpecies(clear.Box, clear.Slot).ToString(System.Globalization.CultureInfo.InvariantCulture);
             default:
                 return null;
         }
@@ -210,6 +261,10 @@ public static class PatchRunner
                 return session.Trainer.KantoBadges.ToString(invariant);
             case PartyCountAssertion:
                 return session.Snapshot().Party.Count(p => p.Present).ToString(invariant);
+            case PartySpeciesAssertion species:
+                return session.PartySpecies(species.Slot).ToString(invariant);
+            case BoxSpeciesAssertion species:
+                return session.BoxSpecies(species.Box, species.Slot).ToString(invariant);
             case MapAssertion:
                 return session.Location.MapId.ToString(invariant);
             case GameAssertion:
@@ -234,6 +289,8 @@ public static class PatchRunner
             JohtoBadgesAssertion badges => badges.Value.ToString(invariant),
             KantoBadgesAssertion badges => badges.Value.ToString(invariant),
             PartyCountAssertion party => party.Value.ToString(invariant),
+            PartySpeciesAssertion species => species.Value.ToString(invariant),
+            BoxSpeciesAssertion species => species.Value.ToString(invariant),
             MapAssertion map => map.Value.ToString(invariant),
             GameAssertion game => game.Value,
             ChecksumsAssertion checksums => checksums.Value ? "true" : "false",

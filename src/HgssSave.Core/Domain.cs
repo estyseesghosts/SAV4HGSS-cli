@@ -154,6 +154,14 @@ public sealed record BoxSlotInfo(
     string Nickname,
     int Level);
 
+/// <summary>Validated preview of a PK4 file offered for party/box import.</summary>
+public sealed record PkPreview(
+    int Species,
+    string SpeciesName,
+    int Level,
+    bool ChecksumValid,
+    int FileBytes);
+
 public sealed record DexSummary(int Seen, int Caught, int Total);
 
 /// <summary>Integrity of one physical block copy, computed independently of PKHeX's block selection.</summary>

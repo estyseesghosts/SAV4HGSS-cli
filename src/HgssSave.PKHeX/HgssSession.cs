@@ -283,6 +283,78 @@ public sealed class HgssSession : ISaveSession
         return bag.Pouches.Any(p => p.CanContain((ushort)itemId));
     }
 
+    public PkPreview PreviewPkFile(byte[] pkFileBytes) => PreviewPk(pkFileBytes);
+
+    public int PartySpecies(int slot)
+    {
+        if ((uint)slot >= 6)
+            throw HgssException.Precondition("party-range", $"Party slot {slot} is outside 0..5.");
+        return _sav.GetPartySlotAtIndex(slot).Species;
+    }
+
+    public int BoxSpecies(int box, int slot)
+    {
+        CheckBoxSlot(box, slot);
+        return _sav.GetBoxSlotAtIndex(box, slot).Species;
+    }
+
+    public void ImportPartySlot(int slot, byte[] pkFileBytes, bool updateDex)
+    {
+        if ((uint)slot >= 6)
+            throw HgssException.Precondition("party-range", $"Party slot {slot} is outside 0..5.");
+        var pk = LoadPk(pkFileBytes, "party");
+        var settings = new EntityImportSettings(
+            EntityImportOption.UseDefault,
+            updateDex ? EntityImportOption.Enable : EntityImportOption.Disable,
+            EntityImportOption.Disable);
+        _sav.SetPartySlotAtIndex(pk, slot, settings);
+    }
+
+    public void ClearPartySlot(int slot)
+    {
+        if ((uint)slot >= 6)
+            throw HgssException.Precondition("party-range", $"Party slot {slot} is outside 0..5.");
+        _sav.DeletePartySlot(slot);
+    }
+
+    public void ImportBoxSlot(int box, int slot, byte[] pkFileBytes, bool updateDex)
+    {
+        CheckBoxSlot(box, slot);
+        var pk = LoadPk(pkFileBytes, "box");
+        var settings = new EntityImportSettings(
+            EntityImportOption.UseDefault,
+            updateDex ? EntityImportOption.Enable : EntityImportOption.Disable,
+            EntityImportOption.Disable);
+        _sav.SetBoxSlotAtIndex(pk, box, slot, settings);
+    }
+
+    public void ClearBoxSlot(int box, int slot)
+    {
+        CheckBoxSlot(box, slot);
+        _sav.SetBoxSlotAtIndex(_sav.BlankPKM, box, slot, EntityImportSettings.None);
+    }
+
+    public byte[] ExportPartySlot(int slot)
+    {
+        if ((uint)slot >= 6)
+            throw HgssException.Precondition("party-range", $"Party slot {slot} is outside 0..5.");
+        var pk = _sav.GetPartySlotAtIndex(slot);
+        if (pk.Species == 0)
+            throw HgssException.Precondition("party-empty", $"Party slot {slot} is empty; nothing to export.");
+        return pk.Data.ToArray();
+    }
+
+    public byte[] ExportBoxSlot(int box, int slot)
+    {
+        CheckBoxSlot(box, slot);
+        var pk = _sav.GetBoxSlotAtIndex(box, slot);
+        if (pk.Species == 0)
+            throw HgssException.Precondition("box-empty", $"Box {box} slot {slot} is empty; nothing to export.");
+        var stored = new byte[_sav.SIZE_STORED];
+        Array.Copy(pk.Data.ToArray(), stored, Math.Min(stored.Length, pk.Data.Length));
+        return stored;
+    }
+
     public ExportOutcome Export()
     {
         var bytes = _sav.Write().ToArray();
@@ -388,6 +460,48 @@ public sealed class HgssSession : ISaveSession
         }
 
         return count;
+    }
+
+    private static void CheckBoxSlot(int box, int slot)
+    {
+        if ((uint)box >= 18)
+            throw HgssException.Precondition("box-range", $"Box {box} is outside 0..17.");
+        if ((uint)slot >= 30)
+            throw HgssException.Precondition("box-range", $"Box slot {slot} is outside 0..29.");
+    }
+
+    private static PK4 LoadPk(byte[] pkFileBytes, string context)
+    {
+        if (pkFileBytes.Length is not (136 or 236))
+            throw HgssException.BadArguments("pk-size", $"{context} import requires a 136-byte stored or 236-byte party .pk4 file (got {pkFileBytes.Length} bytes).");
+        PK4 pk;
+        try
+        {
+            pk = new PK4(pkFileBytes);
+        }
+        catch (Exception e)
+        {
+            throw HgssException.BadArguments("pk-parse", $"{context} import file is not a valid PK4: {e.Message}");
+        }
+
+        ValidatePk(pk, context);
+        return pk;
+    }
+
+    private static PkPreview PreviewPk(byte[] pkFileBytes)
+    {
+        var pk = LoadPk(pkFileBytes, "preview");
+        return new PkPreview(pk.Species, HgssNames.ForSpecies((ushort)pk.Species), pk.CurrentLevel, pk.ChecksumValid, pkFileBytes.Length);
+    }
+
+    private static void ValidatePk(PK4 pk, string context)
+    {
+        if (pk.Species == 0)
+            throw HgssException.Precondition("pk-species", $"{context} import file holds no species (species 0). Import a known-good .pk4 template instead of synthesizing one.");
+        if (pk.Species > 493)
+            throw HgssException.Precondition("pk-species", $"{context} import species {pk.Species} is outside the HGSS range 1..493.");
+        if (!pk.ChecksumValid)
+            throw HgssException.Structural("pk-checksum", $"{context} import file fails its internal PK4 checksum; refusing to write a corrupt party member.");
     }
 
     internal static PouchKind ToPouchKind(InventoryType type) => type switch

@@ -1,0 +1,26 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-violet-safe-money",
+  "game": "SS",
+  "base": {
+    "path": "PokemonSS1gyn.sav",
+    "sha256": "7337E3B4F77B7D5077E5C967484E3F1FB2FC86086B91FBBD0DFC5027D0BAF50F"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 7000, "expect": 6312}
+    ],
+    "assert": [
+      {"field": "trainer.money", "equals": 7000}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "overworld-visible-at-safe-spawn", "save-menu-opens", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Violet City verified spawn from legitimately played save (M@ster 59274/23158, 1 badge). Money-only edit; story state untouched. Boot in melonDS DS mode, confirm Violet spawn, open menu, save, re-inspect output."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-lugia-pre-event-stage",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver8gyn.sav",
+    "sha256": "F4EB1EE4FE1D3381340EBBC3EFBE5C8E85DFCD3A7E14344BC8F877A32D339101"
+  },
+  "patch": {
+    "operations": [
+      {"op": "flag.set", "id": "FLAG_CAUGHT_LUGIA", "value": false},
+      {"op": "inventory.quantity.set", "item": "ITEM_SILVER_WING", "quantity": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_CAUGHT_LUGIA", "equals": false},
+      {"field": "bag.ITEM_SILVER_WING", "equals": 1}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "whirl-islands-map-loads", "lugia-event-actor-present", "silver-wing-in-bag", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Blackthorn verified spawn (M@ster, late game). Pre-event staging: FLAG_CAUGHT_LUGIA false, ITEM_SILVER_WING granted for HasItem branch in scr_seq_0884. Script refs: SetFlag FLAG_CAUGHT_LUGIA scr_seq_0104:112, HasItem ITEM_SILVER_WING scr_seq_0884:46. Travel in-game to Whirl Islands; no teleport."
+  }
+}

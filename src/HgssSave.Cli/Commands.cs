@@ -65,7 +65,8 @@ internal static class Commands
         var recipe = Args.Option(args, "--recipe") ?? throw HgssException.BadArguments("args", "patch requires --recipe PATCH.");
         var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "patch requires --out OUT.");
         var document = PatchParser.Parse(ReadFile(recipe), recipe);
-        return RunPatch(input, document, ReadFile(recipe), output, args);
+        var recipeDir = Path.GetDirectoryName(Path.GetFullPath(recipe));
+        return RunPatch(input, document, ReadFile(recipe), output, args, recipeDir);
     }
 
     internal static int FlagGet(string[] args) => ScalarGet(args, "flag", "usage: hgss-save flag get INPUT ID");
@@ -170,6 +171,33 @@ internal static class Commands
         return 0;
     }
 
+    internal static int ScriptIndex(string[] args)
+    {
+        var scripts = Args.Option(args, "--scripts") ?? throw HgssException.BadArguments("args", "script index requires --scripts DIR (pinned pokeheartgold checkout).");
+        var commit = Args.Option(args, "--commit") ?? throw HgssException.BadArguments("args", "script index requires --commit SHA.");
+        var output = Args.Option(args, "--out", "hgss-us.script-refs.json") ?? "hgss-us.script-refs.json";
+        var project = Args.Option(args, "--project", "pokeheartgold") ?? "pokeheartgold";
+        var scriptsDir = scripts.EndsWith("scr_seq", StringComparison.OrdinalIgnoreCase)
+            ? scripts
+            : Path.Combine(scripts, "files", "fielddata", "script", "scr_seq");
+        var stats = ScriptIndexer.Build(scriptsDir, commit, project, output);
+        Console.Out.WriteLine($"indexed {stats.Refs} refs to {stats.Symbols} symbols from {stats.Files} scripts at {commit} to {output}");
+        return 0;
+    }
+
+    internal static int ScriptReferences(string[] args)
+    {
+        var symbol = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save script references SYMBOL [--script-refs PATH] [--limit N]");
+        var limit = ParseInt(Args.Option(args, "--limit", "100"), "--limit");
+        var indexPath = Args.Option(args, "--script-refs") ?? Environment.GetEnvironmentVariable("HGSS_SCRIPT_REFS")
+            ?? Path.Combine(Directory.GetCurrentDirectory(), "registry", "hgss-us.script-refs.json");
+        if (indexPath is null || !File.Exists(indexPath))
+            throw HgssException.BadArguments("script-refs-missing", $"Script index not found: {indexPath ?? "(null)"}. Build one with 'script index'.");
+        var refs = ScriptIndexer.Query(indexPath, symbol);
+        Emit(w => ReportWriter.WriteScriptRefs(w, symbol, indexPath, refs, Factory.LibraryVersion, limit));
+        return refs.Count == 0 ? (int)ExitCode.SymbolFailure : 0;
+    }
+
     internal static int BuildRegistry(string[] args)
     {
         var headers = Args.Option(args, "--headers") ?? throw HgssException.BadArguments("args", "symbols build-registry requires --headers DIR (pinned pokeheartgold checkout).");
@@ -181,6 +209,68 @@ internal static class Commands
         Console.Out.WriteLine($"wrote {stats.Symbols} symbols ({stats.Skipped} skipped) from {stats.Files} headers at {commit} to {output}");
         Console.Out.WriteLine($"manifest: {stats.ManifestPath}");
         return 0;
+    }
+
+    internal static int FixtureBuild(string[] args)
+    {
+        var recipePath = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save fixture build RECIPE --bases DIR --outdir DIR");
+        var basesDir = Args.Option(args, "--bases") ?? Directory.GetCurrentDirectory();
+        var outDir = Args.Option(args, "--outdir") ?? throw HgssException.BadArguments("args", "fixture build requires --outdir DIR.");
+        var force = Args.Flag(args, "--force");
+        var maxRanges = ParseInt(Args.Option(args, "--max-ranges", "40"), "--max-ranges");
+        var registry = TryLoadRegistry(args);
+        var recipeBytes = ReadFile(recipePath);
+        var recipe = FixtureParser.Parse(recipeBytes, recipePath);
+        var recipeDir = Path.GetDirectoryName(Path.GetFullPath(recipePath)) ?? Directory.GetCurrentDirectory();
+        var basePath = Path.IsPathRooted(recipe.BasePath) ? recipe.BasePath : Path.GetFullPath(Path.Combine(basesDir, recipe.BasePath));
+        if (!File.Exists(basePath))
+            throw HgssException.BadArguments("fixture-base-missing", $"Fixture base save not found: {basePath}. Point --bases at your local checkpoint directory; base saves are never committed.");
+        var inputBytes = ReadFile(basePath);
+        if (recipe.BaseSha256 is not null && !string.Equals(recipe.BaseSha256, HashUtil.Sha256(inputBytes), StringComparison.OrdinalIgnoreCase))
+            throw HgssException.Precondition("fixture-base-sha", $"Fixture base sha256 does not match {basePath}.");
+        using var session = Factory.OpenWithRegistry(basePath, registry);
+        if (!string.Equals(session.Identity.Game, recipe.Game, StringComparison.OrdinalIgnoreCase))
+            throw HgssException.Precondition("fixture-game", $"Fixture declares game '{recipe.Game}' but the base save identifies as '{session.Identity.Game}'.");
+        var plan = PatchPlanner.Plan(session, recipe.Patch, registry, basePath, inputBytes, recipeBytes, false, recipeDir);
+        if (!plan.CanApply)
+        {
+            Emit(w => ReportWriter.WritePatch(w, plan, null, null, false, Factory.LibraryVersion));
+            return (int)ExitCode.PreconditionFailed;
+        }
+
+        var result = PatchRunner.Apply(session, plan, Factory, maxRanges);
+        Directory.CreateDirectory(outDir);
+        var outputPath = Path.Combine(outDir, recipe.Id + ".sav");
+        var manifestPath = Path.Combine(outDir, recipe.Id + ".manifest.json");
+        if ((File.Exists(outputPath) || File.Exists(manifestPath)) && !force)
+            throw HgssException.OutputConflict("output-exists", $"Fixture output already exists in {outDir}. Pass --force to overwrite.");
+        WriteOutputAtomic(outputPath, result.OutputBytes, true);
+        var manifest = new FixtureManifest(
+            FixtureManifest.SchemaId, recipe.Id, HashUtil.Sha256(inputBytes),
+            HashUtil.Sha256(recipeBytes), result.OutputSha256, Factory.LibraryVersion,
+            registry.Revision, session.Identity.Game,
+            result.Validation.Passed ? "pass" : "fail", "needs-runtime-verification", null);
+        WriteOutputAtomic(manifestPath, System.Text.Encoding.UTF8.GetBytes(ReportWriter.SerializeManifest(manifest, recipe)), true);
+        Emit(w => ReportWriter.WriteFixtureBuild(w, recipe, basePath, inputBytes, result, outputPath, manifestPath, Factory.LibraryVersion));
+        return 0;
+    }
+
+    internal static int FixtureVerify(string[] args)
+    {
+        var manifestPath = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save fixture verify MANIFEST --outdir DIR");
+        var outDir = Args.Option(args, "--outdir") ?? Path.GetDirectoryName(Path.GetFullPath(manifestPath)) ?? Directory.GetCurrentDirectory();
+        var manifestBytes = ReadFile(manifestPath);
+        var (manifest, outputFile) = ReportWriter.ParseManifest(manifestBytes, manifestPath);
+        var outputPath = Path.Combine(outDir, outputFile);
+        if (!File.Exists(outputPath))
+            throw HgssException.BadArguments("fixture-output-missing", $"Fixture output not found: {outputPath}.");
+        var outputBytes = ReadFile(outputPath);
+        if (!string.Equals(HashUtil.Sha256(outputBytes), manifest.OutputSha256, StringComparison.OrdinalIgnoreCase))
+            throw HgssException.Structural("fixture-hash", $"Output sha256 does not match manifest {manifestPath}.");
+        using var session = Factory.OpenBytes(outputBytes, outputPath);
+        var validation = session.ValidateStructural();
+        Emit(w => ReportWriter.WriteFixtureVerify(w, manifestPath, manifest, outputPath, validation, Factory.LibraryVersion));
+        return validation.Passed ? 0 : (int)ExitCode.StructuralFailure;
     }
 
     internal static int ContainerProbe(string[] args)
@@ -246,6 +336,84 @@ internal static class Commands
         return 0;
     }
 
+    internal static int PartyExport(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save party export INPUT SLOT --out FILE.pk4");
+        var slotRaw = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "party export requires a slot 0..5.");
+        var slot = ParseInt(slotRaw, "slot");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "party export requires --out FILE.pk4.");
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var bytes = session.ExportPartySlot(slot);
+        var preview = session.PreviewPkFile(bytes);
+        WriteOutputAtomic(output, bytes, Args.Flag(args, "--force"));
+        Emit(w => ReportWriter.WriteValue(w, "party.export", input, session.OriginalBytes, $"party.{slot}.species", preview.Species.ToString(), Factory.LibraryVersion, registry, Warnings(registry)));
+        return 0;
+    }
+
+    internal static int PartyImport(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save party import INPUT SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]");
+        var slot = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "party import requires a slot 0..5."), "slot");
+        var file = Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "party import requires a .pk4 file.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "party import requires --out OUT.");
+        var expectRaw = Args.Option(args, "--expect-species");
+        int? expect = expectRaw is null ? null : ParseInt(expectRaw, "--expect-species");
+        var updateDex = !Args.Flag(args, "--no-dex");
+        var recipeDir = Path.GetDirectoryName(Path.GetFullPath(file)) ?? "";
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new PartyImportOperation(slot, file, expect, updateDex)], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"party.slot.import:{slot}:{file}:{expect}:{updateDex}"), output, args, recipeDir);
+    }
+
+    internal static int PartyClear(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save party clear INPUT SLOT --out OUT");
+        var slot = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "party clear requires a slot 0..5."), "slot");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "party clear requires --out OUT.");
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new PartyClearOperation(slot)], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"party.slot.clear:{slot}"), output, args);
+    }
+
+    internal static int BoxExport(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save box export INPUT BOX SLOT --out FILE.pk4");
+        var box = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "box export requires a box 0..17."), "box");
+        var slot = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "box export requires a slot 0..29."), "slot");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "box export requires --out FILE.pk4.");
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var bytes = session.ExportBoxSlot(box, slot);
+        var preview = session.PreviewPkFile(bytes);
+        WriteOutputAtomic(output, bytes, Args.Flag(args, "--force"));
+        Emit(w => ReportWriter.WriteValue(w, "box.export", input, session.OriginalBytes, $"box.{box}.{slot}.species", preview.Species.ToString(), Factory.LibraryVersion, registry, Warnings(registry)));
+        return 0;
+    }
+
+    internal static int BoxImport(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save box import INPUT BOX SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]");
+        var box = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "box import requires a box 0..17."), "box");
+        var slot = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "box import requires a slot 0..29."), "slot");
+        var file = Args.Positional(args, 3) ?? throw HgssException.BadArguments("args", "box import requires a .pk4 file.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "box import requires --out OUT.");
+        var expectRaw = Args.Option(args, "--expect-species");
+        int? expect = expectRaw is null ? null : ParseInt(expectRaw, "--expect-species");
+        var updateDex = !Args.Flag(args, "--no-dex");
+        var recipeDir = Path.GetDirectoryName(Path.GetFullPath(file)) ?? "";
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BoxImportOperation(box, slot, file, expect, updateDex)], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"box.slot.import:{box}:{slot}:{file}:{expect}:{updateDex}"), output, args, recipeDir);
+    }
+
+    internal static int BoxClear(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save box clear INPUT BOX SLOT --out OUT");
+        var box = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "box clear requires a box 0..17."), "box");
+        var slot = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "box clear requires a slot 0..29."), "slot");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "box clear requires --out OUT.");
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BoxClearOperation(box, slot)], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"box.slot.clear:{box}:{slot}"), output, args);
+    }
+
     private static int ScalarGet(string[] args, string field, string usage)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", usage);
@@ -291,7 +459,7 @@ internal static class Commands
         return ($"variable.{name ?? $"0x{id:X4}"}", value.ToString());
     }
 
-    private static int RunPatch(string input, PatchDocument document, byte[] patchBytes, string output, string[] args)
+    private static int RunPatch(string input, PatchDocument document, byte[] patchBytes, string output, string[] args, string? recipeDirectory = null)
     {
         var dryRun = Args.Flag(args, "--dry-run");
         var requireSymbols = Args.Flag(args, "--require-symbols");
@@ -299,7 +467,7 @@ internal static class Commands
         var registry = TryLoadRegistry(args);
         var inputBytes = ReadFile(input);
         using var session = Factory.OpenWithRegistry(input, registry);
-        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols);
+        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory);
 
         if (!plan.CanApply)
         {

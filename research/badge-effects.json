@@ -1,0 +1,1124 @@
+[
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_VOLCANO"
+   ],
+   "at": "scr_seq_0015_D11R0106.s:91",
+   "label": "scr_seq_D11R0106_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_VOLCANO"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:91"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:92"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_265"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:93"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_HIDE_ROUTE_19_WORKMEN_CLOSED"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:94"
+   },
+   {
+    "op": "ClearFlag",
+    "args": [
+     "FLAG_HIDE_ROUTE_19_WORKMEN_OPEN"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:95"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_13F"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:97"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_140"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:98"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_13C"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:99"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM50_FROM_BLAINE"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:111"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM50",
+     "1",
+     "_01AC"
+    ],
+    "at": "scr_seq_0015_D11R0106.s:109"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_RISING"
+   ],
+   "at": "scr_seq_0112_D44R0103.s:152",
+   "label": "_019C"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_RISING"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:152"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_998"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:182"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_0EA"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:183"
+   },
+   {
+    "op": "ClearFlag",
+    "args": [
+     "FLAG_HIDE_VICTORY_ROAD_CLAIR"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:184"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_UNK_40C4",
+     "1"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:185"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_HIDE_NEW_BARK_FRIENDS_ROOM_FRIEND"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:186"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_UNK_40C3",
+     "1"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:187"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_UNK_407B",
+     "1"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:188"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_ELMS_LAB",
+     "8"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:189"
+   },
+   {
+    "op": "ClearFlag",
+    "args": [
+     "FLAG_HIDE_ELMS_LAB_FRIEND"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:190"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_NEW_BARK_EAST_EXIT",
+     "1"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:191"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNe",
+    "args": [
+     "_02D3"
+    ],
+    "at": "scr_seq_0112_D44R0103.s:172"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_EARTH"
+   ],
+   "at": "scr_seq_0743_T02GYM0101.s:54",
+   "label": "scr_seq_T02GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_EARTH"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:54"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:55"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_998"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:56"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_ACE_TRAINER_M_ARABELLA"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:58"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_ACE_TRAINER_F_SALMA"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:59"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_ACE_TRAINER_M_BONITA"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:60"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_DOUBLE_TEAM_ELAN_AND_IDA"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:61"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_97F"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:62"
+   },
+   {
+    "op": "ClearFlag",
+    "args": [
+     "FLAG_HIDE_ROUTE_10_ZAPDOS"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:63"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_HIDE_CERULEAN_CITY_MAN_OUTSIDE_CAVE"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:64"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_UNK_4096",
+     "1"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:65"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM92_FROM_BLUE"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:77"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM92",
+     "1",
+     "_0127"
+    ],
+    "at": "scr_seq_0743_T02GYM0101.s:75"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_BOULDER"
+   ],
+   "at": "scr_seq_0752_T03GYM0101.s:97",
+   "label": "scr_seq_T03GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_BOULDER"
+    ],
+    "at": "scr_seq_0752_T03GYM0101.s:97"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0752_T03GYM0101.s:98"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_CAMPER_JERRY"
+    ],
+    "at": "scr_seq_0752_T03GYM0101.s:100"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_HIKER_EDWIN"
+    ],
+    "at": "scr_seq_0752_T03GYM0101.s:101"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM80_FROM_BROCK"
+    ],
+    "at": "scr_seq_0752_T03GYM0101.s:114"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM80",
+     "1",
+     "_01AE"
+    ],
+    "at": "scr_seq_0752_T03GYM0101.s:112"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_CASCADE"
+   ],
+   "at": "scr_seq_0760_T04GYM0101.s:216",
+   "label": "scr_seq_T04GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_CASCADE"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:216"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:217"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_SWIMMER_F_DIANA"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:219"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_SWIMMER_F_BRIANA"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:220"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_SWIMMER_F_JOY"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:221"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_SAILOR_PARKER"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:222"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_SAILOR_EDDIE"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:223"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM03_FROM_MISTY"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:237"
+   }
+  ],
+  "branches": [
+   {
+    "op": "CallIfSet",
+    "args": [
+     "FLAG_UNK_14D",
+     "_0364"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:229"
+   },
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM03",
+     "1",
+     "_033E"
+    ],
+    "at": "scr_seq_0760_T04GYM0101.s:235"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_THUNDER"
+   ],
+   "at": "scr_seq_0778_T06GYM0101.s:290",
+   "label": "scr_seq_T06GYM0101_023"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_THUNDER"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:290"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:291"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_HIDE_VERMILION_GYM_STOPS"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:293"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_GUITARIST_VINCENT"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:300"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_GENTLEMAN_GREGORY"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:301"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_JUGGLER_HORTON"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:302"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM34_FROM_LT_SURGE"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:314"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM34",
+     "1",
+     "_03BD"
+    ],
+    "at": "scr_seq_0778_T06GYM0101.s:312"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_RAINBOW"
+   ],
+   "at": "scr_seq_0786_T07GYM0101.s:107",
+   "label": "scr_seq_T07GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_RAINBOW"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:107"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:108"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_TWINS_JO_AND_ZOE"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:110"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_LASS_MICHELLE"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:111"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_PICNICKER_TANYA"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:112"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_BEAUTY_JULIA"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:113"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM19_FROM_ERIKA"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:125"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM19",
+     "1",
+     "_01C1"
+    ],
+    "at": "scr_seq_0786_T07GYM0101.s:123"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_SOUL"
+   ],
+   "at": "scr_seq_0809_T08GYM0101.s:519",
+   "label": "scr_seq_T08GYM0101_001"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_SOUL"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:519"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:520"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_PICNICKER_CINDY"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:522"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_CAMPER_BARRY"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:523"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_LASS_LINDA"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:524"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_LASS_ALICE"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:525"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM84_FROM_JANINE"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:537"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM84",
+     "1",
+     "_0794"
+    ],
+    "at": "scr_seq_0809_T08GYM0101.s:535"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_MARSH"
+   ],
+   "at": "scr_seq_0829_T11GYM0101.s:61",
+   "label": "scr_seq_T11GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_MARSH"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:61"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_UNK_4135",
+     "1"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:62"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_998"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:64"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_PSYCHIC_M_FRANKLIN"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:65"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_PSYCHIC_M_JARED"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:66"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_MEDIUM_REBECCA"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:67"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_MEDIUM_DARCY"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:68"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM48_FROM_SABRINA"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:80"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM48",
+     "1",
+     "_0136"
+    ],
+    "at": "scr_seq_0829_T11GYM0101.s:78"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_ZEPHYR"
+   ],
+   "at": "scr_seq_0859_T22GYM0101.s:75",
+   "label": "scr_seq_T22GYM0101_001"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_ZEPHYR"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:75"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_BIRD_KEEPER_GS_ROD"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:77"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_BIRD_KEEPER_GS_ABE"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:78"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_VIOLET_CITY_OW",
+     "1"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:79"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_192"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:80"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_ELMS_LAB",
+     "6"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:81"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_0F4"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:82"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_HIDE_WIFI_CLUB_CLOSED_LADY"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:83"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM51_FROM_FALKNER"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:95"
+   },
+   {
+    "op": "ClearFlag",
+    "args": [
+     "FLAG_HIDE_NEW_BARK_FRIENDS_ROOM_FRIEND"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:96"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM51",
+     "1",
+     "_015E"
+    ],
+    "at": "scr_seq_0859_T22GYM0101.s:93"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_HIVE"
+   ],
+   "at": "scr_seq_0869_T23GYM0102.s:82",
+   "label": "scr_seq_T23GYM0102_001"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_HIVE"
+    ],
+    "at": "scr_seq_0869_T23GYM0102.s:82"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_BUG_CATCHER_AL"
+    ],
+    "at": "scr_seq_0869_T23GYM0102.s:83"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_BUG_CATCHER_BENNY"
+    ],
+    "at": "scr_seq_0869_T23GYM0102.s:84"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_BUG_CATCHER_JOSH"
+    ],
+    "at": "scr_seq_0869_T23GYM0102.s:85"
+   },
+   {
+    "op": "SetTrainerFlag",
+    "args": [
+     "TRAINER_TWINS_AMY_AND_MIMI"
+    ],
+    "at": "scr_seq_0869_T23GYM0102.s:86"
+   }
+  ],
+  "branches": []
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_STORM"
+   ],
+   "at": "scr_seq_0877_T24GYM0101.s:40",
+   "label": "scr_seq_T24GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_STORM"
+    ],
+    "at": "scr_seq_0877_T24GYM0101.s:40"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_MIDGAME_BADGES",
+     "1"
+    ],
+    "at": "scr_seq_0877_T24GYM0101.s:43"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_UNK_4116",
+     "1"
+    ],
+    "at": "scr_seq_0877_T24GYM0101.s:45"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_ROCKET_TAKEOVER",
+     "1"
+    ],
+    "at": "scr_seq_0877_T24GYM0101.s:48"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNe",
+    "args": [
+     "_00A6"
+    ],
+    "at": "scr_seq_0877_T24GYM0101.s:47"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_PLAIN"
+   ],
+   "at": "scr_seq_0886_T25GYM0101.s:125",
+   "label": "_01A0"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_PLAIN"
+    ],
+    "at": "scr_seq_0886_T25GYM0101.s:125"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_UNK_410A",
+     "2"
+    ],
+    "at": "scr_seq_0886_T25GYM0101.s:126"
+   },
+   {
+    "op": "ClearFlag",
+    "args": [
+     "FLAG_UNK_084"
+    ],
+    "at": "scr_seq_0886_T25GYM0101.s:127"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_998"
+    ],
+    "at": "scr_seq_0886_T25GYM0101.s:128"
+   }
+  ],
+  "branches": []
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_MINERAL"
+   ],
+   "at": "scr_seq_0913_T26GYM0101.s:134",
+   "label": "scr_seq_T26GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_MINERAL"
+    ],
+    "at": "scr_seq_0913_T26GYM0101.s:134"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_MIDGAME_BADGES",
+     "1"
+    ],
+    "at": "scr_seq_0913_T26GYM0101.s:135"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_ROCKET_TAKEOVER",
+     "1"
+    ],
+    "at": "scr_seq_0913_T26GYM0101.s:139"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNe",
+    "args": [
+     "_01CB"
+    ],
+    "at": "scr_seq_0913_T26GYM0101.s:138"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_FOG"
+   ],
+   "at": "scr_seq_0922_T27GYM0101.s:115",
+   "label": "scr_seq_T27GYM0101_001"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_FOG"
+    ],
+    "at": "scr_seq_0922_T27GYM0101.s:115"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_MIDGAME_BADGES",
+     "1"
+    ],
+    "at": "scr_seq_0922_T27GYM0101.s:116"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_UNK_998"
+    ],
+    "at": "scr_seq_0922_T27GYM0101.s:118"
+   },
+   {
+    "op": "SetFlag",
+    "args": [
+     "FLAG_GOT_TM30_FROM_MORTY"
+    ],
+    "at": "scr_seq_0922_T27GYM0101.s:129"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNoItemSpace",
+    "args": [
+     "ITEM_TM30",
+     "1",
+     "_01CF"
+    ],
+    "at": "scr_seq_0922_T27GYM0101.s:127"
+   }
+  ]
+ },
+ {
+  "anchor": {
+   "op": "GiveBadge",
+   "args": [
+    "BADGE_GLACIER"
+   ],
+   "at": "scr_seq_0932_T28GYM0101.s:87",
+   "label": "scr_seq_T28GYM0101_000"
+  },
+  "effects": [
+   {
+    "op": "GiveBadge",
+    "args": [
+     "BADGE_GLACIER"
+    ],
+    "at": "scr_seq_0932_T28GYM0101.s:87"
+   },
+   {
+    "op": "AddVar",
+    "args": [
+     "VAR_MIDGAME_BADGES",
+     "1"
+    ],
+    "at": "scr_seq_0932_T28GYM0101.s:88"
+   },
+   {
+    "op": "SetVar",
+    "args": [
+     "VAR_SCENE_ROCKET_TAKEOVER",
+     "1"
+    ],
+    "at": "scr_seq_0932_T28GYM0101.s:92"
+   }
+  ],
+  "branches": [
+   {
+    "op": "GoToIfNe",
+    "args": [
+     "_012F"
+    ],
+    "at": "scr_seq_0932_T28GYM0101.s:91"
+   }
+  ]
+ }
+]

@@ -83,6 +83,48 @@ vs `lake-leg22..26`, `lake-leg24` frame_000440.)
   Suicune + Hiker-Strength script events sit mid-route; R43 to
   the lake. Party (Quilava 34/Pichu 33/Machoke 30/Kadabra 28,
   Mantine Surf-capable, Spearow Fly) + 989 Max Repels staged.
+- Ecruteak east exit pinned (SOURCE + RUNTIME, legs 42-51):
+  `075_T27.json` lists `MAP_ROUTE_42_ECRUTEAK_GATEHOUSE` at Ecruteak
+  (415,175) and (415,176) — the ONLY east exit. The y=184 road is a
+  dead end (x=413→414 tree wall, NEGATIVE). Played path from outdoor
+  anchor `lake-leg14/trek14.mcpr` (397,188): west to (384,184,
+  trek42), north blocked there, further west then north to (380,176,
+  trek44 — the open y=176 corridor), east to (395,176, trek45),
+  south-dip around the Mart to (403,176, trek46) → (411,177, trek47)
+  → (414,174, trek48), step onto (415,175/176) → gatehouse interior
+  (trek50 screenshot), east across to R42 (422,175, trek51, Route 42
+  banner). RAM: `0x227d498` {warp 0, (422,175)} — R42 outdoor uses
+  warp 0, NOT the Ecruteak `FFFFFFFF` sentinel (MAP-02 evidence:
+  warp id varies by map).
+- R42 east push (RUNTIME, legs 52-56): (422,175) → (428,173) →
+  (440,172) at the water/cave mouth; cave is `MAP_MOUNT_MORTAR_1F_ENTRANCE`
+  (`041_R42.json`: entrances at (436,171)/(464,175)/(466,164)/
+  (493,171); we used (436,171)). Step from (437,172) west+ north
+  into the mouth → Mt Mortar banner (trek56). Interior warps
+  (`116_D38R0101.json`): 4 R42 doors + Back/2F/B1F shafts — through-
+  route still open, R43/Lake after.
+
+## Move-teach synthesis, first approved case (Surf, Nov 2026)
+
+- Problem: Mt. Mortar 1F Entrance at (20,44) is water-barred east
+  (`lake-leg57`: (20,46)→(20,44), east walled; R42 lakes likewise
+  need Surf). Party Mantine (slot 5) knew [61,29,97,17], no Surf
+  (57); bag holds HM03.
+- Method (INTERVENTION + RUNTIME): `party export` slot 5 → set
+  Move3 97→57, Move3_PP→15 via PKHeX.Core 26.10.18 (`RefreshChecksum`;
+  throwaway helper, not committed) → `party import --expect-species
+  226` → `leveld-out/trek-saves/hg-6gyn-surf.sav`
+  (`13279a5a…`). Byte diff: 130 requested-data (party slot blob) +
+  2 checksum, 0 unclassified, checksums valid. `inspect`: Mantine
+  moves [61,29,57,17], location untouched (78/394/184/z3).
+  Headless 700-frame boot: `--assert-spawn 78,394,184,3` matches
+  with 2 agreeing copies (`0x227d498` + `0x2377a20`).
+- Why this is safe to approve: HM teach is a legal play action
+  (Mantine learns Surf, HM03 in bag, Fog badge owned at 6gyn so
+  field use is unlocked); the edit reproduces exactly what the
+  in-game teach would write, with no flag/var/bag side effects.
+  Pattern for future synthesis: export → minimal PKHeX-Core patch
+  → import with `--expect-species` → inspect/diff/boot-verify.
 
 ## COH-01 minimum-edit-set evidence (Olivine, staged this session)
 

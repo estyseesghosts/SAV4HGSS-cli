@@ -208,10 +208,17 @@ only passed by coincidence (Z equaled direction there).
 - Lake trek status (Nov 2026): gate decoded (`scr_seq_0938_T29.s`;
   RED_SCALE/CAUGHT/HIDE_GYARADOS/HIDE_LANCE pins), bracket verified
   (6gyn pre, 7gyn post), 71-save census confirms no lake base exists.
-  Ecruteak maze partially mapped (y=184 road to x=413 tree wall,
-  Pokécenter door ~(397,182), interiors drop the Location pattern —
-  see `docs/research-findings.md`). Route: R42 Surf-or-Mortar +
-  R43 north. Repel + party staged; exit/road still open.
+  Ecruteak east exit FOUND by decomp + play: `075_T27.json` warps put
+  the R42 gatehouse at Ecruteak (415,175-176); the y=184 road dead-ends
+  at the x=413-414 tree wall, so the path runs north at x~380 to the
+  y=176 corridor (trek44: 380,176), east past the Mart via a south dip
+  (trek46: 403,176 -> trek47: 411,177), to (414,174) and into the
+  gatehouse (legs 48-50), across to R42 (422,175, legs 51-52, Route 42
+  banner on screenshot), east on R42 to (440,172) and into Mt Mortar
+  (Mt Mortar banner, legs 53-56). Interiors drop the Location pattern;
+  R42 outdoor uses warp 0 not FFFFFFFF — see `docs/research-findings.md`.
+  Next: through Mortar (`116_D38R0101.json` warps) to R42 east / R43
+  north to the lake, in-game save, stage `hg-lake-pre-gyarados`.
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.

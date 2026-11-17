@@ -155,6 +155,14 @@ Grant flags follow story order in the HG lineage: HM01 appears by 3 badges, HM02
 
 `story build` composes the two things that are verified: a played-save preset as the base and badge consequences for the rest. Masks 0, 5, 73 and 255 on a blank HG gave 0 violations; 255 chose `hg-08-rising` and leaves only Rock Climb locked (Earth). Mask 73 (Zephyr, Fog, Glacier) on `hg-01-zephyr` booted to Violet Pokemon Center (497,271), matching warp 7. What it does not do: a badge beyond the base gets no scene variables, NPC flags or HM grants, so mask 73 holds Fog and Glacier without Surf. Closing that needs more than one lineage of evidence.
 
+## F14. The scripts that give badges and HMs have no story guards
+
+`tools/script_guards.py` walks every script entry label through GoTo/GoToIf*/CallIf* edges and records, for each SetFlag/ClearFlag/SetVar/AddVar/GiveBadge, the flag and variable conditions on the path that reaches it (`research/script-guards.json`: 497 scripts, 1,869 distinct writes, 6,650 guarded paths).
+
+Result for the writes that matter. All 16 `GiveBadge` paths carry no story guard once battle results (`VAR_SPECIAL_RESULT`) and temp vars are dropped; the one exception, Plain with `FLAG_UNK_0B7`, is set earlier in the same script (`scr_seq_0886_T25GYM0101.s:175`), so it is not a prerequisite. `FLAG_GOT_HM02` (`scr_seq_0875_T24.s:39`) and `FLAG_GOT_HM03` (`scr_seq_0928_T27R0501.s:378`) are unguarded; HM01 only tests that it was not already given. HM08 tests `VAR_UNK_4096 == 2` (`scr_seq_0740_T01R0301.s:95`), but the one save that owns HM08 has that var at 0, because `scr_seq_0735_T01.s:27` resets it: a scene var is cleared after use, so it cannot be audited from the end state. TM givers test only `VAR_MIDGAME_BADGES` and `VAR_SCENE_ROCKET_TAKEOVER != 4` (TM11).
+
+Consequence for the resolver: ordering is not in the scripts that write progress. It is in access (which map is reachable, which NPC blocks the path, which frame or coordinate trigger fires), so prerequisites for an arbitrary badge set have to come from the map graph (warps, `FLAG_HIDE_*` placement, the F11 triggers), not from the gym or HM scripts. This replaces the earlier reading of the `needs` edges in `research/story-atoms-hg.json`, which are file-level reads and not guards (the HM01 edge there points at a read on a different branch, `scr_seq_0092_D36R0101.s:65`).
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

@@ -85,11 +85,33 @@ direction @+16, with zero padding (int upper halves). Wanted map/x/y
 come from the staged save's own M/X/Y (`SAV4HGSS.cs:186-188`).
 `--assert-spawn` scans `0x02000000-0x02400000` for that pattern.
 
-Proven live, not stale: holding Up for 120 frames from the Violet
-overworld state moved Y 246→244 in place at `0x227d498`, map/X
-unchanged. A third copy sometimes appears (Kanto showed an extra hit
-at `0x2377a20` alongside the usual pair) — role unknown, recorded but
-not relied on.
+Proven live, not stale: holding Up for 60 frames from the Violet
+overworld state moved Y 246→244 in the primary struct at `0x227d498`,
+map/X unchanged; holding Down for 30 frames in a later run moved
+246→248 in the same struct. The native input path was verified
+round-trip (`keypad_get` echoes the held mask, `KEYINPUT` at
+`0x04000130` reads `0x37F` with bit 7 cleared for Down, persisting
+across frames). The HGSS bottom screen permanently shows the menu
+buttons during overworld play, so menu-looking screenshots are normal
+overworld UI, not a paused menu — an earlier "cursor doesn't move"
+reading mistook that static UI for a menu state.
+
+Two corrections from Nov 2026 d-pad testing:
+
+- The per-map mirror goes stale: after the Down×30 walk the primary
+  at `0x227d498` read (459,248) while the copy at `0x239aa40` still
+  read (459,246). The old assert keyed on the full map/x/y pattern
+  with any-hit matching, so it kept passing on the stale copy.
+  `--assert-spawn` now requires at least two agreeing full-pattern
+  copies and lists every same-map struct with coordinates.
+- Same-map structs are not all the player: a Violet fresh boot shows
+  NPC structs (470,260) at `0x2377a20` and (459,255) at `0x2377a70`;
+  a Saffron fresh boot shows the player triplicated
+  (`0x227d498/0x2377a20/0x239aa40` at (1308,231)) plus an NPC
+  triplicated nearby. Map-only unanimity would false-fail on NPCs.
+- The u16 at +16 did not track facing here: it read 3 (`DIR_EAST`)
+  before and after the south walk. Report it as observed; do not
+  read it as avatar facing, and do not gate on it.
 
 Save Z is *not* live direction and is recorded, never asserted: real
 saves carry Z=4 (Mahogany) and Z=7 (Blackthorn) while decomp
@@ -146,6 +168,16 @@ only passed by coincidence (Z equaled direction there).
 8. **Stray-comma recipe edits.** A draft artifact (lone `,` line)
    broke recipe JSON twice. Fixed by validating with a JSON parse
    immediately after writing, before building.
+9. **Spawn-assert false-pass on stale mirror + static-menu misread.**
+   D-pad was suspected broken because menu-looking screenshots never
+   changed and `--assert-spawn` kept passing after held inputs. Both
+   premises were wrong: the HGSS bottom screen always shows the menu
+   buttons in overworld play (static UI, not a paused menu), and a
+   RAM round-trip proved Down×30 moves the primary struct 246→248
+   while its mirror stays behind. Fixed by requiring ≥2 agreeing
+   full-pattern copies and listing every same-map struct; verified
+   with a fresh-boot pass (2 copies) and a post-move loud fail
+   (primary moved, mirror stale, matched=1).
 
 ## 6. Deliberate refusals (not bugs)
 

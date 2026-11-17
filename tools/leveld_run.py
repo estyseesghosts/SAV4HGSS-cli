@@ -82,6 +82,21 @@ def check_spawn(lib, save: Path, spec: str) -> dict:
     0..3 (global_fieldmap.h:4-9 DIR_MAX 4), so they are different
     quantities; live direction is reported as observed. Scans
     0x02000000-0x02400000.
+
+    The scan keys on map+warp and decodes x/y/dir per hit, but matches
+    on the full map/x/y pattern and requires AT LEAST TWO agreeing
+    copies. Nov 2026 testing showed why both halves matter: the field
+    keeps several Location-shaped structs per map (Violet fresh boot:
+    player (459,246) at 0x227d498 + 0x239aa40 plus NPC structs
+    (470,260) at 0x2377a20 and (459,255) at 0x2377a70; Saffron fresh
+    boot: player x3 at 0x227d498/0x2377a20/0x239aa40 plus an NPC x3),
+    so map-only unanimity false-fails on NPCs; and after DOWN x30 one
+    player copy (0x227d498) moved 246->248 while its mirror
+    (0x239aa40) stayed, so any-single-hit matching false-passes on
+    the stale mirror. Fresh boots (no inputs, stationary player) show
+    2-3 agreeing player copies; a moved player leaves exactly 1. The
+    report lists every same-map struct with coordinates so future
+    divergence is visible instead of silent.
     """
     import struct
 
@@ -92,10 +107,10 @@ def check_spawn(lib, save: Path, spec: str) -> dict:
     for v in want:
         if not 0 <= v <= 0xFFFF:
             raise ValueError(f"Spawn component {v} outside u16 range.")
-    prefix = (struct.pack("<H", want_map) + b"\x00\x00\xff\xff\xff\xff"
-               + struct.pack("<H", want_x) + b"\x00\x00"
-               + struct.pack("<H", want_y) + b"\x00\x00")
+    prefix = struct.pack("<H", want_map) + b"\x00\x00\xff\xff\xff\xff"
+    pattern = prefix + struct.pack("<H", want_x) + b"\x00\x00" + struct.pack("<H", want_y) + b"\x00\x00"
     hits: list[dict] = []
+    matched: list[dict] = []
     RAM_START, RAM_LEN, CHUNK = 0x02000000, 0x400000, 0x1000
     addr = RAM_START
     carry = b""
@@ -113,17 +128,25 @@ def check_spawn(lib, save: Path, spec: str) -> dict:
         while idx >= 0:
             hit_addr = base + idx
             try:
-                direction = struct.unpack("<H", lib.peek_block(0, hit_addr + 16, 2))[0]
+                rest = lib.peek_block(0, hit_addr + 8, 12)
+                hx = struct.unpack("<H", rest[0:2])[0]
+                hy = struct.unpack("<H", rest[4:6])[0]
+                hd = struct.unpack("<H", rest[8:10])[0]
             except Exception:
-                direction = None
-            hits.append({"address": hex(hit_addr), "direction": direction})
+                hx, hy, hd = None, None, None
+            rec = {"address": hex(hit_addr), "x": hx, "y": hy, "direction": hd}
+            hits.append(rec)
+            if hx == want_x and hy == want_y:
+                matched.append(rec)
             idx = window.find(prefix, idx + 1)
         carry = window[-(len(prefix) - 1):] if len(prefix) > 1 else b""
         addr += size
-    live = [want_map, want_x, want_y] if hits else None
-    return {"prefix": prefix.hex(), "hits": hits, "live": live, "want": [want_map, want_x, want_y],
+    match = len(matched) >= 2
+    live = [want_map, want_x, want_y] if match else None
+    return {"prefix": pattern.hex(), "hits": hits, "matched": matched,
+            "live": live, "want": [want_map, want_x, want_y],
             "save_z": want_z, "z_note": "save Z is not live direction (Z=4,7 observed; DIR range is 0..3)",
-            "match": bool(hits)}
+            "match": match}
 
 
 def main() -> int:

@@ -155,7 +155,7 @@ Level D runs headless via `tools/leveld_run.py` on the melonDS-MCP native core (
 
 ## Research log
 
-`docs/state-log.md` records what diffing the real saves against the decomp and PKHeX has shown (flag families, non-monotonic progress, the save's position and actor state, the flag-0x966 spawn path). Tools: `tools/corpus_census.py`, `tools/lineage_diff.py`, `tools/residual_diff.py`, `tools/field_locations.py`; outputs in `research/`. Original saves are never modified.
+`docs/state-log.md` records what diffing the real saves against the decomp and PKHeX has shown (flag families, non-monotonic progress, the save's position and actor state, the flag-0x966 spawn path). Tools: `tools/corpus_census.py`, `tools/lineage_diff.py`, `tools/residual_diff.py`, `tools/field_locations.py`, `tools/state_delta.py` (census delta to recipe, verified by replay); outputs in `research/`. Original saves are never modified.
 
 ## License
 

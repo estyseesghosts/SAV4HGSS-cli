@@ -99,6 +99,14 @@ The warp table (`registry/hgss-us.warp-spawns.json`) is the derivation of the zo
 
 Not yet attributed: the `0x23B8-0x2740` and `0x4434-0x4510` tables. Next step is to compute chunk sizes from the decomp structs and place every cluster precisely.
 
+## F7. Story-state deltas replay exactly (flags and save vars)
+
+`tools/state_delta.py` turns two census saves into a recipe: `flag.set` true for flags on, false for flags off, and `variable.set` (with `expect`) for every changed writable var. `--verify EXE` applies it to the earlier raw save and diffs the result against the later one.
+
+Result on all 10 consecutive steps of the HG "Master" lineage (1gyn through posE4, including Celebi and E4): 0 differing flags every time. The only remaining differences are the vars the tool excludes on purpose: temp var 0x4000 (below 0x4030, not writable; takes values 0..7 across the lineage), `VAR_LOTO_NUMBER_LO` and `VAR_FRIENDSHIP_STEPS` (per-session counters). A first version also excluded every `VAR_UNK_*` var; that left 4 real story vars unset (e.g. `VAR_UNK_4080` 0 to 4 between 1gyn and 2gyn), so the exclusion list is now exactly the three names above.
+
+Scope: this replays states between saves we already have, so the recipes are only as good as those milestones. The 11 HG milestones are one playthrough; choices that differ between playthroughs are not separated yet (open item 3).
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

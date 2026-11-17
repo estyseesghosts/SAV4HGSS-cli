@@ -122,6 +122,28 @@
     "ClearFlag FLAG_HIDE_ROUTE_22_GIOVANNI_RIVAL in scr_seq_0092_D36R0101.s:2383",
     "SetFlag FLAG_HIDE_ILEX_FOREST_FRIEND in scr_seq_0092_D36R0101.s:2385"
    ]
+  },
+  {
+   "id": "arceus-ruins-of-alph",
+   "effects": [
+    "ClearFlag FLAG_HIDE_ALPH_OUTSIDE_ARCEUS_EVENT_SUIT, show suit actor (scr_seq_0037_D24R0101.s:212-213)",
+    "Choice of Dialga/Palkia/Giratina + Sinjoh creation in scr_seq_0131_D51R0201.s (scene vars 4/8/13)"
+   ],
+   "items": [
+    "Event Arceus (MOVIE_GIFT or HALL_OF_ORIGIN fateful) as party lead (same script:196-204)",
+    "No bike (same script:206-208)"
+   ],
+   "observed": {
+    "Lyra - Arceus Event.sav (HG, Ruins of Alph, pre)": "suit-hide=true, chamber-people-hide=true, VAR_SCENE_SINJOH_MYSTRI_ROOM=1, party lead ARCEUS 493"
+   },
+   "reads": [
+    "FollowerPokeIsEventTrigger EVENT_ARCEUS_MOVIE_GIFT/HALL_OF_ORIGIN in scr_seq_0037_D24R0101.s:196-204",
+    "PlayerOnBikeCheck in scr_seq_0037_D24R0101.s:206"
+   ],
+   "writes": [
+    "ClearFlag FLAG_HIDE_ALPH_OUTSIDE_ARCEUS_EVENT_SUIT in scr_seq_0037_D24R0101.s:212",
+    "SetVar VAR_SCENE_SINJOH_MYSTRI_ROOM 4/8/13 in scr_seq_0131_D51R0201.s"
+   ]
   }
  ],
  "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",

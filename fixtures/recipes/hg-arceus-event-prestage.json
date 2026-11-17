@@ -1,0 +1,31 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-arceus-event-prestage",
+  "game": "HG",
+  "base": {
+    "path": "Lyra - Arceus Event.sav",
+    "sha256": "766A20CD38D81029AB7D4D1D4ACB9525FD0DD48F394B8E7FD487803433E7529B"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 3000, "expect": 3000},
+      {"op": "location.set", "map": 113, "x": 441, "y": 287, "z": 3}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_HIDE_ALPH_OUTSIDE_ARCEUS_EVENT_SUIT", "equals": true},
+      {"field": "flag.FLAG_HIDE_ALPH_MAIN_CHAMBER_ARCEUS_EVENT_PEOPLE", "equals": true},
+      {"field": "variable.VAR_SCENE_SINJOH_MYSTRI_ROOM", "equals": 1},
+      {"field": "party.0.species", "equals": 493},
+      {"field": "location.spawn", "equals": {"map": 113, "x": 441, "y": 287, "z": 3}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "ruins-of-alph-visible", "arceus-gate-conditions-held", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Arceus-event pre-state (Lyra, HG, Ruins of Alph): suit actor hidden, Sinjoh scene var untouched, level-80 fateful Arceus leading. Base is `container unwrap` of the DeSmuME .dsv save (.dsv retained as canonical). Gate: scr_seq_0037_D24R0101.s:192-212 requires EVENT_ARCEUS movie/Hall-of-Origin lead and no bike; choice/consequence plays out in scr_seq_0131_D51R0201.s (Sinjoh). Money op is a no-op canary; location op is a verified self-spawn move."
+  }
+}

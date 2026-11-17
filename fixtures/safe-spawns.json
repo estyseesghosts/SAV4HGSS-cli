@@ -87,6 +87,15 @@
    "x": 16,
    "y": 56,
    "z": 65535
+  },
+  {
+   "map_id": 113,
+   "map_symbol": "MAP_RUINS_OF_ALPH",
+   "note": "Lyra Arceus-event pre-state outside the research center; fateful movie Arceus leading party",
+   "source_save_sha256": "766A20CD38D81029AB7D4D1D4ACB9525FD0DD48F394B8E7FD487803433E7529B",
+   "x": 441,
+   "y": 287,
+   "z": 3
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

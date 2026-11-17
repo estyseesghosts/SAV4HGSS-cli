@@ -3,7 +3,7 @@
 ## Spawns are allowlisted, not arbitrary
 
 `location.set` only writes exact `fixtures/safe-spawns.json` entries
-(10 verified tiles). This is deliberate: story validity needs actors,
+(11 verified tiles). This is deliberate: story validity needs actors,
 warps, and script context the save cannot encode, so teleports stay
 refused (exit 8 `location-unverified`).
 
@@ -17,6 +17,20 @@ undecoded binaries would be a guess, not a check. The real path is:
 decode the movement grids, then validate every verdict against known
 player tiles from real saves (including all 10 registered spawns)
 before any patch op trusts it.
+
+## NO$GBA `.SAV` gym-era files are not decodable here
+
+The `Pokemon_HeartGold1-8gyn.SAV`, `Pokemon_SoulSilver4gyn.SAV`,
+`Celebi/E4/posE4` files (NO$GBA `NocashGbaBackupMedia` container,
+~159KB) do not contain PKHeX-valid general/storage blocks at any file
+offset: a CRC16-CCITT scan (implementation verified against the
+`PokemonSS1gyn.sav` stored checksums) finds zero valid blocks, and the
+magic-adjacent size fields (0xF628/0x12310) imply block starts at
+negative file offsets, so no contiguous-block placement fits. They are
+stale/partial dumps, not usable bases. What unblocks the Whitney /
+Ecruteak / Chuck / Jasmine-era coverage they would give: re-dump those
+saves as raw `0x80000` (the format every working save uses) and the
+existing fixture pattern applies directly.
 
 ## Beats with no nearby real base
 

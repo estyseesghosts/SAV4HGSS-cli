@@ -205,6 +205,13 @@ only passed by coincidence (Z equaled direction there).
   them; backward resets refused. Unblocked by legitimately played raw
   saves at those points. (Olivine pre-Jasmine was here until Nov 2026;
   filled by play as `hg-olivine-pre-jasmine`, see §9.)
+- Lake trek status (Nov 2026): gate decoded (`scr_seq_0938_T29.s`;
+  RED_SCALE/CAUGHT/HIDE_GYARADOS/HIDE_LANCE pins), bracket verified
+  (6gyn pre, 7gyn post), 71-save census confirms no lake base exists.
+  Ecruteak maze partially mapped (y=184 road to x=413 tree wall,
+  Pokécenter door ~(397,182), interiors drop the Location pattern —
+  see `docs/research-findings.md`). Route: R42 Surf-or-Mortar +
+  R43 north. Repel + party staged; exit/road still open.
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.

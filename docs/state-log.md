@@ -125,6 +125,14 @@ Implemented: `trainer badges set` applies layers 1 and 2 for newly gained badges
 
 What this does not show: that the game behaves correctly in play after each preset (cutscene triggers, NPC placement). The boot check proves the save loads and the position is right.
 
+## F10. The counter rule triggers the Rocket takeover at runtime
+
+2026-11-17. Prediction from F8: entering a map whose header script tests `VAR_MIDGAME_BADGES == 4` starts the takeover. Mahogany's header (`scr_seq_0703_T28_hdr.s:12`) jumps to `scr_seq_0930_T28.s:18`, which sets `VAR_SCENE_ROCKET_TAKEOVER` to 2, sets `FLAG_UNK_0C5` and `FLAG_ROCKET_TAKEOVER_ACTIVE`, starts a phone call from Prof. Elm and sets the counter to 5.
+
+Test: `preset apply hg-06-mineral` on the clean HG base (counter 3), then (A) `trainer badges set --johto 127` (adds Glacier; the rules raise the counter to 4) and `location warp 87 3` (Mahogany), or (B) only the warp. Both booted headless through Continue (`tools/leveld_run.py`, frames 4200-6600). A shows Elm's call "something weird is happening with the radio broadcasts" over the Mahogany overworld; B shows the plain overworld with no call.
+
+So the derived counter is load-bearing: writing badge 6 without the counter (the `--raw` path) would have produced a save in which the takeover never starts.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

@@ -247,16 +247,31 @@ only passed by coincidence (Z equaled direction there).
   the Max Repel.", bag items pocket p1/3, USE via A) is mandatory for
   mapping; without it, `k_east3-5` "blocked at 448" was actually a wild
   battle, not rock.
-- R42 lake map (RUNTIME, single-boot RAM-verified): west corridor y=174
-  water x441→448; (449,174) rock single; x=453 channel y171-176 (north
-  dead end (453,171), south dead end (453,176)); north row y=169 water
-  x448-451; (450,168) pool; east cliff x=454 solid y168-176 (tall,
-  unlandable); headbutt tree at (442,176) east of the (441,176) beach
-  pocket; (442,176) NOT water. East shore/Mortar doors (464,175),
-  (466,164), (493,171) unreached. Anomaly (open): `m_south1` wild battle
-  stepping south from (448,174) vs 5 later south-blocks same tile —
-  swimmer NPC vs encounter-on-entry, unresolved; treat (448,175) as
-  unknown, not rock.
+- R42 lake crossing SOLVED (RUNTIME, Nov 2026, all RAM-verified):
+  west shore (441,174) Surf → east y=174 to (448,174) → north to
+  (448,169) → east to (451,169) → west (449,169) → north (449,168) →
+  east (450,168) pool (N/E rock) → south down x=450 col to (450,176),
+  (450,181) → east y=181 to (455,181),(457,181) → north (457,180),
+  (457,178) → east (461,178),(465,178) → north (465,176) → west to
+  (462,176, auto-dismount) → east (463-465,176) → west (464,176) →
+  north DOOR (464,175) → Mt Mortar 1F Entrance (45,50) warp 1.
+  South from (448,174) is ROCK (menu-closed + repel verified this turn;
+  the one `m_south1` battle there stays an open anomaly — encounter
+  rolled on a blocked bump or a transient NPC, mechanism unknown).
+  East cliff x=454 solid y168-176; the under-island south passage is the
+  way through. Mortar east interior (map 119, repel): (45,50) east
+  (47,50, x=48 wall) → north (47,48) → Surf east (50,48),(53,48, x=54
+  wall) → north channel (53,47),(53,43),(53,38),(53,35) → west (48,35)
+  → east (55,35) → south (55,38) → east (57,38) → south (57,41, y=42
+  wall). Exits (59,53), (70,46) → R42 anchors 4/5 still ahead. Anchors
+  banked per step (`surf-fast27` … `surf-fast46`).
+- Menu classifier that actually works (RUNTIME): bottom-screen grid WITH
+  a red cursor highlight = start menu OPEN; the IDENTICAL grid with NO
+  highlight = closed overworld UI (pixel-verified: open shot == known-open
+  bbox None, != moving-closed shot). Top-screen hashes are blind to the
+  menu — always hash the FULL screen. X,B,B,B,B converges to closed from
+  any menu depth (X toggles, B never opens anything); verify closure by
+  the no-highlight test before trusting D-pad probes.
 - Surf menu path mapped (RUNTIME, `surf-leg13..23`): X opens start menu;
   POKEMON tap (57,82), Mantine tap (190,108) opens its panel (Surf move
   visible = CLI teach confirmed in-game); LEFT→moves, DOWN→Surf, A

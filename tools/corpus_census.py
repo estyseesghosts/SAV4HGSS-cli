@@ -66,6 +66,7 @@ def main() -> int:
             "play_time": trainer["play_time"],
             "map_id": loc["map_id"], "map": loc["map_symbol"], "x": loc["x"], "y": loc["y"], "z": loc["z"],
             "dex_seen": info["dex"]["seen"], "dex_caught": info["dex"]["caught"],
+            "bag": {f"{i['pocket']}:{i['item']}": [i["name"], i["quantity"]] for i in info["bag"]["items"]},
             "party": [s["species_name"] for s in info["party"]["slots"] if s["present"]],
             "flags": [f["id"] for f in flags["flags"]["set"]] if flags else None,
             "vars": {str(v["id"]): v["value"] for v in variables["variables"]["values"]} if variables else None,

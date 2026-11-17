@@ -1,0 +1,260 @@
+{
+ "schema": "hgss-save.presets/v1",
+ "presets": [
+  {
+   "name": "hg-01-zephyr",
+   "game": "HG",
+   "description": "HeartGold, 1 badge (Zephyr). Source: played save at Violet City.",
+   "source_sha256": "c5f8ad0656cf0a06ba2d7bd78a49ca118a8e26529f295b7e604e099be5c57ea3",
+   "badges_johto": 1,
+   "badges_kanto": 0,
+   "source_map": "MAP_VIOLET",
+   "spawn": {
+    "map": 73,
+    "warp": 7
+   },
+   "operations": 3145,
+   "flags_on": 172
+  },
+  {
+   "name": "hg-02-hive",
+   "game": "HG",
+   "description": "HeartGold, 2 badges (Zephyr, Hive). Azalea Rockets beaten, Elm's egg collected.",
+   "source_sha256": "4ced4d1a154fd6e7f751168ca13294df4b8edead9c23c3b3655f972e0f42d990",
+   "badges_johto": 3,
+   "badges_kanto": 0,
+   "source_map": "MAP_AZALEA",
+   "spawn": {
+    "map": 74,
+    "warp": 3
+   },
+   "operations": 3148,
+   "flags_on": 199
+  },
+  {
+   "name": "hg-03-plain",
+   "game": "HG",
+   "description": "HeartGold, 3 badges (through Plain). Goldenrod.",
+   "source_sha256": "98cda5b438e668e5af06e2bd387068f6efd0ddbc532c8ef50b8cebe133970028",
+   "badges_johto": 7,
+   "badges_kanto": 0,
+   "source_map": "MAP_GOLDENROD",
+   "spawn": {
+    "map": 76,
+    "warp": 5
+   },
+   "operations": 3158,
+   "flags_on": 230
+  },
+  {
+   "name": "hg-04-fog",
+   "game": "HG",
+   "description": "HeartGold, 4 badges (through Fog). Ecruteak.",
+   "source_sha256": "45b8a9f70e0a63536c2165d4be51867775ab7fc271bfd34acda778d5215b9bc8",
+   "badges_johto": 15,
+   "badges_kanto": 0,
+   "source_map": "MAP_ECRUTEAK",
+   "spawn": {
+    "map": 78,
+    "warp": 5
+   },
+   "operations": 3163,
+   "flags_on": 268
+  },
+  {
+   "name": "hg-05-storm",
+   "game": "HG",
+   "description": "HeartGold, 5 badges (through Storm). Cianwood.",
+   "source_sha256": "0be278e8143c13e67364a94a6548c5c884a51849f1154b7d2397d1d5d4220b36",
+   "badges_johto": 31,
+   "badges_kanto": 0,
+   "source_map": "MAP_CIANWOOD",
+   "spawn": {
+    "map": 75,
+    "warp": 1
+   },
+   "operations": 3169,
+   "flags_on": 300
+  },
+  {
+   "name": "hg-06-mineral",
+   "game": "HG",
+   "description": "HeartGold, 6 badges (through Mineral). Rocket takeover phase 1 in progress.",
+   "source_sha256": "64287599de6a3ef316e8740091772a4f9f16914c407efcb0b059bd0a918b6b3a",
+   "badges_johto": 63,
+   "badges_kanto": 0,
+   "source_map": "MAP_ECRUTEAK",
+   "spawn": {
+    "map": 78,
+    "warp": 5
+   },
+   "operations": 3170,
+   "flags_on": 305
+  },
+  {
+   "name": "hg-07-glacier",
+   "game": "HG",
+   "description": "HeartGold, 7 badges (through Glacier). Mahogany.",
+   "source_sha256": "ffc51c7b063c9cf98fbb525c2229f7fa947f9fc83937c137659cdf3e602ce37e",
+   "badges_johto": 127,
+   "badges_kanto": 0,
+   "source_map": "MAP_MAHOGANY",
+   "spawn": {
+    "map": 87,
+    "warp": 3
+   },
+   "operations": 3176,
+   "flags_on": 367
+  },
+  {
+   "name": "hg-08-rising",
+   "game": "HG",
+   "description": "HeartGold, 8 badges. Blackthorn, before the Elite Four.",
+   "source_sha256": "fff327271aea57b00e53dbe7e2bb5f850b0b093b1dc095fbe249d98b58d7e871",
+   "badges_johto": 255,
+   "badges_kanto": 0,
+   "source_map": "MAP_BLACKTHORN",
+   "spawn": {
+    "map": 89,
+    "warp": 6
+   },
+   "operations": 3182,
+   "flags_on": 427
+  },
+  {
+   "name": "hg-e4-gate",
+   "game": "HG",
+   "description": "HeartGold, 8 badges, at the Pokemon League entrance.",
+   "source_sha256": "cab74aef97b2ccb230b813d0dc0dbbe346aa55b8b5d63dc221ebdc92bb713d0e",
+   "badges_johto": 255,
+   "badges_kanto": 0,
+   "source_map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+   "spawn": {
+    "map": 300,
+    "warp": 0
+   },
+   "operations": 3181,
+   "flags_on": 446
+  },
+  {
+   "name": "hg-champion",
+   "game": "HG",
+   "description": "HeartGold, Elite Four and Lance beaten (Hall of Fame map).",
+   "source_sha256": "aeb8ad10602c931a449f804bbac3479ae6adf2f2fa1548202fe73b843b6cd27a",
+   "badges_johto": 255,
+   "badges_kanto": 0,
+   "source_map": "MAP_POKEMON_LEAGUE_HALL_OF_FAME",
+   "spawn": {
+    "map": 60,
+    "warp": 1
+   },
+   "operations": 3181,
+   "flags_on": 450
+  },
+  {
+   "name": "hg-kanto-4",
+   "game": "HG",
+   "description": "HeartGold, post-game Kanto, 4 Kanto badges (Pewter).",
+   "source_sha256": "67ca1e390988f2f77269cd56ce6e5e59d213291ed0a31d74d25aea37e0626b79",
+   "badges_johto": 255,
+   "badges_kanto": 60,
+   "source_map": "MAP_PEWTER",
+   "spawn": {
+    "map": 51,
+    "warp": 4
+   },
+   "operations": 3190,
+   "flags_on": 515
+  },
+  {
+   "name": "ss-01-badges",
+   "game": "SS",
+   "description": "SoulSilver, 1 Johto badges, 0 Kanto.",
+   "source_sha256": "7337e3b4f77b7d5077e5c967484e3f1fb2fc86086b91fbbd0dfc5027d0baf50f",
+   "badges_johto": 1,
+   "badges_kanto": 0,
+   "source_map": "MAP_VIOLET",
+   "spawn": {
+    "map": 73,
+    "warp": 7
+   },
+   "operations": 3147,
+   "flags_on": 192
+  },
+  {
+   "name": "ss-02-badges",
+   "game": "SS",
+   "description": "SoulSilver, 2 Johto badges, 0 Kanto.",
+   "source_sha256": "959e9b26bc84fa7c6d70a5ced4bf28ad37bd0e569c6c174c8dc845ac468b6310",
+   "badges_johto": 3,
+   "badges_kanto": 0,
+   "source_map": "MAP_AZALEA",
+   "spawn": {
+    "map": 74,
+    "warp": 3
+   },
+   "operations": 3148,
+   "flags_on": 215
+  },
+  {
+   "name": "ss-04-badges",
+   "game": "SS",
+   "description": "SoulSilver, 4 Johto badges, 0 Kanto.",
+   "source_sha256": "02b54e537d850275e58bb0b3f1b7c93ec3425cd77bda3e7512b00c63a540fd2b",
+   "badges_johto": 15,
+   "badges_kanto": 0,
+   "source_map": "MAP_ECRUTEAK",
+   "spawn": {
+    "map": 78,
+    "warp": 5
+   },
+   "operations": 3161,
+   "flags_on": 284
+  },
+  {
+   "name": "ss-07-badges",
+   "game": "SS",
+   "description": "SoulSilver, 7 Johto badges, 0 Kanto.",
+   "source_sha256": "c5ddd8346c75f2ac229525e5aa9991267c022b1fb9d28b58e8ca1b7abb8593c5",
+   "badges_johto": 127,
+   "badges_kanto": 0,
+   "source_map": "MAP_MAHOGANY",
+   "spawn": {
+    "map": 87,
+    "warp": 3
+   },
+   "operations": 3173,
+   "flags_on": 373
+  },
+  {
+   "name": "ss-08-badges",
+   "game": "SS",
+   "description": "SoulSilver, 8 Johto badges, 0 Kanto.",
+   "source_sha256": "f4eb1ee4fe1d3381340ebbc3efbe5c8e85dfcd3a7e14344bc8f877a32d339101",
+   "badges_johto": 255,
+   "badges_kanto": 0,
+   "source_map": "MAP_BLACKTHORN",
+   "spawn": {
+    "map": 89,
+    "warp": 6
+   },
+   "operations": 3182,
+   "flags_on": 438
+  },
+  {
+   "name": "ss-kanto-8",
+   "game": "SS",
+   "description": "SoulSilver, 8 Johto badges, 8 Kanto.",
+   "source_sha256": "af325b8027e00dd44a2b9e85b08bd1eac540dd62362b12abf782dcfdeb488183",
+   "badges_johto": 255,
+   "badges_kanto": 255,
+   "source_map": "MAP_ROUTE_38_ECRUTEAK_GATEHOUSE",
+   "spawn": {
+    "map": 60,
+    "warp": 1
+   },
+   "operations": 3210,
+   "flags_on": 777
+  }
+ ]
+}

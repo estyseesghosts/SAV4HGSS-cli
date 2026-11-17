@@ -35,6 +35,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>hgss-us.warp-spawns.json</Link>
     </None>
+    <None Include="..\..\registry\presets\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>presets\%(Filename)%(Extension)</Link>
+    </None>
     <None Include="..\..\fixtures\safe-spawns.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>safe-spawns.json</Link>

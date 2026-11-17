@@ -127,6 +127,46 @@ internal static class Commands
         return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new MoneySetOperation(value, expect)], []), CanonicalPatchJson($"trainer.money.set:{value}:{expect}"), output, args);
     }
 
+    private static string FindPresetDir(string[] args)
+    {
+        var candidates = new List<string?>
+        {
+            Args.Option(args, "--presets"),
+            Environment.GetEnvironmentVariable("HGSS_PRESETS"),
+            Path.Combine(AppContext.BaseDirectory, "presets"),
+            Path.Combine(Directory.GetCurrentDirectory(), "presets"),
+            Path.Combine(Directory.GetCurrentDirectory(), "registry", "presets"),
+        };
+        foreach (var dir in candidates)
+        {
+            if (!string.IsNullOrEmpty(dir) && File.Exists(Path.Combine(dir, "index.json")))
+                return dir;
+        }
+
+        throw HgssException.BadArguments("presets-missing", "No presets directory found (looked at --presets, $HGSS_PRESETS, beside the exe, ./presets, ./registry/presets).");
+    }
+
+    internal static int PresetList(string[] args)
+    {
+        var dir = FindPresetDir(args);
+        Console.Out.WriteLine(File.ReadAllText(Path.Combine(dir, "index.json")));
+        return 0;
+    }
+
+    internal static int PresetApply(string[] args)
+    {
+        var name = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save preset apply NAME INPUT --out OUT [--presets DIR]");
+        var input = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "preset apply requires INPUT.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "preset apply requires --out OUT.");
+        if (name.Length == 0 || !name.All(c => char.IsAsciiLetterOrDigit(c) || c == '-'))
+            throw HgssException.BadArguments("preset-name", $"Preset name '{name}' must be letters, digits and '-'.");
+        var path = Path.Combine(FindPresetDir(args), name + ".json");
+        if (name == "index" || !File.Exists(path))
+            throw HgssException.BadArguments("preset-unknown", $"No preset named '{name}'. Run 'hgss-save preset list'.");
+        var bytes = ReadFile(path);
+        return RunPatch(input, PatchParser.Parse(bytes, path), bytes, output, args, Path.GetDirectoryName(path));
+    }
+
     internal static int BadgesSet(string[] args)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save trainer badges set INPUT [--johto MASK] [--kanto MASK] --out OUT");

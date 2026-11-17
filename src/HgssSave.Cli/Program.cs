@@ -17,7 +17,7 @@ internal static class Program
         "flag get", "flag set", "var get", "var set", "bag set", "trainer money set", "trainer badges set",
         "party export", "party import", "party clear",
         "box export", "box import", "box clear",
-        "location set", "location warp", "dex set",
+        "location set", "location warp", "preset list", "preset apply", "dex set",
         "flags list", "vars list",
         "symbols lookup", "symbols search", "symbols build-registry",
         "script index", "script references",
@@ -75,6 +75,7 @@ internal static class Program
             "box" => BoxVerb(rest),
             "location" => LocationVerb(rest),
             "dex" => DexVerb(rest),
+            "preset" => PresetVerb(rest),
             "script" => ScriptVerb(rest),
             "fixture" => FixtureVerb(rest),
             "symbols" => SymbolsVerb(rest),
@@ -148,6 +149,18 @@ internal static class Program
             "set" => Commands.LocationSet(args[1..]),
             "warp" => Commands.LocationWarp(args[1..]),
             _ => Usage("usage: hgss-save location set|warp ..."),
+        };
+    }
+
+    private static int PresetVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save preset list|apply ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "list" => Commands.PresetList(args[1..]),
+            "apply" => Commands.PresetApply(args[1..]),
+            _ => Usage("usage: hgss-save preset list|apply ..."),
         };
     }
 
@@ -256,7 +269,7 @@ internal static class Args
         "--recipe", "--out", "--outdir", "--bases", "--report", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
         "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
-        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction", "--johto", "--kanto",
+        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction", "--johto", "--kanto", "--presets",
     };
 
     internal static string? Option(string[] args, string name, string? @default = null)

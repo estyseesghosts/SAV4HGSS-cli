@@ -28,6 +28,7 @@ READ-ONLY COMMANDS
                                                          semantic and byte-range diff (defaults 200 and 40)
   flag get INPUT ID [--symbols PATH]                     ID: FLAG_* name or number
   var get INPUT ID [--symbols PATH]                      ID: VAR_* name or number
+  preset list [--presets DIR]                            named story presets (JSON index)
   flags list INPUT [--limit N] [--symbols PATH]          all set persistent flags (default 5000)
   vars list INPUT [--limit N] [--symbols PATH]           all non-zero save variables (default 500)
   party export INPUT SLOT --out FILE.pk4 [--force]       SLOT 0..5
@@ -40,6 +41,7 @@ WRITING COMMANDS (all require --out OUT.sav; all accept the common patch options
   bag set INPUT ITEM QUANTITY --out OUT [--expect N]     ITEM: ITEM_* name or number; QUANTITY 0..999
   trainer money set INPUT VALUE --out OUT [--expect N]
   trainer badges set INPUT [--johto MASK] [--kanto MASK] --out OUT   MASK 0..255, bit n = badge n (Johto: Zephyr..Rising; Kanto: Boulder..Earth)
+  preset apply NAME INPUT --out OUT [--presets DIR]    overwrite the whole story state with a named milestone (see preset list)
   dex set INPUT SPECIES --seen BOOL --caught BOOL --out OUT   SPECIES 1..493
   location set INPUT MAP X Y Z --out OUT [--safe-spawns PATH] refuses tiles not in safe-spawns.json
   location warp INPUT MAP WARP --out OUT [--direction 0..3] [--warp-spawns PATH]

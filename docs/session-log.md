@@ -5,7 +5,20 @@ written at the end of the session it describes. Technical details
 live in `story-state-field-knowledge.md`; this file records the
 decisions, mistakes, and recoveries.
 
-## 2026-11-17 — d-pad exonerated, play-to-fill proven, Olivine trek started
+## 2026-11-17 (cont.) — Olivine pre-Jasmine staged by Fly
+
+- Read decomp instead of guessing: the fly cursor moves tile-by-tile
+  and the hit test runs at `(playerX, playerY-2)` while the
+  description reads `(playerX, playerY)`, so Olivine needs cursor
+  (8,10), reached by UP,UP,RIGHT,RIGHT,RIGHT,UP through blanks.
+- Flew the HG 5gyn base Cianwood→Olivine, in-game saved, extracted:
+  valid HG at 77/272/258/z1, Jasmine/Pryce TM clear, Morty/Chuck set,
+  only played deltas. Staged `hg-olivine-pre-jasmine` (safe-spawn
+  #20); builds clean, boots with 2 agreeing RAM copies, runtime
+  recorded, 54/54 tests pass. Commit `ad37954`.
+- Two misreads corrected along the way: the start menu remembers its
+  cursor (this base opens on POKEMON, so no DOWN before A), and the
+  overwrite YES/NO needs its own late A after the text finishes.
 
 ### Accomplished
 

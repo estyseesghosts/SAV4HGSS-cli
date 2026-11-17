@@ -202,3 +202,21 @@ decisions, mistakes, and recoveries.
   prototype (it lives only in Temp), update docs at each checkpoint
   rather than at compaction boundaries, and write a handoff note when
   a session ends on an external error.
+
+## 2026-11-17 handoff: CLI help, portable build, doc pass
+
+Picked up at HEAD `e9b7f12`, whose gameplay state is the `42d7cfa` continuation above (Route 43 / Lake of Rage trek unfinished; the continuation state above is still the gameplay resume point and was not advanced in this session).
+
+Done:
+
+- `hgss-save --help` (and `<command> --help`) now prints the full command reference to stdout with exit 0. Before this, `--help` printed one line to stderr and exited 2. Text lives in `src/HgssSave.Cli/HelpText.cs`.
+- `docs/cli-reference.md` documents every command, positional argument, option, switch, environment variable (`HGSS_SYMBOLS`, `HGSS_SAFE_SPAWNS`, `HGSS_SCRIPT_REFS`), exit code, recipe operation, and assertion field. Previously undocumented: `--require-symbols`, `--max-ranges`, `--dry-run` on single-op commands, `blank --kind`, the assertion list.
+- Portable build: `dotnet publish src/HgssSave.Cli -c Release -r win-x64` yields a self-contained single-file exe (about 41 MB). Registry, safe-spawn list and script index are copied beside it; `script references` now also searches the exe directory. Checked by running a copy from `%TEMP%` with `DOTNET_ROOT` unset and the SDK removed from PATH: `--help`, `flag get` and `location set --dry-run` on `heartgold.sav` worked with names resolved.
+- Patch error message for unknown `op` now lists `location.set` and `dex.set`.
+- Committed the previously untracked warp-arrival work (`tools/zone_spawn_index.py`, `tools/spawn_registry_check.py`, `registry/hgss-us.warp-spawns.json`) as experimental. `spawn_registry_check.py` explains **0 of 20** safe spawns, so it is not a usable verdict and nothing in the CLI reads it. Open question: the registry compares zone-event warp tiles with save coordinates; the safe spawns are overworld tiles (for example Violet 459,246), which are probably not warp tiles, and the coordinate frames may also differ. Not investigated further.
+- Line endings: tracked files in the working tree had been rewritten CRLF with no content change (`git diff --ignore-space-at-eol` empty). Added `.gitattributes` (`* text=auto eol=lf`) and renormalized instead of committing a 146k-line whitespace diff.
+- `chatlog00.*` and `chatlog01.md` (prior agent transcripts) are now git-ignored rather than committed.
+
+Verified: `dotnet build HgssSave.slnx -c Release` 0 warnings, `dotnet test` 54 passed.
+
+Not done: nothing in the gameplay continuation list above; no new fixtures; the headless runtime harness was not run (needs the melonDS-MCP core and ROMs).

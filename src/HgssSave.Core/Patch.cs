@@ -268,7 +268,7 @@ public static class PatchParser
             "box.slot.clear" => new[] { "op", "box", "slot" },
             "location.set" => new[] { "op", "map", "x", "y", "z" },
             "dex.set" => new[] { "op", "species", "seen", "caught" },
-            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear."),
+            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear, location.set, dex.set."),
         };
 
         foreach (var key in item.EnumerateObject())

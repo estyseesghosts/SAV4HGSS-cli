@@ -29,8 +29,13 @@ internal static class Program
 
     internal static int Main(string[] args)
     {
-        if (args.Length == 0 || IsHelp(args[0]))
+        if (args.Length == 0)
             return Usage(null);
+        if (IsHelp(args[0]) || Array.Exists(args, a => a is "-h" or "--help"))
+        {
+            Console.Out.WriteLine(HelpText.Full);
+            return 0;
+        }
 
         try
         {
@@ -222,7 +227,7 @@ internal static class Program
         if (message is not null)
             Console.Error.WriteLine(message);
         Console.Error.WriteLine("hgss-save: HGSS raw-save inspector and transactional patcher (PKHeX.Core engine).");
-        Console.Error.WriteLine("See README.md for the full command reference.");
+        Console.Error.WriteLine("Run 'hgss-save --help' for the full command reference (also docs/cli-reference.md).");
         return (int)ExitCode.BadArguments;
     }
 

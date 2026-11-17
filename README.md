@@ -15,9 +15,18 @@ dotnet build HgssSave.slnx -c Release
 dotnet test HgssSave.slnx
 ```
 
+### Portable build
+
+```powershell
+dotnet publish src/HgssSave.Cli -c Release -r win-x64 -o dist/hgss-save-win-x64
+```
+
+Produces a self-contained single-file `hgss-save.exe` (no .NET install required; verified by running it from a copy with .NET removed from PATH) plus `hgss-us.symbols.json`, `hgss-us.script-refs.json` and `safe-spawns.json`, which the exe finds beside itself. Copy the whole folder. `dist/` is not committed. Other platforms: change `-r` (for example `linux-x64`); only win-x64 has been built and run.
 Pinned dependencies: PKHeX.Core 26.10.18 (Central Package Management), .NET 10 (`global.json`). Compiling against the NuGet package is the API-drift check.
 
 ## Commands
+
+Every command, argument, option, environment variable and exit code is documented in [docs/cli-reference.md](docs/cli-reference.md), and `hgss-save --help` prints the same reference. The list below is a quick overview.
 
 Stdout is always one deterministic JSON document (`schema: hgss-save.report/v1`). Diagnostics go to stderr. Exit codes follow the design doc: 0 success, 2 bad arguments, 3 unsupported save, 4 structural failure, 5 symbol failure, 6 precondition failure, 7 output conflict / I/O error, 8 unsafe operation, 9 internal error. A patch that cannot fully apply never exits 0 and never writes output.
 
@@ -47,16 +56,22 @@ hgss-save flags list INPUT.sav [--limit N]
 hgss-save vars list INPUT.sav [--limit N]
 hgss-save symbols lookup FLAG_CAUGHT_LUGIA [--kind flag]
 hgss-save symbols search lugia [--kind flag,var,map,item] [--limit N]
+hgss-save symbols build-registry --headers 3DS/pokeheartgold --commit <sha> [--out PATH]
 hgss-save script index --scripts 3DS/pokeheartgold --commit <sha> --out registry/hgss-us.script-refs.json
 hgss-save script references FLAG_CAUGHT_LUGIA [--script-refs R] [--limit N]
 hgss-save fixture build fixtures/recipes/ss-violet-safe-money.json --bases <checkpoint-dir> --outdir <out>
 hgss-save fixture verify <out>/ss-violet-safe-money.manifest.json --outdir <out>
+hgss-save fixture record-runtime <out>/ss-violet-safe-money.manifest.json --report leveld-out/<id>/report.json
 hgss-save container probe FILE
 hgss-save container unwrap FILE.dsv --out OUT.sav
-hgss-save blank --game HG|SS --out OUT.sav [--trainer-name N] [--tid N] [--sid N] [--gender 0|1] [--language 2]
+hgss-save blank --game HG|SS --out OUT.sav [--kind fresh-structure|erased-flash] [--trainer-name N] [--tid N] [--sid N] [--gender 0|1] [--language 1..8]
 ```
 
-`--force` overwrites an existing `--out`. There is no in-place editing; writing onto the input path is refused.
+`--force` overwrites an existing `--out`. `--dry-run`, `--require-symbols`, `--max-ranges` and `--safe-spawns` apply to every writing command; see the reference. There is no in-place editing; writing onto the input path is refused.
+
+## Warp-arrival spawn registry (experimental, not wired in)
+
+`location set` accepts only tuples in `fixtures/safe-spawns.json` because tile walkability is not decoded (`docs/coverage-gaps.md`). `tools/zone_spawn_index.py --decomp DIR --out registry/hgss-us.warp-spawns.json` derives candidate arrival tiles from the decomp zone-event warp pairs, and `tools/spawn_registry_check.py` compares them to the safe spawns. Current result: **0 of 20** verified safe spawns are explained, so the derivation (or the coordinate frame it compares in) is wrong or incomplete. The CLI does not read `hgss-us.warp-spawns.json`; do not use it to widen `location set` until the check passes.
 
 ## Patch recipes
 
@@ -104,6 +119,7 @@ The builder evaluates `#define` integer expressions with a restricted evaluator 
 `registry/hgss-us.script-refs.json` indexes every `FLAG_*`/`VAR_*`/`ITEM_*` read or write in `files/fielddata/script/scr_seq/*.s` at the pinned commit, with file:line evidence and the enclosing `ScrDef` label. Access is `read` (`GoToIfSet`, `Compare`, ...), `write` (`SetFlag`, `SetVar`, `GiveItem`, ...), or `check` (`HasItem`, ...). Rebuild offline with:
 
 ```powershell
+hgss-save symbols build-registry --headers 3DS/pokeheartgold --commit <sha> [--out PATH]
 hgss-save script index --scripts 3DS/pokeheartgold --commit <sha> --out registry/hgss-us.script-refs.json
 ```
 

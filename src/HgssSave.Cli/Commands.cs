@@ -189,9 +189,19 @@ internal static class Commands
     {
         var symbol = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save script references SYMBOL [--script-refs PATH] [--limit N]");
         var limit = ParseInt(Args.Option(args, "--limit", "100"), "--limit");
-        var indexPath = Args.Option(args, "--script-refs") ?? Environment.GetEnvironmentVariable("HGSS_SCRIPT_REFS")
-            ?? Path.Combine(Directory.GetCurrentDirectory(), "registry", "hgss-us.script-refs.json");
-        if (indexPath is null || !File.Exists(indexPath))
+        var exeDir = Path.GetDirectoryName(Environment.ProcessPath);
+        var indexPath = Args.Option(args, "--script-refs") ?? Environment.GetEnvironmentVariable("HGSS_SCRIPT_REFS");
+        if (indexPath is null)
+        {
+            var candidates = new List<string>();
+            if (exeDir is not null)
+                candidates.Add(Path.Combine(exeDir, "hgss-us.script-refs.json"));
+            candidates.Add(Path.Combine(Directory.GetCurrentDirectory(), "hgss-us.script-refs.json"));
+            candidates.Add(Path.Combine(Directory.GetCurrentDirectory(), "registry", "hgss-us.script-refs.json"));
+            indexPath = candidates.FirstOrDefault(File.Exists) ?? candidates[^1];
+        }
+
+        if (!File.Exists(indexPath))
             throw HgssException.BadArguments("script-refs-missing", $"Script index not found: {indexPath ?? "(null)"}. Build one with 'script index'.");
         var refs = ScriptIndexer.Query(indexPath, symbol);
         Emit(w => ReportWriter.WriteScriptRefs(w, symbol, indexPath, refs, Factory.LibraryVersion, limit));

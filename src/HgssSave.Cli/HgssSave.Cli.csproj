@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -17,7 +17,24 @@
     <ProjectReference Include="..\HgssSave.PKHeX\HgssSave.PKHeX.csproj" />
   </ItemGroup>
 
+  <!-- Portable publish: `dotnet publish src/HgssSave.Cli -c Release -r win-x64` yields hgss-save.exe plus the data files below. -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
+    <None Include="..\..\registry\hgss-us.script-refs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>hgss-us.script-refs.json</Link>
+    </None>
+    <None Include="..\..\fixtures\safe-spawns.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>safe-spawns.json</Link>
+    </None>
     <None Include="..\..\registry\*.symbols.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(Filename)%(Extension)</Link>

@@ -42,6 +42,7 @@ internal static class RegistryBuilder
 
         var values = EvaluateAll(macros);
         var entries = Classify(macros, values, out var skipped);
+        DeriveTrainerFlags(constantsDir, values, entries, filesUsed);
 
         var outputDir = Path.GetDirectoryName(Path.GetFullPath(outputPath));
         if (!string.IsNullOrEmpty(outputDir))
@@ -113,6 +114,40 @@ internal static class RegistryBuilder
         }
 
         return new Stats(entries.Count, skipped.Count, filesUsed.Count, manifestPath);
+    }
+
+    /// <summary>
+    /// flags.h defines trainer-defeated flags as a range, not names: TRAINER_FLAG_BASE 0x550 and
+    /// FLAG_TRAINER(tr) = TRAINER_FLAG_BASE + tr (flags.h:1394-1395). Each TRAINER_* id in trainers.h
+    /// therefore owns flag 0x550 + id. Entries are tagged "derived-range" and never replace an id
+    /// that flags.h already names.
+    /// </summary>
+    private static void DeriveTrainerFlags(string constantsDir, Dictionary<string, long> values, List<SymbolEntry> entries, List<string> filesUsed)
+    {
+        var path = Path.Combine(constantsDir, "trainers.h");
+        if (!File.Exists(path) || !values.TryGetValue("TRAINER_FLAG_BASE", out var baseId) || !values.TryGetValue("NUM_FLAGS", out var numFlags))
+            return;
+        var taken = entries.Where(e => e.Kind == SymbolKind.PersistentFlag).Select(e => e.Id).ToHashSet();
+        var names = entries.Select(e => e.Name).ToHashSet(StringComparer.Ordinal);
+        var added = new List<SymbolEntry>();
+        foreach (var macro in ParseHeader(path, "include/constants/trainers.h"))
+        {
+            if (!macro.Name.StartsWith("TRAINER_", StringComparison.Ordinal) || !int.TryParse(macro.Expression, out var trainer) || trainer <= 0)
+                continue;
+            var id = (int)baseId + trainer;
+            var name = "FLAG_" + macro.Name;
+            if (id >= numFlags || taken.Contains(id) || names.Contains(name))
+                continue;
+            taken.Add(id);
+            added.Add(new SymbolEntry(name, SymbolKind.PersistentFlag, id, $"0x{id:X}", macro.Source, macro.Line, true, [], "derived-range"));
+        }
+
+        if (added.Count == 0)
+            return;
+        entries.AddRange(added);
+        entries.Sort((a, b) => KindOrder(a.Kind) != KindOrder(b.Kind) ? KindOrder(a.Kind).CompareTo(KindOrder(b.Kind))
+            : a.Id != b.Id ? a.Id.CompareTo(b.Id) : string.CompareOrdinal(a.Name, b.Name));
+        filesUsed.Add("include/constants/trainers.h");
     }
 
     private static List<Macro> ParseHeader(string path, string source)

@@ -111,13 +111,14 @@ def check_spawn(lib, save: Path, spec: str) -> dict:
     import struct
 
     want = [int(v) for v in spec.split(",")]
-    if len(want) != 4:
-        raise ValueError(f"Bad --assert-spawn spec {spec!r} (want map,x,y,z).")
-    want_map, want_x, want_y, want_z = want
-    for v in want:
+    if len(want) not in (4, 5):
+        raise ValueError(f"Bad --assert-spawn spec {spec!r} (want map,x,y,z[,warp]).")
+    want_map, want_x, want_y, want_z = want[:4]
+    want_warp = want[4] if len(want) == 5 else -1  # -1 = free-roam tile; >=0 = arrived via that warp event
+    for v in want[:4]:
         if not 0 <= v <= 0xFFFF:
             raise ValueError(f"Spawn component {v} outside u16 range.")
-    prefix = struct.pack("<H", want_map) + b"\x00\x00\xff\xff\xff\xff"
+    prefix = struct.pack("<H", want_map) + b"\x00\x00" + struct.pack("<i", want_warp)
     pattern = prefix + struct.pack("<H", want_x) + b"\x00\x00" + struct.pack("<H", want_y) + b"\x00\x00"
     hits: list[dict] = []
     matched: list[dict] = []

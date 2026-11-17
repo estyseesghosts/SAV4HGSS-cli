@@ -1,13 +1,13 @@
 {
   "registry": "hgss-us@4e9563397ab4e5c407271472935f9e270ac6a804",
-  "symbols": 4752,
+  "symbols": 5485,
   "skipped": 438,
-  "files": 6,
+  "files": 7,
   "kinds": {
     "item": 546,
     "map": 541,
     "move": 480,
-    "persistent_flag": 2114,
+    "persistent_flag": 2847,
     "range_constant": 49,
     "save_work": 320,
     "special_runtime_var": 14,

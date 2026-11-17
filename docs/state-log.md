@@ -37,7 +37,9 @@ Across all 29 saves, 9,957 set-flag instances fall into:
 | daily | 7 | id in `0xAA0..0xB60` |
 | no symbol | 1 | id 16 |
 
-The registry only names 2,114 of 2,912 flags because `include/constants/flags.h` defines three families as ranges, not names (`flags.h:825` `HIDDEN_ITEMS_FLAG_BASE 800` with `NUM_HIDDEN_ITEMS 231` at :1057; `flags.h:1394` `TRAINER_FLAG_BASE 0x550` with `FLAG_TRAINER(tr)` at :1395; `flags.h:2027` `DAILY_FLAG_BASE 0xAA0` with 192 flags at :2028). The registry builder lists them under `skipped`. 261 distinct flag ids in the corpus fall in these ranges and print as bare numbers. **Gap:** trainer-defeated flags are about 22% of all flag state and the CLI can neither name nor edit them by trainer. Trainer ids are in `include/constants/trainers.h`.
+**Correction (same day, recount):** the "trainer" row above bucketed every id in `0x550..0xAA0`, but 626 flags in that span already have names. Counting only ids with no registry symbol: 1,660 of 9,957 instances (17%) are unnamed, and 1,659 of those are trainer-defeated flags; the single other is id 16. Hidden items are already named in `flags.h` (231 `FLAG_HIDDENITEM_*` entries in `800..1030`).
+
+The registry did not name trainer flags because `flags.h:1394-1395` defines them as a range, `TRAINER_FLAG_BASE 0x550` and `FLAG_TRAINER(tr) = TRAINER_FLAG_BASE + tr`, with the trainer ids in `include/constants/trainers.h` (738 ids, 1..737). **Fixed:** `RegistryBuilder` now derives `FLAG_TRAINER_<NAME>` = `0x550 + id` for every trainer id whose flag has no `flags.h` name (733 entries, `confidence: "derived-range"`, never overriding a source-defined name). The change is purely additive against the previous registry (0 removed, 0 changed). `symbols lookup FLAG_TRAINER_RIVAL_SILVER` returns id 1361. All 1,659 unnamed trainer instances in the corpus now resolve.
 
 Six save variables have no symbol: `0x4000-0x4002`, `0x4013`, `0x4020`, `0x4021`. They sit in the temp/object-gfx range the CLI already classifies as non-writable.
 

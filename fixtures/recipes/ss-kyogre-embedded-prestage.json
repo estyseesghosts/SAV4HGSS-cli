@@ -1,0 +1,34 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-kyogre-embedded-prestage",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver16gyns.sav",
+    "sha256": "AF325B8027E00DD44A2B9E85B08BD1EAC540DD62362B12ABF782DCFDEB488183"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 561700, "expect": 561194},
+      {"op": "inventory.quantity.set", "item": "ITEM_BLUE_ORB", "quantity": 1},
+      {"op": "location.set", "map": 172, "x": 6, "y": 7, "z": 1}
+    ],
+    "assert": [
+      {"field": "bag.ITEM_BLUE_ORB", "equals": 1},
+      {"field": "flag.FLAG_CAUGHT_KYOGRE", "equals": false},
+      {"field": "flag.FLAG_BEAT_OR_ESCAPED_FROM_GROUDON_OR_KYOGRE", "equals": false},
+      {"field": "variable.VAR_SCENE_EMBEDDED_TOWER", "equals": 0},
+      {"field": "flag.FLAG_HIDE_EMBEDDED_TOWER_KYOGRE", "equals": false},
+      {"field": "flag.FLAG_HIDE_EMBEDDED_TOWER_KYOGRE_HIKER", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 172, "x": 6, "y": 7, "z": 1}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "gatehouse-spawn-visible", "kyogre-gate-conditions-held", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Embedded Tower Kyogre pre-state (M@ster, postgame gatehouse): Blue Orb granted (no give-flag exists anywhere; the orb's sole script touchpoint is the HasItem gate, same shape as the Lugia Silver Wing staging), Kyogre uncaught, scene var 0, tower actors unhidden. Gate: scr_seq_0134_D52R0102.s:12-48 requires scene<4, SS version, unbeaten, and Blue Orb, then shows Kyogre (lines 43-44); the battle path (lines 60-90) sets the beat flag or VAR 4 + CAUGHT on capture. Money op is a canary; location op is a verified self-spawn move."
+  }
+}

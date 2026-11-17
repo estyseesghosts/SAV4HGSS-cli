@@ -227,6 +227,31 @@
     "ClearFlag owned-form hides in scr_seq_0838_T11R0702.s:37-53",
     "UpdateRotomForm in scr_seq_0838_T11R0702.s:156"
    ]
+  },
+  {
+   "id": "kyogre-embedded-tower",
+   "effects": [
+    "SetFlag HIKER-hide + ClearFlag KYOGRE-hide on orb held (scr_seq_0134_D52R0102.s:43-44)",
+    "SetFlag BEAT_OR_ESCAPED on flee/loss (same file:83)",
+    "SetVar scene=4 + CAUGHT + show hiker on capture (same file:88-91)"
+   ],
+   "items": [
+    "ITEM_BLUE_ORB in bag (HasItem same file:36; SS version gate at 15-18)"
+   ],
+   "observed": {
+    "Pokemon_SoulSilver16gyns.sav (postgame gatehouse, pre)": "orb granted (no give-flag exists), CAUGHT=false, BEAT_OR_ESCAPED=false, scene=0, Kyogre+hiker unhidden"
+   },
+   "reads": [
+    "VAR_SCENE_EMBEDDED_TOWER<4 in scr_seq_0134_D52R0102.s:13",
+    "Game version SS in scr_seq_0134_D52R0102.s:15-18",
+    "FLAG_BEAT_OR_ESCAPED unset in scr_seq_0134_D52R0102.s:35",
+    "HasItem ITEM_BLUE_ORB in scr_seq_0134_D52R0102.s:36"
+   ],
+   "writes": [
+    "SetFlag/ClearFlag Kyogre visibility in scr_seq_0134_D52R0102.s:30-31,43-44,55",
+    "SetFlag BEAT_OR_ESCAPED in scr_seq_0134_D52R0102.s:83",
+    "SetVar scene=4 + CAUGHT in scr_seq_0134_D52R0102.s:88-89"
+   ]
   }
  ],
  "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",

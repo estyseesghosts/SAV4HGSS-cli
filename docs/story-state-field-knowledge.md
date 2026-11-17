@@ -111,7 +111,9 @@ Two corrections from Nov 2026 d-pad testing:
   triplicated nearby. Map-only unanimity would false-fail on NPCs.
 - The u16 at +16 did not track facing here: it read 3 (`DIR_EAST`)
   before and after the south walk. Report it as observed; do not
-  read it as avatar facing, and do not gate on it.
+  read it as avatar facing, and do not gate on it. (One later
+  end-of-run read showed 1/`DIR_SOUTH` after the same south walk, so
+  the field may lag rather than lie — either way, never gate on it.)
 
 Save Z is *not* live direction and is recorded, never asserted: real
 saves carry Z=4 (Mahogany) and Z=7 (Blackthorn) while decomp
@@ -205,6 +207,45 @@ only passed by coincidence (Z equaled direction there).
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.
+
+## 8. Play-to-fill loop, proven end-to-end (Nov 2026)
+
+Driver additions in `tools/leveld_run.py`: `--touches
+'frame:x+y:frames'` (touch verified live: tapping POKEDEX opens the
+dex, SEEN 014; POKEMON opens the party screen) and `--extract-save
+auto` (exports the in-game battery via `melonds_backup_export`; the
+headless core keeps saves in memory with no auto-flush, so without
+this an in-game save never reaches disk).
+
+Button-only save flow from overworld (all observed on screenshots):
+X opens the button cursor (POKEDEX highlighted), RIGHT moves it to
+M@ster, DOWN to SAVE, A opens the save panel, A confirms "Would you
+like to save", A confirms the overwrite YES, "Saving a lot of
+data..." writes for several hundred frames, then back to overworld.
+Touch taps on SAVE at three coords did nothing while POKEDEX/POKEMON
+taps worked — cause unknown, button path used instead.
+
+Proof run `leveld-out/walk-save-loop` (SS Violet base): DOWNx30
+walked 246→248 live in RAM, full save flow, export. `inspect`:
+valid SS save, checksums pass, location (459,248,3). `diff` vs the
+staged file: `location.y` 246→248, play time 30:51→31:21,
+`VAR_FRIENDSHIP_STEPS` 68→70 (+2 steps, a genuine played delta),
+active partition A→B, 925 changed bytes accepted; 0 flags, 0 bag,
+0 party changes.
+
+Two corrections this work forced:
+
+- Fresh 700-frame boots reach the GAME FREAK title screen, not the
+  overworld (two boot screenshots confirm, SS and HG). The
+  fixture-boot spawn matches come from title-screen RAM copies —
+  still real evidence the save loads and the game builds Location
+  structs from the staged M/X/Y (likely for the Continue screen),
+  but not overworld reachability. Overworld needs ~4200 frames plus
+  title navigation (the `ss-violet-states` input pattern).
+- The `walk-save-loop` assert failure (`matched`=1, exit 1) was the
+  new rule working, not a bug: after the walk only the primary copy
+  sits on the new tile. Asserting a walked-to tile can never show
+  ≥2; the rule is for fresh-boot agreement.
 - Red is beaten on the postgame base (`FLAG_UNK_25F` set by
   `scr_seq_0107_D41R0108.s:26`); Mt Silver pre-Red needs a base from
   before that fight.

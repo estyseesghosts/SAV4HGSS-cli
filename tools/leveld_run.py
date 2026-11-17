@@ -43,6 +43,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--inputs", default="",
                    help="Timed inputs: 'frame:buttons:frames,...' e.g. '1200:start:5,1500:a:10'. "
                         "Buttons from {a,b,x,y,l,r,start,select,up,down,left,right}.")
+    p.add_argument("--touches", default="",
+                   help="Timed touchscreen taps: 'frame:x+y:frames,...' e.g. '700:170+80:5'. "
+                        "Coords are bottom-screen 0-255 x 0-191. Needed for the "
+                        "HGSS bottom-screen menu (SAVE is a touch icon).")
     p.add_argument("--savestate-at", default="",
                    help="Capture savestates at frames: 'frame:name,...' e.g. '2400:menu,4200:overworld'. "
                         "Files are written as <name>.mcpr under --outdir/states/.")
@@ -56,6 +60,12 @@ def parse_args() -> argparse.Namespace:
                         "SAV4HGSS.cs:200) is recorded, not asserted: real saves "
                         "carry Z=4,7 but decomp directions are 0..3 "
                         "(global_fieldmap.h:4-9), so they are different quantities.")
+    p.add_argument("--extract-save", default="",
+                   help="Export the in-game battery save after the run: 'auto' "
+                        "writes <outdir>/played.sav, or give a file name written "
+                        "under <outdir>. The headless core keeps saves in memory "
+                        "(no auto-flush), so an in-game save only reaches disk "
+                        "via this export (melonds_backup_export).")
     return p.parse_args()
 
 
@@ -213,6 +223,24 @@ def main() -> int:
                 continue
             presses.append((int(parts[0]), parts[1].split("+"), int(parts[2])))
         presses.sort()
+    touches: list[tuple[int, int, int, int]] = []
+    if args.touches.strip():
+        for spec in args.touches.split(","):
+            parts = spec.strip().split(":")
+            if len(parts) != 3:
+                print(f"Ignoring malformed touch spec: {spec!r} (want frame:x+y:frames).", file=sys.stderr)
+                continue
+            xy = parts[1].split("+")
+            if len(xy) != 2:
+                print(f"Ignoring malformed touch spec: {spec!r} (want frame:x+y:frames).", file=sys.stderr)
+                continue
+            touches.append((int(parts[0]), int(xy[0]), int(xy[1]), int(parts[2])))
+    actions: list[tuple[int, str, object]] = []
+    for pf, buttons, hold in presses:
+        actions.append((pf, "buttons", (buttons, hold)))
+    for tf, tx, ty, hold in touches:
+        actions.append((tf, "touch", (tx, ty, hold)))
+    actions.sort(key=lambda a: a[0])
     state_at: dict[int, str] = {}
     if args.savestate_at.strip():
         for spec in args.savestate_at.split(","):
@@ -250,9 +278,29 @@ def main() -> int:
                 return 1
             report["state_loaded"] = args.load_state
         advanced = 0
-        press_idx = 0
+        action_idx = 0
         events: list[dict] = []
         states: list[dict] = []
+
+        def apply_action(af: int, kind: str, payload: object) -> None:
+            if kind == "buttons":
+                from melonds_mcp.constants import buttons_to_bitmask
+
+                buttons, hold = payload  # type: ignore[misc]
+                emu.lib.lib.melonds_input_keypad_update(buttons_to_bitmask(buttons))
+                try:
+                    emu.advance_frames(hold)
+                finally:
+                    emu.lib.lib.melonds_input_keypad_update(0)
+                events.append({"frame": af, "buttons": buttons, "hold": hold})
+            else:
+                tx, ty, hold = payload  # type: ignore[misc]
+                emu.lib.lib.melonds_input_set_touch_pos(tx, ty)
+                try:
+                    emu.advance_frames(hold)
+                finally:
+                    emu.lib.lib.melonds_input_release_touch()
+                events.append({"frame": af, "touch": [tx, ty], "hold": hold})
 
         def advance_to(target: int) -> None:
             nonlocal advanced
@@ -271,21 +319,14 @@ def main() -> int:
                     raise RuntimeError(f"Savestate save failed at frame {advanced}.")
 
         for target in milestones:
-            while press_idx < len(presses) and presses[press_idx][0] <= target:
-                pf, buttons, hold = presses[press_idx]
-                advance_to(pf)
+            while action_idx < len(actions) and actions[action_idx][0] <= target:
+                af, kind, payload = actions[action_idx]
+                advance_to(af)
                 maybe_snapshot()
-                from melonds_mcp.constants import buttons_to_bitmask
-
-                emu.lib.lib.melonds_input_keypad_update(buttons_to_bitmask(buttons))
-                try:
-                    emu.advance_frames(hold)
-                finally:
-                    emu.lib.lib.melonds_input_keypad_update(0)
-                advanced += hold
+                apply_action(af, kind, payload)
+                advanced += payload[-1]
                 maybe_snapshot()
-                events.append({"frame": pf, "buttons": buttons, "hold": hold})
-                press_idx += 1
+                action_idx += 1
             advance_to(target)
             maybe_snapshot()
             raw = lib.screenshot_bytes()
@@ -306,22 +347,15 @@ def main() -> int:
                 "running": emu.is_running(),
                 "distinct_colors": len(pixels),
             })
-        # Remaining presses/frames past the last milestone.
-        while press_idx < len(presses):
-            pf, buttons, hold = presses[press_idx]
-            advance_to(pf)
+        # Remaining actions/frames past the last milestone.
+        while action_idx < len(actions):
+            af, kind, payload = actions[action_idx]
+            advance_to(af)
             maybe_snapshot()
-            from melonds_mcp.constants import buttons_to_bitmask
-
-            emu.lib.lib.melonds_input_keypad_update(buttons_to_bitmask(buttons))
-            try:
-                emu.advance_frames(hold)
-            finally:
-                emu.lib.lib.melonds_input_keypad_update(0)
-            advanced += hold
+            apply_action(af, kind, payload)
+            advanced += payload[-1]
             maybe_snapshot()
-            events.append({"frame": pf, "buttons": buttons, "hold": hold})
-            press_idx += 1
+            action_idx += 1
         for frame in sorted(state_at):
             if frame > advanced and frame <= args.frames:
                 advance_to(frame)
@@ -330,6 +364,15 @@ def main() -> int:
             emu.advance_frames(args.frames - advanced)
         report["inputs"] = events
         report["savestates"] = states
+        if args.extract_save.strip():
+            name = args.extract_save.strip()
+            dest = outdir / ("played.sav" if name == "auto" else name)
+            okx = bool(lib.lib.melonds_backup_export(str(dest).encode()))
+            report["extracted_save"] = {"file": dest.name, "ok": okx,
+                                        "sha256": sha256(dest) if okx else None}
+            if not okx:
+                report["error"] = "Backup export failed."
+                return 1
         if args.assert_spawn.strip():
             report["spawn_check"] = check_spawn(lib, save, args.assert_spawn)
             if not report["spawn_check"]["match"]:

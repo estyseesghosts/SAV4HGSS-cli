@@ -1,0 +1,30 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-kanto-complete-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver16gyns.sav",
+    "sha256": "AF325B8027E00DD44A2B9E85B08BD1EAC540DD62362B12ABF782DCFDEB488183"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 561300, "expect": 561194}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_UNLOCKED_MT_SILVER", "equals": true},
+      {"field": "flag.FLAG_RESTORED_POWER", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_MEWTWO", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_HO_OH", "equals": true},
+      {"field": "flag.FLAG_DEFEATED_WILL", "equals": false}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "route-38-spawn-visible", "kanto-badges-complete", "mt-silver-unlocked", "e4-rebattleable", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Kanto-complete checkpoint (M@ster, 52h, 16/16 badges): Mt Silver + west Kanto unlocked, power restored, Mewtwo/Ho-Oh caught, E4 flags cleared for rebattles. Derived from the 307-flag pose4->16gyns diff. Kanto regression anchor."
+  }
+}

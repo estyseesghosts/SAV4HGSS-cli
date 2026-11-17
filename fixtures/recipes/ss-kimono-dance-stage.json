@@ -1,0 +1,28 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-kimono-dance-stage",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver8gyn.sav",
+    "sha256": "F4EB1EE4FE1D3381340EBBC3EFBE5C8E85DFCD3A7E14344BC8F877A32D339101"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 330300, "expect": 330130}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS", "equals": false},
+      {"field": "flag.FLAG_HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_LUGIA", "equals": true}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "blackthorn-spawn-visible", "kimono-girls-at-islands", "dance-cutscene-script-present", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Post-dance state (M@ster, Blackthorn): dance-studio hide cleared, island-bottom hide set, matching the scr_seq_0104 victory path (ClearFlag dance-studio at :101) and the dance cutscene end state (FLAG_UNK_10B, VAR_UNK_40FA=2). The dance movie itself is runtime-only and must be watched in melonDS."
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-e4-champion-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilverpose4.sav",
+    "sha256": "12D609A415EC6CA742D972E7CFF2EA2531B893DF82224115CD31490737CB3518"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 364000, "expect": 363902}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_DEFEATED_WILL", "equals": true},
+      {"field": "flag.FLAG_DEFEATED_KOGA", "equals": true},
+      {"field": "flag.FLAG_DEFEATED_BRUNO", "equals": true},
+      {"field": "flag.FLAG_DEFEATED_KAREN", "equals": true},
+      {"field": "flag.FLAG_UNLOCKED_MT_SILVER", "equals": false},
+      {"field": "flag.FLAG_CAUGHT_HO_OH", "equals": false}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "new-bark-spawn-visible", "e4-flags-set", "mt-silver-locked", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Fresh-Champion checkpoint (M@ster, New Bark, 29h): all four E4 flags true, Mt Silver still locked, Ho-Oh uncaught. Contrast with 16gyns where E4 flags clear for rebattles. E4 regression anchor."
+  }
+}

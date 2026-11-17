@@ -144,6 +144,28 @@
     "ClearFlag FLAG_HIDE_ALPH_OUTSIDE_ARCEUS_EVENT_SUIT in scr_seq_0037_D24R0101.s:212",
     "SetVar VAR_SCENE_SINJOH_MYSTRI_ROOM 4/8/13 in scr_seq_0131_D51R0201.s"
    ]
+  },
+  {
+   "id": "pichu-ilex-shrine",
+   "effects": [
+    "ClearFlag FLAG_HIDE_ILEX_FOREST_SPIKY_EAR_PICHU, show Pichu (scr_seq_0092_D36R0101.s:1743)",
+    "ClearFlag FLAG_HIDE_ILEX_FOREST_OLD_MAN, old-man sequence (same file:1799)"
+   ],
+   "items": [
+    "Event Spiky Pichu as party lead (FollowerPokeIsEventTrigger EVENT_SPIKY_EAR_PICHU, same file:1734)",
+    "No bike (same file:1726-1728)"
+   ],
+   "observed": {
+    "Lyra - Pichu.sav (HG, Ilex shrine, pre)": "VAR_UNK_412B=0, Pichu-hide=true, old-man-hide=true, party lead PICHU 172"
+   },
+   "reads": [
+    "VAR_UNK_412B<2 and !=1 in scr_seq_0092_D36R0101.s:1729-1732",
+    "FollowerPokeIsEventTrigger EVENT_SPIKY_EAR_PICHU in scr_seq_0092_D36R0101.s:1734"
+   ],
+   "writes": [
+    "ClearFlag FLAG_HIDE_ILEX_FOREST_SPIKY_EAR_PICHU in scr_seq_0092_D36R0101.s:1743",
+    "ClearFlag FLAG_HIDE_ILEX_FOREST_OLD_MAN in scr_seq_0092_D36R0101.s:1799"
+   ]
   }
  ],
  "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",

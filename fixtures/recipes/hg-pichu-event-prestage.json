@@ -1,0 +1,31 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-pichu-event-prestage",
+  "game": "HG",
+  "base": {
+    "path": "Lyra - Pichu.sav",
+    "sha256": "B19C81F7846220914291CFD524CCE1BF686ABE764579C2B5A2A5A0F7D43D1A61"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 3000, "expect": 3000},
+      {"op": "location.set", "map": 117, "x": 16, "y": 57, "z": 65535}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_HIDE_ILEX_FOREST_SPIKY_EAR_PICHU", "equals": true},
+      {"field": "flag.FLAG_HIDE_ILEX_FOREST_OLD_MAN", "equals": true},
+      {"field": "variable.VAR_UNK_412B", "equals": 0},
+      {"field": "party.0.species", "equals": 172},
+      {"field": "location.spawn", "equals": {"map": 117, "x": 16, "y": 57, "z": 65535}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "ilex-shrine-visible", "pichu-gate-conditions-held", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Spiky-Pichu event pre-state (Lyra, HG, Ilex shrine): VAR_UNK_412B=0, Pichu and old man hidden, event Pichu leading. Base is `container unwrap` of the DeSmuME .dsv save (.dsv retained as canonical). Gate: scr_seq_0092_D36R0101.s:1725-1744 requires VAR_UNK_412B<2 and !=1 plus EVENT_SPIKY_EAR_PICHU lead; event path clears the Pichu hide (line 1743) and runs the old-man sequence (line 1799). Money op is a no-op canary; location op is a verified self-spawn move."
+  }
+}

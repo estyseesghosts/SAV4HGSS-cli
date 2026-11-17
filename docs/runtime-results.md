@@ -39,6 +39,7 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | hg-dragons-den-shrine | heartgold.nds (POKEMON HG) | boot-only | ok, running |
 | hg-celebi-event-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Ilex 117,16,56) | ok, running |
 | hg-arceus-event-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Alph 113,441,287) | ok, running |
+| hg-pichu-event-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Ilex 117,16,57) | ok, running |
 
 ## Continue-to-overworld sequences
 

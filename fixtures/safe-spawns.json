@@ -96,6 +96,15 @@
    "x": 441,
    "y": 287,
    "z": 3
+  },
+  {
+   "map_id": 117,
+   "map_symbol": "MAP_ILEX_FOREST",
+   "note": "Lyra Spiky-Pichu event pre-state at the shrine; event Pichu leading party (VAR_UNK_412B=0)",
+   "source_save_sha256": "B19C81F7846220914291CFD524CCE1BF686ABE764579C2B5A2A5A0F7D43D1A61",
+   "x": 16,
+   "y": 57,
+   "z": 65535
   }
  ],
  "schema": "hgss-save.safe-spawns/v1"

@@ -119,6 +119,12 @@ Gym scripts themselves have no story guards (Falkner reads only his own TM flag)
 
 Implemented: `trainer badges set` applies layers 1 and 2 for newly gained badges (`hgss-us.badge-rules.json`, `--raw` to skip). Layer 3 and the world prerequisites for out-of-order badge sets are covered only by `preset apply`, whose states are whole played milestones. `FLAG_UNK_189` is a transient script lock (set and cleared around cutscenes in 60+ scripts); no preset or rule sets it.
 
+## F9. Presets and replays boot
+
+2026-11-17. `tools/state_delta.py` replays (F7) and the 17 presets from `tools/make_presets.py` were booted headless (`tools/leveld_run.py`, `tools/preset_boot_check.py`). A replay of the 1-gym HG save plus all flag/var changes up to 8 gyms loads and spawns in Violet at the saved tile, but it owns one badge with the 8-gym story flags, which is exactly the badge/flag disagreement F8 describes. Every preset, applied to the clean HG or SS base save (`Gen 4 - ... (ENG).sav`), exits 0, has 0 `story check` violations, and Continue puts the live Location on the preset's warp tile (17 of 17; HG presets on `heartgold.nds`, SS presets on `soulsilver.nds`). A preset differs from its source save only in the fields it deliberately skips (flag 0x966, `VAR_LOTO_NUMBER_LO`, `VAR_FRIENDSHIP_STEPS`, temp var 0x4000), checked with `diff`.
+
+What this does not show: that the game behaves correctly in play after each preset (cutscene triggers, NPC placement). The boot check proves the save loads and the position is right.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

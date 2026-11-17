@@ -44,6 +44,10 @@ hgss-save var get INPUT.sav VAR_PLAYER_STARTER
 hgss-save var set INPUT.sav VAR_PLAYER_STARTER 2 --out OUT.sav
 hgss-save bag set INPUT.sav ITEM_POTION 10 --out OUT.sav
 hgss-save trainer money set INPUT.sav 50000 --out OUT.sav
+hgss-save trainer badges set INPUT.sav --johto 121 [--kanto 0] [--raw] --out OUT.sav
+hgss-save preset list
+hgss-save preset apply hg-04-fog INPUT.sav --out OUT.sav
+hgss-save story check INPUT.sav [--strict]
 hgss-save party export INPUT.sav 0 --out slot0.pk4
 hgss-save dex set INPUT.sav 25 --seen true --caught true --out OUT.sav
 hgss-save location set INPUT.sav 73 459 246 3 --out OUT.sav [--safe-spawns PATH]
@@ -69,6 +73,16 @@ hgss-save blank --game HG|SS --out OUT.sav [--kind fresh-structure|erased-flash]
 ```
 
 `--force` overwrites an existing `--out`. `--dry-run`, `--require-symbols`, `--max-ranges` and `--safe-spawns` apply to every writing command; see the reference. There is no in-place editing; writing onto the input path is refused.
+
+## Story state: presets, badge consequences, audit
+
+Story progress is not one number. The badge bytes, the flags and variables the gym scripts set, a derived counter (`VAR_MIDGAME_BADGES`), scene variables that gate cutscenes, and NPC visibility flags all have to agree, and `docs/state-log.md` F1 and F8 show which of them move together in played saves.
+
+- `preset apply NAME INPUT --out OUT` overwrites the whole story domain with a played milestone (17 presets: HeartGold from 1 badge to Kanto, SoulSilver 1 to 8 badges and Kanto), spawning at a Pokemon Center door. Each preset boots headless in melonDS and spawns on the intended tile (`tools/preset_boot_check.py`).
+- `trainer badges set` changes the badge bytes and applies what the game sets for each newly gained badge (`registry/hgss-us.badge-rules.json`, from the gym scripts, checked against the saves).
+- `story check` reports where a save contradicts those rules. It finds nothing on the 29 played saves in the corpus and on every applied preset.
+
+Not covered: out-of-order badge sets do not model the world prerequisites (HM gates, scene machines such as `VAR_SCENE_ROCKET_TAKEOVER`); use a preset for a coherent state. Details and the open list are in `docs/state-log.md`.
 
 ## Teleport by warp (`location warp`) and the warp table
 

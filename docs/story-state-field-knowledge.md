@@ -206,23 +206,16 @@ only passed by coincidence (Z equaled direction there).
   saves at those points. (Olivine pre-Jasmine was here until Nov 2026;
   filled by play as `hg-olivine-pre-jasmine`, see §9.)
 - Lake trek status (Nov 2026): gate decoded (`scr_seq_0938_T29.s`;
-  RED_SCALE/CAUGHT/HIDE_GYARADOS/HIDE_LANCE pins), bracket verified
-  (6gyn pre, 7gyn post), 71-save census confirms no lake base exists.
+  `FLAG_GOT_RED_SCALE`/`FLAG_CAUGHT_RED_GYARADOS`/`FLAG_HIDE_LAKE_OF_RAGE_RED_GYARADOS`/`FLAG_HIDE_LAKE_OF_RAGE_LANCE`), bracket verified on real saves
+  (HG 6gyn pre: scale/gyarados-hide/lance present state, 7gyn post: scale set), 71-save census confirmed no Lake of Rage base exists.
   Ecruteak east exit FOUND by decomp + play: `075_T27.json` warps put
   the R42 gatehouse at Ecruteak (415,175-176); the y=184 road dead-ends
   at the x=413-414 tree wall, so the path runs north at x~380 to the
   y=176 corridor (trek44: 380,176), east past the Mart via a south dip
   (trek46: 403,176 -> trek47: 411,177), to (414,174) and into the
-  gatehouse (legs 48-50), across to R42 (422,175, legs 51-52, Route 42
-  banner on screenshot), east on R42 to (440,172) and into Mt Mortar
-  (Mt Mortar banner, legs 53-56). Interiors drop the Location pattern;
-  R42 outdoor uses warp 0 not FFFFFFFF — see `docs/research-findings.md`.
-  Move-teach synth approved (Surf to Mantine, `trek-saves/hg-6gyn-surf.sav`,
-  boot-verified). Surf-save replay banked (`surf-states`, `surf-leg1..9`,
-  `surf-probe`): Ecruteak 394,184 → 384,184 → 380,176 → 391,176 →
-  401,176 → 408,177 → 412,174 → gatehouse → R42 (428,173), all RAM-
-  verified. Next: Mortar interior east with Surf, R43 north to the lake,
-  in-game save, stage `hg-lake-pre-gyarados`.
+  gatehouse (legs 48-50), across to R42 (422,175, legs 51-52), east on R42 to (440,172) and into Mt. Mortar (legs 53-56). Route 42/Mortar outdoor/interior structs used warp 0, not `FFFFFFFF` (see `docs/research-findings.md`).
+  Move-teach synth approved (Surf to Mantine, slot 5 Move3 97→57 PP 15, `trek-saves/hg-6gyn-surf.sav`, boot-verified). Surf replay and fast probes banked (`surf-states`, `surf-leg*`, `surf-probe`, `surf-fast*`): R42 lake crossed west shore (441,174) → (448,174) → (448,169)/(451,169)/(450,168) → south down x=450 under the island to (457,181) → (457,178)/(465,178)/(465,176) → auto-dismount (462,176) → east door (464,175) → Mt. Mortar 1F Entrance (45,50). Interior mapped to (57,41): (45,50) → (47,50) → (47,48) → surf east (53,48) → north channel (53,35) → (55,35) → (57,38) → (57,41). Continued R42-east to Mahogany (map 87), through the north gatehouse to Route 43 (524,156), north to (524,149).
+  Continuation state (session ended on external `provider.quota`, no `hg-lake-pre-gyarados` staged): resume on `hg-6gyn-surf.sav` from `C:\Users\julie\workdir\leveld-out\surf-fast93..100\states\*.mcpr` and `C:\Users\julie\workdir\leveld-out\surf-battle1\states\sp_a1..sp_a8.mcpr` at map 45 (Route 43), (524,149), Spencer dialogue mid-battle. `hg-lake-pre-gyarados` not staged. Next: finish/bypass Spencer, find the north gap to Lake of Rage, in-game save + `--extract-save`, `inspect`/`diff`, stage fixture.
 - Tooling quirk (open, mechanism unknown): one combined run
   (`surf-leg1`: left:100 then left:60/up:60/up:60) moved on the first
   hold only (394→384) then froze (frame-diffs identical, final scan

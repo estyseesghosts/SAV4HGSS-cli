@@ -137,3 +137,9 @@ vs `lake-leg22..26`, `lake-leg24` frame_000440.)
   transient `FLAG_TEMP_x4000`, and per-map
   `FLAG_HIDE_CAMERON` (set by Olivine's map script — transient
   actor visibility, correctly not asserted).
+
+## Lake pre-Gyarados trek continuation (RUNTIME, 2026-11-17, no fixture staged)
+
+- From `hg-6gyn-surf.sav` (HG 6gyn base + approved Surf teach on Mantine), play reached Route 43 `(524,149)` (map 45) with Spencer dialogue mid-battle when the session ended on external `provider.quota`; no in-game save was taken and no `hg-lake-pre-gyarados` fixture/manifest exists.
+- Resume anchors: `C:\Users\julie\workdir\leveld-out\surf-fast93..100\states\*.mcpr`, `C:\Users\julie\workdir\leveld-out\surf-battle1\states\sp_a1..sp_a8.mcpr` on `hg-6gyn-surf.sav`. `hg-lake-pre-gyarados` not staged.
+- Gate remains as above (SOURCE/SAVE): 6gyn pre, 7gyn post; next concrete step is finish/bypass Spencer, reach Lake of Rage, in-game save + `--extract-save`, `inspect`/`diff`, then stage.

@@ -37,13 +37,15 @@ gym-puzzle interiors.
 
 ## Beats with no nearby real base
 
-No raw save in `hgss-saves` stands near: pre-dance Ecruteak, Olivine
-pre/post-Jasmine (covered only by TM-flag asserts on the Mahogany
-base), Lake of Rage pre-Gyarados (the lineage's TM10 flag stays false;
-only the postgame base carries it), gym-puzzle interiors, or any
-mid-cutscene point. Backward flag-resets ("un-beat Clair to restage
-Ecruteak") are refused: they fabricate story states the scripts never
-produce from that base.
+No raw save in `hgss-saves` stands near: pre-dance Ecruteak, Lake of
+Rage pre-Gyarados (gate pins decoded/bracketed on HG 6gyn/7gyn, 71-save
+census found no lake base; Route 43 reached in play but no
+`hg-lake-pre-gyarados` staged yet — resume from `leveld-out/surf-fast93..100`
+and `surf-battle1` on `hg-6gyn-surf.sav` at map 45 `(524,149)`), gym-puzzle
+interiors, or any mid-cutscene point. Olivine pre-Jasmine is now staged by
+play as `hg-olivine-pre-jasmine` (safe spawn #20). Backward flag-resets
+("un-beat Clair to restage Ecruteak") are refused: they fabricate story
+states the scripts never produce from that base.
 
 What unblocks these: legitimately played saves at those points
 (boot the retail carts, play to the event door, dump the raw

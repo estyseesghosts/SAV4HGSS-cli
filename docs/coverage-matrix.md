@@ -84,7 +84,11 @@ base (kanto-gyms-verify). No play needed.
    and the Chikorita intro. Olivine pre-Jasmine is done by this same
    method (flew HG 5gyn Cianwood across to Olivine, staged as
    `hg-olivine-pre-jasmine`; the walk-east idea in the earlier draft
-   failed on cliff tiles, fly was the honest forward path). In-game saves are extracted with `leveld_run.py`
+   failed on cliff tiles, fly was the honest forward path). Lake
+   pre-Gyarados play is partially driven from the HG 6gyn/Surf synth
+   base to Route 43 `(524,149)` (map 45, mid-Spencer), but no in-game
+   save/fixture is staged yet (`leveld-out/surf-fast*`, `surf-battle1`).
+   In-game saves are extracted with `leveld_run.py`
    `--extract-save` and verified with `inspect` + `diff` against
    the pre-play save so the only deltas are played ones.
 4. **Synth** (edit what play can't reach): reserved for states no

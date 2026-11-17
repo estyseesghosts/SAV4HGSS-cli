@@ -94,3 +94,111 @@ decisions, mistakes, and recoveries.
   session continues from evidence instead of re-probing. The
   Olivine stop is still open — that is stated plainly in §9, not
   papered over.
+
+## 2026-11-17 (cont.) — Lake trek, R42 crossing, Route 43 push
+
+### Accomplished
+
+- `hg-olivine-pre-jasmine` staged by play, not synthesis: HG 5gyn
+  Cianwood base flew to Olivine with the decomp-derived cursor path
+  (`UP,UP,RIGHT,RIGHT,RIGHT,UP`), in-game saved, extracted,
+  `inspect`/`diff` clean, boot-verified with two agreeing RAM copies.
+  30th fixture, safe spawn #20. Commits `ad37954`, `a356c3f`.
+- Ecruteak east exit solved from source: `075_T27.json` places the
+  R42 gatehouse at (415,175)/(415,176); the y=184 road dead-ends at
+  the x=413-414 tree wall. Played path banked per leg:
+  (397,188) → west (384,184) → north corridor (380,176) → east
+  (395,176) → south dip around the Mart (403,176) → (411,177) →
+  (414,174) → gatehouse → R42 (422,175) → Mt. Mortar mouth
+  (437,172). All RAM-verified.
+- First approved synth: Surf taught to Mantine via export → PKHeX.Core
+  Move3 97→57, PP 15 → import `--expect-species 226`; 130 data + 2
+  checksum bytes, 0 unclassified, boot-verified. Justification is in
+  `docs/research-findings.md`; `hg-6gyn-surf.sav` is the trek base.
+- R42 lake crossed on Surf (face-water + A): west shore (441,174) →
+  east y=174 to (448,174) → north (448,169)/(451,169) → (450,168)
+  pool → south down x=450 to y=181 → east under the island to
+  (457,181) → north (457,178) → east (461,178),(465,178) → north
+  (465,176) → west auto-dismount (462,176) → east door (464,175) →
+  Mt. Mortar 1F Entrance (45,50). Interior mapped to (57,41):
+  (45,50) → (47,50) → (47,48) → surf east (53,48) → north channel
+  (53,35) → (55,35) → (57,38) → (57,41).
+- Walked R42-east to Mahogany (map 87), found the north gatehouse,
+  reached Route 43 at (524,156) and pushed north to (524,149).
+  Session ended on a provider quota error during the Spencer battle
+  at that tile; no `hg-lake-pre-gyarados` was staged yet.
+- Fast-driver protocol validated (doc-only commits `b8dc18a`,
+  `8172f49`, `42d7cfa`): single boot, direct 20-byte peek at
+  `0x227d498`, per-step `.mcpr`, full-screen hashes. 6-12 waypoints in
+  3-7s wall per boot across ~40 single-boot probes; banked states
+  `leveld-out/surf-fast*` and `surf-battle1`.
+
+### Learned
+
+- The warp field at struct+4 is map-dependent: outdoor Ecruteak uses
+  `FFFFFFFF`, R42/Mortar outdoor and interiors use warp 0. Scanning
+  only for `FFFFFFFF` reports false negatives outside cities and
+  caused the incorrect "interiors drop the pattern" claim.
+- Menu-open detection that works: bottom-screen grid with a red cursor
+  highlight = start menu open; the identical grid with no highlight =
+  closed overworld UI. Top-screen hashes cannot see the menu and ate
+  inputs in three runs. Exit with X,B,B,B,B and verify closure before
+  trusting D-pad probes.
+- Wild water encounters freeze coordinates at the entry tile and look
+  exactly like wall bumps. Max Repel (bag items pocket p1/3, USE via A)
+  is mandatory before mapping water; the earlier "blocked at 448"
+  reading was a Goldeen battle, not rock.
+- Surf triggers on face-water + A ("The water is a deep blue..."), not
+  party-menu Surf away from valid water. Decorative ponds give no
+  prompt at all; party-menu Surf answers "You can't use that here."
+- Decomp zone-event JSON is the fastest navigation ground truth
+  (`075_T27`, `041_R42`, `116_D38R0101`, `128_R42R0101`). Reading it
+  replaced ~20 blind maze legs.
+- One combined long-hold run froze after the first input
+  (`surf-leg1`); chained ≤60-frame holds with a banked state per leg
+  reproduce reliably. Mechanism unknown; workaround recorded.
+
+### Went well
+
+- Source-first routing: every maze solve came from warps/object lists,
+  not another screenshot sweep.
+- Per-leg banked `.mcpr` anchors plus RAM/screenshot cross-checks made
+  the route resumable and auditable.
+- The export → minimal patch → import-with-expectation synth produced a
+  legal move teach with zero side effects and a full byte audit.
+
+### Went poorly, and recovery
+
+- Blind maze walking hit the Ecruteak tree wall, Pokécenter door loops,
+  a ~15-try interior exit hunt, and later the Mahogany fence/gym/shop
+  band (~15 runs unsolved). Recovery each time: read warps/object
+  lists, then probe one hypothesis per run. Lesson: pre-dump all
+  warp/NPC coordinates for a map before entering it; cap maze branches
+  with systematic row sweeps instead of random pushes.
+- Menu state silently ate inputs in 3+ runs; top-screen hashes were
+  blind to it. Fixed with the highlight classifier, X,B,B,B,B exit,
+  and full-screen hashes.
+- The Surf synth initially ate the COH-01 header on import; repaired
+  from the base and re-verified. Diff after every import.
+- Mahogany navigation was still open when the quota error killed the
+  session mid-Spencer-battle. The continuation state below exists so
+  that does not become lost work.
+
+### Continuation state (2026-11-17 end)
+
+- HEAD `42d7cfa`; working tree clean apart from untracked
+  `chatlog00.*`, `chatlog01.md`, and the user's research plan.
+- Resume anchors: `leveld-out/surf-fast93..100/states/*.mcpr` and
+  `leveld-out/surf-battle1/states/sp_a*.mcpr`, on `hg-6gyn-surf.sav`,
+  at map 45 (Route 43), (524,149), Spencer dialogue in progress.
+- Next concrete step: finish or bypass Spencer, find the north gap to
+  the Lake of Rage, in-game save, extract, `inspect`/`diff`, stage
+  `hg-lake-pre-gyarados`. Gate pins are already decoded
+  (`scr_seq_0938_T29.s`) and bracketed (6gyn pre, 7gyn post).
+- Still open: Chikorita starter axis (needs a played intro), Blue/Red
+  pre-states, Groudon/Mewtwo pre-states, watched event movies, and
+  movement-grid decoding if arbitrary teleports are ever required.
+- Process fixes for next time: commit or integrate the fast-driver
+  prototype (it lives only in Temp), update docs at each checkpoint
+  rather than at compaction boundaries, and write a handoff note when
+  a session ends on an external error.

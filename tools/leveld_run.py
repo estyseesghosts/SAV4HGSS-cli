@@ -48,6 +48,14 @@ def parse_args() -> argparse.Namespace:
                         "Files are written as <name>.mcpr under --outdir/states/.")
     p.add_argument("--load-state", default="",
                    help="Load a .mcpr savestate right after ROM open instead of booting fresh.")
+    p.add_argument("--assert-spawn", default="",
+                   help="Verify the live player map/x/y in ARM9 RAM: 'map,x,y,z'. "
+                        "Scans main RAM for the decomp Location struct "
+                        "(field_types_def.h:10-16) built from the staged save's "
+                        "M/X/Y (SAV4HGSS.cs:186-188). The z component (save Z, "
+                        "SAV4HGSS.cs:200) is recorded, not asserted: real saves "
+                        "carry Z=4,7 but decomp directions are 0..3 "
+                        "(global_fieldmap.h:4-9), so they are different quantities.")
     return p.parse_args()
 
 
@@ -57,6 +65,65 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def check_spawn(lib, save: Path, spec: str) -> dict:
+    """Verify the live player map/x/y in ARM9 main RAM.
+
+    Differential of two overworld RAM dumps (Violet 73,459,246 vs Kanto
+    gatehouse 172,6,7) isolated the live decomp `Location` struct
+    (field_types_def.h:10-16: int mapId, warpId, x, y, direction):
+    u16 map @+0, u32 0xFFFFFFFF warp @+4, u16 x @+8, u16 y @+12,
+    u16 direction @+16 (u16 zero padding = int upper halves).
+    Wanted map/x/y come from the staged save's own Location
+    (SAV4HGSS.cs:186-188). The spec's 4th component (save Z,
+    SAV4HGSS.cs:200) is NOT asserted: save Z takes values 4 and 7 on
+    real saves (Mahogany, Blackthorn) while decomp directions are
+    0..3 (global_fieldmap.h:4-9 DIR_MAX 4), so they are different
+    quantities; live direction is reported as observed. Scans
+    0x02000000-0x02400000.
+    """
+    import struct
+
+    want = [int(v) for v in spec.split(",")]
+    if len(want) != 4:
+        raise ValueError(f"Bad --assert-spawn spec {spec!r} (want map,x,y,z).")
+    want_map, want_x, want_y, want_z = want
+    for v in want:
+        if not 0 <= v <= 0xFFFF:
+            raise ValueError(f"Spawn component {v} outside u16 range.")
+    prefix = (struct.pack("<H", want_map) + b"\x00\x00\xff\xff\xff\xff"
+               + struct.pack("<H", want_x) + b"\x00\x00"
+               + struct.pack("<H", want_y) + b"\x00\x00")
+    hits: list[dict] = []
+    RAM_START, RAM_LEN, CHUNK = 0x02000000, 0x400000, 0x1000
+    addr = RAM_START
+    carry = b""
+    while addr < RAM_START + RAM_LEN:
+        size = min(CHUNK, RAM_START + RAM_LEN - addr)
+        try:
+            view = lib.peek_block(0, addr, size)
+        except Exception:
+            addr += size
+            carry = b""
+            continue
+        window = carry + view
+        base = addr - len(carry)
+        idx = window.find(prefix)
+        while idx >= 0:
+            hit_addr = base + idx
+            try:
+                direction = struct.unpack("<H", lib.peek_block(0, hit_addr + 16, 2))[0]
+            except Exception:
+                direction = None
+            hits.append({"address": hex(hit_addr), "direction": direction})
+            idx = window.find(prefix, idx + 1)
+        carry = window[-(len(prefix) - 1):] if len(prefix) > 1 else b""
+        addr += size
+    live = [want_map, want_x, want_y] if hits else None
+    return {"prefix": prefix.hex(), "hits": hits, "live": live, "want": [want_map, want_x, want_y],
+            "save_z": want_z, "z_note": "save Z is not live direction (Z=4,7 observed; DIR range is 0..3)",
+            "match": bool(hits)}
 
 
 def main() -> int:
@@ -240,6 +307,11 @@ def main() -> int:
             emu.advance_frames(args.frames - advanced)
         report["inputs"] = events
         report["savestates"] = states
+        if args.assert_spawn.strip():
+            report["spawn_check"] = check_spawn(lib, save, args.assert_spawn)
+            if not report["spawn_check"]["match"]:
+                report["error"] = "Live spawn mismatch: %s" % report["spawn_check"]
+                return 1
         report["frames_advanced"] = args.frames
         report["running"] = emu.is_running()
         report["ok"] = True

@@ -55,6 +55,21 @@ save menu → overworld with screenshots at 1500/2400/3300/4200.
 - Mid-run states: menu-time `.mcpr` restored + one input reaches the
   identical Violet overworld as the uninterrupted run (759 colors,
   running). Savestate capture/restore verified end to end.
+- In-emulator spawn assertion (`--assert-spawn map,x,y,z`): differential
+  of Violet vs Kanto overworld RAM dumps isolated the live decomp
+  `Location` struct in ARM9 main RAM (field_types_def.h:10-16: int
+  mapId, warpId, x, y, direction — u16 map @+0, u32 0xFFFFFFFF warp
+  @+4, u16 x @+8, u16 y @+12, u16 direction @+16). Wanted map/x/y come
+  from the staged save's own Location (SAV4HGSS.cs:186-188). Liveness
+  proven by holding Up for 120 frames from the Violet overworld state:
+  Y 246→244 in place at 0x227d498, map/X unchanged. The z component
+  (save Z, SAV4HGSS.cs:200) is recorded, not asserted: real saves carry
+  Z=4 (Mahogany) and Z=7 (Blackthorn) while decomp directions are 0..3
+  (global_fieldmap.h:4-9 DIR_MAX 4), so they are different quantities.
+  - Violet (73,459,246): match at 0x227d498 + mirror 0x239aa40, direction 3.
+  - Kanto gatehouse (172,6,7): match at 0x227d498, 0x2377a20, 0x239aa40, direction 1.
+  - Lugia/Blackthorn (89,669,180): match at 0x227d498 + mirror 0x239aa40,
+    direction 1 (save Z 7 recorded as observed, correctly not gated).
 
 ## How to reproduce
 

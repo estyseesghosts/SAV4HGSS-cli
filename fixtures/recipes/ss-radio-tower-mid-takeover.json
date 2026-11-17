@@ -8,11 +8,13 @@
   },
   "patch": {
     "operations": [
-      {"op": "trainer.money.set", "value": 447000, "expect": 446974}
+      {"op": "trainer.money.set", "value": 447000, "expect": 446974},
+      {"op": "location.set", "map": 190, "x": 8, "y": 4, "z": 0}
     ],
     "assert": [
       {"field": "flag.FLAG_BEAT_RADIO_TOWER_ROCKETS", "equals": false},
-      {"field": "variable.VAR_SCENE_ROCKET_TAKEOVER", "equals": 4}
+      {"field": "variable.VAR_SCENE_ROCKET_TAKEOVER", "equals": 4},
+      {"field": "location.spawn", "equals": {"map": 190, "x": 8, "y": 4, "z": 0}}
     ]
   },
   "position": {"mode": "preserve-base"},

@@ -119,7 +119,7 @@ hgss-save fixture verify <out>/ss-violet-safe-money.manifest.json --outdir <out>
 hgss-save fixture record-runtime <out>/ss-violet-safe-money.manifest.json --report leveld-out/<id>/report.json
 ```
 
-Level D runs headless via `tools/leveld_run.py` on the melonDS-MCP native core (boot matrix + continue-to-overworld for Violet, Lugia, Kanto in `docs/runtime-results.md`); the manual checklist in `docs/runtime-validation.md` remains for event-movie observation.
+Level D runs headless via `tools/leveld_run.py` on the melonDS-MCP native core (boot matrix + continue-to-overworld for Violet, Lugia, Kanto in `docs/runtime-results.md`); the manual checklist in `docs/runtime-validation.md` remains for event-movie observation. Field knowledge — how story state is stored, how scripts read it, containers, and the full issue log — lives in `docs/story-state-field-knowledge.md`.
 
 ## Format notes
 

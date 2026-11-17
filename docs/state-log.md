@@ -149,7 +149,7 @@ HM grants: four scripts set an HM flag and give the item in one block: `FLAG_GOT
 
 Field gates: `src/field_move.c` refuses a move without its badge: Cut/Hive (189), Fly/Storm (221), Surf/Fog (254), Strength/Plain (295), Rock Smash/Zephyr (330), Waterfall/Rising (365), Rock Climb/Earth (397), Whirlpool/Glacier (608). Whirlpool is a move, not an HM item (HM05 is Defog). A missing badge is not an inconsistency (a player can own the HM and lack the badge), so `story check` lists these as `locked_field_moves` for information.
 
-Grant flags follow story order in the HG lineage: HM01 appears by 3 badges, HM02/HM03 by 5, which is the pattern a closure resolver has to reproduce. Not yet implemented: closure (asking for badge N and receiving the HM, scene vars and NPC flags that must precede it).
+Grant flags follow story order in the HG lineage: HM01 appears by 3 badges, HM02/HM03 by 5, which is the pattern a closure resolver has to reproduce. Observed order, recorded as `observed_badges` per grant and reported by `story check` as advisory `observed-order`: every save with HM01 owns badges 0-1, every save with HM02 or HM03 owns badges 0-4, the one HM08 save owns all Johto badges. No script enforces this (the grant scripts do not test badges), so it is lineage evidence only. Not yet implemented: closure (asking for badge N and receiving the HM, scene vars and NPC flags that must precede it).
 
 ## Open work from this log
 

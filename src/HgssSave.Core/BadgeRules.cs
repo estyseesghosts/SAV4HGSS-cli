@@ -22,7 +22,7 @@ public sealed class BadgeRules
     public sealed record Counter(string Name, int VarId, int[] Badges, int HoldFrom);
 
     /// <summary>An HM given by a script: the script sets the flag and gives the item together (29 of 29 played saves agree).</summary>
-    public sealed record Grant(string Flag, int FlagId, string Item, int ItemId, string Source);
+    public sealed record Grant(string Flag, int FlagId, string Item, int ItemId, string Source, int[] ObservedBadges);
 
     /// <summary>A field move that needs a badge to use (src/field_move.c).</summary>
     public sealed record FieldGate(string Move, int Badge, string Name, string Source);
@@ -142,6 +142,11 @@ public sealed class BadgeRules
                     $"{g.Item} {(item ? "is" : "is not")} in the bag; {g.Source} sets the flag and gives the item together"));
         }
 
+        foreach (var g in Grants.Where(g => session.TryGetFlag(g.FlagId, out var on) && on))
+            foreach (var b in g.ObservedBadges.Where(b => ((mask >> b) & 1) == 0))
+                result.Add(new Violation("observed-order", g.Flag, g.FlagId, $"badge {b} owned", "missing",
+                    "advisory: every played save with this HM also owns the badge; no script enforces it"));
+
         foreach (var counter in Counters)
         {
             var count = counter.Badges.Count(b => ((mask >> b) & 1) != 0);
@@ -214,7 +219,8 @@ public sealed class BadgeRules
             if (root.TryGetProperty("grants", out var gs))
                 foreach (var g in gs.EnumerateArray())
                     grants.Add(new Grant(g.GetProperty("flag").GetString()!, g.GetProperty("flag_id").GetInt32(), g.GetProperty("item").GetString()!,
-                        g.GetProperty("item_id").GetInt32(), g.GetProperty("source").GetString()!));
+                        g.GetProperty("item_id").GetInt32(), g.GetProperty("source").GetString()!,
+                        g.TryGetProperty("observed_badges", out var ob) ? ob.EnumerateArray().Select(x => x.GetInt32()).ToArray() : []));
             var gates = new List<FieldGate>();
             if (root.TryGetProperty("field_gates", out var fg))
                 foreach (var g in fg.EnumerateArray())

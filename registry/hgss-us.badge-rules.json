@@ -877,28 +877,60 @@
    "flag_id": 128,
    "item": "ITEM_HM01",
    "item_id": 420,
-   "source": "scr_seq_0092_D36R0101.s:1293 (Ilex Forest)"
+   "source": "scr_seq_0092_D36R0101.s:1293 (Ilex Forest)",
+   "observed_badges": [
+    0,
+    1
+   ],
+   "observed_basis": "every save owning the flag also owns these badges (22/18/18/1 saves, corpus-census.json); no script enforces it"
   },
   {
    "flag": "FLAG_GOT_HM02",
    "flag_id": 187,
    "item": "ITEM_HM02",
    "item_id": 421,
-   "source": "scr_seq_0875_T24.s:39 (Cianwood)"
+   "source": "scr_seq_0875_T24.s:39 (Cianwood)",
+   "observed_badges": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "observed_basis": "every save owning the flag also owns these badges (22/18/18/1 saves, corpus-census.json); no script enforces it"
   },
   {
    "flag": "FLAG_GOT_HM03",
    "flag_id": 162,
    "item": "ITEM_HM03",
    "item_id": 422,
-   "source": "scr_seq_0928_T27R0501.s:378 (Ecruteak Dance Theater)"
+   "source": "scr_seq_0928_T27R0501.s:378 (Ecruteak Dance Theater)",
+   "observed_badges": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "observed_basis": "every save owning the flag also owns these badges (22/18/18/1 saves, corpus-census.json); no script enforces it"
   },
   {
    "flag": "FLAG_GOT_HM08",
    "flag_id": 389,
    "item": "ITEM_HM08",
    "item_id": 427,
-   "source": "scr_seq_0740_T01R0301.s:208"
+   "source": "scr_seq_0740_T01R0301.s:208",
+   "observed_badges": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "observed_basis": "every save owning the flag also owns these badges (22/18/18/1 saves, corpus-census.json); no script enforces it"
   }
  ],
  "field_gates": [

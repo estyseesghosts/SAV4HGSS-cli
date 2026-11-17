@@ -163,6 +163,14 @@ Result for the writes that matter. All 16 `GiveBadge` paths carry no story guard
 
 Consequence for the resolver: ordering is not in the scripts that write progress. It is in access (which map is reachable, which NPC blocks the path, which frame or coordinate trigger fires), so prerequisites for an arbitrary badge set have to come from the map graph (warps, `FLAG_HIDE_*` placement, the F11 triggers), not from the gym or HM scripts. This replaces the earlier reading of the `needs` edges in `research/story-atoms-hg.json`, which are file-level reads and not guards (the HM01 edge there points at a read on a different branch, `scr_seq_0092_D36R0101.s:65`).
 
+## F15. Map reachability: pipeline built, collision semantics not yet calibrated
+
+Goal: derive which field-move gates a map needs, since F14 showed the scripts do not encode order. `tools/nds_files.py` reads the NDS filesystem and NARCs; `tools/map_data.py` loads the overworld matrix (`files/fielddata/mapmatrix/map_matrix/map_matrix_0000_EVERYWHERE.bin`, format from `src/map_matrix.c:34-58`), the land-data NARC (ROM `a/0/6/5`, 676 members, tile attributes u16 at member offset 0x14 per `include/terrain_attributes.h:11-13`) and the behaviour enum from `include/constants/metatile_behavior.h`. `tools/map_reach.py` floods the 47x17-block overworld (503,808 tiles) with warps, field-move gates and ledges.
+
+Checks that passed: row-major tile order (door and `WARP_*` behaviours sit under the zone-event warps: 77 DOOR, 70 WARP_* of 1,317 vs near zero transposed); behaviour ids line up (`WATER_SEA` = 0x15 on sea tiles); with every gate open the walk covers New Bark, Route 29/46/30/27 and Cherrygrove and the 14 interiors behind them.
+
+What fails: the walk stops at Route 30 north (556,288-289) and again at Route 31 (520-525,266; 544-547,268). Those tiles read `0x8000` (blocked, behaviour 0) yet players cross them: of 26 played-save positions, 3 are reachable (Cherrygrove, New Bark and the start), Violet (496,274) is not. Opening only the `HEADBUTT` behaviour makes Violet reachable but opens 119,279 tiles, which is far too permissive. So bit 15 is not the whole collision rule for those tiles; the cause is unknown (candidates: collision also derived from the building/object layer of the land-data member, or tile heights). Until the 26 positions are reachable, the per-gym gate sets would be wrong, so none are shipped. `--probe X,Z` and `--open BEHAVIOURS` in `map_reach.py` are the calibration hooks.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

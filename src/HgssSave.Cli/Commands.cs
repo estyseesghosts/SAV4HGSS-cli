@@ -127,6 +127,42 @@ internal static class Commands
         return RunPatch(input, new PatchDocument(PatchDocument.SchemaId, null, null, null, [new MoneySetOperation(value, expect)], []), CanonicalPatchJson($"trainer.money.set:{value}:{expect}"), output, args);
     }
 
+    internal static int StoryCheck(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save story check INPUT [--badge-rules PATH] [--strict]");
+        var registry = TryLoadRegistry(args);
+        using var session = Factory.OpenWithRegistry(input, registry);
+        var rules = BadgeRules.LoadDefault(Args.Option(args, "--badge-rules"));
+        var violations = rules.Audit(session);
+        Emit(w =>
+        {
+            w.WriteStartObject();
+            w.WriteString("schema", "hgss-save.report/v1");
+            w.WriteString("operation", "story.check");
+            w.WriteString("input", input);
+            w.WriteString("rules", rules.Path);
+            w.WriteNumber("badges_johto", session.Trainer.JohtoBadges);
+            w.WriteNumber("badges_kanto", session.Trainer.KantoBadges);
+            w.WriteNumber("violation_count", violations.Count);
+            w.WriteStartArray("violations");
+            foreach (var v in violations)
+            {
+                w.WriteStartObject();
+                w.WriteString("rule", v.Rule);
+                w.WriteString("symbol", v.Symbol);
+                w.WriteNumber("id", v.Id);
+                w.WriteString("expected", v.Expected);
+                w.WriteString("actual", v.Actual);
+                w.WriteString("because", v.Because);
+                w.WriteEndObject();
+            }
+
+            w.WriteEndArray();
+            w.WriteEndObject();
+        });
+        return violations.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
+    }
+
     private static string FindPresetDir(string[] args)
     {
         var candidates = new List<string?>

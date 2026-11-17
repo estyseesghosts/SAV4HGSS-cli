@@ -79,3 +79,33 @@ public sealed class BadgeConsequenceTests
         Assert.True(reopened.TryGetVar(0x4134, out var midgame) && midgame == 4);       // Fog+Storm+Mineral+Glacier
     }
 }
+
+/// <summary>story check: BadgeRules.Audit.</summary>
+public sealed class StoryAuditTests
+{
+    private static readonly HgssFactory Factory = new();
+    private static readonly string Rules = System.IO.Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "registry", "hgss-us.badge-rules.json");
+
+    private static byte[] Build(string operation)
+    {
+        var doc = PatchParser.Parse(Encoding.UTF8.GetBytes($$"""{"schema":"hgss-save.patch/v1","operations":[{{operation}}]}"""), "test");
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        var plan = PatchPlanner.Plan(session, doc, SymbolRegistry.Empty, "blank", session.OriginalBytes, [1], false, null, null, null, Rules);
+        return PatchRunner.Apply(session, plan, Factory).OutputBytes;
+    }
+
+    [Fact]
+    public void RawBadgeBytesFailAuditAndConsequencesPass()
+    {
+        var rules = BadgeRules.Load(Rules);
+        using (var raw = Factory.OpenBytes(Build("""{"op":"trainer.badges.set","johto":121}"""), "raw"))
+        {
+            var found = rules.Audit(raw);
+            Assert.Contains(found, v => v.Symbol == "VAR_MIDGAME_BADGES" && v.Rule == "counter");
+            Assert.Contains(found, v => v.Symbol == "FLAG_GOT_TM51_FROM_FALKNER");
+        }
+
+        using var full = Factory.OpenBytes(Build("""{"op":"trainer.badges.set","johto":121,"consequences":true}"""), "full");
+        Assert.Empty(rules.Audit(full));
+    }
+}

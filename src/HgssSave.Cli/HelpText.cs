@@ -28,6 +28,7 @@ READ-ONLY COMMANDS
                                                          semantic and byte-range diff (defaults 200 and 40)
   flag get INPUT ID [--symbols PATH]                     ID: FLAG_* name or number
   var get INPUT ID [--symbols PATH]                      ID: VAR_* name or number
+  story check INPUT [--badge-rules PATH] [--strict]      audit badges against what the game sets for them (flags, vars, counters)
   preset list [--presets DIR]                            named story presets (JSON index)
   flags list INPUT [--limit N] [--symbols PATH]          all set persistent flags (default 5000)
   vars list INPUT [--limit N] [--symbols PATH]           all non-zero save variables (default 500)

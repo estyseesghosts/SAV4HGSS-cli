@@ -17,7 +17,7 @@ internal static class Program
         "flag get", "flag set", "var get", "var set", "bag set", "trainer money set", "trainer badges set",
         "party export", "party import", "party clear",
         "box export", "box import", "box clear",
-        "location set", "location warp", "preset list", "preset apply", "dex set",
+        "location set", "location warp", "preset list", "preset apply", "story check", "dex set",
         "flags list", "vars list",
         "symbols lookup", "symbols search", "symbols build-registry",
         "script index", "script references",
@@ -76,6 +76,7 @@ internal static class Program
             "location" => LocationVerb(rest),
             "dex" => DexVerb(rest),
             "preset" => PresetVerb(rest),
+            "story" => StoryVerb(rest),
             "script" => ScriptVerb(rest),
             "fixture" => FixtureVerb(rest),
             "symbols" => SymbolsVerb(rest),
@@ -151,6 +152,11 @@ internal static class Program
             _ => Usage("usage: hgss-save location set|warp ..."),
         };
     }
+
+    private static int StoryVerb(string[] args) =>
+        args.Length > 0 && args[0].ToLowerInvariant() == "check"
+            ? Commands.StoryCheck(args[1..])
+            : Usage("usage: hgss-save story check INPUT [--badge-rules PATH] [--strict]");
 
     private static int PresetVerb(string[] args)
     {

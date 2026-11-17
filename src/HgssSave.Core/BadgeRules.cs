@@ -80,6 +80,55 @@ public sealed class BadgeRules
         }
     }
 
+    public sealed record Violation(string Rule, string Symbol, int Id, string Expected, string Actual, string Because);
+
+    /// <summary>
+    /// Compares a save against the rules: every owned badge's effects must hold, and each counter must agree with the
+    /// badge byte. A violation means the save has a badge without what the game sets when it is won (or the reverse for
+    /// counters), which a played save never shows (state-log F8).
+    /// </summary>
+    public IReadOnlyList<Violation> Audit(ISaveSession session)
+    {
+        var trainer = session.Trainer;
+        var mask = FullMask(trainer.JohtoBadges, trainer.KantoBadges);
+        var result = new List<Violation>();
+        for (var badge = 0; badge < 16; badge++)
+        {
+            if (((mask >> badge) & 1) == 0)
+                continue;
+            foreach (var e in EffectsFor(badge))
+            {
+                var because = $"badge {badge} owned";
+                switch (e.Kind)
+                {
+                    case "flag":
+                        if (!session.TryGetFlag(e.Id, out var flag) || flag != (e.Value != 0))
+                            result.Add(new Violation("badge-effect", e.Name, e.Id, (e.Value != 0).ToString().ToLowerInvariant(), (!(e.Value != 0)).ToString().ToLowerInvariant(), because));
+                        break;
+                    case "var":
+                        if (!session.TryGetVar(e.Id, out var v) || v != e.Value)
+                            result.Add(new Violation("badge-effect", e.Name, e.Id, e.Value.ToString(), session.TryGetVar(e.Id, out var actual) ? actual.ToString() : "unreadable", because));
+                        break;
+                    // Items are not audited: Gen 4 TMs are consumed on use, and 10 of 29 played saves own the badge without the TM.
+                }
+            }
+        }
+
+        foreach (var counter in Counters)
+        {
+            var count = counter.Badges.Count(b => ((mask >> b) & 1) != 0);
+            if (!session.TryGetVar(counter.VarId, out var value))
+                continue;
+            var ok = count < counter.HoldFrom ? value == count : value >= count;
+            if (!ok)
+                result.Add(new Violation("counter", counter.Name, counter.VarId,
+                    count < counter.HoldFrom ? count.ToString() : $">= {count}", value.ToString(),
+                    $"{count} of badges [{string.Join(",", counter.Badges)}] owned"));
+        }
+
+        return result;
+    }
+
     public static BadgeRules LoadDefault(string? explicitPath = null)
     {
         var path = explicitPath ?? Environment.GetEnvironmentVariable("HGSS_BADGE_RULES") ?? FindDefault();

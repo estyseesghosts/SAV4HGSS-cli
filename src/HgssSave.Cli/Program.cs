@@ -161,10 +161,11 @@ internal static class Program
             {
                 case "check": return Commands.StoryCheck(args[1..]);
                 case "triggers": return Commands.StoryTriggers(args[1..]);
+                case "build": return Commands.StoryBuild(args[1..]);
             }
         }
 
-        return Usage("usage: hgss-save story check|triggers ...");
+        return Usage("usage: hgss-save story check|triggers|build ...");
     }
 
     private static int PresetVerb(string[] args)

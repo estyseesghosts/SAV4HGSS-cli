@@ -151,6 +151,10 @@ Field gates: `src/field_move.c` refuses a move without its badge: Cut/Hive (189)
 
 Grant flags follow story order in the HG lineage: HM01 appears by 3 badges, HM02/HM03 by 5, which is the pattern a closure resolver has to reproduce. Observed order, recorded as `observed_badges` per grant and reported by `story check` as advisory `observed-order`: every save with HM01 owns badges 0-1, every save with HM02 or HM03 owns badges 0-4, the one HM08 save owns all Johto badges. No script enforces this (the grant scripts do not test badges), so it is lineage evidence only. Not yet implemented: closure (asking for badge N and receiving the HM, scene vars and NPC flags that must precede it).
 
+## F13. `story build`
+
+`story build` composes the two things that are verified: a played-save preset as the base and badge consequences for the rest. Masks 0, 5, 73 and 255 on a blank HG gave 0 violations; 255 chose `hg-08-rising` and leaves only Rock Climb locked (Earth). Mask 73 (Zephyr, Fog, Glacier) on `hg-01-zephyr` booted to Violet Pokemon Center (497,271), matching warp 7. What it does not do: a badge beyond the base gets no scene variables, NPC flags or HM grants, so mask 73 holds Fog and Glacier without Surf. Closing that needs more than one lineage of evidence.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.

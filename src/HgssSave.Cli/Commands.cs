@@ -167,6 +167,113 @@ internal static class Commands
         return violations.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
     }
 
+    /// <summary>
+    /// Builds a save with the requested badges: the played-save preset with the most badges that are a subset of the
+    /// request is the base (its whole story state is a real played state), then the remaining badges are added with
+    /// their consequences, and the result is audited. Prerequisites the rules do not model are listed, not guessed.
+    /// </summary>
+    internal static int StoryBuild(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save story build INPUT --johto MASK [--kanto MASK] --out OUT");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "story build requires --out OUT.");
+        int Mask(string name)
+        {
+            var raw = Args.Option(args, name, "0");
+            if (!int.TryParse(raw, out var v) || v is < 0 or > 255)
+                throw HgssException.BadArguments("badges-range", $"{name} '{raw}' is not an integer 0..255.");
+            return v;
+        }
+
+        var johto = Mask("--johto");
+        var kanto = Mask("--kanto");
+        var registry = TryLoadRegistry(args);
+        var rulesPath = Args.Option(args, "--badge-rules");
+        var presetDir = FindPresetDir(args);
+        var warpSpawns = Args.Option(args, "--warp-spawns");
+        var safeSpawns = Args.Option(args, "--safe-spawns") ?? Environment.GetEnvironmentVariable("HGSS_SAFE_SPAWNS");
+        var bytes = ReadFile(input);
+        string game;
+        using (var probe = Factory.OpenWithRegistry(input, registry))
+            game = probe.Identity.Game;
+
+        string? baseName = null;
+        using (var index = System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(Path.Combine(presetDir, "index.json"))))
+        {
+            var best = -1;
+            foreach (var p in index.RootElement.GetProperty("presets").EnumerateArray())
+            {
+                if (!string.Equals(p.GetProperty("game").GetString(), game, StringComparison.OrdinalIgnoreCase))
+                    continue;
+                var pj = p.GetProperty("badges_johto").GetInt32();
+                var pk = p.GetProperty("badges_kanto").GetInt32();
+                if ((pj & ~johto) != 0 || (pk & ~kanto) != 0)
+                    continue;
+                var score = int.PopCount(pj) + int.PopCount(pk);
+                if (score > best)
+                {
+                    best = score;
+                    baseName = p.GetProperty("name").GetString();
+                }
+            }
+        }
+
+        var current = bytes;
+        if (baseName is not null)
+        {
+            var presetPath = Path.Combine(presetDir, baseName + ".json");
+            var presetBytes = ReadFile(presetPath);
+            using var s0 = Factory.OpenBytes((byte[])bytes.Clone(), input);
+            var plan0 = PatchPlanner.Plan(s0, PatchParser.Parse(presetBytes, presetPath), registry, input, bytes, presetBytes, false, presetDir, safeSpawns, warpSpawns, rulesPath);
+            if (!plan0.CanApply)
+            {
+                Emit(w => ReportWriter.WritePatch(w, plan0, null, null, false, Factory.LibraryVersion));
+                return (int)ExitCode.PreconditionFailed;
+            }
+
+            current = PatchRunner.Apply(s0, plan0, Factory).OutputBytes;
+        }
+
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new BadgesSetOperation(johto, kanto) { Consequences = true }], []);
+        var docBytes = CanonicalPatchJson($"story.build:{johto}:{kanto}");
+        using var s1 = Factory.OpenBytes((byte[])current.Clone(), "preset");
+        var plan1 = PatchPlanner.Plan(s1, doc, registry, "preset", current, docBytes, false, null, safeSpawns, warpSpawns, rulesPath);
+        if (!plan1.CanApply)
+        {
+            Emit(w => ReportWriter.WritePatch(w, plan1, null, null, false, Factory.LibraryVersion));
+            return (int)ExitCode.PreconditionFailed;
+        }
+
+        var final = PatchRunner.Apply(s1, plan1, Factory).OutputBytes;
+        WriteOutputAtomic(output, final, Args.Flag(args, "--force"));
+        var rules = BadgeRules.LoadDefault(rulesPath);
+        using var result = Factory.OpenBytes(final, output);
+        var found = rules.Audit(result);
+        Emit(w =>
+        {
+            w.WriteStartObject();
+            w.WriteString("schema", "hgss-save.report/v1");
+            w.WriteString("operation", "story.build");
+            w.WriteString("input", input);
+            w.WriteString("output", output);
+            w.WriteString("game", game);
+            if (baseName is null) w.WriteNull("base_preset"); else w.WriteString("base_preset", baseName);
+            w.WriteNumber("badges_johto", johto);
+            w.WriteNumber("badges_kanto", kanto);
+            w.WriteNumber("violation_count", found.Count);
+            w.WriteStartArray("violations");
+            foreach (var v in found)
+                w.WriteStringValue($"{v.Rule}: {v.Symbol} expected {v.Expected}, actual {v.Actual} ({v.Because})");
+            w.WriteEndArray();
+            w.WriteStartArray("locked_field_moves");
+            foreach (var g in rules.LockedFieldMoves(result))
+                w.WriteStringValue(g.Move);
+            w.WriteEndArray();
+            w.WriteString("note", "Badges beyond the base preset get their gym-script consequences only; scene variables, NPC flags and HM grants for those gyms are not modelled (docs/state-log.md F8, F12).");
+            w.WriteEndObject();
+        });
+        return found.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
+    }
+
     internal static int StoryTriggers(string[] args)
     {
         var candidates = new List<string?>

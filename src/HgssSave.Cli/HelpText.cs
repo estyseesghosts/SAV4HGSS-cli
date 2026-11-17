@@ -29,6 +29,9 @@ READ-ONLY COMMANDS
   flag get INPUT ID [--symbols PATH]                     ID: FLAG_* name or number
   var get INPUT ID [--symbols PATH]                      ID: VAR_* name or number
   story check INPUT [--badge-rules PATH] [--strict]      audit badges against what the game sets for them (flags, vars, counters)
+  story build INPUT --johto MASK [--kanto MASK] --out OUT [--presets DIR] [--badge-rules PATH] [--strict]
+                                                       Base = the played-save preset with the most badges inside the request, then the
+                                                       remaining badges with their consequences; audits and lists locked field moves
   story triggers [--var NAME] [--map NAME|ID] [--scene-triggers PATH]
                                                          cutscene/scene triggers from the decomp: map, tiles, VAR == value, script, what it writes
   preset list [--presets DIR]                            named story presets (JSON index)

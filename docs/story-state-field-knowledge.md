@@ -237,6 +237,15 @@ only passed by coincidence (Z equaled direction there).
   A-taps on menu buttons miss (hit BAG/OPTIONS instead); touchscreen
   taps are exact. Next: step to the water edge (20,44) and trigger Surf
   facing the water.
+- Surf unusable so far (RUNTIME, `surf-leg22/25/27`): selecting Surf
+  from Mantine's panel answers "You can't use that here." both at
+  Mortar (20,46) and at the water edge (20,45). Face-water + A gives
+  no prompt at all. Open hypotheses: (a) the north pond is decorative
+  water and the route goes SOUTH around it on foot toward the (45,50) /
+  (59,53) / (70,46) warps (`116_D38R0101.json`); (b) Surf needs deeper
+  adjacency. Next: exit menus fully (4× B: textbox→panel→party→menu→
+  overworld), probe south+east on foot; keep Surf for the R42 lakes if
+  the dry path fails.
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.

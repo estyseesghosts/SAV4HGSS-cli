@@ -8,7 +8,14 @@ copy of the retail ROM plus the fixture `.sav` under the same basename
 PNG milestones, and writes `report.json` (save SHA, frame counts,
 liveness color counts, ROM identity).
 
-Raw reports/PNGs live in `leveld-out/` (local, not committed).
+Mid-run states: `--savestate-at frame:name` captures `.mcpr`
+savestates (full emulator state, ~19.7MB) at exact frames;
+`--load-state` resumes from one instead of booting fresh. The
+menu-time state restored plus one input reaches the identical
+overworld as the uninterrupted run — mid-cutscene/menu states are now
+capturable, restorable artifacts with save-SHA provenance.
+
+Raw reports/PNGs/states live in `leveld-out/` (local, not committed).
 
 ## Boot matrix (frame 700, all fixtures)
 
@@ -45,6 +52,9 @@ save menu → overworld with screenshots at 1500/2400/3300/4200.
   Save menu @2400 read the M@ster late-game values. Full pass.
 - ss-kanto-complete-verify: overworld inside the Route 38 gatehouse @3300
   (NPCs, menu open) — postgame save loads to overworld. Full pass.
+- Mid-run states: menu-time `.mcpr` restored + one input reaches the
+  identical Violet overworld as the uninterrupted run (759 colors,
+  running). Savestate capture/restore verified end to end.
 
 ## How to reproduce
 

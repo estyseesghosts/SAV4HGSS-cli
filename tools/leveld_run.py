@@ -43,6 +43,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--inputs", default="",
                    help="Timed inputs: 'frame:buttons:frames,...' e.g. '1200:start:5,1500:a:10'. "
                         "Buttons from {a,b,x,y,l,r,start,select,up,down,left,right}.")
+    p.add_argument("--savestate-at", default="",
+                   help="Capture savestates at frames: 'frame:name,...' e.g. '2400:menu,4200:overworld'. "
+                        "Files are written as <name>.mcpr under --outdir/states/.")
+    p.add_argument("--load-state", default="",
+                   help="Load a .mcpr savestate right after ROM open instead of booting fresh.")
     return p.parse_args()
 
 
@@ -118,6 +123,17 @@ def main() -> int:
                 continue
             presses.append((int(parts[0]), parts[1].split("+"), int(parts[2])))
         presses.sort()
+    state_at: dict[int, str] = {}
+    if args.savestate_at.strip():
+        for spec in args.savestate_at.split(","):
+            parts = spec.strip().split(":")
+            if len(parts) != 2:
+                print(f"Ignoring malformed savestate spec: {spec!r} (want frame:name).", file=sys.stderr)
+                continue
+            state_at[int(parts[0])] = parts[1]
+    states_dir = outdir / "states"
+    if state_at:
+        states_dir.mkdir(parents=True, exist_ok=True)
     emu = EmulatorState()
     report: dict = {
         "label": args.label,
@@ -138,9 +154,15 @@ def main() -> int:
         lib = emu.lib
         info = lib.rom_info()
         report["rom_info"] = info
+        if args.load_state.strip():
+            if not lib.lib.melonds_savestate_load(args.load_state.encode()):
+                report["error"] = f"Savestate load failed: {args.load_state}."
+                return 1
+            report["state_loaded"] = args.load_state
         advanced = 0
         press_idx = 0
         events: list[dict] = []
+        states: list[dict] = []
 
         def advance_to(target: int) -> None:
             nonlocal advanced
@@ -149,10 +171,20 @@ def main() -> int:
                 emu.advance_frames(target - advanced)
                 advanced = target
 
+        def maybe_snapshot() -> None:
+            if advanced in state_at:
+                name = state_at[advanced]
+                dest = states_dir / f"{name}.mcpr"
+                ok = bool(lib.lib.melonds_savestate_save(str(dest).encode()))
+                states.append({"frame": advanced, "name": name, "file": dest.name, "ok": ok})
+                if not ok:
+                    raise RuntimeError(f"Savestate save failed at frame {advanced}.")
+
         for target in milestones:
             while press_idx < len(presses) and presses[press_idx][0] <= target:
                 pf, buttons, hold = presses[press_idx]
                 advance_to(pf)
+                maybe_snapshot()
                 from melonds_mcp.constants import buttons_to_bitmask
 
                 emu.lib.lib.melonds_input_keypad_update(buttons_to_bitmask(buttons))
@@ -161,9 +193,11 @@ def main() -> int:
                 finally:
                     emu.lib.lib.melonds_input_keypad_update(0)
                 advanced += hold
+                maybe_snapshot()
                 events.append({"frame": pf, "buttons": buttons, "hold": hold})
                 press_idx += 1
             advance_to(target)
+            maybe_snapshot()
             raw = lib.screenshot_bytes()
             top = raw[:256 * 192 * 3]
             bottom = raw[256 * 192 * 3:512 * 192 * 3]
@@ -186,6 +220,7 @@ def main() -> int:
         while press_idx < len(presses):
             pf, buttons, hold = presses[press_idx]
             advance_to(pf)
+            maybe_snapshot()
             from melonds_mcp.constants import buttons_to_bitmask
 
             emu.lib.lib.melonds_input_keypad_update(buttons_to_bitmask(buttons))
@@ -194,14 +229,17 @@ def main() -> int:
             finally:
                 emu.lib.lib.melonds_input_keypad_update(0)
             advanced += hold
+            maybe_snapshot()
             events.append({"frame": pf, "buttons": buttons, "hold": hold})
             press_idx += 1
+        for frame in sorted(state_at):
+            if frame > advanced and frame <= args.frames:
+                advance_to(frame)
+                maybe_snapshot()
         if advanced < args.frames:
             emu.advance_frames(args.frames - advanced)
         report["inputs"] = events
-        # Remaining frames past the last milestone.
-        if advanced < args.frames:
-            emu.advance_frames(args.frames - advanced)
+        report["savestates"] = states
         report["frames_advanced"] = args.frames
         report["running"] = emu.is_running()
         report["ok"] = True

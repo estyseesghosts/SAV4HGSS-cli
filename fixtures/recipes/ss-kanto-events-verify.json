@@ -1,0 +1,30 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-kanto-events-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver16gyns.sav",
+    "sha256": "AF325B8027E00DD44A2B9E85B08BD1EAC540DD62362B12ABF782DCFDEB488183"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 561600, "expect": 561194}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_SNORLAX_MEET", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_SNORLAX", "equals": true},
+      {"field": "flag.FLAG_RESTORED_POWER", "equals": true},
+      {"field": "flag.FLAG_BOAT_ARRIVED", "equals": true},
+      {"field": "flag.FLAG_GOT_EXPN_CARD", "equals": true}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "route-38-spawn-visible", "snorlax-plot-resolved", "power-restored", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Kanto side-event cluster (M@ster, postgame): Snorlax met and caught, power restored, boat arrived, ExPN card held — all verified true live on the 16gyns base. Covers the Vermilion Snorlax and Power Plant story beats with observed values."
+  }
+}

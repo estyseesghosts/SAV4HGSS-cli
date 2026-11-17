@@ -28,7 +28,7 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | ss-lugia-pre-event-stage | soulsilver.nds (IPGE) | boot-only | ok, running |
 | ss-ho-oh-rebattle-stage | soulsilver.nds (IPGE) | boot-only | ok, running |
 | ss-e4-champion-verify | soulsilver.nds (IPGE) | boot-only | ok, running |
-| ss-kanto-complete-verify | soulsilver.nds (IPGE) | boot-only | ok, running |
+| ss-kanto-complete-verify | soulsilver.nds (IPGE) | boot + continue to gatehouse overworld | ok, running |
 | hg-dragons-den-shrine | heartgold.nds (POKEMON HG) | boot-only | ok, running |
 
 ## Continue-to-overworld sequences
@@ -43,7 +43,8 @@ save menu → overworld with screenshots at 1500/2400/3300/4200.
   with player sprite, following Lugia, and menu open — the staged
   dex/flag state (Lugia uncaught, Silver Wing granted) loads clean.
   Save menu @2400 read the M@ster late-game values. Full pass.
-- ss-kanto-complete-verify: see `leveld-out/ss-kanto-continue/report.json`.
+- ss-kanto-complete-verify: overworld inside the Route 38 gatehouse @3300
+  (NPCs, menu open) — postgame save loads to overworld. Full pass.
 
 ## How to reproduce
 

@@ -111,14 +111,14 @@ Example evidence used by the Lugia fixture: `SetFlag FLAG_CAUGHT_LUGIA` in `scr_
 
 ## Fixtures
 
-`fixtures/recipes/*.json` stage curated story states from legitimately played base saves (never committed; resolve via `--bases DIR`). `fixtures/safe-spawns.json` records verified map/x/y spawns taken from real saves (Violet, Azalea, Mahogany, Blackthorn, New Bark, Dragons Den Shrine, Cherrygrove). Build and verify with:
+`fixtures/recipes/*.json` stage curated story states from legitimately played base saves (never committed; resolve via `--bases DIR`). `fixtures/safe-spawns.json` records verified map/x/y spawns taken from real saves (Violet, Azalea, Mahogany, Blackthorn, New Bark, Route 38 gatehouse, Dragons Den Shrine, Cherrygrove). Build and verify with:
 
 ```powershell
 hgss-save fixture build fixtures/recipes/ss-violet-safe-money.json --bases <checkpoint-dir> --outdir <out> [--force]
 hgss-save fixture verify <out>/ss-violet-safe-money.manifest.json --outdir <out>
 ```
 
-Level D runtime stays manual per fixture; see `docs/runtime-validation.md` for the melonDS DS-mode checklist (stage `<romname>.sav`, boot, run checkpoints, re-save, re-inspect).
+Level D runs headless via `tools/leveld_run.py` on the melonDS-MCP native core (boot matrix + continue-to-overworld for Violet, Lugia, Kanto in `docs/runtime-results.md`); the manual checklist in `docs/runtime-validation.md` remains for event-movie observation.
 
 ## Format notes
 
@@ -131,7 +131,7 @@ Level D runtime stays manual per fixture; see `docs/runtime-validation.md` for t
 
 ## Verification
 
-`dotnet test` runs 53 tests: strict open/reject paths, flag/var/money/bag/party/box/location/dex round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, safe-spawn gating, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all fourteen committed fixtures on the same-trainer M@ster lineage plus early/post-game and HG files (Falkner, Bugsy, Violet, Azalea, Mahogany, Pryce, Radio Tower, Blackthorn/Clair, Kimono dance, Lugia pre-event, Ho-Oh rebattle, E4 Champion, Kanto complete, Dragons Den shrine); Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/Ho-Oh/bell/wing/Kimono story paths, and `fixtures/event-prereqs.json` records per-beat reads/writes with file:line evidence plus observed values. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
+`dotnet test` runs 53 tests: strict open/reject paths, flag/var/money/bag/party/box/location/dex round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, safe-spawn gating, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all fifteen committed fixtures on the same-trainer M@ster lineage plus early/post-game and HG files (Falkner, Bugsy, Violet, Azalea, Mahogany, Pryce, Radio Tower, Blackthorn/Clair, Kimono dance, Lugia pre-event, Ho-Oh rebattle, E4 Champion, Kanto gyms, Kanto complete, Dragons Den shrine); Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/Ho-Oh/bell/wing/Kimono story paths, and `fixtures/event-prereqs.json` records per-beat reads/writes with file:line evidence plus observed values. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
 
 ## License
 

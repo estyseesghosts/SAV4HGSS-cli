@@ -1,0 +1,33 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-kanto-gyms-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver16gyns.sav",
+    "sha256": "AF325B8027E00DD44A2B9E85B08BD1EAC540DD62362B12ABF782DCFDEB488183"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 561400, "expect": 561194},
+      {"op": "location.set", "map": 172, "x": 6, "y": 7, "z": 1}
+    ],
+    "assert": [
+      {"field": "location.spawn", "equals": {"map": 172, "x": 6, "y": 7, "z": 1}},      {"field": "flag.FLAG_GOT_TM19_FROM_ERIKA", "equals": true},
+      {"field": "flag.FLAG_GOT_TM84_FROM_JANINE", "equals": true},
+      {"field": "flag.FLAG_GOT_TM50_FROM_BLAINE", "equals": true},
+      {"field": "flag.FLAG_GOT_TM92_FROM_BLUE", "equals": true},
+      {"field": "flag.FLAG_GOT_TM80_FROM_BROCK", "equals": true},
+      {"field": "flag.FLAG_GOT_TM03_FROM_MISTY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM34_FROM_LT_SURGE", "equals": true}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "route-38-spawn-visible", "all-kanto-tms-present", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Individual Kanto gym checkpoint (M@ster, postgame gatehouse): all seven Kanto gym TM flags verified true live on the 16gyns base, plus a verified self-spawn move on the Route 38 gatehouse tile."
+  }
+}

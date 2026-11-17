@@ -229,6 +229,14 @@ only passed by coincidence (Z equaled direction there).
   384,184), while chained ≤60-frame holds with per-leg states work
   reliably (probe 384→381, surf-leg2 381→380,176). Until root-caused,
   prefer short holds with a banked state per leg.
+- Surf menu path mapped (RUNTIME, `surf-leg13..23`): X opens start menu;
+  POKEMON tap (57,82), Mantine tap (190,108) opens its panel (Surf move
+  visible = CLI teach confirmed in-game); LEFT→moves, DOWN→Surf, A
+  selects — but away from water the game answers "You can't use that
+  here." (terrain-gated, at Mortar (20,46) one tile off the water).
+  A-taps on menu buttons miss (hit BAG/OPTIONS instead); touchscreen
+  taps are exact. Next: step to the water edge (20,44) and trigger Surf
+  facing the water.
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.

@@ -191,4 +191,24 @@ public sealed class PartyBoxTests
         Assert.Equal("t", recipe.Id);
         Assert.Single(recipe.Patch.Operations);
     }
+
+    [Fact]
+    public void ManifestRuntimeRoundTripPreservesFields()
+    {
+        var manifestJson = """
+            {"schema":"hgss-save.manifest/v1","fixture_id":"t",
+            "input_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "patch_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "output_sha256":"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "pkhex_core_version":"x","symbol_registry":"r","game":"SS",
+            "structural_validation":"pass","semantic_validation":"needs-runtime-verification",
+            "runtime_result":null}
+            """;
+        var updated = ReportWriter.SetManifestRuntime(Encoding.UTF8.GetBytes(manifestJson), "pass: test run");
+        var (manifest, outputFile) = ReportWriter.ParseManifest(updated, "test");
+        Assert.Equal("t", manifest.FixtureId);
+        Assert.Equal("pass: test run", manifest.RuntimeResult);
+        Assert.Equal("t.sav", outputFile);
+        Assert.Equal("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", manifest.OutputSha256);
+    }
 }

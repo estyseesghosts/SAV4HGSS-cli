@@ -1,0 +1,30 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-legendary-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver16gyns.sav",
+    "sha256": "AF325B8027E00DD44A2B9E85B08BD1EAC540DD62362B12ABF782DCFDEB488183"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 561500, "expect": 561194}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_CAUGHT_SUICUNE", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_ZAPDOS", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_ARTICUNO", "equals": true},
+      {"field": "flag.FLAG_CAUGHT_MOLTRES", "equals": true},
+      {"field": "flag.FLAG_GOT_TM10_FROM_LAKE_OF_RAGE_MAN", "equals": true}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "route-38-spawn-visible", "legendary-flags-intact", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Stationary-legendary cluster (M@ster, postgame): Suicune, the three Kanto birds, and the Lake of Rage TM10 gift all verified true live on the 16gyns base. Covers the Burned Tower/Suicune and Lake of Rage symbol clusters with observed values."
+  }
+}

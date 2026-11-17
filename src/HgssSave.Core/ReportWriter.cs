@@ -928,6 +928,32 @@ public static class ReportWriter
         return (manifest, manifest.FixtureId + ".sav");
     }
 
+    /// <summary>Returns manifest bytes with only <c>runtime_result</c> replaced.</summary>
+    public static byte[] SetManifestRuntime(byte[] bytes, string result)
+    {
+        using var doc = JsonDocument.Parse(bytes);
+        var root = doc.RootElement;
+        using var buffer = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(buffer, new JsonWriterOptions { Indented = true }))
+        {
+            writer.WriteStartObject();
+            foreach (var prop in root.EnumerateObject())
+            {
+                if (prop.NameEquals("runtime_result"))
+                    writer.WriteString("runtime_result", result);
+                else
+                    prop.WriteTo(writer);
+            }
+
+            if (!root.TryGetProperty("runtime_result", out _))
+                writer.WriteString("runtime_result", result);
+            writer.WriteEndObject();
+            writer.Flush();
+        }
+
+        return buffer.ToArray();
+    }
+
     public static void WriteFixtureBuild(
         Utf8JsonWriter writer,
         FixtureRecipe recipe,
@@ -971,6 +997,26 @@ public static class ReportWriter
         writer.WriteString("output", outputPath);
         writer.WriteString("output_sha256", manifest.OutputSha256);
         WriteValidation(writer, validation);
+        writer.WriteString("pkhex_core_version", libraryVersion);
+        WriteWarnings(writer, []);
+        writer.WriteEndObject();
+    }
+
+    public static void WriteFixtureRecordRuntime(
+        Utf8JsonWriter writer,
+        string manifestPath,
+        string fixtureId,
+        string result,
+        bool ok,
+        string libraryVersion)
+    {
+        writer.WriteStartObject();
+        writer.WriteString("schema", ReportSchema);
+        writer.WriteString("operation", "fixture.record-runtime");
+        writer.WriteString("fixture_id", fixtureId);
+        writer.WriteString("manifest", manifestPath);
+        writer.WriteString("runtime_result", result);
+        writer.WriteBoolean("runtime_pass", ok);
         writer.WriteString("pkhex_core_version", libraryVersion);
         WriteWarnings(writer, []);
         writer.WriteEndObject();

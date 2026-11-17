@@ -274,6 +274,47 @@ internal static class Commands
         return validation.Passed ? 0 : (int)ExitCode.StructuralFailure;
     }
 
+    internal static int FixtureRecordRuntime(string[] args)
+    {
+        var manifestPath = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save fixture record-runtime MANIFEST --report REPORT.json");
+        var reportPath = Args.Option(args, "--report") ?? throw HgssException.BadArguments("args", "fixture record-runtime requires --report REPORT.json (tools/leveld_run.py output).");
+        var manifestBytes = ReadFile(manifestPath);
+        var (manifest, _) = ReportWriter.ParseManifest(manifestBytes, manifestPath);
+        var reportBytes = ReadFile(reportPath);
+        var (saveSha, ok, summary) = ParseRuntimeReport(reportBytes, reportPath);
+        if (!string.Equals(saveSha, manifest.OutputSha256, StringComparison.OrdinalIgnoreCase))
+            throw HgssException.Precondition("runtime-sha",
+                $"Runtime report {reportPath} covers save {saveSha} but manifest {manifestPath} expects {manifest.OutputSha256}. Refusing to attach a mismatched run.");
+        var updated = ReportWriter.SetManifestRuntime(manifestBytes, summary);
+        WriteOutputAtomic(manifestPath, updated, true);
+        Emit(w => ReportWriter.WriteFixtureRecordRuntime(w, manifestPath, manifest.FixtureId, summary, ok, Factory.LibraryVersion));
+        return ok ? 0 : (int)ExitCode.PreconditionFailed;
+    }
+
+    private static (string SaveSha, bool Ok, string Summary) ParseRuntimeReport(byte[] bytes, string origin)
+    {
+        try
+        {
+            using var doc = JsonDocument.Parse(bytes);
+            var root = doc.RootElement;
+            if (!root.TryGetProperty("save_sha256", out var sha) || sha.ValueKind != JsonValueKind.String || string.IsNullOrEmpty(sha.GetString()))
+                throw HgssException.BadArguments("runtime-report", $"Runtime report {origin} is missing 'save_sha256'.");
+            var ok = root.TryGetProperty("ok", out var okEl) && okEl.ValueKind == JsonValueKind.True;
+            var frames = root.TryGetProperty("frames_advanced", out var f) && f.ValueKind == JsonValueKind.Number ? f.GetInt32() : 0;
+            var milestoneCount = root.TryGetProperty("milestones", out var m) && m.ValueKind == JsonValueKind.Array ? m.GetArrayLength() : 0;
+            var label = root.TryGetProperty("label", out var l) && l.ValueKind == JsonValueKind.String ? l.GetString() ?? "" : "";
+            string? error = root.TryGetProperty("error", out var e) && e.ValueKind == JsonValueKind.String ? e.GetString() : null;
+            var summary = ok
+                ? $"pass: headless melonDS-MCP boot of '{label}', {frames} frames advanced across {milestoneCount} milestones, report {origin}"
+                : $"fail: headless run of '{label}' did not complete ({error ?? "unknown error"}), report {origin}";
+            return (sha.GetString()!, ok, summary);
+        }
+        catch (JsonException e)
+        {
+            throw HgssException.BadArguments("runtime-report", $"Runtime report {origin} is not valid JSON: {e.Message}");
+        }
+    }
+
     internal static int ContainerProbe(string[] args)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save container probe FILE");

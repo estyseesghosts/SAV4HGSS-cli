@@ -21,7 +21,7 @@ internal static class Program
         "flags list", "vars list",
         "symbols lookup", "symbols search", "symbols build-registry",
         "script index", "script references",
-        "fixture build", "fixture verify",
+        "fixture build", "fixture verify", "fixture record-runtime",
         "container probe", "container unwrap", "blank",
     ];
 
@@ -189,12 +189,13 @@ internal static class Program
     private static int FixtureVerb(string[] args)
     {
         if (args.Length == 0)
-            return Usage("usage: hgss-save fixture build|verify ...");
+            return Usage("usage: hgss-save fixture build|verify|record-runtime ...");
         return args[0].ToLowerInvariant() switch
         {
             "build" => Commands.FixtureBuild(args[1..]),
             "verify" => Commands.FixtureVerify(args[1..]),
-            _ => Usage("usage: hgss-save fixture build|verify ..."),
+            "record-runtime" => Commands.FixtureRecordRuntime(args[1..]),
+            _ => Usage("usage: hgss-save fixture build|verify|record-runtime ..."),
         };
     }
 
@@ -237,7 +238,7 @@ internal static class Args
 {
     private static readonly HashSet<string> ValueOptions = new(StringComparer.Ordinal)
     {
-        "--recipe", "--out", "--outdir", "--bases", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
+        "--recipe", "--out", "--outdir", "--bases", "--report", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
         "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
         "--flags-limit", "--expect", "--expect-species", "--max-ranges",

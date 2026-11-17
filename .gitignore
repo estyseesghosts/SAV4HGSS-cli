@@ -6,3 +6,5 @@ TestResults/
 dist/
 chatlog*
 
+__pycache__/
+

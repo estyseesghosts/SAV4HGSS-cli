@@ -217,8 +217,18 @@ only passed by coincidence (Z equaled direction there).
   banner on screenshot), east on R42 to (440,172) and into Mt Mortar
   (Mt Mortar banner, legs 53-56). Interiors drop the Location pattern;
   R42 outdoor uses warp 0 not FFFFFFFF — see `docs/research-findings.md`.
-  Next: through Mortar (`116_D38R0101.json` warps) to R42 east / R43
-  north to the lake, in-game save, stage `hg-lake-pre-gyarados`.
+  Move-teach synth approved (Surf to Mantine, `trek-saves/hg-6gyn-surf.sav`,
+  boot-verified). Surf-save replay banked (`surf-states`, `surf-leg1..9`,
+  `surf-probe`): Ecruteak 394,184 → 384,184 → 380,176 → 391,176 →
+  401,176 → 408,177 → 412,174 → gatehouse → R42 (428,173), all RAM-
+  verified. Next: Mortar interior east with Surf, R43 north to the lake,
+  in-game save, stage `hg-lake-pre-gyarados`.
+- Tooling quirk (open, mechanism unknown): one combined run
+  (`surf-leg1`: left:100 then left:60/up:60/up:60) moved on the first
+  hold only (394→384) then froze (frame-diffs identical, final scan
+  384,184), while chained ≤60-frame holds with per-leg states work
+  reliably (probe 384→381, surf-leg2 381→380,176). Until root-caused,
+  prefer short holds with a banked state per leg.
 - HG 7gyn, HG posE4, HG Celebi postgame: same story points as
   existing fixtures (SS 7gyn Pryce, SS pose4 Champion, Lyra Celebi
   pre-state) — checked live, skipped as duplicates, not oversights.

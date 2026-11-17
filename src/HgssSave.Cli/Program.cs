@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -17,7 +17,7 @@ internal static class Program
         "flag get", "flag set", "var get", "var set", "bag set", "trainer money set",
         "party export", "party import", "party clear",
         "box export", "box import", "box clear",
-        "location set", "dex set",
+        "location set", "location warp", "dex set",
         "flags list", "vars list",
         "symbols lookup", "symbols search", "symbols build-registry",
         "script index", "script references",
@@ -142,11 +142,12 @@ internal static class Program
     private static int LocationVerb(string[] args)
     {
         if (args.Length == 0)
-            return Usage("usage: hgss-save location set ...");
+            return Usage("usage: hgss-save location set|warp ...");
         return args[0].ToLowerInvariant() switch
         {
             "set" => Commands.LocationSet(args[1..]),
-            _ => Usage("usage: hgss-save location set ..."),
+            "warp" => Commands.LocationWarp(args[1..]),
+            _ => Usage("usage: hgss-save location set|warp ..."),
         };
     }
 
@@ -246,7 +247,7 @@ internal static class Args
         "--recipe", "--out", "--outdir", "--bases", "--report", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
         "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
-        "--flags-limit", "--expect", "--expect-species", "--max-ranges",
+        "--flags-limit", "--expect", "--expect-species", "--max-ranges", "--warp-spawns", "--direction",
     };
 
     internal static string? Option(string[] args, string name, string? @default = null)

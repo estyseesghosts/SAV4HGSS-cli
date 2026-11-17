@@ -30,6 +30,7 @@ Every command, argument, option, environment variable, and exit code. The same c
 | File | Lookup order | Used by |
 |---|---|---|
 | `hgss-us.symbols.json` | `--symbols PATH`, `$HGSS_SYMBOLS`, beside the exe, `./hgss-us.symbols.json`, `./registry/hgss-us.symbols.json` | every command that reads or writes a save; required by `symbols lookup/search` |
+| `hgss-us.warp-spawns.json` | `--warp-spawns PATH`, `$HGSS_WARP_SPAWNS`, beside the exe, `./hgss-us.warp-spawns.json`, `./registry/hgss-us.warp-spawns.json` | `location warp`, `location.warp` recipes |
 | `safe-spawns.json` | `--safe-spawns PATH`, `$HGSS_SAFE_SPAWNS`, beside the exe (also `fixtures/` under it), `./safe-spawns.json`, `./fixtures/safe-spawns.json` | `location set`, `patch` recipes with `location.set`, `fixture build` |
 | `hgss-us.script-refs.json` | `--script-refs PATH`, `$HGSS_SCRIPT_REFS`, beside the exe, `./hgss-us.script-refs.json`, `./registry/hgss-us.script-refs.json` | `script references` |
 
@@ -92,6 +93,9 @@ SPECIES 1..493. `--seen` and `--caught` are both required.
 ### `location set INPUT MAP X Y Z --out OUT [--safe-spawns PATH]`
 Sets map id, tile X/Y, and elevation Z. Only exact tuples listed in `safe-spawns.json` are accepted, because walkability is not decoded; anything else exits 8. See `docs/coverage-gaps.md`.
 
+### `location warp INPUT MAP WARP --out OUT [--direction N] [--warp-spawns PATH]`
+Teleports to warp event WARP of MAP by the game's own Continue path: sets flag `0x966` and writes the saved dynamic warp `{MAP, WARP}`. On the next Continue the game spawns the player on that warp event's tile and builds the map's actors from zone-event data. `--direction` is 0..3, default 1 (the only value observed in saves). Only (MAP, WARP) pairs listed in `hgss-us.warp-spawns.json` are accepted; others exit 8 (`warp-unverified`). The stored x/y are the warp table's tile, informational only: the game recomputes them from the warp at load. Runtime-verified on 7 of 7 sampled targets (`docs/state-log.md` F5). Limits: the player arrives on a warp tile (a door or map edge), not an arbitrary tile; the saved current position is left as it was until the game next saves.
+
 ### `party import INPUT SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]`
 Imports a known-good `.pk4` (136 stored or 236 party bytes, PK4 checksum verified, species 1..493) into party SLOT 0..5. `--expect-species` refuses a file whose species differs. By default the dex is updated for the imported species; `--no-dex` skips that.
 
@@ -114,6 +118,7 @@ Empties one box slot.
 | `--require-symbols` | Reject numeric flag/variable ids that have no matching registry symbol (otherwise they apply with a warning). |
 | `--max-ranges N` | Cap on byte ranges in the audit report (default 40). |
 | `--safe-spawns PATH` | Safe-spawn list for `location.set`; env `HGSS_SAFE_SPAWNS`. |
+| `--warp-spawns PATH` | Warp table for `location.warp`; env `HGSS_WARP_SPAWNS`. |
 | `--symbols PATH` | Symbol registry; env `HGSS_SYMBOLS`. |
 
 ## Symbol and script-index commands
@@ -170,6 +175,7 @@ For `patch`. Ids accept names or numbers. Full example in the README.
 | `box.slot.import` | `box`, `slot`, `file`, optional `expect_species`, `update_dex` |
 | `box.slot.clear` | `box`, `slot` |
 | `location.set` | `map`, `x`, `y`, `z` |
+| `location.warp` | `map`, `warp`, optional `direction` (0..3, default 1) |
 | `dex.set` | `species`, `seen`, `caught` |
 
 Top level keys: `schema` (`hgss-save.patch/v1`), optional `game` (`HG`/`SS`), `base_sha256`, `symbol_registry`, `operations`, `assert`. The reader is strict: unknown keys, duplicate keys, wrong types, and unknown operations are rejected. Source: `src/HgssSave.Core/Patch.cs`.

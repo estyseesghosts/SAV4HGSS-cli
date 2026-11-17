@@ -153,6 +153,11 @@ public static class PatchRunner
             case LocationSetOperation location:
                 session.SetLocation(location.Map, location.X, location.Y, location.Z);
                 break;
+            case LocationWarpOperation warp:
+                // x/y are informational: the game overwrites them from the warp event at load
+                // (field_warp_tasks.c sub_02052F94); the runtime probe passed with x/y = 0 (docs/state-log.md F5).
+                session.SetDynamicWarpSpawn(warp.Map, warp.Warp, warp.X ?? 0, warp.Y ?? 0, warp.Direction);
+                break;
             case DexSetOperation dex:
                 session.SetDex(dex.Species, dex.Seen, dex.Caught);
                 break;
@@ -235,6 +240,14 @@ public static class PatchRunner
             {
                 var location = session.Location;
                 return $"{location.MapId},{location.X},{location.Y},{location.Z}";
+            }
+            case LocationWarpOperation:
+            {
+                var dynamicWarp = session.DynamicWarp;
+                session.TryGetFlag(0x966, out var continueFlag);
+                return continueFlag
+                    ? $"{dynamicWarp.MapId},{dynamicWarp.WarpId},{dynamicWarp.Direction}"
+                    : $"{dynamicWarp.MapId},{dynamicWarp.WarpId},{dynamicWarp.Direction},continue-flag-clear";
             }
             case DexSetOperation dex:
             {

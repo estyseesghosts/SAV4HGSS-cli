@@ -47,6 +47,7 @@ hgss-save trainer money set INPUT.sav 50000 --out OUT.sav
 hgss-save party export INPUT.sav 0 --out slot0.pk4
 hgss-save dex set INPUT.sav 25 --seen true --caught true --out OUT.sav
 hgss-save location set INPUT.sav 73 459 246 3 --out OUT.sav [--safe-spawns PATH]
+hgss-save location warp INPUT.sav 73 2 --out OUT.sav [--direction 1] [--warp-spawns PATH]
 hgss-save party import INPUT.sav 0 slot0.pk4 --out OUT.sav [--expect-species 25] [--no-dex]
 hgss-save party clear INPUT.sav 0 --out OUT.sav
 hgss-save box export INPUT.sav 0 0 --out box00.pk4
@@ -69,9 +70,11 @@ hgss-save blank --game HG|SS --out OUT.sav [--kind fresh-structure|erased-flash]
 
 `--force` overwrites an existing `--out`. `--dry-run`, `--require-symbols`, `--max-ranges` and `--safe-spawns` apply to every writing command; see the reference. There is no in-place editing; writing onto the input path is refused.
 
-## Warp-arrival spawn registry (experimental, not wired in)
+## Teleport by warp (`location warp`) and the warp table
 
-`location set` accepts only tuples in `fixtures/safe-spawns.json` because tile walkability is not decoded (`docs/coverage-gaps.md`). `tools/zone_spawn_index.py --decomp DIR --out registry/hgss-us.warp-spawns.json` derives candidate arrival tiles from the decomp zone-event warp pairs, and `tools/spawn_registry_check.py` compares them to the safe spawns. Current result: **0 of 20** verified safe spawns are explained, so the derivation (or the coordinate frame it compares in) is wrong or incomplete. The CLI does not read `hgss-us.warp-spawns.json`; do not use it to widen `location set` until the check passes.
+`location set` accepts only tuples in `fixtures/safe-spawns.json` because per-tile walkability is not decoded (`docs/coverage-gaps.md`). `location warp INPUT MAP WARP` teleports without needing it: it sets flag `0x966` and the saved dynamic warp, and on Continue the game spawns the player on warp event WARP of MAP with freshly built actors (`field_warp_tasks.c` `FieldTask_ContinueGame_Normal`; the game uses the same path after the Hall of Fame). Runtime-checked in headless melonDS on 7 of 7 sampled targets, with the live player location matching the zone-event warp tile (`docs/state-log.md` F5, `tools/dynwarp_probe.py`).
+
+`registry/hgss-us.warp-spawns.json` is the warp table the command validates against, built by `tools/zone_spawn_index.py --decomp DIR --out ...` from the pinned decomp zone-event files (it is bundled beside the exe). `tools/spawn_registry_check.py` compares the table against `safe-spawns.json`; that check explains 0 of 20 because safe spawns are free-roam tiles, not warp tiles, so it is the wrong test for this table and is kept only as a record.
 
 ## Patch recipes
 

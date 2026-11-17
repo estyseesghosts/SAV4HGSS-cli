@@ -297,6 +297,41 @@ public sealed class HgssSession : ISaveSession
         _sav.Z = z;
     }
 
+    // LocalFieldData starts at general 0x1234 with five 20-byte Locations; dynamicWarp is the fourth
+    // (save_local_field_data.c:9-30; offsets verified against 29 saves, docs/state-log.md F4).
+    private const int DynamicWarpOffset = 0x1234 + (3 * 20);
+
+    /// <summary>FLAG_UNK_966: Continue spawns at the dynamic warp instead of the saved position (flags.h 0x966; field_warp_tasks.c:423).</summary>
+    public const int ContinueAtDynamicWarpFlag = 0x966;
+
+    public DynamicWarpSnapshot DynamicWarp
+    {
+        get
+        {
+            var general = _sav.General;
+            return new DynamicWarpSnapshot(
+                System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(general[DynamicWarpOffset..]),
+                System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(general[(DynamicWarpOffset + 4)..]),
+                System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(general[(DynamicWarpOffset + 8)..]),
+                System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(general[(DynamicWarpOffset + 12)..]),
+                System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(general[(DynamicWarpOffset + 16)..]));
+        }
+    }
+
+    public void SetDynamicWarpSpawn(int mapId, int warpId, int x, int y, int direction)
+    {
+        if ((uint)mapId > 0xFFFF || (uint)warpId > 0xFF || (uint)x > 0xFFFF || (uint)y > 0xFFFF || (uint)direction > 3)
+            throw HgssException.Precondition("warp-range", $"Dynamic warp (map {mapId}, warp {warpId}, {x},{y}, dir {direction}) is out of range.");
+        var general = _sav.General;
+        var o = DynamicWarpOffset;
+        System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(general[o..], mapId);
+        System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(general[(o + 4)..], warpId);
+        System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(general[(o + 8)..], x);
+        System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(general[(o + 12)..], y);
+        System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(general[(o + 16)..], direction);
+        SetFlag(ContinueAtDynamicWarpFlag, true);
+    }
+
     public (bool Seen, bool Caught) GetDexStatus(int species)
     {
         if (species < 1 || species > _sav.MaxSpeciesID)

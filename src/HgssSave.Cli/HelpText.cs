@@ -41,6 +41,9 @@ WRITING COMMANDS (all require --out OUT.sav; all accept the common patch options
   trainer money set INPUT VALUE --out OUT [--expect N]
   dex set INPUT SPECIES --seen BOOL --caught BOOL --out OUT   SPECIES 1..493
   location set INPUT MAP X Y Z --out OUT [--safe-spawns PATH] refuses tiles not in safe-spawns.json
+  location warp INPUT MAP WARP --out OUT [--direction 0..3] [--warp-spawns PATH]
+                                                       teleport to warp event WARP of MAP (sets flag 0x966 and the
+                                                       saved dynamic warp; Continue then spawns on that warp tile)
   party import INPUT SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]
   party clear INPUT SLOT --out OUT
   box import INPUT BOX SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]
@@ -53,6 +56,7 @@ WRITING COMMANDS (all require --out OUT.sav; all accept the common patch options
     --require-symbols     reject numeric ids that have no matching registry symbol
     --max-ranges N        cap on byte ranges listed in the audit report (default 40)
     --safe-spawns PATH    safe-spawn list for location.set (or env HGSS_SAFE_SPAWNS)
+    --warp-spawns PATH    warp table for location.warp (or env HGSS_WARP_SPAWNS)
     --symbols PATH        symbol registry (or env HGSS_SYMBOLS)
     --expect VALUE        refuse unless the field currently holds VALUE (flag/var/bag/money)
 

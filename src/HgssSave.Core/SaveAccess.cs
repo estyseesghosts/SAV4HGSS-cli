@@ -75,6 +75,12 @@ public interface ISaveSession : IDisposable
 
     void SetLocation(int mapId, int x, int y, int z);
 
+    /// <summary>Saved dynamic warp (general 0x1270, five int32: map, warp, x, y, direction).</summary>
+    DynamicWarpSnapshot DynamicWarp { get; }
+
+    /// <summary>Writes the dynamic warp and sets flag 0x966 so Continue spawns there (docs/state-log.md F5).</summary>
+    void SetDynamicWarpSpawn(int mapId, int warpId, int x, int y, int direction);
+
     (bool Seen, bool Caught) GetDexStatus(int species);
 
     void SetDex(int species, bool seen, bool caught);

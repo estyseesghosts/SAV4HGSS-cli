@@ -72,7 +72,8 @@ public static class PatchPlanner
         byte[] patchBytes,
         bool requireSymbols,
         string? recipeDirectory = null,
-        string? safeSpawnsPath = null)
+        string? safeSpawnsPath = null,
+        string? warpSpawnsPath = null)
     {
         var identity = session.Identity;
         var warnings = new List<string>();
@@ -94,7 +95,7 @@ public static class PatchPlanner
 
         foreach (var operation in document.Operations)
         {
-            var planned = PlanOperation(session, operation, registry, requireSymbols, warnings, recipeDirectory, safeSpawnsPath);
+            var planned = PlanOperation(session, operation, registry, requireSymbols, warnings, recipeDirectory, safeSpawnsPath, warpSpawnsPath);
             if (planned is null)
                 continue;
 
@@ -141,7 +142,8 @@ public static class PatchPlanner
         bool requireSymbols,
         List<string> warnings,
         string? recipeDirectory = null,
-        string? safeSpawnsPath = null)
+        string? safeSpawnsPath = null,
+        string? warpSpawnsPath = null)
     {
         switch (operation)
         {
@@ -418,6 +420,36 @@ public static class PatchPlanner
                     symbol is null ? [$"map id {location.Map} has no symbol in {registry.Revision}."] : []);
             }
 
+            case LocationWarpOperation warp:
+            {
+                var table = WarpRegistry.LoadDefault(warpSpawnsPath);
+                if (!table.TryGet(warp.Map, warp.Warp, out var target))
+                    throw HgssException.Unsafe("warp-unverified",
+                        $"Map {warp.Map} has no warp event {warp.Warp} in {table.Path}. location.warp only accepts warp events listed in the decomp zone-event tables.");
+                var current = session.DynamicWarp;
+                var original = $"{current.MapId},{current.WarpId},{current.Direction}";
+                var requested = $"{warp.Map},{warp.Warp},{warp.Direction}";
+                var symbol = registry.NameFor(SymbolKind.Map, warp.Map);
+                var notes = new List<string>
+                {
+                    $"Continue will spawn on warp {warp.Warp} of {target.MapSymbol ?? $"map {warp.Map}"} at tile ({target.X},{target.Y}) (decomp zone-event table); the game resolves the tile itself.",
+                    "Sets flag 0x966 (FLAG_UNK_966); the game clears it on the next Continue. Actors on the target map are rebuilt from zone-event data.",
+                };
+                if (symbol is null)
+                    notes.Add($"map id {warp.Map} has no symbol in {registry.Revision}.");
+                return new PlannedOperation(
+                    warp with { X = target.X, Y = target.Y },
+                    "location.dynamic_warp",
+                    "location.dynamic_warp",
+                    null,
+                    SymbolResolution.Resolved,
+                    requested,
+                    original,
+                    null,
+                    true,
+                    true,
+                    notes);
+            }
             case DexSetOperation dex:
             {
                 if (dex.Species < 1 || dex.Species > session.Snapshot().Dex.Total)

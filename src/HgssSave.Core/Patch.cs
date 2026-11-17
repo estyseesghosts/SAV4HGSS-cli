@@ -63,6 +63,21 @@ public sealed record LocationSetOperation(int Map, int X, int Y, int Z) : PatchO
     public override string OpName => "location.set";
 }
 
+/// <summary>
+/// Teleport via the game's own Continue path: sets flag 0x966 and the saved dynamic warp to
+/// {Map, Warp} so Continue spawns on that warp event's tile with freshly initialised actors
+/// (docs/state-log.md F5; field_warp_tasks.c FieldTask_ContinueGame_Normal).
+/// </summary>
+public sealed record LocationWarpOperation(int Map, int Warp, int Direction) : PatchOperation
+{
+    /// <summary>Warp tile from the warp table, filled in by the planner (not part of the recipe).</summary>
+    public int? X { get; init; }
+
+    public int? Y { get; init; }
+
+    public override string OpName => "location.warp";
+}
+
 public sealed record DexSetOperation(int Species, bool Seen, bool Caught) : PatchOperation
 {
     public override string OpName => "dex.set";
@@ -267,8 +282,9 @@ public static class PatchParser
             "box.slot.import" => new[] { "op", "box", "slot", "file", "expect_species", "update_dex" },
             "box.slot.clear" => new[] { "op", "box", "slot" },
             "location.set" => new[] { "op", "map", "x", "y", "z" },
+        "location.warp" => new[] { "op", "map", "warp", "direction" },
             "dex.set" => new[] { "op", "species", "seen", "caught" },
-            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear, location.set, dex.set."),
+            _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear, location.set, location.warp, dex.set."),
         };
 
         foreach (var key in item.EnumerateObject())
@@ -351,6 +367,13 @@ public static class PatchParser
                 var y = RequireIntInRange(item, "y", op, origin, 0, 0xFFFF);
                 var z = RequireIntInRange(item, "z", op, origin, 0, 0xFFFF);
                 return new LocationSetOperation(map, x, y, z);
+            }
+            case "location.warp":
+            {
+                var map = RequireIntInRange(item, "map", op, origin, 0, 0xFFFF);
+                var warp = RequireIntInRange(item, "warp", op, origin, 0, 0xFF);
+                var direction = item.TryGetProperty("direction", out _) ? RequireIntInRange(item, "direction", op, origin, 0, 3) : 1;
+                return new LocationWarpOperation(map, warp, direction);
             }
             case "dex.set":
             default:

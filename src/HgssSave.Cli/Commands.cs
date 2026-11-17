@@ -242,7 +242,8 @@ internal static class Commands
         if (!string.Equals(session.Identity.Game, recipe.Game, StringComparison.OrdinalIgnoreCase))
             throw HgssException.Precondition("fixture-game", $"Fixture declares game '{recipe.Game}' but the base save identifies as '{session.Identity.Game}'.");
         var plan = PatchPlanner.Plan(session, recipe.Patch, registry, basePath, inputBytes, recipeBytes, false, recipeDir,
-            Args.Option(args, "--safe-spawns") ?? Environment.GetEnvironmentVariable("HGSS_SAFE_SPAWNS"));
+            Args.Option(args, "--safe-spawns") ?? Environment.GetEnvironmentVariable("HGSS_SAFE_SPAWNS"),
+            Args.Option(args, "--warp-spawns"));
         if (!plan.CanApply)
         {
             Emit(w => ReportWriter.WritePatch(w, plan, null, null, false, Factory.LibraryVersion));
@@ -478,6 +479,17 @@ internal static class Commands
         return RunPatch(input, doc, CanonicalPatchJson($"location.set:{map}:{x}:{y}:{z}"), output, args);
     }
 
+    internal static int LocationWarp(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save location warp INPUT MAP WARP --out OUT [--direction N] [--warp-spawns PATH]");
+        var map = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "location warp requires a map id."), "map");
+        var warp = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "location warp requires a warp index."), "warp");
+        var direction = ParseInt(Args.Option(args, "--direction", "1"), "--direction");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "location warp requires --out OUT.");
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new LocationWarpOperation(map, warp, direction)], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"location.warp:{map}:{warp}:{direction}"), output, args);
+    }
+
     internal static int DexSet(string[] args)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save dex set INPUT SPECIES --seen BOOL --caught BOOL --out OUT");
@@ -543,7 +555,8 @@ internal static class Commands
         var registry = TryLoadRegistry(args);
         var inputBytes = ReadFile(input);
         using var session = Factory.OpenWithRegistry(input, registry);
-        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory, safeSpawns);
+        var warpSpawns = Args.Option(args, "--warp-spawns");
+        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory, safeSpawns, warpSpawns);
 
         if (!plan.CanApply)
         {

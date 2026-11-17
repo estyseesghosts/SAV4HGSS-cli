@@ -68,10 +68,17 @@ The CLI currently writes only the current location. A position edit that leaves 
 
 Corpus check: of 29 saves, exactly one has flag `0x966` set (HG Master 22:04:51, right after the Hall of Fame), and its dynamic warp is the New Bark player room and its special spawn is New Bark. The final SS save (52:45:25) also carries the New Bark player-room dynamic warp with the flag clear, as expected after one Continue. This matches the decomp.
 
-**Status: hypothesis, not yet proven at runtime.** To verify: build a save with flag `0x966` set and a chosen `dynamicWarp {map, warpId}`, boot it headless, read the RAM `Location`. If it holds, `location set` can be replaced by "set dynamic warp to a zone-event warp" for any map with warps, which also gives fresh actors and removes the need for the 64-object list to match.
+**Status: verified at runtime, 2026-11-17.** Method: `tools/save_edit.py` (hand byte edit plus CRC fix) or `hgss-save location warp` on the HG Master 4-badge Ecruteak save, then `tools/leveld_run.py` boots `heartgold.nds` headless through Continue and scans ARM9 RAM for the live `Location` {map, warp, x, y, direction}. The control (unedited save, same inputs) boots at an Ecruteak Pokémon Center.
 
-Caveat on `registry/hgss-us.warp-spawns.json`: `spawn_registry_check.py` explained 0 of 20 safe spawns because it compared warp tiles with *current positions*. That was the wrong test. The registry is a derivation of zone-event warp tables, which is what this mechanism resolves at load. For the 7 distinct saved `dynamicWarp` (map, warpId) pairs in the corpus, the registry has a matching `warp_index` entry in every case, but the saved x/y equals the registry tile in only 1 of 6 non-zero cases (for example map 191 warp 2: saved `(19,3)`, registry `(19,2)`), consistent with the game recomputing x/y from the warp at load. Needs the runtime test above.
+- Hand edit, dynamic warp `{73, warp 2, x 0, y 0}` plus flag `0x966`: live Location `{73, warp 2, (479,257), dir 1}` at `0x227d498`, the Violet Gym door tile the warp table lists. The stored `(0,0)` was wrong on purpose, so the game resolved the tile itself.
+- `tools/dynwarp_probe.py --sample 6 --seed 11` (random (map, warp) from the table): 6 of 6 landed on the table's tile exactly. Targets: Bell Tower 9F warps 4 and 5, Seafoam Islands B1F warp 2, Route 40 Battle Frontier gatehouse warp 0, Saffron Gym warp 14, Mt. Silver Cave 2F warp 1. One result row also listed unrelated RAM matches at other addresses (coincidental byte patterns); the player struct at `0x227d498` matched in all six.
+- A save produced by the shipped `hgss-save location warp` (`location.warp` operation) lands on the same tile. Byte audit: accepted, 0 unclassified bytes.
 
+Scope of the claim: HG, one base save (HG Master 4 badges), 7 targets, Continue only. Not tested: SS, saves from other story points, interior-to-outdoor chains, whether the player can then walk and save normally beyond the first overworld frame (the screenshot shows the overworld and menu), or what the game does with the unchanged `currentPosition` on the next save (it is replaced by the player's real position at that save).
+
+Consequences: `location warp` gives a teleport to any warp event of any map with fresh actors, without decoding walkability. Limits: the arrival tile is a warp event's tile (a door, stairs or map-edge exit), not an arbitrary tile, and the direction field's meaning is unmapped (only `1` is observed in saves).
+
+The warp table (`registry/hgss-us.warp-spawns.json`) is the derivation of the zone-event warp lists that this mechanism resolves at load. `spawn_registry_check.py` explained 0 of 20 safe spawns because it compared warp tiles with *current positions*, which was the wrong test; the runtime result above is the right one. In the corpus, the 7 distinct saved `dynamicWarp` (map, warpId) pairs all have a matching `warp_index` in the table, and the saved x/y matches the table tile in only 1 of 6 non-zero cases (map 191 warp 2: saved `(19,3)`, table `(19,2)`), which fits the game recomputing x/y at load. The runtime probe confirms the table's tile is what the game lands on, for the 7 targets tested.
 ## F6. Unmodelled save area
 
 `tools/residual_diff.py` masks party, bag, vars and flags and diffs the active general block between consecutive HG Master saves. Each step changes 1,000 to 1,300 bytes outside those. Using PKHeX offsets (`SAV4HGSS.cs:37-79`) and the decomp chunk order (`src/save_arrays.c`, `gSaveChunkHeaders`), the recurring clusters are:
@@ -94,7 +101,7 @@ Not yet attributed: the `0x23B8-0x2740` and `0x4434-0x4510` tables. Next step is
 
 ## Open work from this log
 
-1. Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).
-2. Name trainer, hidden-item and daily flag families in the registry (F2).
+1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.
+2. ~~Name trainer flags in the registry (F2).~~ Done (733 derived entries).
 3. Decide what a progress preset must clear as well as set (F1); needs same-milestone samples to separate story from player choice.
 4. Identify the remaining unmodelled tables (F6) and the `FLAG_UNK_*` ids that actually change across milestones.

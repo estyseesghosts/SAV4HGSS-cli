@@ -237,6 +237,19 @@ only passed by coincidence (Z equaled direction there).
   A-taps on menu buttons miss (hit BAG/OPTIONS instead); touchscreen
   taps are exact. Next: step to the water edge (20,44) and trigger Surf
   facing the water.
+- Fast driving (RUNTIME, Nov 2026): one boot can do N waypoints with a
+  direct peek at `0x227d498` (20-byte read: map/warp/x/y/dir) after each
+  chunk — no 134MB ROM copy, no second scan boot, no 4MB sweep (1024
+  native reads → 1; the old any-warp sweep returned 115 false positives
+  for map 119). Prototype `fast_trek2.py` (Temp, not committed) did 6
+  waypoints in 4.0s wall in ONE boot vs ~1.5s + 0.4s per waypoint the old
+  way, with per-step `.mcpr` banked and screenshot hashes as change
+  signals (equal hashes = no-op B; hash-change + same coords = wall bump).
+  Dry south probe in the same run: (20,45)→(20,46)→(22,46), east and
+  south both blocked at (22,46). Interiors DO keep the struct at
+  `0x227d498` (map 119 warp 0) — the old "interiors drop the pattern"
+  claim was the FFFFFFFF-warp scan missing warp-0 rooms, corrected here.
+  Next: continue the dry probe from the banked `f_south` (20,46) state.
 - Surf unusable so far (RUNTIME, `surf-leg22/25/27`): selecting Surf
   from Mantine's panel answers "You can't use that here." both at
   Mortar (20,46) and at the water edge (20,45). Face-water + A gives

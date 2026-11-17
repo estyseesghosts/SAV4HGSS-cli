@@ -92,6 +92,81 @@ public sealed class PartyBoxTests
     }
 
     [Fact]
+    public void LocationRoundTripMirrorsCoordinates()
+    {
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        session.SetLocation(73, 459, 246, 3);
+        Assert.Equal(73, session.Location.MapId);
+        Assert.Equal(459, session.Location.X);
+        Assert.Equal(459, session.Location.SecondaryX);
+        Assert.Equal(246, session.Location.Y);
+        Assert.Equal(246, session.Location.SecondaryY);
+        Assert.Equal(3, session.Location.Z);
+        var export = session.Export();
+        using var reparsed = Factory.OpenBytes(export.Bytes, "reparse");
+        Assert.Equal(73, reparsed.Location.MapId);
+        Assert.Equal(459, reparsed.Location.X);
+    }
+
+    [Fact]
+    public void DexSetRoundTripSurvivesExport()
+    {
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        session.SetDex(25, seen: true, caught: true);
+        var (seen, caught) = session.GetDexStatus(25);
+        Assert.True(seen);
+        Assert.True(caught);
+        var export = session.Export();
+        using var reparsed = Factory.OpenBytes(export.Bytes, "reparse");
+        Assert.True(reparsed.GetDexStatus(25).Caught);
+    }
+
+    [Fact]
+    public void DexCaughtWithoutSeenIsRejected()
+    {
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        Assert.Throws<HgssException>(() => session.SetDex(25, seen: false, caught: true));
+        var error = Assert.Throws<HgssException>(() => PatchParser.Parse(Encoding.UTF8.GetBytes("""
+            {"schema":"hgss-save.patch/v1","operations":[{"op":"dex.set","species":25,"seen":false,"caught":true}]}
+            """), "test"));
+        Assert.Equal(ExitCode.BadArguments, error.ExitCode);
+    }
+
+    private static string SafeSpawnsPath()
+    {
+        var dir = new System.IO.DirectoryInfo(System.AppContext.BaseDirectory);
+        while (dir is not null)
+        {
+            var candidate = System.IO.Path.Combine(dir.FullName, "fixtures", "safe-spawns.json");
+            if (System.IO.File.Exists(candidate))
+                return candidate;
+            dir = dir.Parent;
+        }
+
+        throw new System.IO.FileNotFoundException("fixtures/safe-spawns.json not found above the test directory.");
+    }
+
+    [Fact]
+    public void SafeSpawnGateAcceptsListedSpawns()
+    {
+        var spawns = SafeSpawnRegistry.Load(SafeSpawnsPath());
+        Assert.True(SafeSpawnRegistry.Contains(spawns, 73, 459, 246, 3));
+        Assert.False(SafeSpawnRegistry.Contains(spawns, 73, 1, 1, 3));
+    }
+
+    [Fact]
+    public void LocationOutsideRegistryIsUnsafe()
+    {
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        var document = PatchParser.Parse(Encoding.UTF8.GetBytes("""
+            {"schema":"hgss-save.patch/v1","operations":[{"op":"location.set","map":73,"x":1,"y":1,"z":3}]}
+            """), "test");
+        var error = Assert.Throws<HgssException>(() =>
+            PatchPlanner.Plan(session, document, SymbolRegistry.Empty, "blank", session.OriginalBytes, [1], false, null, SafeSpawnsPath()));
+        Assert.Equal(ExitCode.UnsafeOperation, error.ExitCode);
+    }
+
+    [Fact]
     public void PatchParserAcceptsPartyOps()
     {
         var doc = PatchParser.Parse(Encoding.UTF8.GetBytes("""

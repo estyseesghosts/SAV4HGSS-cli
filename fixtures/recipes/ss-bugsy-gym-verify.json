@@ -1,0 +1,30 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-bugsy-gym-verify",
+  "game": "SS",
+  "base": {
+    "path": "PokemonSS2gyn.sav",
+    "sha256": "959E9B26BC84FA7C6D70A5CED4BF28AD37BD0E569C6C174C8DC845AC468B6310"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 12100, "expect": 11896},
+      {"op": "location.set", "map": 74, "x": 410, "y": 463, "z": 1}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM51_FROM_FALKNER", "equals": true},
+      {"field": "flag.FLAG_GOT_TM89_FROM_BUGSY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM45_FROM_WHITNEY", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 74, "x": 410, "y": 463, "z": 1}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "azalea-spawn-visible", "bugsy-tm-in-bag-history", "whitney-not-yet-beaten", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "2nd-gym checkpoint (M@ster, Azalea): Falkner+Bugsy TM flags set, Whitney TM flag clear. Observed bit pattern 11000000. Self-spawn move exercises the location gate on a second base."
+  }
+}

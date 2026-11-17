@@ -231,7 +231,8 @@ internal static class Commands
         using var session = Factory.OpenWithRegistry(basePath, registry);
         if (!string.Equals(session.Identity.Game, recipe.Game, StringComparison.OrdinalIgnoreCase))
             throw HgssException.Precondition("fixture-game", $"Fixture declares game '{recipe.Game}' but the base save identifies as '{session.Identity.Game}'.");
-        var plan = PatchPlanner.Plan(session, recipe.Patch, registry, basePath, inputBytes, recipeBytes, false, recipeDir);
+        var plan = PatchPlanner.Plan(session, recipe.Patch, registry, basePath, inputBytes, recipeBytes, false, recipeDir,
+            Args.Option(args, "--safe-spawns") ?? Environment.GetEnvironmentVariable("HGSS_SAFE_SPAWNS"));
         if (!plan.CanApply)
         {
             Emit(w => ReportWriter.WritePatch(w, plan, null, null, false, Factory.LibraryVersion));
@@ -414,6 +415,29 @@ internal static class Commands
         return RunPatch(input, doc, CanonicalPatchJson($"box.slot.clear:{box}:{slot}"), output, args);
     }
 
+    internal static int LocationSet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save location set INPUT MAP X Y Z --out OUT [--safe-spawns PATH]");
+        var map = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "location set requires a map id."), "map");
+        var x = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "location set requires X."), "x");
+        var y = ParseInt(Args.Positional(args, 3) ?? throw HgssException.BadArguments("args", "location set requires Y."), "y");
+        var z = ParseInt(Args.Positional(args, 4) ?? throw HgssException.BadArguments("args", "location set requires Z."), "z");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "location set requires --out OUT.");
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new LocationSetOperation(map, x, y, z)], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"location.set:{map}:{x}:{y}:{z}"), output, args);
+    }
+
+    internal static int DexSet(string[] args)
+    {
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save dex set INPUT SPECIES --seen BOOL --caught BOOL --out OUT");
+        var species = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "dex set requires a species id 1..493."), "species");
+        var seenRaw = Args.Option(args, "--seen") ?? throw HgssException.BadArguments("args", "dex set requires --seen true|false.");
+        var caughtRaw = Args.Option(args, "--caught") ?? throw HgssException.BadArguments("args", "dex set requires --caught true|false.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "dex set requires --out OUT.");
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new DexSetOperation(species, ParseBool(seenRaw), ParseBool(caughtRaw))], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"dex.set:{species}:{seenRaw}:{caughtRaw}"), output, args);
+    }
+
     private static int ScalarGet(string[] args, string field, string usage)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", usage);
@@ -464,10 +488,11 @@ internal static class Commands
         var dryRun = Args.Flag(args, "--dry-run");
         var requireSymbols = Args.Flag(args, "--require-symbols");
         var maxRanges = ParseInt(Args.Option(args, "--max-ranges", "40"), "--max-ranges");
+        var safeSpawns = Args.Option(args, "--safe-spawns") ?? Environment.GetEnvironmentVariable("HGSS_SAFE_SPAWNS");
         var registry = TryLoadRegistry(args);
         var inputBytes = ReadFile(input);
         using var session = Factory.OpenWithRegistry(input, registry);
-        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory);
+        var plan = PatchPlanner.Plan(session, document, registry, input, inputBytes, patchBytes, requireSymbols, recipeDirectory, safeSpawns);
 
         if (!plan.CanApply)
         {

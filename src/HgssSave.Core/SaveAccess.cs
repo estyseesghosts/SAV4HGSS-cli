@@ -73,6 +73,12 @@ public interface ISaveSession : IDisposable
     /// <summary>Validated preview of a .pk4 file: species, checksum status, level and display name.</summary>
     PkPreview PreviewPkFile(byte[] pkFileBytes);
 
+    void SetLocation(int mapId, int x, int y, int z);
+
+    (bool Seen, bool Caught) GetDexStatus(int species);
+
+    void SetDex(int species, bool seen, bool caught);
+
     int PartySpecies(int slot);
 
     int BoxSpecies(int box, int slot);

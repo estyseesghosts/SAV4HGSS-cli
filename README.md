@@ -36,6 +36,8 @@ hgss-save var set INPUT.sav VAR_PLAYER_STARTER 2 --out OUT.sav
 hgss-save bag set INPUT.sav ITEM_POTION 10 --out OUT.sav
 hgss-save trainer money set INPUT.sav 50000 --out OUT.sav
 hgss-save party export INPUT.sav 0 --out slot0.pk4
+hgss-save dex set INPUT.sav 25 --seen true --caught true --out OUT.sav
+hgss-save location set INPUT.sav 73 459 246 3 --out OUT.sav [--safe-spawns PATH]
 hgss-save party import INPUT.sav 0 slot0.pk4 --out OUT.sav [--expect-species 25] [--no-dex]
 hgss-save party clear INPUT.sav 0 --out OUT.sav
 hgss-save box export INPUT.sav 0 0 --out box00.pk4
@@ -129,7 +131,7 @@ Level D runtime stays manual per fixture; see `docs/runtime-validation.md` for t
 
 ## Verification
 
-`dotnet test` runs 48 tests: strict open/reject paths, flag/var/money/bag/party/box round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all eleven committed fixtures on the same-trainer M@ster lineage plus early/post-game and HG files (Violet, Azalea, Mahogany, Radio Tower, Blackthorn/Clair, Kimono dance, Lugia pre-event, Ho-Oh rebattle, E4 Champion, Kanto complete, Dragons Den shrine); Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/Ho-Oh/bell/wing/Kimono story paths, and `fixtures/event-prereqs.json` records per-beat reads/writes with file:line evidence plus observed values. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
+`dotnet test` runs 53 tests: strict open/reject paths, flag/var/money/bag/party/box/location/dex round-trips, aliasing, transaction policy, byte audit, containers, fixture parsing, safe-spawn gating, and registry spot checks. Real saves in `3DS/hgss-saves` verify inspect/patch/diff and all fourteen committed fixtures on the same-trainer M@ster lineage plus early/post-game and HG files (Falkner, Bugsy, Violet, Azalea, Mahogany, Pryce, Radio Tower, Blackthorn/Clair, Kimono dance, Lugia pre-event, Ho-Oh rebattle, E4 Champion, Kanto complete, Dragons Den shrine); Pearl/Platinum/White saves are correctly rejected with exit 3. The script index (9960 refs, 965 symbols) cross-checks Lugia/Ho-Oh/bell/wing/Kimono story paths, and `fixtures/event-prereqs.json` records per-beat reads/writes with file:line evidence plus observed values. Runtime in-game behavior (boot, event trigger, re-save round-trip in melonDS) remains a manual checklist per fixture (docs/runtime-validation.md).
 
 ## License
 

@@ -58,6 +58,16 @@ public sealed record BoxClearOperation(int Box, int Slot) : PatchOperation
     public override string OpName => "box.slot.clear";
 }
 
+public sealed record LocationSetOperation(int Map, int X, int Y, int Z) : PatchOperation
+{
+    public override string OpName => "location.set";
+}
+
+public sealed record DexSetOperation(int Species, bool Seen, bool Caught) : PatchOperation
+{
+    public override string OpName => "dex.set";
+}
+
 public abstract record PatchAssertion
 {
     public abstract string Field { get; }
@@ -106,6 +116,21 @@ public sealed record PartyCountAssertion(int Value) : PatchAssertion
 public sealed record PartySpeciesAssertion(int Slot, int Value) : PatchAssertion
 {
     public override string Field => $"party.{Slot}.species";
+}
+
+public sealed record DexSeenAssertion(int Species, bool Value) : PatchAssertion
+{
+    public override string Field => $"dex.{Species}.seen";
+}
+
+public sealed record DexCaughtAssertion(int Species, bool Value) : PatchAssertion
+{
+    public override string Field => $"dex.{Species}.caught";
+}
+
+public sealed record LocationAssertion(int Map, int X, int Y, int Z) : PatchAssertion
+{
+    public override string Field => "location.spawn";
 }
 
 public sealed record BoxSpeciesAssertion(int Box, int Slot, int Value) : PatchAssertion
@@ -241,6 +266,8 @@ public static class PatchParser
             "party.slot.clear" => new[] { "op", "slot" },
             "box.slot.import" => new[] { "op", "box", "slot", "file", "expect_species", "update_dex" },
             "box.slot.clear" => new[] { "op", "box", "slot" },
+            "location.set" => new[] { "op", "map", "x", "y", "z" },
+            "dex.set" => new[] { "op", "species", "seen", "caught" },
             _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear."),
         };
 
@@ -312,11 +339,28 @@ public static class PatchParser
                 return new BoxImportOperation(box, slot, file, expectSpecies, updateDex);
             }
             case "box.slot.clear":
-            default:
             {
                 var box = RequireIntInRange(item, "box", op, origin, 0, 17);
                 var slot = RequireIntInRange(item, "slot", op, origin, 0, 29);
                 return new BoxClearOperation(box, slot);
+            }
+            case "location.set":
+            {
+                var map = RequireIntInRange(item, "map", op, origin, 0, 0xFFFF);
+                var x = RequireIntInRange(item, "x", op, origin, 0, 0xFFFF);
+                var y = RequireIntInRange(item, "y", op, origin, 0, 0xFFFF);
+                var z = RequireIntInRange(item, "z", op, origin, 0, 0xFFFF);
+                return new LocationSetOperation(map, x, y, z);
+            }
+            case "dex.set":
+            default:
+            {
+                var species = RequireIntInRange(item, "species", op, origin, 1, 493);
+                var seen = RequireBool(item, "seen", op, origin);
+                var caught = RequireBool(item, "caught", op, origin);
+                if (caught && !seen)
+                    throw HgssException.BadArguments("dex-consistency", $"dex.set for species {species}: caught implies seen; set seen true.");
+                return new DexSetOperation(species, seen, caught);
             }
         }
     }
@@ -364,6 +408,29 @@ public static class PatchParser
                     if (parts.Length == 2 && int.TryParse(parts[0], out var slot) && slot >= 0 && slot <= 5 && parts[1] == "species")
                         return new PartySpeciesAssertion(slot, RequireIntValue(value, field, origin, 0, 493));
                     throw HgssException.BadArguments("patch-assert-field", $"Unknown assertion field '{field}' ({origin}). Expected 'party.<0-5>.species'.");
+                }
+                if (prefix == "dex")
+                {
+                    var parts = reference.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length == 2 && int.TryParse(parts[0], out var species) && species >= 1 && species <= 493)
+                    {
+                        if (parts[1] == "seen")
+                            return new DexSeenAssertion(species, RequireBoolValue(value, field, origin));
+                        if (parts[1] == "caught")
+                            return new DexCaughtAssertion(species, RequireBoolValue(value, field, origin));
+                    }
+
+                    throw HgssException.BadArguments("patch-assert-field", $"Unknown assertion field '{field}' ({origin}). Expected 'dex.<1-493>.seen|caught'.");
+                }
+                if (prefix == "location" && reference == "spawn")
+                {
+                    if (value.ValueKind != JsonValueKind.Object)
+                        throw HgssException.BadArguments("patch-assert-value", $"Assertion for '{field}' must provide an object with map/x/y/z ({origin}).");
+                    var map = value.TryGetProperty("map", out var m) && m.ValueKind == JsonValueKind.Number ? m.GetInt32() : throw HgssException.BadArguments("patch-assert-value", $"Assertion for '{field}' needs numeric 'map' ({origin}).");
+                    var x = value.TryGetProperty("x", out var xv) && xv.ValueKind == JsonValueKind.Number ? xv.GetInt32() : throw HgssException.BadArguments("patch-assert-value", $"Assertion for '{field}' needs numeric 'x' ({origin}).");
+                    var y = value.TryGetProperty("y", out var yv) && yv.ValueKind == JsonValueKind.Number ? yv.GetInt32() : throw HgssException.BadArguments("patch-assert-value", $"Assertion for '{field}' needs numeric 'y' ({origin}).");
+                    var z = value.TryGetProperty("z", out var zv) && zv.ValueKind == JsonValueKind.Number ? zv.GetInt32() : 0;
+                    return new LocationAssertion(map, x, y, z);
                 }
                 if (prefix == "box")
                 {

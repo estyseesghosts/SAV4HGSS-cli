@@ -17,6 +17,7 @@ internal static class Program
         "flag get", "flag set", "var get", "var set", "bag set", "trainer money set",
         "party export", "party import", "party clear",
         "box export", "box import", "box clear",
+        "location set", "dex set",
         "flags list", "vars list",
         "symbols lookup", "symbols search", "symbols build-registry",
         "script index", "script references",
@@ -67,6 +68,8 @@ internal static class Program
             "vars" => ExpectList(rest, "vars") ? Commands.VarsList(rest[1..]) : Usage("usage: hgss-save vars list INPUT [--limit N]"),
             "party" => PartyVerb(rest),
             "box" => BoxVerb(rest),
+            "location" => LocationVerb(rest),
+            "dex" => DexVerb(rest),
             "script" => ScriptVerb(rest),
             "fixture" => FixtureVerb(rest),
             "symbols" => SymbolsVerb(rest),
@@ -128,6 +131,28 @@ internal static class Program
             "import" => Commands.BoxImport(args[1..]),
             "clear" => Commands.BoxClear(args[1..]),
             _ => Usage("usage: hgss-save box export|import|clear ..."),
+        };
+    }
+
+    private static int LocationVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save location set ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "set" => Commands.LocationSet(args[1..]),
+            _ => Usage("usage: hgss-save location set ..."),
+        };
+    }
+
+    private static int DexVerb(string[] args)
+    {
+        if (args.Length == 0)
+            return Usage("usage: hgss-save dex set ...");
+        return args[0].ToLowerInvariant() switch
+        {
+            "set" => Commands.DexSet(args[1..]),
+            _ => Usage("usage: hgss-save dex set ..."),
         };
     }
 
@@ -212,7 +237,7 @@ internal static class Args
 {
     private static readonly HashSet<string> ValueOptions = new(StringComparer.Ordinal)
     {
-        "--recipe", "--out", "--outdir", "--bases", "--symbols", "--script-refs", "--kind", "--kinds", "--limit", "--level",
+        "--recipe", "--out", "--outdir", "--bases", "--symbols", "--safe-spawns", "--seen", "--caught", "--script-refs", "--kind", "--kinds", "--limit", "--level",
         "--game", "--trainer-name", "--tid", "--sid", "--gender", "--language",
         "--headers", "--scripts", "--commit", "--registry-id", "--project", "--max-list",
         "--flags-limit", "--expect", "--expect-species", "--max-ranges",

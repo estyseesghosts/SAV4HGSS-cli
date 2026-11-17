@@ -9,11 +9,13 @@
   "patch": {
     "operations": [
       {"op": "flag.set", "id": "FLAG_CAUGHT_HO_OH", "value": false},
-      {"op": "inventory.quantity.set", "item": "ITEM_RAINBOW_WING", "quantity": 1}
+      {"op": "inventory.quantity.set", "item": "ITEM_RAINBOW_WING", "quantity": 1},
+      {"op": "dex.set", "species": 250, "seen": true, "caught": false}
     ],
     "assert": [
       {"field": "flag.FLAG_CAUGHT_HO_OH", "equals": false},
-      {"field": "bag.ITEM_RAINBOW_WING", "equals": 1}
+      {"field": "bag.ITEM_RAINBOW_WING", "equals": 1},
+      {"field": "dex.250.caught", "equals": false}
     ]
   },
   "position": {"mode": "preserve-base"},

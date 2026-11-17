@@ -150,6 +150,12 @@ public static class PatchRunner
             case BoxClearOperation clear:
                 session.ClearBoxSlot(clear.Box, clear.Slot);
                 break;
+            case LocationSetOperation location:
+                session.SetLocation(location.Map, location.X, location.Y, location.Z);
+                break;
+            case DexSetOperation dex:
+                session.SetDex(dex.Species, dex.Seen, dex.Caught);
+                break;
             default:
                 throw HgssException.BadArguments("patch-unknown-op", $"Unsupported operation '{planned.Operation.OpName}'.");
         }
@@ -225,6 +231,16 @@ public static class PatchRunner
                 return session.BoxSpecies(box.Box, box.Slot).ToString(System.Globalization.CultureInfo.InvariantCulture);
             case BoxClearOperation clear:
                 return session.BoxSpecies(clear.Box, clear.Slot).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            case LocationSetOperation:
+            {
+                var location = session.Location;
+                return $"{location.MapId},{location.X},{location.Y},{location.Z}";
+            }
+            case DexSetOperation dex:
+            {
+                var (seen, caught) = session.GetDexStatus(dex.Species);
+                return $"seen:{seen.ToString().ToLowerInvariant()},caught:{caught.ToString().ToLowerInvariant()}";
+            }
             default:
                 return null;
         }
@@ -265,6 +281,12 @@ public static class PatchRunner
                 return session.PartySpecies(species.Slot).ToString(invariant);
             case BoxSpeciesAssertion species:
                 return session.BoxSpecies(species.Box, species.Slot).ToString(invariant);
+            case DexSeenAssertion species:
+                return session.GetDexStatus(species.Species).Seen.ToString().ToLowerInvariant();
+            case DexCaughtAssertion species:
+                return session.GetDexStatus(species.Species).Caught.ToString().ToLowerInvariant();
+            case LocationAssertion location:
+                return $"{session.Location.MapId},{session.Location.X},{session.Location.Y},{session.Location.Z}";
             case MapAssertion:
                 return session.Location.MapId.ToString(invariant);
             case GameAssertion:
@@ -291,6 +313,9 @@ public static class PatchRunner
             PartyCountAssertion party => party.Value.ToString(invariant),
             PartySpeciesAssertion species => species.Value.ToString(invariant),
             BoxSpeciesAssertion species => species.Value.ToString(invariant),
+            DexSeenAssertion species => species.Value.ToString().ToLowerInvariant(),
+            DexCaughtAssertion species => species.Value.ToString().ToLowerInvariant(),
+            LocationAssertion location => $"{location.Map},{location.X},{location.Y},{location.Z}",
             MapAssertion map => map.Value.ToString(invariant),
             GameAssertion game => game.Value,
             ChecksumsAssertion checksums => checksums.Value ? "true" : "false",

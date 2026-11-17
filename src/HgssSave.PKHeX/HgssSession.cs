@@ -285,6 +285,35 @@ public sealed class HgssSession : ISaveSession
 
     public PkPreview PreviewPkFile(byte[] pkFileBytes) => PreviewPk(pkFileBytes);
 
+    public void SetLocation(int mapId, int x, int y, int z)
+    {
+        if ((uint)mapId > 0xFFFF)
+            throw HgssException.Precondition("location-range", $"Map id {mapId} is outside 0..65535.");
+        if ((uint)x > 0xFFFF || (uint)y > 0xFFFF || (uint)z > 0xFFFF)
+            throw HgssException.Precondition("location-range", $"Coordinates ({x},{y},{z}) must each fit in 16 bits.");
+        _sav.M = mapId;
+        _sav.X = x; // SAV4HGSS.cs:187-188: writing X also writes X2; same for Y/Y2.
+        _sav.Y = y;
+        _sav.Z = z;
+    }
+
+    public (bool Seen, bool Caught) GetDexStatus(int species)
+    {
+        if (species < 1 || species > _sav.MaxSpeciesID)
+            throw HgssException.Precondition("dex-range", $"Species {species} is outside 1..{_sav.MaxSpeciesID}.");
+        return (_sav.GetSeen((ushort)species), _sav.GetCaught((ushort)species));
+    }
+
+    public void SetDex(int species, bool seen, bool caught)
+    {
+        if (species < 1 || species > _sav.MaxSpeciesID)
+            throw HgssException.Precondition("dex-range", $"Species {species} is outside 1..{_sav.MaxSpeciesID}.");
+        if (caught && !seen)
+            throw HgssException.Precondition("dex-consistency", $"Species {species}: caught implies seen.");
+        _sav.Dex.SetSeen((ushort)species, seen); // Zukan4.cs:54
+        _sav.Dex.SetCaught((ushort)species, caught); // Zukan4.cs:53
+    }
+
     public int PartySpecies(int slot)
     {
         if ((uint)slot >= 6)

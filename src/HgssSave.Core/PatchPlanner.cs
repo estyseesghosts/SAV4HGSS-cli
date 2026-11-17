@@ -71,7 +71,8 @@ public static class PatchPlanner
         byte[] inputBytes,
         byte[] patchBytes,
         bool requireSymbols,
-        string? recipeDirectory = null)
+        string? recipeDirectory = null,
+        string? safeSpawnsPath = null)
     {
         var identity = session.Identity;
         var warnings = new List<string>();
@@ -93,7 +94,7 @@ public static class PatchPlanner
 
         foreach (var operation in document.Operations)
         {
-            var planned = PlanOperation(session, operation, registry, requireSymbols, warnings, recipeDirectory);
+            var planned = PlanOperation(session, operation, registry, requireSymbols, warnings, recipeDirectory, safeSpawnsPath);
             if (planned is null)
                 continue;
 
@@ -139,7 +140,8 @@ public static class PatchPlanner
         SymbolRegistry registry,
         bool requireSymbols,
         List<string> warnings,
-        string? recipeDirectory = null)
+        string? recipeDirectory = null,
+        string? safeSpawnsPath = null)
     {
         switch (operation)
         {
@@ -391,6 +393,52 @@ public static class PatchPlanner
                     []);
             }
 
+            case LocationSetOperation location:
+            {
+                var spawns = SafeSpawnRegistry.LoadDefault(safeSpawnsPath);
+                if (!SafeSpawnRegistry.Contains(spawns, location.Map, location.X, location.Y, location.Z))
+                    throw HgssException.Unsafe("location-unverified",
+                        $"Spawn map {location.Map} ({location.X},{location.Y},{location.Z}) is not a verified safe spawn. " +
+                        $"Only exact fixtures/safe-spawns.json entries are writable; map teleports need a reviewed safe-spawn record.");
+                var current = session.Location;
+                var original = $"{current.MapId},{current.X},{current.Y},{current.Z}";
+                var requested = $"{location.Map},{location.X},{location.Y},{location.Z}";
+                var symbol = registry.NameFor(SymbolKind.Map, location.Map);
+                return new PlannedOperation(
+                    operation,
+                    "location",
+                    symbol is null ? $"location.map_{location.Map}" : $"location.{symbol}",
+                    null,
+                    SymbolResolution.Resolved,
+                    requested,
+                    original,
+                    null,
+                    true,
+                    !string.Equals(original, requested, StringComparison.Ordinal),
+                    symbol is null ? [$"map id {location.Map} has no symbol in {registry.Revision}."] : []);
+            }
+
+            case DexSetOperation dex:
+            {
+                if (dex.Species < 1 || dex.Species > session.Snapshot().Dex.Total)
+                    throw HgssException.Precondition("dex-range", $"Species {dex.Species} is outside the HGSS dex range.");
+                var (seen, caught) = session.GetDexStatus(dex.Species);
+                var original = $"seen:{seen.ToString().ToLowerInvariant()},caught:{caught.ToString().ToLowerInvariant()}";
+                var requested = $"seen:{dex.Seen.ToString().ToLowerInvariant()},caught:{dex.Caught.ToString().ToLowerInvariant()}";
+                return new PlannedOperation(
+                    operation,
+                    $"dex:{dex.Species}",
+                    $"dex.{dex.Species}",
+                    registry.LookupNumber(dex.Species, SymbolKind.Species).Entry,
+                    SymbolResolution.Resolved,
+                    requested,
+                    original,
+                    null,
+                    true,
+                    !string.Equals(original, requested, StringComparison.Ordinal),
+                    []);
+            }
+
             default:
                 throw HgssException.BadArguments("patch-unknown-op", $"Unsupported operation '{operation.OpName}'.");
         }
@@ -514,6 +562,41 @@ public static class PatchPlanner
                 }
 
                 return (actual.ToString(System.Globalization.CultureInfo.InvariantCulture), actual == species.Value, null, null, null);
+            }
+            case DexSeenAssertion seen:
+            {
+                bool actual;
+                try
+                {
+                    actual = session.GetDexStatus(seen.Species).Seen;
+                }
+                catch (HgssException e)
+                {
+                    return ("", false, $"assertion field '{seen.Field}': {e.Message}", null, null);
+                }
+
+                return (actual.ToString().ToLowerInvariant(), actual == seen.Value, null, null, null);
+            }
+            case DexCaughtAssertion caught:
+            {
+                bool actual;
+                try
+                {
+                    actual = session.GetDexStatus(caught.Species).Caught;
+                }
+                catch (HgssException e)
+                {
+                    return ("", false, $"assertion field '{caught.Field}': {e.Message}", null, null);
+                }
+
+                return (actual.ToString().ToLowerInvariant(), actual == caught.Value, null, null, null);
+            }
+            case LocationAssertion location:
+            {
+                var current = session.Location;
+                var actual = $"{current.MapId},{current.X},{current.Y},{current.Z}";
+                var expected = $"{location.Map},{location.X},{location.Y},{location.Z}";
+                return (actual, string.Equals(actual, expected, StringComparison.Ordinal), null, null, null);
             }
             case MapAssertion map:
                 return (session.Location.MapId.ToString(System.Globalization.CultureInfo.InvariantCulture), session.Location.MapId == map.Value, null, null, null);

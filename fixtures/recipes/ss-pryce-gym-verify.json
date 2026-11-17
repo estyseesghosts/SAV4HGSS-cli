@@ -1,0 +1,33 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "ss-pryce-gym-verify",
+  "game": "SS",
+  "base": {
+    "path": "Pokemon_SoulSilver7gyn.sav",
+    "sha256": "C5DDD8346C75F2AC229525E5AA9991267C022B1FB9D28B58E8CA1B7ABB8593C5"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 443100, "expect": 442934},
+      {"op": "location.set", "map": 87, "x": 528, "y": 184, "z": 4}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_GOT_TM45_FROM_WHITNEY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM30_FROM_MORTY", "equals": true},
+      {"field": "flag.FLAG_GOT_TM01_FROM_CHUCK", "equals": true},
+      {"field": "flag.FLAG_GOT_TM23_FROM_JASMINE", "equals": true},
+      {"field": "flag.FLAG_GOT_TM07_FROM_PRYCE", "equals": true},
+      {"field": "flag.FLAG_GOT_TM59_FROM_CLAIR", "equals": false},
+      {"field": "location.spawn", "equals": {"map": 87, "x": 528, "y": 184, "z": 4}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "mahogany-spawn-visible", "gyms-3-through-7-tms-present", "clair-not-yet-beaten", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "7th-gym checkpoint (M@ster, Mahogany): Whitney/Morty/Chuck/Jasmine/Pryce TM flags set, Clair TM flag clear. Observed bit pattern 11111110. Covers gyms 3-7 in one fixture."
+  }
+}

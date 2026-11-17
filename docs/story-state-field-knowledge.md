@@ -229,6 +229,34 @@ only passed by coincidence (Z equaled direction there).
   384,184), while chained ≤60-frame holds with per-leg states work
   reliably (probe 384→381, surf-leg2 381→380,176). Until root-caused,
   prefer short holds with a banked state per leg.
+- FAST DRIVER (Nov 2026, validated): single-boot multi-waypoint probing
+  with direct 20-byte peek at `0x227d498` (map/warp/x/y/dir, 1 native
+  read vs 1024-call 4MB sweep with 115 false positives) does 6-12
+  waypoints in 3-7s wall in ONE boot, per-step `.mcpr` banked, full-screen
+  hashes as change signals. Protocol fix (RUNTIME): exit menus with
+  X,B,B,B,B (X toggles, B backs out — ends closed from any depth ≤4);
+  top-screen hashes CANNOT see the start menu (bottom-screen UI), which
+  silently ate inputs in 3 runs (`q_*`, `w_*`, `x_south*`); always hash
+  the FULL screen and verify a D-pad probe moves before committing.
+- Surf mechanics (RUNTIME): face-water + A is the trigger ("The water
+  is a deep blue... Would you like to surf on it?" → "MANTINE used
+  Surf!"); party-menu Surf says "You can't use that here." unless
+  positioned; decorative ponds (Mortar (20,45), R42 (440,172)) give no
+  prompt at all. Wild water encounters (Goldeen 22) freeze coords at the
+  entry tile and look identical to wall-bumps — Max Repel ("Master used
+  the Max Repel.", bag items pocket p1/3, USE via A) is mandatory for
+  mapping; without it, `k_east3-5` "blocked at 448" was actually a wild
+  battle, not rock.
+- R42 lake map (RUNTIME, single-boot RAM-verified): west corridor y=174
+  water x441→448; (449,174) rock single; x=453 channel y171-176 (north
+  dead end (453,171), south dead end (453,176)); north row y=169 water
+  x448-451; (450,168) pool; east cliff x=454 solid y168-176 (tall,
+  unlandable); headbutt tree at (442,176) east of the (441,176) beach
+  pocket; (442,176) NOT water. East shore/Mortar doors (464,175),
+  (466,164), (493,171) unreached. Anomaly (open): `m_south1` wild battle
+  stepping south from (448,174) vs 5 later south-blocks same tile —
+  swimmer NPC vs encounter-on-entry, unresolved; treat (448,175) as
+  unknown, not rock.
 - Surf menu path mapped (RUNTIME, `surf-leg13..23`): X opens start menu;
   POKEMON tap (57,82), Mantine tap (190,108) opens its panel (Surf move
   visible = CLI teach confirmed in-game); LEFT→moves, DOWN→Surf, A

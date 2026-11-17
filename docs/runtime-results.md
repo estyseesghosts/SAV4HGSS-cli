@@ -37,6 +37,7 @@ Every fixture boots: emulator running, rendering (100+ distinct colors).
 | ss-e4-champion-verify | soulsilver.nds (IPGE) | boot-only | ok, running |
 | ss-kanto-complete-verify | soulsilver.nds (IPGE) | boot + continue to gatehouse overworld | ok, running |
 | hg-dragons-den-shrine | heartgold.nds (POKEMON HG) | boot-only | ok, running |
+| hg-celebi-event-prestage | heartgold.nds (POKEMON HG) | boot + live-spawn assert (Ilex 117,16,56) | ok, running |
 
 ## Continue-to-overworld sequences
 

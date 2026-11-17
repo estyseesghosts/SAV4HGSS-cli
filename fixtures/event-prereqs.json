@@ -1,1 +1,134 @@
-{"events":[{"effects":["SetFlag FLAG_CAUGHT_LUGIA on capture (scr_seq_0104_D40R0107.s:112)","SetFlag FLAG_UNK_109, VAR_SCENE_NEW_BARK_EAST_EXIT=3, hide New Bark friend flags, set HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS on victory path"],"id":"lugia-whirl-islands","items":["ITEM_SILVER_WING (HasItem scr_seq_0884_T24R0801.s:46, SS branch)","ITEM_TIDAL_BELL checked in the same script (SS branch)"],"observed":{"Pokemon_SoulSilver7gyn.sav (Mahogany, pre)":"FLAG_CAUGHT_LUGIA=false","Pokemon_SoulSilver8gyn.sav (Blackthorn, post)":"FLAG_CAUGHT_LUGIA=true, FLAG_UNK_109 set, HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS set"},"reads":["GoToIfSet FLAG_CAUGHT_LUGIA in scr_seq_0103_D40R0104.s:34 (blocks re-trigger)","GoToIfSet FLAG_HIDE_WHIRL_ISLAND_LUGIA in scr_seq_0104_D40R0107.s:38 (actor visibility)","GoToIfSet FLAG_ENGAGING_STATIC_POKEMON in scr_seq_0104_D40R0107.s:23 (battle lock)"],"writes":["SetFlag FLAG_CAUGHT_LUGIA in scr_seq_0104_D40R0107.s:112 (capture path)","ClearFlag FLAG_HIDE_WHIRL_ISLAND_LUGIA on whiteout (scr_seq_0104_D40R0107.s:106)","ClearFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0104_D40R0107.s:101 (victory path)"]},{"effects":["SetFlag FLAG_CAUGHT_HO_OH on capture (scr_seq_0021_D17R0110.s:100)"],"id":"ho-oh-bell-tower","items":["ITEM_RAINBOW_WING (SS counterpart of the Silver Wing check)"],"observed":{"Pokemon_SoulSilver16gyns.sav (postgame)":"FLAG_CAUGHT_HO_OH=true","Pokemon_SoulSilverpose4.sav (fresh Champion)":"FLAG_CAUGHT_HO_OH=false"},"reads":["GoToIfSet FLAG_CAUGHT_HO_OH in scr_seq_0019_D17R0101.s:16 (blocks re-trigger)"],"writes":["SetFlag FLAG_CAUGHT_HO_OH in scr_seq_0021_D17R0110.s:100 (capture path)","ClearFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0021_D17R0110.s:89 (victory-adjacent path)"]},{"effects":["Champion flags set on first victory; cleared once Kanto rebattles open (observed)"],"id":"elite-four","items":[],"observed":{"Pokemon_SoulSilver16gyns.sav (post-Kanto)":"WILL/KOGA/BRUNO/KAREN all false (rebattleable)","Pokemon_SoulSilverpose4.sav (fresh Champion)":"WILL/KOGA/BRUNO/KAREN all true, FLAG_UNLOCKED_MT_SILVER=false"},"reads":[],"writes":[]},{"effects":["307 flags change pose4->16gyns: Kanto gym TMs (Erika/Janine/Blaine/Blue/Brock/Misty/Surge), legendary birds + Mewtwo, Snorlax, Suicune, power restored, boat arrived, Mt Silver + west Kanto unlocked"],"id":"kanto-arc","items":[],"observed":{"Pokemon_SoulSilver16gyns.sav":"FLAG_UNLOCKED_MT_SILVER=true, FLAG_RESTORED_POWER=true, FLAG_CAUGHT_MEWTWO=true, Kanto badges 255","Pokemon_SoulSilverpose4.sav":"Kanto badges 0, FLAG_UNLOCKED_MT_SILVER=false"},"reads":[],"writes":[]},{"effects":["VAR_SCENE_ROCKET_TAKEOVER advances 2->4->5; FLAG_BEAT_RADIO_TOWER_ROCKETS set at resolution; Kimono Girls leave the dance studio (HIDE_DANCE_STUDIO cleared)"],"id":"radio-tower-takeover","items":[],"observed":{"Blackthorn (post)":"scene var 5, BEAT flag true","Mahogany (pre)":"scene var 2, BEAT flag false","before-wing (mid)":"scene var 4, BEAT flag false"},"reads":[],"writes":[]},{"effects":["Dance cutscene scr_seq_0104_D40R0107.s:115-446 runs the Clear Bell performance, then clears HIDE_WHIRL_ISLAND_LUGIA and shows the Lugia actor"],"id":"kimono-girls-dance","items":[],"observed":{"Pokemon_SoulSilver8gyn.sav (Blackthorn)":"HIDE_DANCE_STUDIO_KIMONO_GIRLS=false, HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS=true (girls moved to the islands)"},"reads":[],"writes":["ClearFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0920_T27.s:122","SetFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0149.s:62 and scr_seq_0928_T27R0501.s:862 (hide/show around other scenes)","SetFlag FLAG_UNK_10B + VAR_UNK_40FA=2 at dance end (scr_seq_0104_D40R0107.s:444-445)"]}],"how_to_extend":"Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.","schema":"hgss-save.event-prereqs/v1","source":{"commit":"4e9563397ab4e5c407271472935f9e270ac6a804","project":"pokeheartgold","script_refs":"registry/hgss-us.script-refs.json"}}
+{
+ "events": [
+  {
+   "effects": [
+    "SetFlag FLAG_CAUGHT_LUGIA on capture (scr_seq_0104_D40R0107.s:112)",
+    "SetFlag FLAG_UNK_109, VAR_SCENE_NEW_BARK_EAST_EXIT=3, hide New Bark friend flags, set HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS on victory path"
+   ],
+   "id": "lugia-whirl-islands",
+   "items": [
+    "ITEM_SILVER_WING (HasItem scr_seq_0884_T24R0801.s:46, SS branch)",
+    "ITEM_TIDAL_BELL checked in the same script (SS branch)"
+   ],
+   "observed": {
+    "Pokemon_SoulSilver7gyn.sav (Mahogany, pre)": "FLAG_CAUGHT_LUGIA=false",
+    "Pokemon_SoulSilver8gyn.sav (Blackthorn, post)": "FLAG_CAUGHT_LUGIA=true, FLAG_UNK_109 set, HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS set"
+   },
+   "reads": [
+    "GoToIfSet FLAG_CAUGHT_LUGIA in scr_seq_0103_D40R0104.s:34 (blocks re-trigger)",
+    "GoToIfSet FLAG_HIDE_WHIRL_ISLAND_LUGIA in scr_seq_0104_D40R0107.s:38 (actor visibility)",
+    "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON in scr_seq_0104_D40R0107.s:23 (battle lock)"
+   ],
+   "writes": [
+    "SetFlag FLAG_CAUGHT_LUGIA in scr_seq_0104_D40R0107.s:112 (capture path)",
+    "ClearFlag FLAG_HIDE_WHIRL_ISLAND_LUGIA on whiteout (scr_seq_0104_D40R0107.s:106)",
+    "ClearFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0104_D40R0107.s:101 (victory path)"
+   ]
+  },
+  {
+   "effects": [
+    "SetFlag FLAG_CAUGHT_HO_OH on capture (scr_seq_0021_D17R0110.s:100)"
+   ],
+   "id": "ho-oh-bell-tower",
+   "items": [
+    "ITEM_RAINBOW_WING (SS counterpart of the Silver Wing check)"
+   ],
+   "observed": {
+    "Pokemon_SoulSilver16gyns.sav (postgame)": "FLAG_CAUGHT_HO_OH=true",
+    "Pokemon_SoulSilverpose4.sav (fresh Champion)": "FLAG_CAUGHT_HO_OH=false"
+   },
+   "reads": [
+    "GoToIfSet FLAG_CAUGHT_HO_OH in scr_seq_0019_D17R0101.s:16 (blocks re-trigger)"
+   ],
+   "writes": [
+    "SetFlag FLAG_CAUGHT_HO_OH in scr_seq_0021_D17R0110.s:100 (capture path)",
+    "ClearFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0021_D17R0110.s:89 (victory-adjacent path)"
+   ]
+  },
+  {
+   "effects": [
+    "Champion flags set on first victory; cleared once Kanto rebattles open (observed)"
+   ],
+   "id": "elite-four",
+   "items": [],
+   "observed": {
+    "Pokemon_SoulSilver16gyns.sav (post-Kanto)": "WILL/KOGA/BRUNO/KAREN all false (rebattleable)",
+    "Pokemon_SoulSilverpose4.sav (fresh Champion)": "WILL/KOGA/BRUNO/KAREN all true, FLAG_UNLOCKED_MT_SILVER=false"
+   },
+   "reads": [],
+   "writes": []
+  },
+  {
+   "effects": [
+    "307 flags change pose4->16gyns: Kanto gym TMs (Erika/Janine/Blaine/Blue/Brock/Misty/Surge), legendary birds + Mewtwo, Snorlax, Suicune, power restored, boat arrived, Mt Silver + west Kanto unlocked"
+   ],
+   "id": "kanto-arc",
+   "items": [],
+   "observed": {
+    "Pokemon_SoulSilver16gyns.sav": "FLAG_UNLOCKED_MT_SILVER=true, FLAG_RESTORED_POWER=true, FLAG_CAUGHT_MEWTWO=true, Kanto badges 255",
+    "Pokemon_SoulSilverpose4.sav": "Kanto badges 0, FLAG_UNLOCKED_MT_SILVER=false"
+   },
+   "reads": [],
+   "writes": []
+  },
+  {
+   "effects": [
+    "VAR_SCENE_ROCKET_TAKEOVER advances 2->4->5; FLAG_BEAT_RADIO_TOWER_ROCKETS set at resolution; Kimono Girls leave the dance studio (HIDE_DANCE_STUDIO cleared)"
+   ],
+   "id": "radio-tower-takeover",
+   "items": [],
+   "observed": {
+    "Blackthorn (post)": "scene var 5, BEAT flag true",
+    "Mahogany (pre)": "scene var 2, BEAT flag false",
+    "before-wing (mid)": "scene var 4, BEAT flag false"
+   },
+   "reads": [],
+   "writes": []
+  },
+  {
+   "effects": [
+    "Dance cutscene scr_seq_0104_D40R0107.s:115-446 runs the Clear Bell performance, then clears HIDE_WHIRL_ISLAND_LUGIA and shows the Lugia actor"
+   ],
+   "id": "kimono-girls-dance",
+   "items": [],
+   "observed": {
+    "Pokemon_SoulSilver8gyn.sav (Blackthorn)": "HIDE_DANCE_STUDIO_KIMONO_GIRLS=false, HIDE_WHIRL_ISLANDS_BOTTOM_KIMONO_GIRLS=true (girls moved to the islands)"
+   },
+   "reads": [],
+   "writes": [
+    "ClearFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0920_T27.s:122",
+    "SetFlag FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS in scr_seq_0149.s:62 and scr_seq_0928_T27R0501.s:862 (hide/show around other scenes)",
+    "SetFlag FLAG_UNK_10B + VAR_UNK_40FA=2 at dance end (scr_seq_0104_D40R0107.s:444-445)"
+   ]
+  },
+  {
+   "id": "celebi-ilex-timetravel",
+   "effects": [
+    "SetVar VAR_UNK_40FE=1, ClearFlag FLAG_HIDE_ROUTE_22_GIOVANNI_RIVAL + FRIEND, SetFlag FRIEND-hide, Warp MAP_ROUTE_22 past (scr_seq_0092_D36R0101.s:2381-2386)"
+   ],
+   "items": [
+    "Event Celebi as party lead (FollowerPokeIsEventTrigger EVENT_CELEBI, same script:1751)"
+   ],
+   "observed": {
+    "Lyra - Celebi Event.sav (HG, Ilex shrine, pre)": "FLAG_BEAT_RADIO_TOWER_ROCKETS=true, VAR_UNK_40FE=0, FRIEND-hide=true, GIOVANNI_RIVAL-hide=true, party lead CELEBI"
+   },
+   "reads": [
+    "VAR_UNK_40FE<4 in scr_seq_0092_D36R0101.s:1747",
+    "GoToIfUnset FLAG_BEAT_RADIO_TOWER_ROCKETS in scr_seq_0092_D36R0101.s:1749",
+    "FollowerPokeIsEventTrigger EVENT_CELEBI in scr_seq_0092_D36R0101.s:1751"
+   ],
+   "writes": [
+    "SetVar VAR_UNK_40FE,1 in scr_seq_0092_D36R0101.s:2382",
+    "ClearFlag FLAG_HIDE_ROUTE_22_GIOVANNI_RIVAL in scr_seq_0092_D36R0101.s:2383",
+    "SetFlag FLAG_HIDE_ILEX_FOREST_FRIEND in scr_seq_0092_D36R0101.s:2385"
+   ]
+  }
+ ],
+ "how_to_extend": "Add an entry per story beat: list script-refs reads/writes with file:line, then fill observed from a same-trainer before/after diff. Keep runtime_only notes (actor positions, cutscene progress) out of the patchable set.",
+ "schema": "hgss-save.event-prereqs/v1",
+ "source": {
+  "commit": "4e9563397ab4e5c407271472935f9e270ac6a804",
+  "project": "pokeheartgold",
+  "script_refs": "registry/hgss-us.script-refs.json"
+ }
+}

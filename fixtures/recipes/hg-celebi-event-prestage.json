@@ -1,0 +1,32 @@
+{
+  "schema": "hgss-save.fixture/v1",
+  "id": "hg-celebi-event-prestage",
+  "game": "HG",
+  "base": {
+    "path": "Lyra - Celebi Event.sav",
+    "sha256": "83710A08E1A97D198E0A5EE665C19A3E2336582ECEF7CDE584E34A85B7E45B0E"
+  },
+  "patch": {
+    "operations": [
+      {"op": "trainer.money.set", "value": 3000, "expect": 3000},
+      {"op": "location.set", "map": 117, "x": 16, "y": 56, "z": 65535}
+    ],
+    "assert": [
+      {"field": "flag.FLAG_BEAT_RADIO_TOWER_ROCKETS", "equals": true},
+      {"field": "flag.FLAG_HIDE_ILEX_FOREST_FRIEND", "equals": true},
+      {"field": "flag.FLAG_HIDE_ROUTE_22_GIOVANNI_RIVAL", "equals": true},
+      {"field": "variable.VAR_UNK_40FE", "equals": 0},
+      {"field": "party.0.species", "equals": 251},
+      {"field": "location.spawn", "equals": {"map": 117, "x": 16, "y": 56, "z": 65535}}
+    ]
+  },
+  "position": {"mode": "preserve-base"},
+  "runtime": {
+    "target": "melonds-ds",
+    "checkpoints": ["file-loaded-in-melonds-ds-mode", "ilex-shrine-visible", "celebi-gate-conditions-held", "in-game-save-reloads-clean"]
+  },
+  "review": {
+    "status": "requires-runtime-verification",
+    "notes": "Celebi time-travel pre-state (Lyra, HG, Ilex shrine): Radio takeover beaten, VAR_UNK_40FE=0, friend and Route-22 Giovanni hidden, event Celebi leading. Base is `container unwrap` of the DeSmuME .dsv save (raw + 0x7A footer; .dsv retained as canonical). Gate: scr_seq_0092_D36R0101.s:1746-1760; event path _1F48 (line 2348) warps to Route 22 past. Money op is a no-op canary; location op is a verified self-spawn move."
+  }
+}

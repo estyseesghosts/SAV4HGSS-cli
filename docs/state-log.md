@@ -173,9 +173,157 @@ What fails: the walk stops at Route 30 north (556,288-289) and again at Route 31
 
 F15 follow-up. Bit 15 as "blocked" is supported by the saves: of the 26 distinct played positions, 16 are on overworld tiles with bit 15 clear, 7 are interior-map coordinates with no overworld tile, and 3 are on bit-15 tiles (entrances) (Blackthorn 676,177 and 669,180; Ruins of Alph 441,287). The failure is connectivity: with doors, ledges and water all treated as free, the 503,808 tiles split into 521 components of at most 8,290 tiles, and Cherrygrove/New Bark (one component) is separate from Violet, Azalea, Goldenrod, Ecruteak and Cianwood. The Route 30 corridor (550-552, 288-289) dead-ends against a 4x4 block of `0x8006` tiles (550-553, 284-287) although the zone event for Route 30 and 31 lists no object or warp there, so the join between the Route 30 and Route 31 blocks is not in the tile attributes as read. An emulator walk from the HG Cherrygrove save did not help: the player did not move under a held UP because an NPC stands on the tile north of the start (live structs show an NPC at 564,391). Open: find how the game joins blocks (candidates: runtime matrix edits by scripts, the object/model sections of the land-data member, or a loader detail not in `src/map_matrix.c`), then rerun the 26-position check.
 
+## F16. Scenes: a composed save per story point
+
+2026-11-18. The scene layer turns "any point in the story" into a named, auditable object.
+`tools/make_scenes.py` writes `registry/hgss-us.scenes.json` (`hgss-save.scenes/v1`):
+71 scenes, 32 of them the before/after pair for each of the 16 gyms.
+
+A scene composes in a fixed order, each step already verified on its own:
+
+1. **base preset** — a whole played milestone (`registry/presets`, F9). A preset is absolute, so
+   the result does not depend on what the input save had.
+2. **badge set with consequences** — the same `trainer.badges.set` path as `story build` (F8/F13),
+   so the badge byte, the gym-script flags, the TM/HM grants and `VAR_MIDGAME_BADGES` stay together.
+3. **scene ops** — named `flag.set` / `variable.set` / `inventory.quantity.set` writes for this
+   scene only.
+4. **warp** — `location.warp` onto a real warp event of the target map (F5), so Continue spawns on
+   the map's own tile.
+
+Where the machine data exists, the registry is generated from it instead of being typed:
+
+- Gym arena, leader object, leader tile, hide flag and interaction script come from the zone-event
+  JSON that the badge's own gym script belongs to (`scr_seq_0859_T22GYM0101.s:75` →
+  `131_T22GYM0101.json` → `SPRITE_GSLEADER1` at (15,4), `FLAG_HIDE_VIOLET_GYM_FALKNER`,
+  `_EV_scr_seq_T22GYM0101_001 + 1`). The "before" op clears exactly that flag, which is what the
+  gym's own init does at `scr_seq_0859_T22GYM0101.s:55`.
+- Mahogany resolves to `MAP_MAHOGANY_GYM_LEADER_ROOM` (map 140) because that is where the leader
+  object lives (`136_T28GYM0101.json`), not the entrance room.
+- Clair's badge is given by the Dragons Den test (`scr_seq_0112_D44R0103.s:152`), so the arena is
+  named explicitly in `GYM_MAPS` while the badge script stays the citation for the consequence
+  block.
+- Legendary and event actors are located by their static sprite object (`SPRITE_LUG_OBJ01`,
+  `SPRITE_FOLLOWER_MON_STATIC_MEWTWO`, `SPRITE_RGYARADOSU`, `SPRITE_RED`), their hide flag and tile
+  read from the same zone-event files.
+
+Kanto is composed, not played: the corpus has per-badge HG saves only through 8 Johto badges, then
+E4/posE4, then a single 4-Kanto-badge save (`hg-kanto-4`) and one SS 8-Kanto save (`ss-kanto-8`).
+`gym-09..16` therefore use `hg-champion` as base and add the Kanto badge bits with their
+consequences; F14 is what makes that defensible for the battle itself (no gym script tests story
+state), and each "before" scene clears the leader's own hide flag. The badge *order* in Kanto is
+canonical (Boulder..Earth), not enforced by the game.
+
+Runtime evidence. `gym-01-zephyr-before` applied to the 0-badge HG base, booted through Continue on
+`heartgold.nds`, spawned inside Violet Gym on warp 0's tile (15,28); walking up and pressing A
+produced Falkner's gym dialogue ("You must be here to challenge Falkner, the Gym Leader, right?")
+and the pre-battle text. That is the whole mechanism: real milestone state, leader present, warp
+tile, in-game trigger. Every scene in the registry has since been composed and booted the same way:
+71/71 reach their tile (`docs/scene-boot-matrix.md`, generated from the run summaries by
+`tools/scene_boot_matrix.py`), including the two SoulSilver scenes on `soulsilver.nds`.
+
+What a scene does not do: it does not force coordinate triggers (F11). The player is placed at a
+warp tile and the map's own header triggers run on load; a cutscene that fires on a specific tile
+still needs the player to walk there. And `location.set` remains allowlisted, so arbitrary X/Y
+placement inside a map is still refused — reachable points are warp events, of which the table has
+1,317.
+
+Not yet scenes: a sweep of every `TrainerBattle TRAINER_*` in the script corpus, compared with the
+registry, leaves the battles below uncovered. Each is a warp to a real map plus, where one exists,
+an actor hide flag, so they fit the existing model; they are not shipped because they have not been
+boot-checked.
+
+| Battle | Script | Zone event |
+|---|---|---|
+| Rival, Burned Tower | `scr_seq_0023_D18R0101.s:25,31,35` (`SILVER_8/11/4`) | `005_D18R0101.json` |
+| Rival, Goldenrod Underground | `scr_seq_0110_D43R0103.s:53,59,63` (`SILVER_9/13/5`) | `172_D43R0103.json` |
+| Rival, Azalea | `scr_seq_0866_T23.s:106,112,116` (`SILVER_7/10/SILVER`) | `071_T23.json` |
+| Petrel, Radio Tower | `scr_seq_0033_D23R0105.s:123` | `182_D23R0105.json` |
+| Archer, Radio Tower | `scr_seq_0034_D23R0106.s:28` (`SPRITE_RKANBUM` at (8,3), `FLAG_HIDE_ROCKET_TAKEOVER_1`) | `183_D23R0106.json` |
+| Petrel, Rocket HQ | `scr_seq_0091_D35R0104.s:285` | `235_D35R0104.json` |
+| Kimono Girls (five battles) | `scr_seq_0928_T27R0501.s:749-797` | `083_T27R0501.json` |
+| Elder Li | `scr_seq_0018_D15R0103.s:118` (`SPRITE_CHOUROU` at (12,9)) | `151_D15R0103.json` |
+
+## F17. Actor visibility is decided by the map's init script, not by the save alone
+
+2026-11-18. Clearing a `FLAG_HIDE_*` in the save is necessary but not sufficient for a scene actor:
+the map's own init table (`scr_seq_####_<TAG>_hdr.s`: `InitScriptEntry_OnLoad`,
+`OnTransition`, `OnFrameTable`) runs on entry and may set the flag again.
+`tools/scene_actor_check.py` reads those entries from the decomp, walks `GoTo`/`Call` inside the
+script file, and reports every write to the actor's hide flag with the conditions on the path.
+Its output is `research/scene-actor-gates.json`; each finding below is one row of it.
+
+What holds for every HG legendary in the registry:
+
+- Mewtwo, Articuno, Moltres, Zapdos, Lugia, Ho-Oh and Suicune are only hidden while
+  `FLAG_ENGAGING_STATIC_POKEMON` is set
+  (`scr_seq_0011_D03R0103.s:12`, `scr_seq_0014_D11R0105.s:12`, `scr_seq_0106_D41R0105.s:12`,
+  `scr_seq_0191_R10.s:17`, `scr_seq_0104_D40R0107.s:23`, `scr_seq_0021_D17R0110.s:17`,
+  `scr_seq_0216_R25.s:88`). Scenes clear that flag and the hide flag, so the actor is present.
+- The game itself clears those hide flags in the post-League script
+  (`scr_seq_0825_T10R0701.s:118` Ho-Oh, `:122` Lugia, `:134` Mewtwo, `:138` Articuno, `:150`
+  Moltres). Zapdos is cleared only with `BADGE_EARTH` (`:142-145`) and Suicune only when
+  `VAR_SCENE_ROUTE_25 == 3` (`:161-164`). That is why the Kanto legendary scenes base on the
+  16-badge state (`hg-kanto-4` + Kanto mask 255) and not on the 8-badge champion save.
+
+Version locks are real and the scenes follow them:
+
+| Actor | Room script | HG (7) | SS (8) | Scene game |
+|---|---|---|---|---|
+| Kyogre | `scr_seq_0134_D52R0102.s:20-26` | orb check, actor shown | hide flag set | HG |
+| Groudon | `scr_seq_0133_D52R0101.s:20-26` | hide flag set | orb check, actor shown | SS |
+| Latios / Latias | `scr_seq_0750_T03.s:238-245` | Latios | Latias | HG / SS |
+| Rayquaza | `scr_seq_0135_D52R0103.s:16-25` | shown while `VAR_SCENE_EMBEDDED_TOWER < 7` | same | HG |
+
+`include/config.h:9-10` defines the numbers. The Embedded Tower transitions also require the orb
+in the bag (`scr_seq_0133_D52R0101.s:35-38`, `scr_seq_0134_D52R0102.s:36-38`), and the battle
+script picks the Latis species by version (`scr_seq_0750_T03.s:356-379`). The Groudon and Latias
+scenes therefore ask for an SS input save and compose onto `ss-kanto-8`, the only real 16-badge
+SS save in the corpus.
+
+The Pewter transition shows the Latis actor only for `VAR_UNK_4083` 2..4
+(`scr_seq_0750_T03.s:226-232`); 3 is the value the appearance cutscene leaves behind
+(`:313`), so both Latis scenes set it. Base presets have it at 0, where the actor stays hidden no
+matter what the hide flag says.
+
+Map init can also move the player, and then the save's warp tile is not the runtime position.
+`tools/scene_actor_check.py` reports every reachable instruction that names `obj_player` for each
+scene; 19 of 71 scenes have such a gate, each behind a condition (`VAR_UNK_40C8 == 0` for the
+league rooms, `VAR_UNK_4079 == 0` for Ecruteak Gym, and so on). `e4-lance` fires it:
+`scr_seq_0824_T10R0601.s:31-33` walks six tiles north from the room's entry tile (6,28) to
+(6,22). That scene records `expect.spawn_after`, and the boot check asserts that tile against
+the primary Location copy (`leveld_run.py --spawn-primary`) because the movement updates the
+live copy and leaves the mirrors stale (F5). The save keeps the entry tile, which is what the
+warp needs.
+
+Dropped: the Silph Co. Rotom room. `scr_seq_0838_T11R0702.s:17-34` sets all five appliance hide
+flags on every transition and then clears only the forms the player owns
+(`GetOwnedRotomForms`). Flags alone cannot produce that actor; it needs party data, which is a
+different layer. Rotom is not a legendary battle, so it is not in the minimum set.
+
+## F18. Mt. Silver / Red is an unlock chain, and the scene now writes all of it
+
+2026-11-18. STORY-08 answered from source; the full trace is in
+`docs/research-findings.md`. The chain:
+
+`scr_seq_0743_T02GYM0101.s:65` (Blue beaten → `VAR_UNK_4096 = 1`) →
+`scr_seq_0514_T02_hdr.s:13` (Viridian header runs `scr_seq_T02_011`) →
+`scr_seq_0741_T02.s:42-51` (`FLAG_UNLOCKED_WEST_KANTO`, `VAR_UNK_4121 = 1`, Oak call,
+`VAR_UNK_4096 = 2`) → `scr_seq_0740_T01R0301.s:95-96,198-208` (Oak gives `ITEM_HM08`,
+`VAR_UNK_4110 = 2`, `FLAG_UNLOCKED_MT_SILVER`, `FLAG_GOT_HM08`) → Route 22 guards
+(`scr_seq_0213_R22R0101.s:19-23`; `zone_event 270_R22R0101.json` coord scripts gated on
+`VAR_UNK_4121 == 0` and `VAR_UNK_4110 == 1`) → Red (`419_D41R0108.json`, hide flag
+`FLAG_UNK_25F`; battle script `scr_seq_0107_D41R0108.s:13-19` has no condition).
+
+`legendary-red` and `event-mt-silver` previously set only `FLAG_UNLOCKED_MT_SILVER`, which is a
+state the game never produces: west Kanto still closed, both Route 22 guards still active, no
+HM08, and Oak's lab still on the pre-unlock branch. Both scenes now write the whole chain and
+audit the flags, the three variables and the item (`tools/make_scenes.py`,
+`MT_SILVER_UNLOCK_EXTRAS`). Badge gating is transitive: Blue is the sixteenth leader, so the
+badge state cannot be separated from the chain.
+
 ## Open work from this log
 
-1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: test on SS and other base saves, and a broader sample of the 1,317 table entries.
+1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: a broader sample of the 1,317 table entries. F16 uses it for 71 scene spawns (69 HG, 2 SS).
 2. ~~Name trainer flags in the registry (F2).~~ Done (733 derived entries).
-3. Decide what a progress preset must clear as well as set (F1); needs same-milestone samples to separate story from player choice.
-4. Identify the remaining unmodelled tables (F6) and the `FLAG_UNK_*` ids that actually change across milestones.
+3. Decide what a progress preset must clear as well as set (F1); needs same-milestone samples to separate story from player choice. **Still open, and the corpus cannot close it for HG**: there is exactly one HG playthrough in the 29 saves. The closest same-milestone pairs are HG vs SS at 1, 2, 4 and 8 Johto badges; their flag sets share only 171/192/252/363 flags and differ by 1/7/16/64 (HG-only) and 21/23/32/75 (SS-only). The differences are dominated by version-exclusive story (`FLAG_CAUGHT_LUGIA` only in SS, Ho-Oh in HG), optional content (`FLAG_GOT_OLD_ROD`, `FLAG_GOT_APRICORN_BOX`, `FLAG_TRADE_VIOLET_CITY_BELLSPROUT_ONIX`) and which optional trainers were fought (`FLAG_TRAINER_*`), plus one real map-actor difference (`FLAG_HIDE_VIOLET_GYM_GYM_GUY_BEFORE_SPROUT` vs `_AFTER_SPROUT`). That mix is why presets stay absolute: they set and clear every persistent flag, and no evidence supports shipping a "set-only" preset. Closing the item needs a second HG playthrough dumped at the same milestones.
+4. Identify the remaining unmodelled tables (F6) and the `FLAG_UNK_*` ids that actually change across milestones. **Now measured**: `tools/unk_flags.py` walks the 11-save HG lineage and lists every flag that changes, split into named and unnamed. Unnamed flags that move, per step: 1→2 badges 10, 2→3 9, 3→4 15, 4→5 6, 5→6 6, 6→7 13, 7→8 13, 8→E4 7, E4→posE4 2, posE4→Kanto 30. `FLAG_UNK_966` in the last two steps is the Continue-at-dynamic-warp flag (`location.warp`'s own flag, F4/F5), and the `0x96x`/`0x97x`/`0x98x`/`0x99x`/`0xAA5` cluster moves with warps and play time, not story; the rest (`FLAG_UNK_0B7`, `_0C5`, `_0D1`, `_103`, `_108`, `_10A`, `_1BF`-`_1C5`, `_1E5`-`_1FE`, `_204`, `_22A`-`_23D`, `_25C`-`_27F`, `_288`-`_28C`, `_2B5`-`_2C9`, `_2E1`, `_318`) are real story writes that still need names. The unmodelled *tables* in F6 are unchanged: `0x23B8-0x2740` and `0x4434-0x4510` still need struct attribution.

@@ -143,3 +143,46 @@ vs `lake-leg22..26`, `lake-leg24` frame_000440.)
 - From `hg-6gyn-surf.sav` (HG 6gyn base + approved Surf teach on Mantine), play reached Route 43 `(524,149)` (map 45) with Spencer dialogue mid-battle when the session ended on external `provider.quota`; no in-game save was taken and no `hg-lake-pre-gyarados` fixture/manifest exists.
 - Resume anchors: `C:\Users\julie\workdir\leveld-out\surf-fast93..100\states\*.mcpr`, `C:\Users\julie\workdir\leveld-out\surf-battle1\states\sp_a1..sp_a8.mcpr` on `hg-6gyn-surf.sav`. `hg-lake-pre-gyarados` not staged.
 - Gate remains as above (SOURCE/SAVE): 6gyn pre, 7gyn post; next concrete step is finish/bypass Spencer, reach Lake of Rage, in-game save + `--extract-save`, `inspect`/`diff`, then stage.
+
+## Mt. Silver / Red unlock (STORY-08)
+
+**Answer** (SOURCE, `pokeheartgold@4e95633`): it is a five-write chain, not one
+flag. Badge gating is transitive through Blue, and the scripts at Route 28 and
+the summit carry no badge or story check of their own.
+
+1. Beating Blue in the Viridian Gym sets `VAR_UNK_4096 = 1`
+   (`files/fielddata/script/scr_seq/scr_seq_0743_T02GYM0101.s:65`).
+2. Viridian City's header runs `scr_seq_T02_011` while that variable is 1
+   (`scr_seq_0514_T02_hdr.s:13`). That script calls Oak and sets
+   `VAR_UNK_4096 = 2` (`scr_seq_0741_T02.s:48-51`); the same script sets
+   `FLAG_UNLOCKED_WEST_KANTO` and `VAR_UNK_4121 = 1` (`:42-44`).
+3. Talking to Oak with `VAR_UNK_4096 == 2` branches to `_0282`
+   (`scr_seq_0740_T01R0301.s:95-96`), which gives `ITEM_HM08` and sets
+   `VAR_UNK_4110 = 2`, `FLAG_UNLOCKED_MT_SILVER`, `FLAG_GOT_HM08`
+   (`:198-208`). The `FLAG_GOT_HM08` branch at `:198` is why the state has to
+   include the flag and the item together.
+4. Route 22 holds the physical gate. Each policeman steps aside only for his
+   flag (`scr_seq_0213_R22R0101.s:19-23`) and the west guard's coord script
+   (14,8) runs while `VAR_UNK_4121 == 0`, the north gate's (8,8) while
+   `VAR_UNK_4110 == 1` (`files/fielddata/eventdata/zone_event/270_R22R0101.json`,
+   `coords`). `VAR_UNK_4121` has no other reader in the script corpus, so it is
+   the west-guard switch, not a scene variable.
+5. Red is placed by the summit's zone event with hide flag `FLAG_UNK_25F`
+   (`419_D41R0108.json`, `SPRITE_RED` at 30,11). His script has no condition
+   between the message and the battle (`scr_seq_0107_D41R0108.s:13-19`);
+   winning sets `FLAG_UNK_25F`, `VAR_UNK_40FD = 1`, awards `RIBBON_LEGEND` and
+   starts the credits (`:20-40`).
+
+What this changed in the tool: `event-mt-silver` and `legendary-red` used to
+write `FLAG_UNK_4096`, i.e. only `FLAG_UNLOCKED_MT_SILVER`. That state cannot
+occur in play: `FLAG_UNLOCKED_WEST_KANTO` stays false, both Route 22 guards
+still fire, the bag has no HM08, and Oak would not even speak the unlock
+dialogue. Both scenes now write the whole chain
+(`tools/make_scenes.py`, `MT_SILVER_UNLOCK_EXTRAS`) and audit the flags,
+variables and item.
+
+The corpus cannot show the chain: `research/corpus-census.json` has Kanto badge
+counts 0 and 255 only. `Pokemon_SoulSilver16gyns.sav` confirms the end state
+(`FLAG_UNLOCKED_MT_SILVER`, `FLAG_GOT_HM08`, `FLAG_UNK_25F`, `VAR_UNK_4110 = 2`,
+`VAR_UNK_4096 = 0`), so the intermediate values come from the source, not from a
+save diff.

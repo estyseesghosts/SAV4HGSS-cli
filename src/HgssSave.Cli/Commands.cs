@@ -274,6 +274,290 @@ internal static class Commands
         return found.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
     }
 
+    /// <summary>
+    /// Location of the scene registry, looked up like the other shipped tables.
+    /// </summary>
+    private static string FindSceneRegistry(string[] args)
+    {
+        var candidates = new List<string?>
+        {
+            Args.Option(args, "--scenes"),
+            Environment.GetEnvironmentVariable("HGSS_SCENES"),
+            Path.Combine(AppContext.BaseDirectory, "hgss-us.scenes.json"),
+            Path.Combine(Directory.GetCurrentDirectory(), "hgss-us.scenes.json"),
+            Path.Combine(Directory.GetCurrentDirectory(), "registry", "hgss-us.scenes.json"),
+        };
+        foreach (var candidate in candidates)
+        {
+            if (!string.IsNullOrEmpty(candidate) && File.Exists(candidate))
+                return candidate;
+        }
+
+        throw HgssException.BadArguments("scenes-missing",
+            "Scene registry not found (looked at --scenes, $HGSS_SCENES, beside the exe, ./, ./registry). Build it with tools/make_scenes.py.");
+    }
+
+    internal static int StorySceneList(string[] args)
+    {
+        var path = FindSceneRegistry(args);
+        var kind = Args.Option(args, "--kind");
+        using var doc = JsonDocument.Parse(File.ReadAllBytes(path));
+        var root = doc.RootElement;
+        if (!root.TryGetProperty("schema", out var schema) || schema.GetString() != "hgss-save.scenes/v1")
+            throw HgssException.BadArguments("scenes-schema", $"Scene registry '{path}' must declare schema 'hgss-save.scenes/v1'.");
+        if (!root.TryGetProperty("scenes", out var scenes) || scenes.ValueKind != JsonValueKind.Array)
+            throw HgssException.BadArguments("scenes-shape", $"Scene registry '{path}' must define a 'scenes' array.");
+
+        var selected = new List<JsonElement>();
+        foreach (var scene in scenes.EnumerateArray())
+        {
+            if (kind is not null && !string.Equals(scene.GetProperty("kind").GetString(), kind, StringComparison.OrdinalIgnoreCase))
+                continue;
+            selected.Add(scene);
+        }
+
+        Emit(w =>
+        {
+            w.WriteStartObject();
+            w.WriteString("schema", "hgss-save.report/v1");
+            w.WriteString("operation", "story.scene.list");
+            w.WriteString("table", path);
+            w.WriteNumber("count", selected.Count);
+            w.WriteStartArray("scenes");
+            foreach (var scene in selected)
+            {
+                w.WriteStartObject();
+                w.WriteString("id", scene.GetProperty("id").GetString());
+                w.WriteString("title", scene.GetProperty("title").GetString());
+                w.WriteString("kind", scene.GetProperty("kind").GetString());
+                // The game decides which input save a scene accepts (SS scenes need an SS base).
+                w.WriteString("game", scene.GetProperty("game").GetString());
+                w.WriteString("base_preset", scene.GetProperty("base_preset").GetString());
+                var badges = scene.GetProperty("badges");
+                w.WriteNumber("badges_johto", badges.GetProperty("johto").GetInt32());
+                w.WriteNumber("badges_kanto", badges.GetProperty("kanto").GetInt32());
+                var expect = scene.GetProperty("expect");
+                w.WriteNumber("map", expect.GetProperty("map").GetInt32());
+                w.WriteNumber("warp", expect.GetProperty("warp").GetInt32());
+                w.WriteEndObject();
+            }
+
+            w.WriteEndArray();
+            w.WriteEndObject();
+        });
+        return 0;
+    }
+
+    /// <summary>
+    /// Composes one scene: base preset, badge consequences, scene ops (flag/variable/item writes and
+    /// the warp), then audits the result against the scene's own expectations and the badge rules.
+    /// </summary>
+    internal static int StorySceneApply(string[] args)
+    {
+        var id = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save story scene apply ID INPUT --out OUT");
+        var input = Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "story scene apply requires INPUT.");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "story scene apply requires --out OUT.");
+        var scenePath = FindSceneRegistry(args);
+        using var sceneDoc = JsonDocument.Parse(File.ReadAllBytes(scenePath));
+        JsonElement? scene = null;
+        foreach (var candidate in sceneDoc.RootElement.GetProperty("scenes").EnumerateArray())
+        {
+            if (string.Equals(candidate.GetProperty("id").GetString(), id, StringComparison.OrdinalIgnoreCase))
+            {
+                scene = candidate.Clone();
+                break;
+            }
+        }
+
+        if (scene is null)
+            throw HgssException.BadArguments("scene-unknown", $"No scene named '{id}'. Run 'hgss-save story scene list'.");
+
+        var entry = scene.Value;
+        var expect = entry.GetProperty("expect");
+        var badges = entry.GetProperty("badges");
+        var johto = badges.GetProperty("johto").GetInt32();
+        var kanto = badges.GetProperty("kanto").GetInt32();
+        var registry = TryLoadRegistry(args);
+        var rulesPath = Args.Option(args, "--badge-rules");
+        var presetDir = FindPresetDir(args);
+        var safeSpawns = Args.Option(args, "--safe-spawns") ?? Environment.GetEnvironmentVariable("HGSS_SAFE_SPAWNS");
+        var warpSpawns = Args.Option(args, "--warp-spawns");
+        var bytes = ReadFile(input);
+        string game;
+        using (var probe = Factory.OpenWithRegistry(input, registry))
+            game = probe.Identity.Game;
+        var sceneGame = entry.GetProperty("game").GetString();
+        if (!string.Equals(game, sceneGame, StringComparison.OrdinalIgnoreCase))
+            throw HgssException.Precondition("scene-game", $"Scene {id} is for {sceneGame}, but '{input}' is a {game} save.");
+
+        byte[] Step(byte[] current, PatchDocument document, byte[] documentBytes, string label, string? recipeDirectory)
+        {
+            using var session = Factory.OpenBytes((byte[])current.Clone(), label);
+            var plan = PatchPlanner.Plan(session, document, registry, label, current, documentBytes,
+                false, recipeDirectory, safeSpawns, warpSpawns, rulesPath);
+            if (!plan.CanApply)
+            {
+                Emit(w => ReportWriter.WritePatch(w, plan, null, null, false, Factory.LibraryVersion));
+                return null!;
+            }
+
+            return PatchRunner.Apply(session, plan, Factory).OutputBytes;
+        }
+
+        var current = bytes;
+        var basePreset = entry.GetProperty("base_preset").GetString();
+        if (basePreset is not null)
+        {
+            var presetPath = Path.Combine(presetDir, basePreset + ".json");
+            if (!File.Exists(presetPath))
+                throw HgssException.BadArguments("preset-unknown", $"Scene {id} names preset '{basePreset}', which does not exist in {presetDir}.");
+            var presetBytes = ReadFile(presetPath);
+            var composed = Step(current, PatchParser.Parse(presetBytes, presetPath), presetBytes, "preset", Path.GetDirectoryName(presetPath));
+            if (composed is null)
+                return (int)ExitCode.PreconditionFailed;
+            current = composed;
+        }
+
+        var badgeDocBytes = CanonicalPatchJson($"story.scene:{id}:badges");
+        var badgeDoc = new PatchDocument(PatchDocument.SchemaId, null, null, null,
+            [new BadgesSetOperation(johto, kanto) { Consequences = true }], []);
+        var withBadges = Step(current, badgeDoc, badgeDocBytes, "badges", null);
+        if (withBadges is null)
+            return (int)ExitCode.PreconditionFailed;
+        current = withBadges;
+
+        var opsText = entry.GetProperty("ops").GetRawText();
+        var opsBytes = System.Text.Encoding.UTF8.GetBytes(
+            $"{{\"schema\":\"{PatchDocument.SchemaId}\",\"operations\":{opsText}}}");
+        var opsDoc = PatchParser.Parse(opsBytes, $"scene:{id}");
+        var final = Step(current, opsDoc, opsBytes, $"scene:{id}", null);
+        if (final is null)
+            return (int)ExitCode.PreconditionFailed;
+
+        WriteOutputAtomic(output, final, Args.Flag(args, "--force"));
+        var rules = BadgeRules.LoadDefault(rulesPath);
+        using var result = Factory.OpenBytes(final, output);
+        var violations = rules.Audit(result);
+        var warp = result.DynamicWarp;
+        var checks = new List<(string Name, string Expected, string Actual, bool Ok)>
+        {
+            ("badges_johto", johto.ToString(), result.Trainer.JohtoBadges.ToString(), result.Trainer.JohtoBadges == johto),
+            ("badges_kanto", kanto.ToString(), result.Trainer.KantoBadges.ToString(), result.Trainer.KantoBadges == kanto),
+            ("warp.map", expect.GetProperty("map").GetInt32().ToString(), warp.MapId.ToString(), warp.MapId == expect.GetProperty("map").GetInt32()),
+            ("warp.index", expect.GetProperty("warp").GetInt32().ToString(), warp.WarpId.ToString(), warp.WarpId == expect.GetProperty("warp").GetInt32()),
+            ("warp.x", expect.GetProperty("x").GetInt32().ToString(), warp.X.ToString(), warp.X == expect.GetProperty("x").GetInt32()),
+            ("warp.y", expect.GetProperty("y").GetInt32().ToString(), warp.Y.ToString(), warp.Y == expect.GetProperty("y").GetInt32()),
+            ("badge_rules", "0 violations", $"{violations.Count} violations", violations.Count == 0),
+        };
+        foreach (var flag in expect.GetProperty("flags_on").EnumerateArray())
+        {
+            var name = flag.GetString()!;
+            var resolved = registry.LookupAs(name, SymbolKind.PersistentFlag);
+            if (resolved.Resolution != SymbolResolution.Resolved)
+            {
+                checks.Add(($"flag_on {name}", "resolved", "unresolved", false));
+                continue;
+            }
+
+            var idValue = resolved.Entry!.Id;
+            var ok = result.TryGetFlag(idValue, out var value) && value;
+            checks.Add(($"flag_on {name}", "true", result.TryGetFlag(idValue, out var actual) ? actual.ToString().ToLowerInvariant() : "missing", ok));
+        }
+
+        foreach (var flag in expect.GetProperty("flags_off").EnumerateArray())
+        {
+            var name = flag.GetString()!;
+            var resolved = registry.LookupAs(name, SymbolKind.PersistentFlag);
+            if (resolved.Resolution != SymbolResolution.Resolved)
+            {
+                checks.Add(($"flag_off {name}", "resolved", "unresolved", false));
+                continue;
+            }
+
+            var idValue = resolved.Entry!.Id;
+            var ok = result.TryGetFlag(idValue, out var value) && !value;
+            checks.Add(($"flag_off {name}", "false", result.TryGetFlag(idValue, out var actual) ? actual.ToString().ToLowerInvariant() : "missing", ok));
+        }
+
+        if (expect.TryGetProperty("vars", out var varsElement))
+        {
+            foreach (var entryVar in varsElement.EnumerateArray())
+            {
+                var name = entryVar.GetProperty("name").GetString()!;
+                var want = entryVar.GetProperty("value").GetInt32();
+                var resolved = registry.LookupAs(name, SymbolKind.SaveWork);
+                if (resolved.Resolution != SymbolResolution.Resolved)
+                {
+                    checks.Add(($"var {name}", "resolved", "unresolved", false));
+                    continue;
+                }
+
+                var ok = result.TryGetVar(resolved.Entry!.Id, out var actual) && actual == want;
+                checks.Add(($"var {name}", want.ToString(), result.TryGetVar(resolved.Entry!.Id, out var got) ? got.ToString() : "missing", ok));
+            }
+        }
+
+        if (expect.TryGetProperty("items", out var itemsElement))
+        {
+            foreach (var entryItem in itemsElement.EnumerateArray())
+            {
+                var name = entryItem.GetProperty("name").GetString()!;
+                var want = entryItem.GetProperty("quantity").GetInt32();
+                var resolved = registry.LookupAs(name, SymbolKind.Item);
+                if (resolved.Resolution != SymbolResolution.Resolved)
+                {
+                    checks.Add(($"item {name}", "resolved", "unresolved", false));
+                    continue;
+                }
+
+                var has = result.TryGetBagQuantity(resolved.Entry!.Id, out var quantity, out _);
+                checks.Add(($"item {name}", $">= {want}", has ? quantity.ToString() : "absent", has && quantity >= want));
+            }
+        }
+
+        var passed = checks.All(c => c.Ok);
+        Emit(w =>
+        {
+            w.WriteStartObject();
+            w.WriteString("schema", "hgss-save.report/v1");
+            w.WriteString("operation", "story.scene.apply");
+            w.WriteString("scene", id);
+            w.WriteString("title", entry.GetProperty("title").GetString());
+            w.WriteString("scene_table", scenePath);
+            w.WriteString("input", input);
+            w.WriteString("output", output);
+            w.WriteString("game", game);
+            if (basePreset is null) w.WriteNull("base_preset"); else w.WriteString("base_preset", basePreset);
+            w.WriteNumber("badges_johto", johto);
+            w.WriteNumber("badges_kanto", kanto);
+            w.WriteBoolean("passed", passed);
+            w.WriteStartArray("checks");
+            foreach (var (name, expected, actual, ok) in checks)
+            {
+                w.WriteStartObject();
+                w.WriteString("check", name);
+                w.WriteString("expected", expected);
+                w.WriteString("actual", actual);
+                w.WriteBoolean("ok", ok);
+                w.WriteEndObject();
+            }
+
+            w.WriteEndArray();
+            w.WriteNumber("violation_count", violations.Count);
+            w.WriteStartArray("violations");
+            foreach (var v in violations)
+                w.WriteStringValue($"{v.Rule}: {v.Symbol} expected {v.Expected}, actual {v.Actual} ({v.Because})");
+            w.WriteEndArray();
+            w.WriteStartArray("sources");
+            foreach (var source in entry.GetProperty("sources").EnumerateArray())
+                w.WriteStringValue(source.GetString());
+            w.WriteEndArray();
+            w.WriteString("note", entry.GetProperty("note").GetString());
+            w.WriteEndObject();
+        });
+        return passed ? 0 : (int)ExitCode.PreconditionFailed;
+    }
+
     internal static int StoryTriggers(string[] args)
     {
         var candidates = new List<string?>
@@ -961,3 +1245,5 @@ internal static class Commands
         Console.Out.WriteLine(ReportWriter.Serialize(write, indent: true));
     }
 }
+
+

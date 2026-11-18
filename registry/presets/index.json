@@ -2,6 +2,21 @@
  "schema": "hgss-save.presets/v1",
  "presets": [
   {
+   "name": "hg-00-cherrygrove",
+   "game": "HG",
+   "description": "HeartGold, 0 badges. Real save at Cherrygrove; the pre-Falkner state. Census dex 493/493 comes from the donor save, not from play.",
+   "source_sha256": "6f70eb0ee066b6a108de7c0d586f844f59bf81ec2cf8a580c9bdfc1bf8008eaf",
+   "badges_johto": 0,
+   "badges_kanto": 0,
+   "source_map": "MAP_CHERRYGROVE",
+   "spawn": {
+    "map": 67,
+    "warp": 0
+   },
+   "operations": 3144,
+   "flags_on": 165
+  },
+  {
    "name": "hg-01-zephyr",
    "game": "HG",
    "description": "HeartGold, 1 badge (Zephyr). Source: played save at Violet City.",

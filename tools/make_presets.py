@@ -35,6 +35,8 @@ SPAWN_OVERRIDE = {"hg-champion": (60, 1), "ss-kanto-8": (60, 1)}
 
 # (game, trainer, substring of source path, preset name, description, spawn map id, spawn note)
 PRESETS = [
+    ("HG", "Ash", "Gen 4 - Pokemon HeartGold (ENG)", "hg-00-cherrygrove",
+     "HeartGold, 0 badges. Real save at Cherrygrove; the pre-Falkner state. Census dex 493/493 comes from the donor save, not from play."),
     ("HG", "Master", "HeartGold1gyn", "hg-01-zephyr", "HeartGold, 1 badge (Zephyr). Source: played save at Violet City."),
     ("HG", "Master", "HeartGold2gyn", "hg-02-hive", "HeartGold, 2 badges (Zephyr, Hive). Azalea Rockets beaten, Elm's egg collected."),
     ("HG", "Master", "HeartGold3gyn", "hg-03-plain", "HeartGold, 3 badges (through Plain). Goldenrod."),

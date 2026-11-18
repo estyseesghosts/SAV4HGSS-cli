@@ -1,0 +1,3434 @@
+{
+ "schema": "hgss-save.scenes/v1",
+ "source": {
+  "badge_rules": "registry/hgss-us.badge-rules.json",
+  "warps": "registry/hgss-us.warp-spawns.json",
+  "symbols": "registry/hgss-us.symbols.json",
+  "presets": "registry/presets/index.json",
+  "zone_events": "pokeheartgold/files/fielddata/eventdata/zone_event"
+ },
+ "counts": {
+  "total": 71,
+  "gym": 32,
+  "e4": 7,
+  "legendary": 13,
+  "event": 19
+ },
+ "scenes": [
+  {
+   "id": "gym-01-zephyr-before",
+   "title": "MAP_VIOLET_GYM (Falkner), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-00-cherrygrove",
+   "badges": {
+    "johto": 0,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 745,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 135,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 135,
+    "warp": 0,
+    "x": 15,
+    "y": 28,
+    "badges_johto": 0,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_VIOLET_GYM_FALKNER"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER1",
+    "x": 15,
+    "z": 4,
+    "script": "_EV_scr_seq_T22GYM0101_001 + 1",
+    "hide_flag": "FLAG_HIDE_VIOLET_GYM_FALKNER"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 0 ZEPHYR (scr_seq_0859_T22GYM0101.s:75)",
+    "131_T22GYM0101.json objects[] SPRITE_GSLEADER1 at (15,4) flag FLAG_HIDE_VIOLET_GYM_FALKNER script _EV_scr_seq_T22GYM0101_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 135 MAP_VIOLET_GYM warp 0 tile (15,28)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_VIOLET_GYM_FALKNER to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-01-zephyr-after",
+   "title": "MAP_VIOLET_GYM (Falkner), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-01-zephyr",
+   "badges": {
+    "johto": 1,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 135,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 135,
+    "warp": 0,
+    "x": 15,
+    "y": 28,
+    "badges_johto": 1,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER1",
+    "x": 15,
+    "z": 4,
+    "script": "_EV_scr_seq_T22GYM0101_001 + 1",
+    "hide_flag": "FLAG_HIDE_VIOLET_GYM_FALKNER"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 0 ZEPHYR (scr_seq_0859_T22GYM0101.s:75)",
+    "131_T22GYM0101.json objects[] SPRITE_GSLEADER1 at (15,4) flag FLAG_HIDE_VIOLET_GYM_FALKNER script _EV_scr_seq_T22GYM0101_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 135 MAP_VIOLET_GYM warp 0 tile (15,28)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-02-hive-before",
+   "title": "MAP_AZALEA_GYM (Bugsy), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-01-zephyr",
+   "badges": {
+    "johto": 1,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 746,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 180,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 180,
+    "warp": 0,
+    "x": 9,
+    "y": 37,
+    "badges_johto": 1,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_AZALEA_GYM_BUGSY"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER2",
+    "x": 9,
+    "z": 5,
+    "script": "_EV_scr_seq_T23GYM0102_001 + 1",
+    "hide_flag": "FLAG_HIDE_AZALEA_GYM_BUGSY"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 1 HIVE (scr_seq_0869_T23GYM0102.s:82)",
+    "173_T23GYM0102.json objects[] SPRITE_GSLEADER2 at (9,5) flag FLAG_HIDE_AZALEA_GYM_BUGSY script _EV_scr_seq_T23GYM0102_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 180 MAP_AZALEA_GYM warp 0 tile (9,37)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_AZALEA_GYM_BUGSY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-02-hive-after",
+   "title": "MAP_AZALEA_GYM (Bugsy), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-02-hive",
+   "badges": {
+    "johto": 3,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 180,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 180,
+    "warp": 0,
+    "x": 9,
+    "y": 37,
+    "badges_johto": 3,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER2",
+    "x": 9,
+    "z": 5,
+    "script": "_EV_scr_seq_T23GYM0102_001 + 1",
+    "hide_flag": "FLAG_HIDE_AZALEA_GYM_BUGSY"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 1 HIVE (scr_seq_0869_T23GYM0102.s:82)",
+    "173_T23GYM0102.json objects[] SPRITE_GSLEADER2 at (9,5) flag FLAG_HIDE_AZALEA_GYM_BUGSY script _EV_scr_seq_T23GYM0102_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 180 MAP_AZALEA_GYM warp 0 tile (9,37)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-03-plain-before",
+   "title": "MAP_GOLDENROD_GYM (Whitney), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-02-hive",
+   "badges": {
+    "johto": 3,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 748,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 137,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 137,
+    "warp": 0,
+    "x": 6,
+    "y": 25,
+    "badges_johto": 3,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_GOLDENROD_GYM_WHITNEY"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER3",
+    "x": 13,
+    "z": 4,
+    "script": "_EV_scr_seq_T25GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 2 PLAIN (scr_seq_0886_T25GYM0101.s:125)",
+    "133_T25GYM0101.json objects[] SPRITE_GSLEADER3 at (13,4) flag FLAG_HIDE_GOLDENROD_GYM_WHITNEY script _EV_scr_seq_T25GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 137 MAP_GOLDENROD_GYM warp 0 tile (6,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_GOLDENROD_GYM_WHITNEY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-03-plain-after",
+   "title": "MAP_GOLDENROD_GYM (Whitney), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-03-plain",
+   "badges": {
+    "johto": 7,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 137,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 137,
+    "warp": 0,
+    "x": 6,
+    "y": 25,
+    "badges_johto": 7,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER3",
+    "x": 13,
+    "z": 4,
+    "script": "_EV_scr_seq_T25GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 2 PLAIN (scr_seq_0886_T25GYM0101.s:125)",
+    "133_T25GYM0101.json objects[] SPRITE_GSLEADER3 at (13,4) flag FLAG_HIDE_GOLDENROD_GYM_WHITNEY script _EV_scr_seq_T25GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 137 MAP_GOLDENROD_GYM warp 0 tile (6,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-04-fog-before",
+   "title": "MAP_ECRUTEAK_GYM (Morty), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-03-plain",
+   "badges": {
+    "johto": 7,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 749,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 80,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 80,
+    "warp": 0,
+    "x": 16,
+    "y": 53,
+    "badges_johto": 7,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_ECRUTEAK_GYM_MORTY"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER4",
+    "x": 10,
+    "z": 8,
+    "script": "_EV_scr_seq_T27GYM0101_001 + 1",
+    "hide_flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 3 FOG (scr_seq_0922_T27GYM0101.s:115)",
+    "077_T27GYM0101.json objects[] SPRITE_GSLEADER4 at (10,8) flag FLAG_HIDE_ECRUTEAK_GYM_MORTY script _EV_scr_seq_T27GYM0101_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 80 MAP_ECRUTEAK_GYM warp 0 tile (16,53)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_ECRUTEAK_GYM_MORTY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-04-fog-after",
+   "title": "MAP_ECRUTEAK_GYM (Morty), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-04-fog",
+   "badges": {
+    "johto": 15,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 80,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 80,
+    "warp": 0,
+    "x": 16,
+    "y": 53,
+    "badges_johto": 15,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER4",
+    "x": 10,
+    "z": 8,
+    "script": "_EV_scr_seq_T27GYM0101_001 + 1",
+    "hide_flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 3 FOG (scr_seq_0922_T27GYM0101.s:115)",
+    "077_T27GYM0101.json objects[] SPRITE_GSLEADER4 at (10,8) flag FLAG_HIDE_ECRUTEAK_GYM_MORTY script _EV_scr_seq_T27GYM0101_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 80 MAP_ECRUTEAK_GYM warp 0 tile (16,53)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-05-storm-before",
+   "title": "MAP_CIANWOOD_GYM (Chuck), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-04-fog",
+   "badges": {
+    "johto": 15,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 747,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 139,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 139,
+    "warp": 0,
+    "x": 13,
+    "y": 19,
+    "badges_johto": 15,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_CIANWOOD_GYM_CHUCK"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER5",
+    "x": 13,
+    "z": 10,
+    "script": "_EV_scr_seq_T24GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_CIANWOOD_GYM_CHUCK"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 4 STORM (scr_seq_0877_T24GYM0101.s:40)",
+    "135_T24GYM0101.json objects[] SPRITE_GSLEADER5 at (13,10) flag FLAG_HIDE_CIANWOOD_GYM_CHUCK script _EV_scr_seq_T24GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 139 MAP_CIANWOOD_GYM warp 0 tile (13,19)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_CIANWOOD_GYM_CHUCK to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-05-storm-after",
+   "title": "MAP_CIANWOOD_GYM (Chuck), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-05-storm",
+   "badges": {
+    "johto": 31,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 139,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 139,
+    "warp": 0,
+    "x": 13,
+    "y": 19,
+    "badges_johto": 31,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER5",
+    "x": 13,
+    "z": 10,
+    "script": "_EV_scr_seq_T24GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_CIANWOOD_GYM_CHUCK"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 4 STORM (scr_seq_0877_T24GYM0101.s:40)",
+    "135_T24GYM0101.json objects[] SPRITE_GSLEADER5 at (13,10) flag FLAG_HIDE_CIANWOOD_GYM_CHUCK script _EV_scr_seq_T24GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 139 MAP_CIANWOOD_GYM warp 0 tile (13,19)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-06-mineral-before",
+   "title": "MAP_OLIVINE_GYM (Jasmine), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-05-storm",
+   "badges": {
+    "johto": 31,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 473,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 138,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 138,
+    "warp": 0,
+    "x": 6,
+    "y": 27,
+    "badges_johto": 31,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_JASMINE_IN_GYM"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER6",
+    "x": 6,
+    "z": 5,
+    "script": "_EV_scr_seq_T26GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_JASMINE_IN_GYM"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 5 MINERAL (scr_seq_0913_T26GYM0101.s:134)",
+    "134_T26GYM0101.json objects[] SPRITE_GSLEADER6 at (6,5) flag FLAG_HIDE_JASMINE_IN_GYM script _EV_scr_seq_T26GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 138 MAP_OLIVINE_GYM warp 0 tile (6,27)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_JASMINE_IN_GYM to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-06-mineral-after",
+   "title": "MAP_OLIVINE_GYM (Jasmine), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 138,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 138,
+    "warp": 0,
+    "x": 6,
+    "y": 27,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER6",
+    "x": 6,
+    "z": 5,
+    "script": "_EV_scr_seq_T26GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_JASMINE_IN_GYM"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 5 MINERAL (scr_seq_0913_T26GYM0101.s:134)",
+    "134_T26GYM0101.json objects[] SPRITE_GSLEADER6 at (6,5) flag FLAG_HIDE_JASMINE_IN_GYM script _EV_scr_seq_T26GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 138 MAP_OLIVINE_GYM warp 0 tile (6,27)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-07-glacier-before",
+   "title": "MAP_MAHOGANY_GYM_LEADER_ROOM (Pryce), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 750,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 140,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 140,
+    "warp": 0,
+    "x": 5,
+    "y": 19,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_MAHOGANY_GYM_PRYCE"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER7",
+    "x": 7,
+    "z": 4,
+    "script": "_EV_scr_seq_T28GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 6 GLACIER (scr_seq_0932_T28GYM0101.s:87)",
+    "136_T28GYM0101.json objects[] SPRITE_GSLEADER7 at (7,4) flag FLAG_HIDE_MAHOGANY_GYM_PRYCE script _EV_scr_seq_T28GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 140 MAP_MAHOGANY_GYM_LEADER_ROOM warp 0 tile (5,19)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_MAHOGANY_GYM_PRYCE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-07-glacier-after",
+   "title": "MAP_MAHOGANY_GYM_LEADER_ROOM (Pryce), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-07-glacier",
+   "badges": {
+    "johto": 127,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 140,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 140,
+    "warp": 0,
+    "x": 5,
+    "y": 19,
+    "badges_johto": 127,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER7",
+    "x": 7,
+    "z": 4,
+    "script": "_EV_scr_seq_T28GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 6 GLACIER (scr_seq_0932_T28GYM0101.s:87)",
+    "136_T28GYM0101.json objects[] SPRITE_GSLEADER7 at (7,4) flag FLAG_HIDE_MAHOGANY_GYM_PRYCE script _EV_scr_seq_T28GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 140 MAP_MAHOGANY_GYM_LEADER_ROOM warp 0 tile (5,19)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-08-rising-before",
+   "title": "MAP_BLACKTHORN_GYM (Clair), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-07-glacier",
+   "badges": {
+    "johto": 127,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 751,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 141,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 141,
+    "warp": 0,
+    "x": 13,
+    "y": 87,
+    "badges_johto": 127,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_BLACKTHORN_GYM_CLAIR"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER8",
+    "x": 12,
+    "z": 3,
+    "script": "_EV_scr_seq_T30GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 7 RISING (scr_seq_0112_D44R0103.s:152)",
+    "137_T30GYM0101.json objects[] SPRITE_GSLEADER8 at (12,3) flag FLAG_HIDE_BLACKTHORN_GYM_CLAIR script _EV_scr_seq_T30GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 141 MAP_BLACKTHORN_GYM warp 0 tile (13,87)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_BLACKTHORN_GYM_CLAIR to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-08-rising-after",
+   "title": "MAP_BLACKTHORN_GYM (Clair), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 141,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 141,
+    "warp": 0,
+    "x": 13,
+    "y": 87,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER8",
+    "x": 12,
+    "z": 3,
+    "script": "_EV_scr_seq_T30GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 7 RISING (scr_seq_0112_D44R0103.s:152)",
+    "137_T30GYM0101.json objects[] SPRITE_GSLEADER8 at (12,3) flag FLAG_HIDE_BLACKTHORN_GYM_CLAIR script _EV_scr_seq_T30GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 141 MAP_BLACKTHORN_GYM warp 0 tile (13,87)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-09-boulder-before",
+   "title": "MAP_PEWTER_GYM (Brock), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 756,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 473,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 473,
+    "warp": 0,
+    "x": 7,
+    "y": 27,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_PEWTER_GYM_BROCK"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER14",
+    "x": 7,
+    "z": 4,
+    "script": "_EV_scr_seq_T03GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_PEWTER_GYM_BROCK"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 8 BOULDER (scr_seq_0752_T03GYM0101.s:97)",
+    "426_T03GYM0101.json objects[] SPRITE_GSLEADER14 at (7,4) flag FLAG_HIDE_PEWTER_GYM_BROCK script _EV_scr_seq_T03GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 473 MAP_PEWTER_GYM warp 0 tile (7,27)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_PEWTER_GYM_BROCK to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-09-boulder-after",
+   "title": "MAP_PEWTER_GYM (Brock), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 1
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 473,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 473,
+    "warp": 0,
+    "x": 7,
+    "y": 27,
+    "badges_johto": 255,
+    "badges_kanto": 1,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER14",
+    "x": 7,
+    "z": 4,
+    "script": "_EV_scr_seq_T03GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_PEWTER_GYM_BROCK"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 8 BOULDER (scr_seq_0752_T03GYM0101.s:97)",
+    "426_T03GYM0101.json objects[] SPRITE_GSLEADER14 at (7,4) flag FLAG_HIDE_PEWTER_GYM_BROCK script _EV_scr_seq_T03GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 473 MAP_PEWTER_GYM warp 0 tile (7,27)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-10-cascade-before",
+   "title": "MAP_CERULEAN_GYM (Misty), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 1
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 595,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 427,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 427,
+    "warp": 0,
+    "x": 10,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 1,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_CERULEAN_GYM_POPULATION"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER11",
+    "x": 10,
+    "z": 1,
+    "script": "_EV_scr_seq_T04GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 9 CASCADE (scr_seq_0760_T04GYM0101.s:216)",
+    "382_T04GYM0101.json objects[] SPRITE_GSLEADER11 at (10,1) flag FLAG_HIDE_CERULEAN_GYM_POPULATION script _EV_scr_seq_T04GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 427 MAP_CERULEAN_GYM warp 0 tile (10,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_CERULEAN_GYM_POPULATION to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-10-cascade-after",
+   "title": "MAP_CERULEAN_GYM (Misty), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 3
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 427,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 427,
+    "warp": 0,
+    "x": 10,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 3,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER11",
+    "x": 10,
+    "z": 1,
+    "script": "_EV_scr_seq_T04GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 9 CASCADE (scr_seq_0760_T04GYM0101.s:216)",
+    "382_T04GYM0101.json objects[] SPRITE_GSLEADER11 at (10,1) flag FLAG_HIDE_CERULEAN_GYM_POPULATION script _EV_scr_seq_T04GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 427 MAP_CERULEAN_GYM warp 0 tile (10,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-11-thunder-before",
+   "title": "MAP_VERMILION_GYM (Lt. Surge), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 3
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 752,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 365,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 365,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 3,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_VERMILION_GYM_LT_SURGE"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER9",
+    "x": 6,
+    "z": 4,
+    "script": "_EV_scr_seq_T06GYM0101_023 + 1",
+    "hide_flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 10 THUNDER (scr_seq_0778_T06GYM0101.s:290)",
+    "322_T06GYM0101.json objects[] SPRITE_GSLEADER9 at (6,4) flag FLAG_HIDE_VERMILION_GYM_LT_SURGE script _EV_scr_seq_T06GYM0101_023 + 1",
+    "registry/hgss-us.warp-spawns.json map 365 MAP_VERMILION_GYM warp 0 tile (6,22)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_VERMILION_GYM_LT_SURGE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-11-thunder-after",
+   "title": "MAP_VERMILION_GYM (Lt. Surge), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 7
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 365,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 365,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 7,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER9",
+    "x": 6,
+    "z": 4,
+    "script": "_EV_scr_seq_T06GYM0101_023 + 1",
+    "hide_flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 10 THUNDER (scr_seq_0778_T06GYM0101.s:290)",
+    "322_T06GYM0101.json objects[] SPRITE_GSLEADER9 at (6,4) flag FLAG_HIDE_VERMILION_GYM_LT_SURGE script _EV_scr_seq_T06GYM0101_023 + 1",
+    "registry/hgss-us.warp-spawns.json map 365 MAP_VERMILION_GYM warp 0 tile (6,22)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-12-rainbow-before",
+   "title": "MAP_CELADON_GYM (Erika), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 7
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 754,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 395,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 395,
+    "warp": 0,
+    "x": 7,
+    "y": 46,
+    "badges_johto": 255,
+    "badges_kanto": 7,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_CELADON_GYM_ERIKA"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER12",
+    "x": 7,
+    "z": 3,
+    "script": "_EV_scr_seq_T07GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_CELADON_GYM_ERIKA"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 11 RAINBOW (scr_seq_0786_T07GYM0101.s:107)",
+    "352_T07GYM0101.json objects[] SPRITE_GSLEADER12 at (7,3) flag FLAG_HIDE_CELADON_GYM_ERIKA script _EV_scr_seq_T07GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 395 MAP_CELADON_GYM warp 0 tile (7,46)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_CELADON_GYM_ERIKA to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-12-rainbow-after",
+   "title": "MAP_CELADON_GYM (Erika), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 15
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 395,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 395,
+    "warp": 0,
+    "x": 7,
+    "y": 46,
+    "badges_johto": 255,
+    "badges_kanto": 15,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER12",
+    "x": 7,
+    "z": 3,
+    "script": "_EV_scr_seq_T07GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_CELADON_GYM_ERIKA"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 11 RAINBOW (scr_seq_0786_T07GYM0101.s:107)",
+    "352_T07GYM0101.json objects[] SPRITE_GSLEADER12 at (7,3) flag FLAG_HIDE_CELADON_GYM_ERIKA script _EV_scr_seq_T07GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 395 MAP_CELADON_GYM warp 0 tile (7,46)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-13-soul-before",
+   "title": "MAP_FUCHSIA_GYM (Janine), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 15
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 755,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 480,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 480,
+    "warp": 0,
+    "x": 7,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 15,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_FUCHSIA_GYM_JANINE"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER13",
+    "x": 7,
+    "z": 16,
+    "script": "_EV_scr_seq_T08GYM0101_001 + 1",
+    "hide_flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 12 SOUL (scr_seq_0809_T08GYM0101.s:519)",
+    "433_T08GYM0101.json objects[] SPRITE_GSLEADER13 at (7,16) flag FLAG_HIDE_FUCHSIA_GYM_JANINE script _EV_scr_seq_T08GYM0101_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 480 MAP_FUCHSIA_GYM warp 0 tile (7,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_FUCHSIA_GYM_JANINE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-13-soul-after",
+   "title": "MAP_FUCHSIA_GYM (Janine), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 31
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 480,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 480,
+    "warp": 0,
+    "x": 7,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 31,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER13",
+    "x": 7,
+    "z": 16,
+    "script": "_EV_scr_seq_T08GYM0101_001 + 1",
+    "hide_flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 12 SOUL (scr_seq_0809_T08GYM0101.s:519)",
+    "433_T08GYM0101.json objects[] SPRITE_GSLEADER13 at (7,16) flag FLAG_HIDE_FUCHSIA_GYM_JANINE script _EV_scr_seq_T08GYM0101_001 + 1",
+    "registry/hgss-us.warp-spawns.json map 480 MAP_FUCHSIA_GYM warp 0 tile (7,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-14-marsh-before",
+   "title": "MAP_SAFFRON_GYM (Sabrina), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 31
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 753,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 410,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 410,
+    "warp": 0,
+    "x": 15,
+    "y": 28,
+    "badges_johto": 255,
+    "badges_kanto": 31,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_SAFFRON_GYM_SABRINA"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER10",
+    "x": 15,
+    "z": 13,
+    "script": "_EV_scr_seq_T11GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 13 MARSH (scr_seq_0829_T11GYM0101.s:61)",
+    "366_T11GYM0101.json objects[] SPRITE_GSLEADER10 at (15,13) flag FLAG_HIDE_SAFFRON_GYM_SABRINA script _EV_scr_seq_T11GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 410 MAP_SAFFRON_GYM warp 0 tile (15,28)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_SAFFRON_GYM_SABRINA to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-14-marsh-after",
+   "title": "MAP_SAFFRON_GYM (Sabrina), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 63
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 410,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 410,
+    "warp": 0,
+    "x": 15,
+    "y": 28,
+    "badges_johto": 255,
+    "badges_kanto": 63,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER10",
+    "x": 15,
+    "z": 13,
+    "script": "_EV_scr_seq_T11GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 13 MARSH (scr_seq_0829_T11GYM0101.s:61)",
+    "366_T11GYM0101.json objects[] SPRITE_GSLEADER10 at (15,13) flag FLAG_HIDE_SAFFRON_GYM_SABRINA script _EV_scr_seq_T11GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 410 MAP_SAFFRON_GYM warp 0 tile (15,28)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-15-volcano-before",
+   "title": "MAP_SEAFOAM_ISLANDS_CINNABAR_GYM (Blaine), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 63
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 757,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 457,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 457,
+    "warp": 0,
+    "x": 14,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 63,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_SEAFOAM_GYM_BLAINE"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER15",
+    "x": 13,
+    "z": 12,
+    "script": "_EV_scr_seq_D11R0106_000 + 1",
+    "hide_flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 14 VOLCANO (scr_seq_0015_D11R0106.s:91)",
+    "412_D11R0106.json objects[] SPRITE_GSLEADER15 at (13,12) flag FLAG_HIDE_SEAFOAM_GYM_BLAINE script _EV_scr_seq_D11R0106_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 457 MAP_SEAFOAM_ISLANDS_CINNABAR_GYM warp 0 tile (14,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_SEAFOAM_GYM_BLAINE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-15-volcano-after",
+   "title": "MAP_SEAFOAM_ISLANDS_CINNABAR_GYM (Blaine), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 127
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 457,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 457,
+    "warp": 0,
+    "x": 14,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 127,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER15",
+    "x": 13,
+    "z": 12,
+    "script": "_EV_scr_seq_D11R0106_000 + 1",
+    "hide_flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 14 VOLCANO (scr_seq_0015_D11R0106.s:91)",
+    "412_D11R0106.json objects[] SPRITE_GSLEADER15 at (13,12) flag FLAG_HIDE_SEAFOAM_GYM_BLAINE script _EV_scr_seq_D11R0106_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 457 MAP_SEAFOAM_ISLANDS_CINNABAR_GYM warp 0 tile (14,25)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "gym-16-earth-before",
+   "title": "MAP_VIRIDIAN_GYM (Blue), before the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 127
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 758,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 496,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 496,
+    "warp": 0,
+    "x": 5,
+    "y": 47,
+    "badges_johto": 255,
+    "badges_kanto": 127,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_VIRIDIAN_GYM_BLUE"
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER16",
+    "x": 5,
+    "z": 4,
+    "script": "_EV_scr_seq_T02GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 15 EARTH (scr_seq_0743_T02GYM0101.s:54)",
+    "448_T02GYM0101.json objects[] SPRITE_GSLEADER16 at (5,4) flag FLAG_HIDE_VIRIDIAN_GYM_BLUE script _EV_scr_seq_T02GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 496 MAP_VIRIDIAN_GYM warp 0 tile (5,47)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Clears FLAG_HIDE_VIRIDIAN_GYM_BLUE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+  },
+  {
+   "id": "gym-16-earth-after",
+   "title": "MAP_VIRIDIAN_GYM (Blue), after the badge",
+   "kind": "gym",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 496,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 496,
+    "warp": 0,
+    "x": 5,
+    "y": 47,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSLEADER16",
+    "x": 5,
+    "z": 4,
+    "script": "_EV_scr_seq_T02GYM0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE"
+   },
+   "sources": [
+    "registry/hgss-us.badge-rules.json badge 15 EARTH (scr_seq_0743_T02GYM0101.s:54)",
+    "448_T02GYM0101.json objects[] SPRITE_GSLEADER16 at (5,4) flag FLAG_HIDE_VIRIDIAN_GYM_BLUE script _EV_scr_seq_T02GYM0101_000 + 1",
+    "registry/hgss-us.warp-spawns.json map 496 MAP_VIRIDIAN_GYM warp 0 tile (5,47)",
+    "docs/state-log.md F14 (gym scripts carry no story guard)"
+   ],
+   "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
+  },
+  {
+   "id": "e4-before",
+   "title": "Pokemon League entrance, before the Elite Four",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 300,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 300,
+    "warp": 0,
+    "x": 11,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "registry/presets/index.json hg-e4-gate (real save at the League entrance)"
+   ],
+   "note": "Real played milestone; the warp is the save's own spawn."
+  },
+  {
+   "id": "e4-will",
+   "title": "Elite Four: Will",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 301,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 301,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSBIGFOUR1",
+    "x": 6,
+    "z": 10,
+    "script": "_EV_scr_seq_T10R0201_001 + 1"
+   },
+   "sources": [
+    "272_T10R0201.json (room object)",
+    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+   ],
+   "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
+  },
+  {
+   "id": "e4-koga",
+   "title": "Elite Four: Koga",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 302,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 302,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSBIGFOUR2",
+    "x": 6,
+    "z": 11,
+    "script": "_EV_scr_seq_T10R0301_001 + 1"
+   },
+   "sources": [
+    "273_T10R0301.json (room object)",
+    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+   ],
+   "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
+  },
+  {
+   "id": "e4-bruno",
+   "title": "Elite Four: Bruno",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 303,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 303,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSBIGFOUR3",
+    "x": 6,
+    "z": 10,
+    "script": "_EV_scr_seq_T10R0401_001 + 1"
+   },
+   "sources": [
+    "274_T10R0401.json (room object)",
+    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+   ],
+   "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
+  },
+  {
+   "id": "e4-karen",
+   "title": "Elite Four: Karen",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 304,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 304,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "actor": {
+    "sprite": "SPRITE_GSBIGFOUR4",
+    "x": 6,
+    "z": 10,
+    "script": "_EV_scr_seq_T10R0501_001 + 1"
+   },
+   "sources": [
+    "275_T10R0501.json (room object)",
+    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+   ],
+   "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
+  },
+  {
+   "id": "e4-lance",
+   "title": "Champion: Lance",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 305,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 305,
+    "warp": 0,
+    "x": 6,
+    "y": 28,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [],
+    "spawn_after": {
+     "x": 6,
+     "y": 22
+    }
+   },
+   "actor": {
+    "sprite": "SPRITE_WATARU",
+    "x": 6,
+    "z": 6,
+    "script": 0
+   },
+   "sources": [
+    "276_T10R0601.json (room object)",
+    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)",
+    "scr_seq_0597_T10R0601_hdr.s:10-14 (OnFrameTable entry, VAR_UNK_40C8 == 0)",
+    "scr_seq_0824_T10R0601.s:12-33 (entry script: WalkNormalNorth 6)"
+   ],
+   "note": "Warp into the room. The map's own frame script walks the player in from the entry tile before any input, so the runtime position is the post-load tile; the save keeps the entry warp tile."
+  },
+  {
+   "id": "e4-after",
+   "title": "Champion beaten (Hall of Fame)",
+   "kind": "e4",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 306,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 306,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "registry/presets/index.json hg-champion (real save on the Hall of Fame map)"
+   ],
+   "note": "Real played milestone."
+  },
+  {
+   "id": "legendary-lugia",
+   "title": "Lugia, Whirl Islands B3F",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 579,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 279,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 244,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 244,
+    "warp": 0,
+    "x": 16,
+    "y": 38,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_WHIRL_ISLAND_LUGIA",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_LUGIA"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_LUG_OBJ01",
+    "x": 16,
+    "z": 17,
+    "script": "_EV_scr_seq_D40R0107_000 + 1",
+    "hide_flag": "FLAG_HIDE_WHIRL_ISLAND_LUGIA"
+   },
+   "sources": [
+    "files/fielddata/script/scr_seq/scr_seq_0104_D40R0107.s:112 (capture sets FLAG_CAUGHT_LUGIA)",
+    "scr_seq_0104_D40R0107.s:38 (GoToIfSet FLAG_HIDE_WHIRL_ISLAND_LUGIA = actor hidden)",
+    "fixtures/event-prereqs.json lugia-whirl-islands",
+    "registry/hgss-us.warp-spawns.json map 244 MAP_WHIRL_ISLANDS_B3F_LUGIA_CAVE warp 0 tile (16,38)",
+    "registry/presets/hg-08-rising.json (HG, Johto 255, Kanto 0)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-ho-oh",
+   "title": "Ho-Oh, Bell Tower roof",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 578,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 278,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 340,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 340,
+    "warp": 0,
+    "x": 15,
+    "y": 24,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_BELL_TOWER_HO_OH",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_HO_OH"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_HOU_OBJ01",
+    "x": 15,
+    "z": 16,
+    "script": "_EV_scr_seq_D17R0110_000 + 1",
+    "hide_flag": "FLAG_HIDE_BELL_TOWER_HO_OH"
+   },
+   "sources": [
+    "zone_event 311_D17R0110.json objects[5] (SPRITE_HOU_OBJ01 at 15,16)",
+    "scr_seq_0021_D17R0110.s:21 (OnLoad hides only while FLAG_ENGAGING_STATIC_POKEMON)",
+    "fixtures/event-prereqs.json ho-oh-bell-tower",
+    "registry/hgss-us.warp-spawns.json map 340 MAP_BELL_TOWER_ROOF warp 0 tile (15,24)",
+    "registry/presets/hg-08-rising.json (HG, Johto 255, Kanto 0)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-articuno",
+   "title": "Articuno, Seafoam Islands B4F",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 774,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 364,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 456,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 456,
+    "warp": 0,
+    "x": 45,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_SEAFOAM_ISLAND_ARTICUNO",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_ARTICUNO"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_ARTICUNO",
+    "x": 27,
+    "z": 22,
+    "script": "_EV_scr_seq_D11R0105_000 + 1",
+    "hide_flag": "FLAG_HIDE_SEAFOAM_ISLAND_ARTICUNO"
+   },
+   "sources": [
+    "zone_event 411_D11R0105.json (static Articuno object)",
+    "scr_seq_0014_D11R0105.s:12 (OnLoad hides only while FLAG_ENGAGING_STATIC_POKEMON)",
+    "scr_seq_0825_T10R0701.s:138 (the post-League script clears this flag)",
+    "fixtures/event-prereqs.json kanto-arc",
+    "registry/hgss-us.warp-spawns.json map 456 MAP_SEAFOAM_ISLANDS_B4F warp 0 tile (45,22)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-zapdos",
+   "title": "Zapdos, Route 10",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 663,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 330,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 280,
+     "value": true
+    },
+    {
+     "op": "location.warp",
+     "map": 18,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 18,
+    "warp": 0,
+    "x": 1419,
+    "y": 163,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [
+     "FLAG_RESTORED_POWER"
+    ],
+    "flags_off": [
+     "FLAG_HIDE_ROUTE_10_ZAPDOS",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_ZAPDOS"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_ZAPDOS",
+    "x": 1419,
+    "z": 184,
+    "script": "_EV_scr_seq_R10_003 + 1",
+    "hide_flag": "FLAG_HIDE_ROUTE_10_ZAPDOS"
+   },
+   "sources": [
+    "zone_event 015_R10.json (static Zapdos object)",
+    "scr_seq_0825_T10R0701.s:142-145 (the post-League script clears this flag only with BADGE_EARTH)",
+    "fixtures/event-prereqs.json kanto-arc",
+    "registry/hgss-us.warp-spawns.json map 18 MAP_ROUTE_10 warp 0 tile (1419,163)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-moltres",
+   "title": "Moltres, Mt. Silver cave",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 775,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 365,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 462,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 462,
+    "warp": 0,
+    "x": 10,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_MT_SILVER_CAVE_MOLTRES",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_MOLTRES"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_MOLTRES",
+    "x": 10,
+    "z": 9,
+    "script": "_EV_scr_seq_D41R0105_000 + 1",
+    "hide_flag": "FLAG_HIDE_MT_SILVER_CAVE_MOLTRES"
+   },
+   "sources": [
+    "zone_event 416_D41R0105.json (static Moltres object)",
+    "scr_seq_0106_D41R0105.s:12 (OnLoad hides only while FLAG_ENGAGING_STATIC_POKEMON)",
+    "fixtures/event-prereqs.json kanto-arc",
+    "registry/hgss-us.warp-spawns.json map 462 MAP_MOUNT_SILVER_CAVE_MOLTRES_CHAMBER warp 0 tile (10,22)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-mewtwo",
+   "title": "Mewtwo, Cerulean Cave B1F",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 773,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 363,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 451,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 451,
+    "warp": 0,
+    "x": 7,
+    "y": 17,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_CERULEAN_CAVE_MEWTWO",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_MEWTWO"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_MEWTWO",
+    "x": 56,
+    "z": 24,
+    "script": "_EV_scr_seq_D03R0103_000 + 1",
+    "hide_flag": "FLAG_HIDE_CERULEAN_CAVE_MEWTWO"
+   },
+   "sources": [
+    "zone_event 406_D03R0103.json (static Mewtwo object at 56,24)",
+    "scr_seq_0011_D03R0103.s:12 (OnLoad hides only while FLAG_ENGAGING_STATIC_POKEMON)",
+    "scr_seq_0825_T10R0701.s:134 (the post-League script clears this flag)",
+    "fixtures/event-prereqs.json kanto-arc (FLAG_CAUGHT_MEWTWO at 16 badges)",
+    "registry/hgss-us.warp-spawns.json map 451 MAP_CERULEAN_CAVE_B1F warp 0 tile (7,17)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-suicune",
+   "title": "Suicune, Route 25",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 673,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 373,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 29,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 29,
+    "warp": 0,
+    "x": 1407,
+    "y": 38,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_ROUTE_25_SUICUNE",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_SUICUNE"
+    ],
+    "vars": [],
+    "items": []
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_SUICUNE",
+    "x": 1421,
+    "z": 37,
+    "script": "_EV_scr_seq_R25_007 + 1",
+    "hide_flag": "FLAG_HIDE_ROUTE_25_SUICUNE"
+   },
+   "sources": [
+    "zone_event 026_R25.json (static Suicune object at 1421,37; Eusine scene scr_seq_R25_005/006)",
+    "scr_seq_0216_R25.s:88-92 (OnLoad hides only while FLAG_ENGAGING_STATIC_POKEMON)",
+    "scr_seq_0825_T10R0701.s:161-164 (cleared when VAR_SCENE_ROUTE_25 == 3)",
+    "fixtures/event-prereqs.json kanto-arc (FLAG_CAUGHT_SUICUNE at 16 badges)",
+    "registry/hgss-us.warp-spawns.json map 29 MAP_ROUTE_25 warp 0 tile (1407,38)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-kyogre",
+   "title": "Kyogre, Embedded Tower",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 721,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 378,
+     "value": false
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 535,
+     "quantity": 1
+    },
+    {
+     "op": "variable.set",
+     "id": 16633,
+     "value": 0
+    },
+    {
+     "op": "location.warp",
+     "map": 525,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 525,
+    "warp": 0,
+    "x": 16,
+    "y": 29,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_KYOGRE"
+    ],
+    "vars": [
+     {
+      "name": "VAR_SCENE_EMBEDDED_TOWER",
+      "value": 0
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_BLUE_ORB",
+      "quantity": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_KYOGRE",
+    "x": 16,
+    "z": 11,
+    "script": "_EV_scr_seq_D52R0102_000 + 1",
+    "hide_flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE"
+   },
+   "sources": [
+    "zone_event 477_D52R0102.json (static Kyogre object at 16,11)",
+    "scr_seq_0134_D52R0102.s:20-26 (version 7/HG runs the orb check; SS hides the actor)",
+    "scr_seq_0134_D52R0102.s:35-38 (HasItem ITEM_BLUE_ORB gates ClearFlag)",
+    "fixtures/event-prereqs.json kyogre-embedded-tower",
+    "registry/hgss-us.warp-spawns.json map 525 MAP_EMBEDDED_TOWER_KYOGRE_ROOM warp 0 tile (16,29)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-groudon",
+   "title": "Groudon, Embedded Tower",
+   "kind": "legendary",
+   "game": "SS",
+   "base_preset": "ss-kanto-8",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 720,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 377,
+     "value": false
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 534,
+     "quantity": 1
+    },
+    {
+     "op": "variable.set",
+     "id": 16633,
+     "value": 0
+    },
+    {
+     "op": "location.warp",
+     "map": 524,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 524,
+    "warp": 0,
+    "x": 16,
+    "y": 29,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_GROUDON"
+    ],
+    "vars": [
+     {
+      "name": "VAR_SCENE_EMBEDDED_TOWER",
+      "value": 0
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_RED_ORB",
+      "quantity": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_GROUDON",
+    "x": 16,
+    "z": 11,
+    "script": "_EV_scr_seq_D52R0101_000 + 1",
+    "hide_flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON"
+   },
+   "sources": [
+    "zone_event 476_D52R0101.json (static Groudon object at 16,11)",
+    "scr_seq_0133_D52R0101.s:20-26 (version 7/HG sets the hide flag; SS runs the orb check)",
+    "scr_seq_0133_D52R0101.s:35-38 (HasItem ITEM_RED_ORB gates ClearFlag)",
+    "fixtures/event-prereqs.json kyogre-embedded-tower",
+    "registry/hgss-us.warp-spawns.json map 524 MAP_EMBEDDED_TOWER_GROUDON_ROOM warp 0 tile (16,29)",
+    "registry/presets/ss-kanto-8.json (SS, Johto 255, Kanto 255)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-rayquaza",
+   "title": "Rayquaza, Embedded Tower",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 722,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 379,
+     "value": false
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 532,
+     "quantity": 1
+    },
+    {
+     "op": "variable.set",
+     "id": 16633,
+     "value": 0
+    },
+    {
+     "op": "location.warp",
+     "map": 526,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 526,
+    "warp": 0,
+    "x": 16,
+    "y": 29,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_EMBEDDED_TOWER_RAYQUAZA",
+     "FLAG_ENGAGING_STATIC_POKEMON",
+     "FLAG_CAUGHT_RAYQUAZA"
+    ],
+    "vars": [
+     {
+      "name": "VAR_SCENE_EMBEDDED_TOWER",
+      "value": 0
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_JADE_ORB",
+      "quantity": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_RAYQUAZA",
+    "x": 16,
+    "z": 11,
+    "script": "_EV_scr_seq_D52R0103_000 + 1",
+    "hide_flag": "FLAG_HIDE_EMBEDDED_TOWER_RAYQUAZA"
+   },
+   "sources": [
+    "zone_event 478_D52R0103.json (static Rayquaza object at 16,11)",
+    "scr_seq_0135_D52R0103.s:16-25 (OnTransition clears the hide flag while VAR_SCENE_EMBEDDED_TOWER < 7)",
+    "fixtures/event-prereqs.json kyogre-embedded-tower",
+    "registry/hgss-us.warp-spawns.json map 526 MAP_EMBEDDED_TOWER_RAYQUAZA_ROOM warp 0 tile (16,29)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-latios",
+   "title": "Latios, Pewter City (Enigma Stone)",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 60
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 781,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 536,
+     "quantity": 1
+    },
+    {
+     "op": "variable.set",
+     "id": 16515,
+     "value": 3
+    },
+    {
+     "op": "location.warp",
+     "map": 51,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 51,
+    "warp": 0,
+    "x": 1048,
+    "y": 78,
+    "badges_johto": 255,
+    "badges_kanto": 60,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_PEWTER_CITY_LATIOS",
+     "FLAG_ENGAGING_STATIC_POKEMON"
+    ],
+    "vars": [
+     {
+      "name": "VAR_UNK_4083",
+      "value": 3
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_ENIGMA_STONE",
+      "quantity": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_LATIOS",
+    "x": 1039,
+    "z": 83,
+    "script": "_EV_scr_seq_T03_010 + 1",
+    "hide_flag": "FLAG_HIDE_PEWTER_CITY_LATIOS"
+   },
+   "sources": [
+    "zone_event 048_T03.json (static Latios object at 1039,83)",
+    "scr_seq_0750_T03.s:238-245 (version 7/HG clears the Latios hide flag)",
+    "scr_seq_0750_T03.s:356-379 (the battle species is chosen by version)",
+    "scr_seq_0750_T03.s:226-232 (the Pewter transition only shows the actor for VAR_UNK_4083 2..4)",
+    "fixtures/event-prereqs.json enigma-stone-pewter",
+    "registry/hgss-us.warp-spawns.json map 51 MAP_PEWTER warp 0 tile (1048,78)",
+    "registry/presets/hg-kanto-4.json (HG, Johto 255, Kanto 60)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-latias",
+   "title": "Latias, Pewter City (Enigma Stone)",
+   "kind": "legendary",
+   "game": "SS",
+   "base_preset": "ss-kanto-8",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 786,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 536,
+     "quantity": 1
+    },
+    {
+     "op": "variable.set",
+     "id": 16515,
+     "value": 3
+    },
+    {
+     "op": "location.warp",
+     "map": 51,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 51,
+    "warp": 0,
+    "x": 1048,
+    "y": 78,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_PEWTER_CITY_LATIAS",
+     "FLAG_ENGAGING_STATIC_POKEMON"
+    ],
+    "vars": [
+     {
+      "name": "VAR_UNK_4083",
+      "value": 3
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_ENIGMA_STONE",
+      "quantity": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_FOLLOWER_MON_STATIC_LATIAS",
+    "x": 1039,
+    "z": 83,
+    "script": "_EV_scr_seq_T03_010 + 1",
+    "hide_flag": "FLAG_HIDE_PEWTER_CITY_LATIAS"
+   },
+   "sources": [
+    "zone_event 048_T03.json (static Latias object at 1039,83)",
+    "scr_seq_0750_T03.s:238-245 (version 8/SS clears the Latias hide flag)",
+    "scr_seq_0750_T03.s:356-379 (the battle species is chosen by version)",
+    "scr_seq_0750_T03.s:226-232 (the Pewter transition only shows the actor for VAR_UNK_4083 2..4)",
+    "fixtures/event-prereqs.json enigma-stone-pewter",
+    "registry/hgss-us.warp-spawns.json map 51 MAP_PEWTER warp 0 tile (1048,78)",
+    "registry/presets/ss-kanto-8.json (SS, Johto 255, Kanto 255)"
+   ],
+   "note": "The actor is placed by clearing its zone-event hide flag, and the map's own init script keeps it visible in this state (tools/scene_actor_check.py); the cutscene that normally clears the flag is not replayed."
+  },
+  {
+   "id": "legendary-red",
+   "title": "Red, Mt. Silver summit",
+   "kind": "legendary",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 299,
+     "value": true
+    },
+    {
+     "op": "flag.set",
+     "id": 300,
+     "value": true
+    },
+    {
+     "op": "flag.set",
+     "id": 389,
+     "value": true
+    },
+    {
+     "op": "variable.set",
+     "id": 16534,
+     "value": 2
+    },
+    {
+     "op": "variable.set",
+     "id": 16656,
+     "value": 2
+    },
+    {
+     "op": "variable.set",
+     "id": 16673,
+     "value": 1
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 427,
+     "quantity": 1
+    },
+    {
+     "op": "flag.set",
+     "id": 164,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 465,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 465,
+    "warp": 0,
+    "x": 30,
+    "y": 36,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [
+     "FLAG_UNLOCKED_MT_SILVER",
+     "FLAG_UNLOCKED_WEST_KANTO",
+     "FLAG_GOT_HM08"
+    ],
+    "flags_off": [
+     "FLAG_ENGAGING_STATIC_POKEMON"
+    ],
+    "vars": [
+     {
+      "name": "VAR_UNK_4096",
+      "value": 2
+     },
+     {
+      "name": "VAR_UNK_4110",
+      "value": 2
+     },
+     {
+      "name": "VAR_UNK_4121",
+      "value": 1
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_HM08",
+      "quantity": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_RED",
+    "x": 30,
+    "z": 11,
+    "script": "_EV_scr_seq_D41R0108_000 + 1",
+    "hide_flag": "FLAG_UNK_25F"
+   },
+   "sources": [
+    "zone_event 419_D41R0108.json (SPRITE_RED at 30,11)",
+    "fixtures/event-prereqs.json kanto-arc: FLAG_UNLOCKED_MT_SILVER=true at 16 badges",
+    "census: Pokemon_SoulSilver16gyns.sav owns FLAG_UNLOCKED_MT_SILVER with Kanto 255",
+    "scr_seq_0743_T02GYM0101.s:65 (Blue's defeat sets VAR_UNK_4096 = 1)",
+    "scr_seq_0514_T02_hdr.s:13 (Viridian header runs scr_seq_T02_011 while VAR_UNK_4096 == 1)",
+    "scr_seq_0741_T02.s:42-44 (FLAG_UNLOCKED_WEST_KANTO, VAR_UNK_4121 = 1)",
+    "scr_seq_0741_T02.s:48-51 (Oak's call, VAR_UNK_4096 = 2)",
+    "scr_seq_0740_T01R0301.s:95-96,198-208 (Oak gives HM08; VAR_UNK_4110 = 2, FLAG_UNLOCKED_MT_SILVER, FLAG_GOT_HM08)",
+    "scr_seq_0213_R22R0101.s:19-23,388 (the Route 22 policemen read both unlock flags)",
+    "zone_event 270_R22R0101.json coords (VAR_UNK_4121 == 0 west path, VAR_UNK_4110 == 1 north gate)"
+   ],
+   "note": "No HG save in the corpus holds 5-8 Kanto badges; the last four badges and the unlock come from the badge rules (F8/F13). The Mt. Silver state is the whole chain the game writes, not just the one flag."
+  },
+  {
+   "id": "event-dragons-den-shrine",
+   "title": "Dragons Den shrine (Dratini gift)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 288,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 288,
+    "warp": 0,
+    "x": 6,
+    "y": 19,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 259_D44R0103.json (shrine objects)",
+    "census: Pre-Dratini.sav stands at this shrine at 8 badges",
+    "registry/hgss-us.warp-spawns.json map 288 MAP_DRAGONS_DEN_SHRINE warp 0 tile (6,19)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-dragons-den-test",
+   "title": "Dragons Den (Clair's test)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 253,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 253,
+    "warp": 0,
+    "x": 28,
+    "y": 6,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 239_D44R0102.json",
+    "registry/hgss-us.warp-spawns.json map 253 MAP_DRAGONS_DEN warp 0 tile (28,6)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-hall-of-fame",
+   "title": "Hall of Fame (champion)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-champion",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 306,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 306,
+    "warp": 0,
+    "x": 6,
+    "y": 22,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "census: Pokemon_HeartGoldposE4 save is on map 306",
+    "registry/hgss-us.warp-spawns.json map 306 MAP_POKEMON_LEAGUE_HALL_OF_FAME warp 0 tile (6,22)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-burned-tower",
+   "title": "Burned Tower B1F (the beasts flee)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-03-plain",
+   "badges": {
+    "johto": 7,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 217,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 217,
+    "warp": 0,
+    "x": 23,
+    "y": 16,
+    "badges_johto": 7,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "fixtures/event-prereqs.json burned-tower-dogs-flee",
+    "registry/hgss-us.warp-spawns.json map 217 MAP_BURNED_TOWER_B1F warp 0 tile (23,16)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-sprout-tower",
+   "title": "Sprout Tower 3F (Elder)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-00-cherrygrove",
+   "badges": {
+    "johto": 0,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 156,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 156,
+    "warp": 0,
+    "x": 15,
+    "y": 27,
+    "badges_johto": 0,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 151_D15R0103.json",
+    "registry/hgss-us.warp-spawns.json map 156 MAP_SPROUT_TOWER_3F warp 0 tile (15,27)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-slowpoke-well",
+   "title": "Slowpoke Well B2F",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-01-zephyr",
+   "badges": {
+    "johto": 1,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 181,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 181,
+    "warp": 0,
+    "x": 13,
+    "y": 20,
+    "badges_johto": 1,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 174_D26R0103.json",
+    "registry/hgss-us.warp-spawns.json map 181 MAP_SLOWPOKE_WELL_B2F warp 0 tile (13,20)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-victory-road-rival",
+   "title": "Indigo Plateau entrance (rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-e4-gate",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 300,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 300,
+    "warp": 0,
+    "x": 11,
+    "y": 25,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 271_T10R0101.json object SPRITE_GSRIVEL at 10,24",
+    "registry/hgss-us.warp-spawns.json map 300 MAP_POKEMON_LEAGUE_ENTRANCE warp 0 tile (11,25)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-starter",
+   "title": "New Bark Town, Elm's lab (starter)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-00-cherrygrove",
+   "badges": {
+    "johto": 0,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 61,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 61,
+    "warp": 0,
+    "x": 4,
+    "y": 14,
+    "badges_johto": 0,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event for MAP_NEW_BARK_ELMS_LAB_1F",
+    "registry/hgss-us.warp-spawns.json map 61 MAP_NEW_BARK_ELMS_LAB_1F warp 0 tile (4,14)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-mr-pokemon",
+   "title": "Route 30, Mr. Pokemon's house",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-00-cherrygrove",
+   "badges": {
+    "johto": 0,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 143,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 143,
+    "warp": 0,
+    "x": 4,
+    "y": 9,
+    "badges_johto": 0,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 052_T30R0201.json",
+    "registry/hgss-us.warp-spawns.json map 143 MAP_ROUTE_30_MR_POKEMON_HOUSE warp 0 tile (4,9)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-cherrygrove-rival",
+   "title": "Cherrygrove City (first rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-00-cherrygrove",
+   "badges": {
+    "johto": 0,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 67,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 67,
+    "warp": 0,
+    "x": 564,
+    "y": 391,
+    "badges_johto": 0,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "census: the 0-badge donor save stands here",
+    "registry/hgss-us.warp-spawns.json map 67 MAP_CHERRYGROVE warp 0 tile (564,391)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-ilex-forest",
+   "title": "Ilex Forest (Farfetch'd and Cut)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-02-hive",
+   "badges": {
+    "johto": 3,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 117,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 117,
+    "warp": 0,
+    "x": 15,
+    "y": 80,
+    "badges_johto": 3,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 114_D36R0101.json",
+    "registry/hgss-us.warp-spawns.json map 117 MAP_ILEX_FOREST warp 0 tile (15,80)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-sudowoodo",
+   "title": "Route 36 (Sudowoodo)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-03-plain",
+   "badges": {
+    "johto": 7,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 40,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 40,
+    "warp": 0,
+    "x": 374,
+    "y": 238,
+    "badges_johto": 7,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 100_R36.json",
+    "registry/hgss-us.warp-spawns.json map 40 MAP_ROUTE_36 warp 0 tile (374,238)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-kimono-dance",
+   "title": "Ecruteak Dance Theater (Kimono Girls)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 86,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 86,
+    "warp": 0,
+    "x": 7,
+    "y": 17,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event for MAP_ECRUTEAK_DANCE_THEATER",
+    "registry/hgss-us.warp-spawns.json map 86 MAP_ECRUTEAK_DANCE_THEATER warp 0 tile (7,17)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-rocket-hq",
+   "title": "Team Rocket HQ B1F (Mahogany)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 247,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 247,
+    "warp": 0,
+    "x": 51,
+    "y": 4,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 148_D35R0101.json",
+    "registry/hgss-us.warp-spawns.json map 247 MAP_TEAM_ROCKET_HEADQUARTERS_B1F warp 0 tile (51,4)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-lake-of-rage",
+   "title": "Lake of Rage (red Gyarados)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 483,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 362,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 88,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 88,
+    "warp": 0,
+    "x": 497,
+    "y": 42,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_LAKE_OF_RAGE_RED_GYARADOS",
+     "FLAG_CAUGHT_RED_GYARADOS"
+    ]
+   },
+   "sources": [
+    "zone_event 085_T29.json object SPRITE_RGYARADOSU at 525,71",
+    "scr_seq_0938_T29.s:135 (the scene's own hide-flag write)",
+    "registry/hgss-us.warp-spawns.json map 88 MAP_LAKE_OF_RAGE warp 0 tile (497,42)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-radio-tower",
+   "title": "Goldenrod Radio Tower 1F (takeover)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 112,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 112,
+    "warp": 0,
+    "x": 2,
+    "y": 14,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "docs/state-log.md F10/F11 (header script starts the takeover on load)",
+    "registry/hgss-us.warp-spawns.json map 112 MAP_GOLDENROD_RADIO_TOWER_1F warp 0 tile (2,14)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-ice-path",
+   "title": "Ice Path 1F",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-07-glacier",
+   "badges": {
+    "johto": 127,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 120,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 120,
+    "warp": 0,
+    "x": 11,
+    "y": 58,
+    "badges_johto": 127,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "zone_event 117_D39R0101.json",
+    "registry/hgss-us.warp-spawns.json map 120 MAP_ICE_PATH_1F warp 0 tile (11,58)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-olivine-lighthouse",
+   "title": "Olivine Lighthouse light room",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-05-storm",
+   "badges": {
+    "johto": 31,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "location.warp",
+     "map": 225,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 225,
+    "warp": 0,
+    "x": 9,
+    "y": 10,
+    "badges_johto": 31,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": []
+   },
+   "sources": [
+    "docs/state-log.md F8 (VAR_SCENE_LIGHTHOUSE_JASMINE gates this room)",
+    "registry/hgss-us.warp-spawns.json map 225 MAP_OLIVINE_LIGHTHOUSE_LIGHT_ROOM warp 0 tile (9,10)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-mt-silver",
+   "title": "Route 28 (the road to Mt. Silver)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 60
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 299,
+     "value": true
+    },
+    {
+     "op": "flag.set",
+     "id": 300,
+     "value": true
+    },
+    {
+     "op": "flag.set",
+     "id": 389,
+     "value": true
+    },
+    {
+     "op": "variable.set",
+     "id": 16534,
+     "value": 2
+    },
+    {
+     "op": "variable.set",
+     "id": 16656,
+     "value": 2
+    },
+    {
+     "op": "variable.set",
+     "id": 16673,
+     "value": 1
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 427,
+     "quantity": 1
+    },
+    {
+     "op": "location.warp",
+     "map": 32,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 32,
+    "warp": 0,
+    "x": 887,
+    "y": 266,
+    "badges_johto": 255,
+    "badges_kanto": 60,
+    "flags_on": [
+     "FLAG_UNLOCKED_MT_SILVER",
+     "FLAG_UNLOCKED_WEST_KANTO",
+     "FLAG_GOT_HM08"
+    ],
+    "flags_off": [],
+    "vars": [
+     {
+      "name": "VAR_UNK_4096",
+      "value": 2
+     },
+     {
+      "name": "VAR_UNK_4110",
+      "value": 2
+     },
+     {
+      "name": "VAR_UNK_4121",
+      "value": 1
+     }
+    ],
+    "items": [
+     {
+      "name": "ITEM_HM08",
+      "quantity": 1
+     }
+    ]
+   },
+   "sources": [
+    "fixtures/event-prereqs.json kanto-arc (FLAG_UNLOCKED_MT_SILVER at 16 badges)",
+    "scr_seq_0743_T02GYM0101.s:65 (Blue's defeat sets VAR_UNK_4096 = 1)",
+    "scr_seq_0514_T02_hdr.s:13 (Viridian header runs scr_seq_T02_011 while VAR_UNK_4096 == 1)",
+    "scr_seq_0741_T02.s:42-44 (FLAG_UNLOCKED_WEST_KANTO, VAR_UNK_4121 = 1)",
+    "scr_seq_0741_T02.s:48-51 (Oak's call, VAR_UNK_4096 = 2)",
+    "scr_seq_0740_T01R0301.s:95-96,198-208 (Oak gives HM08; VAR_UNK_4110 = 2, FLAG_UNLOCKED_MT_SILVER, FLAG_GOT_HM08)",
+    "scr_seq_0213_R22R0101.s:19-23,388 (the Route 22 policemen read both unlock flags)",
+    "zone_event 270_R22R0101.json coords (VAR_UNK_4121 == 0 west path, VAR_UNK_4110 == 1 north gate)",
+    "registry/hgss-us.warp-spawns.json map 32 MAP_ROUTE_28 warp 0 tile (887,266)"
+   ],
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  }
+ ]
+}

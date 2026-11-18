@@ -162,10 +162,25 @@ internal static class Program
                 case "check": return Commands.StoryCheck(args[1..]);
                 case "triggers": return Commands.StoryTriggers(args[1..]);
                 case "build": return Commands.StoryBuild(args[1..]);
+                case "scene": return StorySceneVerb(args[1..]);
             }
         }
 
-        return Usage("usage: hgss-save story check|triggers|build ...");
+        return Usage("usage: hgss-save story check|triggers|build|scene ...");
+    }
+
+    private static int StorySceneVerb(string[] args)
+    {
+        if (args.Length > 0)
+        {
+            switch (args[0].ToLowerInvariant())
+            {
+                case "list": return Commands.StorySceneList(args[1..]);
+                case "apply": return Commands.StorySceneApply(args[1..]);
+            }
+        }
+
+        return Usage("usage: hgss-save story scene list|apply ...");
     }
 
     private static int PresetVerb(string[] args)

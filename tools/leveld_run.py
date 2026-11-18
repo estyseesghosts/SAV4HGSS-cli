@@ -35,6 +35,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--rom", required=True, help="NDS ROM path (read-only, copied to staging).")
     p.add_argument("--save", required=True, help="Fixture .sav to stage alongside the ROM copy.")
     p.add_argument("--outdir", required=True, help="Output directory for report.json and PNGs.")
+    p.add_argument("--stage", default="",
+                   help="Reuse this staging directory (copy the ROM once, refresh the .sav each run).")
     p.add_argument("--label", default="", help="Fixture/run label recorded in the report.")
     p.add_argument("--frames", type=int, default=600, help="Total frames to advance.")
     p.add_argument("--shots", default="60,300,600", help="Comma-separated frame milestones for screenshots.")
@@ -66,6 +68,11 @@ def parse_args() -> argparse.Namespace:
                         "under <outdir>. The headless core keeps saves in memory "
                         "(no auto-flush), so an in-game save only reaches disk "
                         "via this export (melonds_backup_export).")
+    p.add_argument("--spawn-primary", action="store_true",
+                   help="Accept one agreeing Location copy, required at the primary player "
+                        "address 0x227d498. Use it for a save whose map script moves the "
+                        "player on load: the movement updates the live copy and leaves the "
+                        "mirrors stale, so the default two-copy rule cannot pass.")
     return p.parse_args()
 
 
@@ -77,7 +84,7 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def check_spawn(lib, save: Path, spec: str) -> dict:
+def check_spawn(lib, save: Path, spec: str, primary_only: bool = False) -> dict:
     """Verify the live player map/x/y in ARM9 main RAM.
 
     Differential of two overworld RAM dumps (Violet 73,459,246 vs Kanto
@@ -153,11 +160,15 @@ def check_spawn(lib, save: Path, spec: str) -> dict:
         carry = window[-(len(prefix) - 1):] if len(prefix) > 1 else b""
         addr += size
     match = len(matched) >= 2
+    rule = "two-copies-agree"
+    if primary_only:
+        match = any(m["address"] == "0x227d498" for m in matched)
+        rule = "primary-0x227d498"
     live = [want_map, want_x, want_y] if match else None
     return {"prefix": pattern.hex(), "hits": hits, "matched": matched,
             "live": live, "want": [want_map, want_x, want_y],
             "save_z": want_z, "z_note": "save Z is not live direction (Z=4,7 observed; DIR range is 0..3)",
-            "match": match}
+            "rule": rule, "match": match}
 
 
 def main() -> int:
@@ -206,12 +217,16 @@ def main() -> int:
         return 2
 
     outdir.mkdir(parents=True, exist_ok=True)
-    stage = outdir / "stage"
-    if stage.exists():
-        shutil.rmtree(stage)
-    stage.mkdir(parents=True)
+    stage = Path(args.stage) if args.stage else outdir / "stage"
+    if args.stage:
+        stage.mkdir(parents=True, exist_ok=True)
+    else:
+        if stage.exists():
+            shutil.rmtree(stage)
+        stage.mkdir(parents=True)
     staged_rom = stage / rom.name
-    shutil.copyfile(rom, staged_rom)
+    if not staged_rom.exists() or staged_rom.stat().st_size != rom.stat().st_size:
+        shutil.copyfile(rom, staged_rom)
     shutil.copyfile(save, stage / (staged_rom.stem + ".sav"))
 
     milestones = sorted({min(max(1, int(s)), args.frames) for s in args.shots.split(",") if s.strip()})
@@ -383,7 +398,7 @@ def main() -> int:
                 report["error"] = "Backup export failed."
                 return 1
         if args.assert_spawn.strip():
-            report["spawn_check"] = check_spawn(lib, save, args.assert_spawn)
+            report["spawn_check"] = check_spawn(lib, save, args.assert_spawn, args.spawn_primary)
             if not report["spawn_check"]["match"]:
                 report["error"] = "Live spawn mismatch: %s" % report["spawn_check"]
                 return 1

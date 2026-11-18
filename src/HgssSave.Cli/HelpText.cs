@@ -32,6 +32,11 @@ READ-ONLY COMMANDS
   story build INPUT --johto MASK [--kanto MASK] --out OUT [--presets DIR] [--badge-rules PATH] [--strict]
                                                        Base = the played-save preset with the most badges inside the request, then the
                                                        remaining badges with their consequences; audits and lists locked field moves
+  story scene list [--kind gym|e4|legendary|event] [--scenes PATH]
+                                                       the scene registry: every scene's base preset, badges, map and warp
+  story scene apply ID INPUT --out OUT [--scenes PATH] [--presets DIR] [--badge-rules PATH] [--strict]
+                                                       compose one scene (base preset, badge consequences, its flag/item ops and warp),
+                                                       then audit badges, warp tile, expected flags and story check; exits 6 if a check fails
   story triggers [--var NAME] [--map NAME|ID] [--scene-triggers PATH]
                                                          cutscene/scene triggers from the decomp: map, tiles, VAR == value, script, what it writes
   preset list [--presets DIR]                            named story presets (JSON index)

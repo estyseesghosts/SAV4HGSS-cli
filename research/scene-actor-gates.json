@@ -1,0 +1,4756 @@
+{
+ "schema": "hgss-save.scene-actor-gates/v1",
+ "decomp": "C:\\Users\\julie\\workdir\\3DS\\pokeheartgold",
+ "scenes": [
+  {
+   "id": "gym-01-zephyr-before",
+   "kind": "gym",
+   "map": 135,
+   "map_symbol": "MAP_VIOLET_GYM",
+   "tag": "T22GYM0101",
+   "hide_flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+   "header": "scr_seq_0632_T22GYM0101_hdr.s",
+   "script": "scr_seq_0859_T22GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T22GYM0101_000 + 1",
+     "at": "scr_seq_0632_T22GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_00A1",
+     "at": 55,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoTo _00A1"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_005B",
+     "at": 32,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _005B"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007E",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _007E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A7",
+     "at": 59,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00A7"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-01-zephyr-after",
+   "kind": "gym",
+   "map": 135,
+   "map_symbol": "MAP_VIOLET_GYM",
+   "tag": "T22GYM0101",
+   "hide_flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+   "header": "scr_seq_0632_T22GYM0101_hdr.s",
+   "script": "scr_seq_0859_T22GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T22GYM0101_000 + 1",
+     "at": "scr_seq_0632_T22GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_00A1",
+     "at": 55,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoTo _00A1"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_005B",
+     "at": 32,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _005B"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007E",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _007E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A7",
+     "at": 59,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00A7"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-02-hive-before",
+   "kind": "gym",
+   "map": 180,
+   "map_symbol": "MAP_AZALEA_GYM",
+   "tag": "T23GYM0102",
+   "hide_flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+   "header": "scr_seq_0642_T23GYM0102_hdr.s",
+   "script": "scr_seq_0869_T23GYM0102.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T23GYM0102_016 + 1",
+     "at": "scr_seq_0642_T23GYM0102_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T23GYM0102_016",
+     "at": 32,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_006C",
+     "at": 42,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0096",
+     "at": 53,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "Compare VAR_TEMP_x4002, 4",
+      "GoToIfNe _0096"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00C7",
+     "at": 57,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "Compare VAR_TEMP_x4002, 4",
+      "GoToIfNe _0096",
+      "Compare VAR_TEMP_x4001, 5",
+      "GoToIfEq _00C7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00CD",
+     "at": 61,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00CD"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-02-hive-after",
+   "kind": "gym",
+   "map": 180,
+   "map_symbol": "MAP_AZALEA_GYM",
+   "tag": "T23GYM0102",
+   "hide_flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+   "header": "scr_seq_0642_T23GYM0102_hdr.s",
+   "script": "scr_seq_0869_T23GYM0102.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T23GYM0102_016 + 1",
+     "at": "scr_seq_0642_T23GYM0102_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T23GYM0102_016",
+     "at": 32,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_006C",
+     "at": 42,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0096",
+     "at": 53,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "Compare VAR_TEMP_x4002, 4",
+      "GoToIfNe _0096"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00C7",
+     "at": 57,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "Compare VAR_TEMP_x4002, 4",
+      "GoToIfNe _0096",
+      "Compare VAR_TEMP_x4001, 5",
+      "GoToIfEq _00C7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00CD",
+     "at": 61,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00CD"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-03-plain-before",
+   "kind": "gym",
+   "map": 137,
+   "map_symbol": "MAP_GOLDENROD_GYM",
+   "tag": "T25GYM0101",
+   "hide_flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+   "header": "scr_seq_0659_T25GYM0101_hdr.s",
+   "script": "scr_seq_0886_T25GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T25GYM0101_004 + 1",
+     "at": "scr_seq_0659_T25GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T25GYM0101_004",
+     "at": 25,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0062",
+     "at": 31,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0079",
+     "at": 37,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0079"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0090",
+     "at": 43,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0079",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0090"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0100",
+     "at": 78,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0079",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0090",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _00A7",
+      "GoTo _0100"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AF",
+     "at": 56,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00CA",
+     "at": 62,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00CA"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00E1",
+     "at": 68,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00CA",
+      "Compare VAR_TEMP_x4000, 19",
+      "GoToIfNe _00E1"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0106",
+     "at": 82,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0106"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-03-plain-after",
+   "kind": "gym",
+   "map": 137,
+   "map_symbol": "MAP_GOLDENROD_GYM",
+   "tag": "T25GYM0101",
+   "hide_flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+   "header": "scr_seq_0659_T25GYM0101_hdr.s",
+   "script": "scr_seq_0886_T25GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T25GYM0101_004 + 1",
+     "at": "scr_seq_0659_T25GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T25GYM0101_004",
+     "at": 25,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0062",
+     "at": 31,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0079",
+     "at": 37,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0079"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0090",
+     "at": 43,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0079",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0090"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0100",
+     "at": 78,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _0062",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0079",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0090",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _00A7",
+      "GoTo _0100"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AF",
+     "at": 56,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00CA",
+     "at": 62,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00CA"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00E1",
+     "at": 68,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00CA",
+      "Compare VAR_TEMP_x4000, 19",
+      "GoToIfNe _00E1"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0106",
+     "at": 82,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0106"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-04-fog-before",
+   "kind": "gym",
+   "map": 80,
+   "map_symbol": "MAP_ECRUTEAK_GYM",
+   "tag": "T27GYM0101",
+   "hide_flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+   "header": "scr_seq_0695_T27GYM0101_hdr.s",
+   "script": "scr_seq_0922_T27GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T27GYM0101_000 + 1",
+     "at": "scr_seq_0695_T27GYM0101_hdr.s:8"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T27GYM0101_004 + 1",
+     "at": "scr_seq_0695_T27GYM0101_hdr.s:13",
+     "when": "VAR_UNK_4079 == 0"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T27GYM0101_000",
+     "at": 27,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0068",
+     "at": 33,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _0068"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007F",
+     "at": 37,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _0068",
+      "Compare VAR_TEMP_x4000, 2",
+      "GoToIfNe _007F"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0085",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _0085"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A0",
+     "at": 49,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _0085",
+      "Compare VAR_TEMP_x4000, 5",
+      "GoToIfNe _00A0"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A6",
+     "at": 54,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfUnset FLAG_GAME_CLEAR, _00A6"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AC",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00AC"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "scr_seq_T27GYM0101_004",
+     "at": 69,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0128"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_4079 == 0"
+    }
+   ]
+  },
+  {
+   "id": "gym-04-fog-after",
+   "kind": "gym",
+   "map": 80,
+   "map_symbol": "MAP_ECRUTEAK_GYM",
+   "tag": "T27GYM0101",
+   "hide_flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+   "header": "scr_seq_0695_T27GYM0101_hdr.s",
+   "script": "scr_seq_0922_T27GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T27GYM0101_000 + 1",
+     "at": "scr_seq_0695_T27GYM0101_hdr.s:8"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T27GYM0101_004 + 1",
+     "at": "scr_seq_0695_T27GYM0101_hdr.s:13",
+     "when": "VAR_UNK_4079 == 0"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T27GYM0101_000",
+     "at": 27,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0068",
+     "at": 33,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _0068"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007F",
+     "at": 37,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _0068",
+      "Compare VAR_TEMP_x4000, 2",
+      "GoToIfNe _007F"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0085",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _0085"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A0",
+     "at": 49,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _0085",
+      "Compare VAR_TEMP_x4000, 5",
+      "GoToIfNe _00A0"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A6",
+     "at": 54,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfUnset FLAG_GAME_CLEAR, _00A6"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AC",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00AC"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "scr_seq_T27GYM0101_004",
+     "at": 69,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0128"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_4079 == 0"
+    }
+   ]
+  },
+  {
+   "id": "gym-05-storm-before",
+   "kind": "gym",
+   "map": 139,
+   "map_symbol": "MAP_CIANWOOD_GYM",
+   "tag": "T24GYM0101",
+   "hide_flag": "FLAG_HIDE_CIANWOOD_GYM_CHUCK",
+   "header": "scr_seq_0650_T24GYM0101_hdr.s",
+   "script": "scr_seq_0877_T24GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T24GYM0101_001 + 1",
+     "at": "scr_seq_0650_T24GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "gym-05-storm-after",
+   "kind": "gym",
+   "map": 139,
+   "map_symbol": "MAP_CIANWOOD_GYM",
+   "tag": "T24GYM0101",
+   "hide_flag": "FLAG_HIDE_CIANWOOD_GYM_CHUCK",
+   "header": "scr_seq_0650_T24GYM0101_hdr.s",
+   "script": "scr_seq_0877_T24GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T24GYM0101_001 + 1",
+     "at": "scr_seq_0650_T24GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "gym-06-mineral-before",
+   "kind": "gym",
+   "map": 138,
+   "map_symbol": "MAP_OLIVINE_GYM",
+   "tag": "T26GYM0101",
+   "hide_flag": "FLAG_HIDE_JASMINE_IN_GYM",
+   "header": "scr_seq_0686_T26GYM0101_hdr.s",
+   "script": "scr_seq_0913_T26GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T26GYM0101_007 + 1",
+     "at": "scr_seq_0686_T26GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T26GYM0101_007",
+     "at": 22,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "scr_seq_T26GYM0101_007",
+     "at": 29,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0109",
+     "at": 88,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0072",
+      "GoTo _009D",
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _00CB",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _0109"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0124",
+     "at": 94,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0072",
+      "GoTo _009D",
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _00CB",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _0109",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0124"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_013B",
+     "at": 100,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0072",
+      "GoTo _009D",
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _00CB",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _0109",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0124",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _013B"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007A",
+     "at": 42,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _007A"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_015C",
+     "at": 113,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _015C"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-06-mineral-after",
+   "kind": "gym",
+   "map": 138,
+   "map_symbol": "MAP_OLIVINE_GYM",
+   "tag": "T26GYM0101",
+   "hide_flag": "FLAG_HIDE_JASMINE_IN_GYM",
+   "header": "scr_seq_0686_T26GYM0101_hdr.s",
+   "script": "scr_seq_0913_T26GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T26GYM0101_007 + 1",
+     "at": "scr_seq_0686_T26GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T26GYM0101_007",
+     "at": 22,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "scr_seq_T26GYM0101_007",
+     "at": 29,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0109",
+     "at": 88,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0072",
+      "GoTo _009D",
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _00CB",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _0109"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0124",
+     "at": 94,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0072",
+      "GoTo _009D",
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _00CB",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _0109",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0124"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_013B",
+     "at": 100,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0072",
+      "GoTo _009D",
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _00CB",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _0109",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _0124",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _013B"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007A",
+     "at": 42,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _007A"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_015C",
+     "at": 113,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_JASMINE_IN_GYM",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _015C"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-07-glacier-before",
+   "kind": "gym",
+   "map": 140,
+   "map_symbol": "MAP_MAHOGANY_GYM_LEADER_ROOM",
+   "tag": "T28GYM0101",
+   "hide_flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+   "header": "scr_seq_0705_T28GYM0101_hdr.s",
+   "script": "scr_seq_0932_T28GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T28GYM0101_001 + 1",
+     "at": "scr_seq_0705_T28GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_001B",
+     "at": 27,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0067",
+     "at": 33,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007E",
+     "at": 39,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _007E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0095",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _007E",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _0095"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AC",
+     "at": 49,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _007E",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _0095",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00AC"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00B2",
+     "at": 54,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00B2"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00B8",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00B8"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-07-glacier-after",
+   "kind": "gym",
+   "map": 140,
+   "map_symbol": "MAP_MAHOGANY_GYM_LEADER_ROOM",
+   "tag": "T28GYM0101",
+   "hide_flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+   "header": "scr_seq_0705_T28GYM0101_hdr.s",
+   "script": "scr_seq_0932_T28GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T28GYM0101_001 + 1",
+     "at": "scr_seq_0705_T28GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_001B",
+     "at": 27,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0067",
+     "at": 33,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_007E",
+     "at": 39,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _007E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0095",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _007E",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _0095"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AC",
+     "at": 49,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0067",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _007E",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _0095",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00AC"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00B2",
+     "at": 54,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00B2"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00B8",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00B8"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-08-rising-before",
+   "kind": "gym",
+   "map": 141,
+   "map_symbol": "MAP_BLACKTHORN_GYM",
+   "tag": "T30GYM0101",
+   "hide_flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+   "header": "scr_seq_0716_T30GYM0101_hdr.s",
+   "script": "scr_seq_0943_T30GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T30GYM0101_001 + 1",
+     "at": "scr_seq_0716_T30GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0044",
+     "at": 32,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0072",
+     "at": 38,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0089",
+     "at": 44,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0089"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A0",
+     "at": 50,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0089",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _00A0"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00B7",
+     "at": 54,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0089",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _00A0",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00B7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00BD",
+     "at": 62,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00D8",
+     "at": 68,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _00D8"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00EF",
+     "at": 74,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _00D8",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00EF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0106",
+     "at": 78,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _00D8",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00EF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _0106"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_010C",
+     "at": 83,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _010C"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-08-rising-after",
+   "kind": "gym",
+   "map": 141,
+   "map_symbol": "MAP_BLACKTHORN_GYM",
+   "tag": "T30GYM0101",
+   "hide_flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+   "header": "scr_seq_0716_T30GYM0101_hdr.s",
+   "script": "scr_seq_0943_T30GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T30GYM0101_001 + 1",
+     "at": "scr_seq_0716_T30GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0044",
+     "at": 32,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0072",
+     "at": 38,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0089",
+     "at": 44,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0089"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A0",
+     "at": 50,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0089",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _00A0"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00B7",
+     "at": 54,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _0072",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0089",
+      "Compare VAR_TEMP_x4000, 8",
+      "GoToIfNe _00A0",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00B7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00BD",
+     "at": 62,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00D8",
+     "at": 68,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _00D8"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00EF",
+     "at": 74,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _00D8",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00EF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0106",
+     "at": 78,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_UNK_40FC, 2",
+      "GoToIfGe _0044",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00BD",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _00D8",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00EF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _0106"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_010C",
+     "at": 83,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _010C"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-09-boulder-before",
+   "kind": "gym",
+   "map": 473,
+   "map_symbol": "MAP_PEWTER_GYM",
+   "tag": "T03GYM0101",
+   "hide_flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+   "header": "scr_seq_0525_T03GYM0101_hdr.s",
+   "script": "scr_seq_0752_T03GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T03GYM0101_003 + 1",
+     "at": "scr_seq_0525_T03GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_00F5",
+     "at": 77,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoTo _00F5"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0053",
+     "at": 30,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0053"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_006E",
+     "at": 36,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0053",
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _006E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0085",
+     "at": 42,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0053",
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _006E",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0085"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A4",
+     "at": 55,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00A4"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00BF",
+     "at": 61,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00A4",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00BF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00D6",
+     "at": 67,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00A4",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00BF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00D6"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00FB",
+     "at": 81,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00FB"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-09-boulder-after",
+   "kind": "gym",
+   "map": 473,
+   "map_symbol": "MAP_PEWTER_GYM",
+   "tag": "T03GYM0101",
+   "hide_flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+   "header": "scr_seq_0525_T03GYM0101_hdr.s",
+   "script": "scr_seq_0752_T03GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T03GYM0101_003 + 1",
+     "at": "scr_seq_0525_T03GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_00F5",
+     "at": 77,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoTo _00F5"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0053",
+     "at": 30,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0053"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_006E",
+     "at": 36,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0053",
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _006E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0085",
+     "at": 42,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0053",
+      "Compare VAR_TEMP_x4000, 12",
+      "GoToIfNe _006E",
+      "Compare VAR_TEMP_x4000, 13",
+      "GoToIfNe _0085"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A4",
+     "at": 55,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00A4"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00BF",
+     "at": 61,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00A4",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00BF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00D6",
+     "at": 67,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00A4",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00BF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00D6"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00FB",
+     "at": 81,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00FB"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-10-cascade-before",
+   "kind": "gym",
+   "map": 427,
+   "map_symbol": "MAP_CERULEAN_GYM",
+   "tag": "T04GYM0101",
+   "hide_flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+   "header": "scr_seq_0533_T04GYM0101_hdr.s",
+   "script": "scr_seq_0760_T04GYM0101.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T04GYM0101_006 + 1",
+     "at": "scr_seq_0533_T04GYM0101_hdr.s:9"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T04GYM0101_007 + 1",
+     "at": "scr_seq_0533_T04GYM0101_hdr.s:10"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T04GYM0101_004 + 1",
+     "at": "scr_seq_0533_T04GYM0101_hdr.s:14",
+     "when": "VAR_UNK_411C == 1"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T04GYM0101_007",
+     "at": 34,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0090",
+     "at": 40,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _0090"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A7",
+     "at": 44,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _0090",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00A7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AD",
+     "at": 52,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AD"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00C8",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AD",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00C8"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00DF",
+     "at": 62,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AD",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00C8",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _00DF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00E7",
+     "at": 70,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_SCENE_ROUTE_25, 2",
+      "GoToIfEq _00E7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00ED",
+     "at": 74,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00ED"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "_0159",
+     "at": 105,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0204"
+     ],
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 1",
+      "GoToIfEq _0159"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_411C == 1"
+    },
+    {
+     "label": "_0179",
+     "at": 112,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0204"
+     ],
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 0",
+      "GoToIfEq _0179"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_411C == 1"
+    }
+   ]
+  },
+  {
+   "id": "gym-10-cascade-after",
+   "kind": "gym",
+   "map": 427,
+   "map_symbol": "MAP_CERULEAN_GYM",
+   "tag": "T04GYM0101",
+   "hide_flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+   "header": "scr_seq_0533_T04GYM0101_hdr.s",
+   "script": "scr_seq_0760_T04GYM0101.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T04GYM0101_006 + 1",
+     "at": "scr_seq_0533_T04GYM0101_hdr.s:9"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T04GYM0101_007 + 1",
+     "at": "scr_seq_0533_T04GYM0101_hdr.s:10"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T04GYM0101_004 + 1",
+     "at": "scr_seq_0533_T04GYM0101_hdr.s:14",
+     "when": "VAR_UNK_411C == 1"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T04GYM0101_007",
+     "at": 34,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0090",
+     "at": 40,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _0090"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A7",
+     "at": 44,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _0090",
+      "Compare VAR_TEMP_x4000, 17",
+      "GoToIfNe _00A7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AD",
+     "at": 52,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AD"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00C8",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AD",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00C8"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00DF",
+     "at": 62,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AD",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00C8",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _00DF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00E7",
+     "at": 70,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_SCENE_ROUTE_25, 2",
+      "GoToIfEq _00E7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00ED",
+     "at": 74,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00ED"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "_0159",
+     "at": 105,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0204"
+     ],
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 1",
+      "GoToIfEq _0159"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_411C == 1"
+    },
+    {
+     "label": "_0179",
+     "at": 112,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0204"
+     ],
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 0",
+      "GoToIfEq _0179"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_411C == 1"
+    }
+   ]
+  },
+  {
+   "id": "gym-11-thunder-before",
+   "kind": "gym",
+   "map": 365,
+   "map_symbol": "MAP_VERMILION_GYM",
+   "tag": "T06GYM0101",
+   "hide_flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+   "header": "scr_seq_0551_T06GYM0101_hdr.s",
+   "script": "scr_seq_0778_T06GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T06GYM0101_021 + 1",
+     "at": "scr_seq_0551_T06GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0079",
+     "at": 50,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00C7",
+     "at": 56,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00C7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00DE",
+     "at": 62,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00C7",
+      "Compare VAR_TEMP_x4000, 10",
+      "GoToIfNe _00DE"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00F5",
+     "at": 66,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00C7",
+      "Compare VAR_TEMP_x4000, 10",
+      "GoToIfNe _00DE",
+      "Compare VAR_TEMP_x4000, 11",
+      "GoToIfNe _00F5"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00FB",
+     "at": 72,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_010C",
+     "at": 79,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB",
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0127",
+     "at": 85,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB",
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
+      "Compare VAR_TEMP_x4000, 5",
+      "GoToIfNe _0127"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_013E",
+     "at": 89,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB",
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
+      "Compare VAR_TEMP_x4000, 5",
+      "GoToIfNe _0127",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _013E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0144",
+     "at": 94,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_014A",
+     "at": 98,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _014A"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-11-thunder-after",
+   "kind": "gym",
+   "map": 365,
+   "map_symbol": "MAP_VERMILION_GYM",
+   "tag": "T06GYM0101",
+   "hide_flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+   "header": "scr_seq_0551_T06GYM0101_hdr.s",
+   "script": "scr_seq_0778_T06GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T06GYM0101_021 + 1",
+     "at": "scr_seq_0551_T06GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0079",
+     "at": 50,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00C7",
+     "at": 56,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00C7"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00DE",
+     "at": 62,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00C7",
+      "Compare VAR_TEMP_x4000, 10",
+      "GoToIfNe _00DE"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00F5",
+     "at": 66,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4000, 9",
+      "GoToIfNe _00C7",
+      "Compare VAR_TEMP_x4000, 10",
+      "GoToIfNe _00DE",
+      "Compare VAR_TEMP_x4000, 11",
+      "GoToIfNe _00F5"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00FB",
+     "at": 72,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_010C",
+     "at": 79,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB",
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0127",
+     "at": 85,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB",
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
+      "Compare VAR_TEMP_x4000, 5",
+      "GoToIfNe _0127"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_013E",
+     "at": 89,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00FB",
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
+      "Compare VAR_TEMP_x4000, 5",
+      "GoToIfNe _0127",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoToIfNe _013E"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0144",
+     "at": 94,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_014A",
+     "at": 98,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
+     "path": [
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _014A"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-12-rainbow-before",
+   "kind": "gym",
+   "map": 395,
+   "map_symbol": "MAP_CELADON_GYM",
+   "tag": "T07GYM0101",
+   "hide_flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+   "header": "scr_seq_0559_T07GYM0101_hdr.s",
+   "script": "scr_seq_0786_T07GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T07GYM0101_002 + 1",
+     "at": "scr_seq_0559_T07GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0101",
+     "at": 87,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoTo _0101"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_008D",
+     "at": 52,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _004F",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _008D"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A8",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _004F",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _008D",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00A8"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00BF",
+     "at": 64,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _004F",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _008D",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00A8",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _00BF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00DE",
+     "at": 77,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00DE"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0107",
+     "at": 91,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0107"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-12-rainbow-after",
+   "kind": "gym",
+   "map": 395,
+   "map_symbol": "MAP_CELADON_GYM",
+   "tag": "T07GYM0101",
+   "hide_flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+   "header": "scr_seq_0559_T07GYM0101_hdr.s",
+   "script": "scr_seq_0786_T07GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T07GYM0101_002 + 1",
+     "at": "scr_seq_0559_T07GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0101",
+     "at": 87,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoTo _0101"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_008D",
+     "at": 52,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _004F",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _008D"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A8",
+     "at": 58,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _004F",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _008D",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00A8"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00BF",
+     "at": 64,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _004F",
+      "Compare VAR_TEMP_x4000, 6",
+      "GoTo _008D",
+      "Compare VAR_TEMP_x4000, 14",
+      "GoToIfNe _00A8",
+      "Compare VAR_TEMP_x4000, 15",
+      "GoToIfNe _00BF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00DE",
+     "at": 77,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00DE"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0107",
+     "at": 91,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0107"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-13-soul-before",
+   "kind": "gym",
+   "map": 480,
+   "map_symbol": "MAP_FUCHSIA_GYM",
+   "tag": "T08GYM0101",
+   "hide_flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+   "header": "scr_seq_0582_T08GYM0101_hdr.s",
+   "script": "scr_seq_0809_T08GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T08GYM0101_000 + 1",
+     "at": "scr_seq_0582_T08GYM0101_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T08GYM0101_008 + 1",
+     "at": "scr_seq_0582_T08GYM0101_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_00E9",
+     "at": 79,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 0",
+      "GoTo _00E9"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0075",
+     "at": 44,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 0",
+      "GoToIfNe _006D",
+      "GoTo _0075"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0090",
+     "at": 50,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 0",
+      "GoToIfNe _006D",
+      "GoTo _0075",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _0090"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AF",
+     "at": 63,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00CA",
+     "at": 69,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00CA"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00EF",
+     "at": 83,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00EF"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-13-soul-after",
+   "kind": "gym",
+   "map": 480,
+   "map_symbol": "MAP_FUCHSIA_GYM",
+   "tag": "T08GYM0101",
+   "hide_flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+   "header": "scr_seq_0582_T08GYM0101_hdr.s",
+   "script": "scr_seq_0809_T08GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T08GYM0101_000 + 1",
+     "at": "scr_seq_0582_T08GYM0101_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T08GYM0101_008 + 1",
+     "at": "scr_seq_0582_T08GYM0101_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_00E9",
+     "at": 79,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 0",
+      "GoTo _00E9"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0075",
+     "at": 44,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 0",
+      "GoToIfNe _006D",
+      "GoTo _0075"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0090",
+     "at": 50,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 0",
+      "GoToIfNe _006D",
+      "GoTo _0075",
+      "Compare VAR_TEMP_x4000, 16",
+      "GoToIfNe _0090"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AF",
+     "at": 63,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00CA",
+     "at": 69,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _00AF",
+      "Compare VAR_TEMP_x4000, 18",
+      "GoToIfNe _00CA"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00EF",
+     "at": 83,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00EF"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-14-marsh-before",
+   "kind": "gym",
+   "map": 410,
+   "map_symbol": "MAP_SAFFRON_GYM",
+   "tag": "T11GYM0101",
+   "hide_flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+   "header": "scr_seq_0602_T11GYM0101_hdr.s",
+   "script": "scr_seq_0829_T11GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T11GYM0101_004 + 1",
+     "at": "scr_seq_0602_T11GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0083",
+     "at": 41,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoTo _0083"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0055",
+     "at": 30,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfEq _0055"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_006C",
+     "at": 37,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _006C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0089",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0089"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-14-marsh-after",
+   "kind": "gym",
+   "map": 410,
+   "map_symbol": "MAP_SAFFRON_GYM",
+   "tag": "T11GYM0101",
+   "hide_flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+   "header": "scr_seq_0602_T11GYM0101_hdr.s",
+   "script": "scr_seq_0829_T11GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T11GYM0101_004 + 1",
+     "at": "scr_seq_0602_T11GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0083",
+     "at": 41,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoTo _0083"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0055",
+     "at": 30,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfEq _0055"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_006C",
+     "at": 37,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _006C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0089",
+     "at": 45,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0089"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-15-volcano-before",
+   "kind": "gym",
+   "map": 457,
+   "map_symbol": "MAP_SEAFOAM_ISLANDS_CINNABAR_GYM",
+   "tag": "D11R0106",
+   "hide_flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+   "header": "scr_seq_0276_D11R0106_hdr.s",
+   "script": "scr_seq_0015_D11R0106.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D11R0106_009 + 1",
+     "at": "scr_seq_0276_D11R0106_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_D11R0106_009",
+     "at": 29,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0069",
+     "at": 36,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0069"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0084",
+     "at": 40,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0069",
+      "Compare VAR_TEMP_x4002, 2",
+      "GoToIfNe _0084"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_008A",
+     "at": 48,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _008A"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A5",
+     "at": 52,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _008A",
+      "Compare VAR_TEMP_x4002, 4",
+      "GoToIfNe _00A5"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AB",
+     "at": 57,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00AB"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-15-volcano-after",
+   "kind": "gym",
+   "map": 457,
+   "map_symbol": "MAP_SEAFOAM_ISLANDS_CINNABAR_GYM",
+   "tag": "D11R0106",
+   "hide_flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+   "header": "scr_seq_0276_D11R0106_hdr.s",
+   "script": "scr_seq_0015_D11R0106.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D11R0106_009 + 1",
+     "at": "scr_seq_0276_D11R0106_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_D11R0106_009",
+     "at": 29,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0069",
+     "at": 36,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0069"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0084",
+     "at": 40,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 1",
+      "GoToIfEq _0069",
+      "Compare VAR_TEMP_x4002, 2",
+      "GoToIfNe _0084"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_008A",
+     "at": 48,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _008A"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00A5",
+     "at": 52,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 1",
+      "GoToIfEq _008A",
+      "Compare VAR_TEMP_x4002, 4",
+      "GoToIfNe _00A5"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_00AB",
+     "at": 57,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _00AB"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-16-earth-before",
+   "kind": "gym",
+   "map": 496,
+   "map_symbol": "MAP_VIRIDIAN_GYM",
+   "tag": "T02GYM0101",
+   "hide_flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+   "header": "scr_seq_0516_T02GYM0101_hdr.s",
+   "script": "scr_seq_0743_T02GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T02GYM0101_002 + 1",
+     "at": "scr_seq_0516_T02GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T02GYM0101_002",
+     "at": 25,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0059",
+     "at": 29,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 5",
+      "GoToIfNe _0059"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_005F",
+     "at": 34,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [
+      "Compare VAR_UNK_40FD, 0",
+      "GoToIfEq _005F"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0065",
+     "at": 38,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0065"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "gym-16-earth-after",
+   "kind": "gym",
+   "map": 496,
+   "map_symbol": "MAP_VIRIDIAN_GYM",
+   "tag": "T02GYM0101",
+   "hide_flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+   "header": "scr_seq_0516_T02GYM0101_hdr.s",
+   "script": "scr_seq_0743_T02GYM0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T02GYM0101_002 + 1",
+     "at": "scr_seq_0516_T02GYM0101_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_T02GYM0101_002",
+     "at": 25,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0059",
+     "at": 29,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [
+      "Compare VAR_TEMP_x4002, 5",
+      "GoToIfNe _0059"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_005F",
+     "at": 34,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [
+      "Compare VAR_UNK_40FD, 0",
+      "GoToIfEq _005F"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0065",
+     "at": 38,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
+     "path": [
+      "Compare VAR_TEMP_x4001, 0",
+      "GoToIfNe _0065"
+     ],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "e4-before",
+   "kind": "e4",
+   "map": 300,
+   "map_symbol": "MAP_POKEMON_LEAGUE_ENTRANCE",
+   "tag": "T10R0101",
+   "hide_flag": null,
+   "header": "scr_seq_0592_T10R0101_hdr.s",
+   "script": "scr_seq_0819_T10R0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T10R0101_005 + 1",
+     "at": "scr_seq_0592_T10R0101_hdr.s:8"
+    },
+    {
+     "kind": "frame",
+     "target": "std_union_room_return",
+     "at": "scr_seq_0592_T10R0101_hdr.s:14",
+     "when": "VAR_UNK_4133 == 2"
+    },
+    {
+     "kind": "frame",
+     "target": "std_wireless_colosseum_return",
+     "at": "scr_seq_0592_T10R0101_hdr.s:15",
+     "when": "VAR_UNK_4133 == 1"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "e4-will",
+   "kind": "e4",
+   "map": 301,
+   "map_symbol": "MAP_POKEMON_LEAGUE_WILL_ROOM",
+   "tag": "T10R0201",
+   "hide_flag": null,
+   "header": "scr_seq_0593_T10R0201_hdr.s",
+   "script": "scr_seq_0820_T10R0201.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T10R0201_002 + 1",
+     "at": "scr_seq_0593_T10R0201_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0201_000 + 1",
+     "at": "scr_seq_0593_T10R0201_hdr.s:13",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0201_000",
+     "at": 27,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0060"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ]
+  },
+  {
+   "id": "e4-koga",
+   "kind": "e4",
+   "map": 302,
+   "map_symbol": "MAP_POKEMON_LEAGUE_KOGA_ROOM",
+   "tag": "T10R0301",
+   "hide_flag": null,
+   "header": "scr_seq_0594_T10R0301_hdr.s",
+   "script": "scr_seq_0821_T10R0301.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T10R0301_002 + 1",
+     "at": "scr_seq_0594_T10R0301_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0301_000 + 1",
+     "at": "scr_seq_0594_T10R0301_hdr.s:13",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0301_000",
+     "at": 27,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0060"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ]
+  },
+  {
+   "id": "e4-bruno",
+   "kind": "e4",
+   "map": 303,
+   "map_symbol": "MAP_POKEMON_LEAGUE_BRUNO_ROOM",
+   "tag": "T10R0401",
+   "hide_flag": null,
+   "header": "scr_seq_0595_T10R0401_hdr.s",
+   "script": "scr_seq_0822_T10R0401.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T10R0401_002 + 1",
+     "at": "scr_seq_0595_T10R0401_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0401_000 + 1",
+     "at": "scr_seq_0595_T10R0401_hdr.s:13",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0401_000",
+     "at": 27,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0060"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ]
+  },
+  {
+   "id": "e4-karen",
+   "kind": "e4",
+   "map": 304,
+   "map_symbol": "MAP_POKEMON_LEAGUE_KAREN_ROOM",
+   "tag": "T10R0501",
+   "hide_flag": null,
+   "header": "scr_seq_0596_T10R0501_hdr.s",
+   "script": "scr_seq_0823_T10R0501.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T10R0501_002 + 1",
+     "at": "scr_seq_0596_T10R0501_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0501_000 + 1",
+     "at": "scr_seq_0596_T10R0501_hdr.s:13",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0501_000",
+     "at": 27,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0060"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ]
+  },
+  {
+   "id": "e4-lance",
+   "kind": "e4",
+   "map": 305,
+   "map_symbol": "MAP_POKEMON_LEAGUE_LANCE_ROOM",
+   "tag": "T10R0601",
+   "hide_flag": null,
+   "header": "scr_seq_0597_T10R0601_hdr.s",
+   "script": "scr_seq_0824_T10R0601.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T10R0601_002 + 1",
+     "at": "scr_seq_0597_T10R0601_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0601_001 + 1",
+     "at": "scr_seq_0597_T10R0601_hdr.s:13",
+     "when": "VAR_UNK_40C8 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0601_001",
+     "at": 18,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0048"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_40C8 == 0"
+    }
+   ]
+  },
+  {
+   "id": "e4-after",
+   "kind": "e4",
+   "map": 306,
+   "map_symbol": "MAP_POKEMON_LEAGUE_HALL_OF_FAME",
+   "tag": "T10R0701",
+   "hide_flag": null,
+   "header": "scr_seq_0598_T10R0701_hdr.s",
+   "script": "scr_seq_0825_T10R0701.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T10R0701_001 + 1",
+     "at": "scr_seq_0598_T10R0701_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0701_000 + 1",
+     "at": "scr_seq_0598_T10R0701_hdr.s:13",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0701_000",
+     "at": 21,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0188"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    },
+    {
+     "label": "scr_seq_T10R0701_000",
+     "at": 33,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_01A8"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ]
+  },
+  {
+   "id": "legendary-lugia",
+   "kind": "legendary",
+   "map": 244,
+   "map_symbol": "MAP_WHIRL_ISLANDS_B3F_LUGIA_CAVE",
+   "tag": "D40R0107",
+   "hide_flag": "FLAG_HIDE_WHIRL_ISLAND_LUGIA",
+   "header": "scr_seq_0365_D40R0107_hdr.s",
+   "script": "scr_seq_0104_D40R0107.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D40R0107_002 + 1",
+     "at": "scr_seq_0365_D40R0107_hdr.s:8"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D40R0107_006 + 1",
+     "at": "scr_seq_0365_D40R0107_hdr.s:10"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_003B",
+     "at": 27,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_WHIRL_ISLAND_LUGIA",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _003B"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-ho-oh",
+   "kind": "legendary",
+   "map": 340,
+   "map_symbol": "MAP_BELL_TOWER_ROOF",
+   "tag": "D17R0110",
+   "hide_flag": "FLAG_HIDE_BELL_TOWER_HO_OH",
+   "header": "scr_seq_0282_D17R0110_hdr.s",
+   "script": "scr_seq_0021_D17R0110.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D17R0110_002 + 1",
+     "at": "scr_seq_0282_D17R0110_hdr.s:8"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D17R0110_003 + 1",
+     "at": "scr_seq_0282_D17R0110_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_002B",
+     "at": 21,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_BELL_TOWER_HO_OH",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _002B"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-articuno",
+   "kind": "legendary",
+   "map": 456,
+   "map_symbol": "MAP_SEAFOAM_ISLANDS_B4F",
+   "tag": "D11R0105",
+   "hide_flag": "FLAG_HIDE_SEAFOAM_ISLAND_ARTICUNO",
+   "header": "scr_seq_0275_D11R0105_hdr.s",
+   "script": "scr_seq_0014_D11R0105.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D11R0105_001 + 1",
+     "at": "scr_seq_0275_D11R0105_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0017",
+     "at": 16,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_SEAFOAM_ISLAND_ARTICUNO",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _0017"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-zapdos",
+   "kind": "legendary",
+   "map": 18,
+   "map_symbol": "MAP_ROUTE_10",
+   "tag": "R10",
+   "hide_flag": "FLAG_HIDE_ROUTE_10_ZAPDOS",
+   "header": "scr_seq_0436_R10_hdr.s",
+   "script": "scr_seq_0191_R10.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_R10_001 + 1",
+     "at": "scr_seq_0436_R10_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_R10_004 + 1",
+     "at": "scr_seq_0436_R10_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_002B",
+     "at": 21,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ROUTE_10_ZAPDOS",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _002B"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-moltres",
+   "kind": "legendary",
+   "map": 462,
+   "map_symbol": "MAP_MOUNT_SILVER_CAVE_MOLTRES_CHAMBER",
+   "tag": "D41R0105",
+   "hide_flag": "FLAG_HIDE_MT_SILVER_CAVE_MOLTRES",
+   "header": "scr_seq_0367_D41R0105_hdr.s",
+   "script": "scr_seq_0106_D41R0105.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D41R0105_001 + 1",
+     "at": "scr_seq_0367_D41R0105_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0017",
+     "at": 16,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_MT_SILVER_CAVE_MOLTRES",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _0017"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-mewtwo",
+   "kind": "legendary",
+   "map": 451,
+   "map_symbol": "MAP_CERULEAN_CAVE_B1F",
+   "tag": "D03R0103",
+   "hide_flag": "FLAG_HIDE_CERULEAN_CAVE_MEWTWO",
+   "header": "scr_seq_0272_D03R0103_hdr.s",
+   "script": "scr_seq_0011_D03R0103.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D03R0103_001 + 1",
+     "at": "scr_seq_0272_D03R0103_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0017",
+     "at": 16,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_CERULEAN_CAVE_MEWTWO",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _0017"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-suicune",
+   "kind": "legendary",
+   "map": 29,
+   "map_symbol": "MAP_ROUTE_25",
+   "tag": "R25",
+   "hide_flag": "FLAG_HIDE_ROUTE_25_SUICUNE",
+   "header": "scr_seq_0461_R25_hdr.s",
+   "script": "scr_seq_0216_R25.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_R25_003 + 1",
+     "at": "scr_seq_0461_R25_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_R25_008 + 1",
+     "at": "scr_seq_0461_R25_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_012E",
+     "at": 92,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ROUTE_25_SUICUNE",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _012E"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-kyogre",
+   "kind": "legendary",
+   "map": 525,
+   "map_symbol": "MAP_EMBEDDED_TOWER_KYOGRE_ROOM",
+   "tag": "D52R0102",
+   "hide_flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
+   "header": "scr_seq_0395_D52R0102_hdr.s",
+   "script": "scr_seq_0134_D52R0102.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D52R0102_001 + 1",
+     "at": "scr_seq_0395_D52R0102_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D52R0102_002 + 1",
+     "at": "scr_seq_0395_D52R0102_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0040",
+     "at": 30,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
+     "path": [
+      "Compare VAR_TEMP_x4000, 7",
+      "GoTo _004A",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoTo _0040"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0072",
+     "at": 44,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
+     "path": [
+      "Compare VAR_TEMP_x4000, 7",
+      "GoTo _004A",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfGe _0072"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_008B",
+     "at": 55,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _008B"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-groudon",
+   "kind": "legendary",
+   "map": 524,
+   "map_symbol": "MAP_EMBEDDED_TOWER_GROUDON_ROOM",
+   "tag": "D52R0101",
+   "hide_flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
+   "header": "scr_seq_0394_D52R0101_hdr.s",
+   "script": "scr_seq_0133_D52R0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D52R0101_001 + 1",
+     "at": "scr_seq_0394_D52R0101_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D52R0101_002 + 1",
+     "at": "scr_seq_0394_D52R0101_hdr.s:9"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0040",
+     "at": 30,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
+     "path": [
+      "Compare VAR_TEMP_x4000, 7",
+      "GoTo _0040"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_0072",
+     "at": 44,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
+     "path": [
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _0038",
+      "GoTo _004A",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfGe _0072"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_008B",
+     "at": 55,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _008B"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "legendary-rayquaza",
+   "kind": "legendary",
+   "map": 526,
+   "map_symbol": "MAP_EMBEDDED_TOWER_RAYQUAZA_ROOM",
+   "tag": "D52R0103",
+   "hide_flag": "FLAG_HIDE_EMBEDDED_TOWER_RAYQUAZA",
+   "header": "scr_seq_0396_D52R0103_hdr.s",
+   "script": "scr_seq_0135_D52R0103.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D52R0103_002 + 1",
+     "at": "scr_seq_0396_D52R0103_hdr.s:9"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D52R0103_003 + 1",
+     "at": "scr_seq_0396_D52R0103_hdr.s:10"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_D52R0103_001 + 1",
+     "at": "scr_seq_0396_D52R0103_hdr.s:14",
+     "when": "VAR_SCENE_EMBEDDED_TOWER == 5"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_001F",
+     "at": 18,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_RAYQUAZA",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _001F"
+     ],
+     "entry": "onload"
+    },
+    {
+     "label": "scr_seq_D52R0103_003",
+     "at": 25,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_EMBEDDED_TOWER_RAYQUAZA",
+     "path": [],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "scr_seq_D52R0103_001",
+     "at": 37,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_00B4"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_SCENE_EMBEDDED_TOWER == 5"
+    },
+    {
+     "label": "scr_seq_D52R0103_001",
+     "at": 47,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_00B4"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_SCENE_EMBEDDED_TOWER == 5"
+    }
+   ]
+  },
+  {
+   "id": "legendary-latios",
+   "kind": "legendary",
+   "map": 51,
+   "map_symbol": "MAP_PEWTER",
+   "tag": "T03",
+   "hide_flag": "FLAG_HIDE_PEWTER_CITY_LATIOS",
+   "header": "scr_seq_0523_T03_hdr.s",
+   "script": "scr_seq_0750_T03.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T03_008 + 1",
+     "at": "scr_seq_0523_T03_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T03_013 + 1",
+     "at": "scr_seq_0523_T03_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T03_012 + 1",
+     "at": "scr_seq_0523_T03_hdr.s:15",
+     "when": "VAR_UNK_4083 == 2"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_0341",
+     "at": 241,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_PEWTER_CITY_LATIOS",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _004B",
+      "GoTo _030E",
+      "Compare VAR_UNK_4083, 4",
+      "GoToIfEq _0341"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_038C",
+     "at": 266,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_CITY_LATIOS",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _038C"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "scr_seq_T03_012",
+     "at": 282,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0440"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_4083 == 2"
+    },
+    {
+     "label": "_03F4",
+     "at": 297,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0464"
+     ],
+     "path": [
+      "Compare VAR_TEMP_x4000, 7",
+      "GoTo _03F4"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_4083 == 2"
+    }
+   ]
+  },
+  {
+   "id": "legendary-latias",
+   "kind": "legendary",
+   "map": 51,
+   "map_symbol": "MAP_PEWTER",
+   "tag": "T03",
+   "hide_flag": "FLAG_HIDE_PEWTER_CITY_LATIAS",
+   "header": "scr_seq_0523_T03_hdr.s",
+   "script": "scr_seq_0750_T03.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T03_008 + 1",
+     "at": "scr_seq_0523_T03_hdr.s:8"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T03_013 + 1",
+     "at": "scr_seq_0523_T03_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T03_012 + 1",
+     "at": "scr_seq_0523_T03_hdr.s:15",
+     "when": "VAR_UNK_4083 == 2"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_035C",
+     "at": 245,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_PEWTER_CITY_LATIAS",
+     "path": [
+      "GoToIfUnset FLAG_UNK_189, _004B",
+      "GoTo _030E",
+      "Compare VAR_UNK_4083, 4",
+      "GoToIfEq _0341",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _035C"
+     ],
+     "entry": "ontransition"
+    },
+    {
+     "label": "_03AB",
+     "at": 271,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_PEWTER_CITY_LATIAS",
+     "path": [
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _038C",
+      "Compare VAR_TEMP_x4000, 7",
+      "GoToIfNe _03AB"
+     ],
+     "entry": "onload"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "scr_seq_T03_012",
+     "at": 282,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0440"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_4083 == 2"
+    },
+    {
+     "label": "_03F4",
+     "at": 297,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0464"
+     ],
+     "path": [
+      "Compare VAR_TEMP_x4000, 7",
+      "GoTo _03F4"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_4083 == 2"
+    }
+   ]
+  },
+  {
+   "id": "legendary-red",
+   "kind": "legendary",
+   "map": 465,
+   "map_symbol": "MAP_MOUNT_SILVER_CAVE_SUMMIT",
+   "tag": "D41R0108",
+   "hide_flag": "FLAG_UNK_25F",
+   "header": "scr_seq_0368_D41R0108_hdr.s",
+   "script": "scr_seq_0107_D41R0108.s",
+   "entries": [],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-dragons-den-shrine",
+   "kind": "event",
+   "map": 288,
+   "map_symbol": "MAP_DRAGONS_DEN_SHRINE",
+   "tag": "D44R0103",
+   "hide_flag": null,
+   "header": "scr_seq_0373_D44R0103_hdr.s",
+   "script": "scr_seq_0112_D44R0103.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D44R0103_004 + 1",
+     "at": "scr_seq_0373_D44R0103_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_D44R0103_003 + 1",
+     "at": "scr_seq_0373_D44R0103_hdr.s:13",
+     "when": "VAR_UNK_40C3 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_D44R0103_003",
+     "at": 50,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0370"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_40C3 == 0"
+    }
+   ]
+  },
+  {
+   "id": "event-dragons-den-test",
+   "kind": "event",
+   "map": 253,
+   "map_symbol": "MAP_DRAGONS_DEN",
+   "tag": "D44R0102",
+   "hide_flag": null,
+   "header": "scr_seq_0372_D44R0102_hdr.s",
+   "script": "scr_seq_0111_D44R0102.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D44R0102_002 + 1",
+     "at": "scr_seq_0372_D44R0102_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-hall-of-fame",
+   "kind": "event",
+   "map": 306,
+   "map_symbol": "MAP_POKEMON_LEAGUE_HALL_OF_FAME",
+   "tag": "T10R0701",
+   "hide_flag": null,
+   "header": "scr_seq_0598_T10R0701_hdr.s",
+   "script": "scr_seq_0825_T10R0701.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T10R0701_001 + 1",
+     "at": "scr_seq_0598_T10R0701_hdr.s:9"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T10R0701_000 + 1",
+     "at": "scr_seq_0598_T10R0701_hdr.s:13",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T10R0701_000",
+     "at": 21,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0188"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    },
+    {
+     "label": "scr_seq_T10R0701_000",
+     "at": 33,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_01A8"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_TEMP_x4001 == 0"
+    }
+   ]
+  },
+  {
+   "id": "event-burned-tower",
+   "kind": "event",
+   "map": 217,
+   "map_symbol": "MAP_BURNED_TOWER_B1F",
+   "tag": "D18R0102",
+   "hide_flag": null,
+   "header": "scr_seq_0285_D18R0102_hdr.s",
+   "script": "scr_seq_0024_D18R0102.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D18R0102_002 + 1",
+     "at": "scr_seq_0285_D18R0102_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-sprout-tower",
+   "kind": "event",
+   "map": 156,
+   "map_symbol": "MAP_SPROUT_TOWER_3F",
+   "tag": "D15R0103",
+   "hide_flag": null,
+   "header": "scr_seq_0279_D15R0103_hdr.s",
+   "script": "scr_seq_0018_D15R0103.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D15R0103_000 + 1",
+     "at": "scr_seq_0279_D15R0103_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-slowpoke-well",
+   "kind": "event",
+   "map": 181,
+   "map_symbol": "MAP_SLOWPOKE_WELL_B2F",
+   "tag": "D26R0103",
+   "hide_flag": null,
+   "header": "scr_seq_0322_D26R0103_hdr.s",
+   "script": "scr_seq_0061_D26R0103.s",
+   "entries": [],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-victory-road-rival",
+   "kind": "event",
+   "map": 300,
+   "map_symbol": "MAP_POKEMON_LEAGUE_ENTRANCE",
+   "tag": "T10R0101",
+   "hide_flag": null,
+   "header": "scr_seq_0592_T10R0101_hdr.s",
+   "script": "scr_seq_0819_T10R0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T10R0101_005 + 1",
+     "at": "scr_seq_0592_T10R0101_hdr.s:8"
+    },
+    {
+     "kind": "frame",
+     "target": "std_union_room_return",
+     "at": "scr_seq_0592_T10R0101_hdr.s:14",
+     "when": "VAR_UNK_4133 == 2"
+    },
+    {
+     "kind": "frame",
+     "target": "std_wireless_colosseum_return",
+     "at": "scr_seq_0592_T10R0101_hdr.s:15",
+     "when": "VAR_UNK_4133 == 1"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-starter",
+   "kind": "event",
+   "map": 61,
+   "map_symbol": "MAP_NEW_BARK_ELMS_LAB_1F",
+   "tag": "T20R0101",
+   "hide_flag": null,
+   "header": "scr_seq_0616_T20R0101_hdr.s",
+   "script": "scr_seq_0843_T20R0101.s",
+   "entries": [
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T20R0101_015 + 1",
+     "at": "scr_seq_0616_T20R0101_hdr.s:13",
+     "when": "VAR_UNK_40FC == 2"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T20R0101_002 + 1",
+     "at": "scr_seq_0616_T20R0101_hdr.s:14",
+     "when": "VAR_SCENE_ELMS_LAB == 3"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T20R0101_014 + 1",
+     "at": "scr_seq_0616_T20R0101_hdr.s:15",
+     "when": "VAR_SCENE_ELMS_LAB == 8"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T20R0101_002",
+     "at": 668,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0A68"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_SCENE_ELMS_LAB == 3"
+    },
+    {
+     "label": "scr_seq_T20R0101_014",
+     "at": 899,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0CA4"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_SCENE_ELMS_LAB == 8"
+    },
+    {
+     "label": "_0BF3",
+     "at": 926,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0CB8"
+     ],
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 0",
+      "GoTo _0BF3"
+     ],
+     "entry": "frame",
+     "when": "VAR_SCENE_ELMS_LAB == 8"
+    },
+    {
+     "label": "_0BF3",
+     "at": 938,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0CD4"
+     ],
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 0",
+      "GoTo _0BF3"
+     ],
+     "entry": "frame",
+     "when": "VAR_SCENE_ELMS_LAB == 8"
+    }
+   ]
+  },
+  {
+   "id": "event-mr-pokemon",
+   "kind": "event",
+   "map": 143,
+   "map_symbol": "MAP_ROUTE_30_MR_POKEMON_HOUSE",
+   "tag": "R30R0201",
+   "hide_flag": null,
+   "header": "scr_seq_0474_R30R0201_hdr.s",
+   "script": "scr_seq_0229_R30R0201.s",
+   "entries": [
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_R30R0201_002 + 1",
+     "at": "scr_seq_0474_R30R0201_hdr.s:13",
+     "when": "VAR_SCENE_EMBEDDED_TOWER == 1"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_R30R0201_001 + 1",
+     "at": "scr_seq_0474_R30R0201_hdr.s:14",
+     "when": "VAR_SCENE_MR_POKEMONS_HOUSE == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_R30R0201_002",
+     "at": 178,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0404"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_SCENE_EMBEDDED_TOWER == 1"
+    },
+    {
+     "label": "scr_seq_R30R0201_001",
+     "at": 37,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0404"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_SCENE_MR_POKEMONS_HOUSE == 0"
+    },
+    {
+     "label": "_02E8",
+     "at": 224,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0414"
+     ],
+     "path": [
+      "GoTo _02E8"
+     ],
+     "entry": "frame",
+     "when": "VAR_SCENE_MR_POKEMONS_HOUSE == 0"
+    }
+   ]
+  },
+  {
+   "id": "event-cherrygrove-rival",
+   "kind": "event",
+   "map": 67,
+   "map_symbol": "MAP_CHERRYGROVE",
+   "tag": "T21",
+   "hide_flag": null,
+   "header": "scr_seq_0623_T21_hdr.s",
+   "script": "scr_seq_0850_T21.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T21_010 + 1",
+     "at": "scr_seq_0623_T21_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-ilex-forest",
+   "kind": "event",
+   "map": 117,
+   "map_symbol": "MAP_ILEX_FOREST",
+   "tag": "D36R0101",
+   "hide_flag": null,
+   "header": "scr_seq_0353_D36R0101_hdr.s",
+   "script": "scr_seq_0092_D36R0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D36R0101_000 + 1",
+     "at": "scr_seq_0353_D36R0101_hdr.s:8"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_D36R0101_022 + 1",
+     "at": "scr_seq_0353_D36R0101_hdr.s:14",
+     "when": "VAR_UNK_40FE == 4"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_D36R0101_022",
+     "at": 2454,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_21F4"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_40FE == 4"
+    }
+   ]
+  },
+  {
+   "id": "event-sudowoodo",
+   "kind": "event",
+   "map": 40,
+   "map_symbol": "MAP_ROUTE_36",
+   "tag": "R36",
+   "hide_flag": null,
+   "header": "scr_seq_0488_R36_hdr.s",
+   "script": "scr_seq_0243_R36.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_R36_010 + 1",
+     "at": "scr_seq_0488_R36_hdr.s:8"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_R36_002 + 1",
+     "at": "scr_seq_0488_R36_hdr.s:9"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-kimono-dance",
+   "kind": "event",
+   "map": 86,
+   "map_symbol": "MAP_ECRUTEAK_DANCE_THEATER",
+   "tag": "T27R0501",
+   "hide_flag": null,
+   "header": "scr_seq_0701_T27R0501_hdr.s",
+   "script": "scr_seq_0928_T27R0501.s",
+   "entries": [
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T27R0501_015 + 1",
+     "at": "scr_seq_0701_T27R0501_hdr.s:13",
+     "when": "VAR_UNK_410C == 0"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T27R0501_016 + 1",
+     "at": "scr_seq_0701_T27R0501_hdr.s:14",
+     "when": "VAR_UNK_410C == 4"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T27R0501_016",
+     "at": 721,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0BF4"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_410C == 4"
+    }
+   ]
+  },
+  {
+   "id": "event-rocket-hq",
+   "kind": "event",
+   "map": 247,
+   "map_symbol": "MAP_TEAM_ROCKET_HEADQUARTERS_B1F",
+   "tag": "D35R0102",
+   "hide_flag": null,
+   "header": "scr_seq_0350_D35R0102_hdr.s",
+   "script": "scr_seq_0089_D35R0102.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D35R0102_031 + 1",
+     "at": "scr_seq_0350_D35R0102_hdr.s:9"
+    },
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_D35R0102_032 + 1",
+     "at": "scr_seq_0350_D35R0102_hdr.s:10"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-lake-of-rage",
+   "kind": "event",
+   "map": 88,
+   "map_symbol": "MAP_LAKE_OF_RAGE",
+   "tag": "T29",
+   "hide_flag": null,
+   "header": "scr_seq_0711_T29_hdr.s",
+   "script": "scr_seq_0938_T29.s",
+   "entries": [
+    {
+     "kind": "onload",
+     "target": "_EV_scr_seq_T29_002 + 1",
+     "at": "scr_seq_0711_T29_hdr.s:8"
+    },
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T29_000 + 1",
+     "at": "scr_seq_0711_T29_hdr.s:9"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-radio-tower",
+   "kind": "event",
+   "map": 112,
+   "map_symbol": "MAP_GOLDENROD_RADIO_TOWER_1F",
+   "tag": "D23R0101",
+   "hide_flag": null,
+   "header": "scr_seq_0290_D23R0101_hdr.s",
+   "script": "scr_seq_0029_D23R0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D23R0101_008 + 1",
+     "at": "scr_seq_0290_D23R0101_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-ice-path",
+   "kind": "event",
+   "map": 120,
+   "map_symbol": "MAP_ICE_PATH_1F",
+   "tag": "D39R0101",
+   "hide_flag": null,
+   "header": "scr_seq_0360_D39R0101_hdr.s",
+   "script": "scr_seq_0099_D39R0101.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D39R0101_001 + 1",
+     "at": "scr_seq_0360_D39R0101_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-olivine-lighthouse",
+   "kind": "event",
+   "map": 225,
+   "map_symbol": "MAP_OLIVINE_LIGHTHOUSE_LIGHT_ROOM",
+   "tag": "D27R0107",
+   "hide_flag": null,
+   "header": "scr_seq_0327_D27R0107_hdr.s",
+   "script": "scr_seq_0066_D27R0107.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D27R0107_003 + 1",
+     "at": "scr_seq_0327_D27R0107_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-mt-silver",
+   "kind": "event",
+   "map": 32,
+   "map_symbol": "MAP_ROUTE_28",
+   "tag": "R28",
+   "hide_flag": null,
+   "header": "scr_seq_0468_R28_hdr.s",
+   "script": "scr_seq_0223_R28.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_R28_000 + 1",
+     "at": "scr_seq_0468_R28_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  }
+ ]
+}

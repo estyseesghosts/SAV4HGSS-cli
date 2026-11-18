@@ -185,6 +185,34 @@ Articuno, Zapdos, Moltres, Mewtwo, Suicune, Latios, Latias, Kyogre, Groudon,
 Rayquaza and Red (Red is the trainer fight, not a legendary, and has its own
 bullet above). The nine story-battle scenes still have boot rows only.
 
+### Story-battle scenes: two fought, seven still boot-only
+
+The nine story battles added in `2ac4acd` had boot rows only. Two now have
+fight evidence:
+
+- **Mt. Moon rival** (`event-rival-mount-moon`, free spawn (10,5) on map 107):
+  the encounter is a coord event, so it fires on arrival without an input -
+  the first frame after Continue reads `Barry: Hey, Ash! You're here in
+  Kanto, too?`. Six A presses reach the `VS Barry` screen (frame 6070), and
+  frame 6370 is `You are challenged by Rival Barry!` with six enemy balls;
+  frame 6590 is `Rival Barry sent out SNESEL!`.
+- **Kimono battles** (`event-kimono-battles`, base spawn (7,17) on map 86, not
+  a free spawn): the free spawn at (2,7) put the camera off the room's loaded
+  area and the 3D layer came up blank, so the save was rebuilt at its own warp
+  tile and the player walked north onto the stage. A gives `Welcome. My name
+  is Zuki.`, the speech runs, and frame 7696 is `UMBREON Lv38` against
+  `Go! CYNDAQUIL!` - the first of the five.
+
+- **Burned Tower rival** (`event-rival-burned-tower`): free spawn at (23,15)
+  puts the player on the floor below the rival; A does nothing because the
+  actor at (23,14) is on the raised level. It needs the walk from the scene's
+  own (22,16) spawn, not a free spawn.
+
+The remaining seven (`rival-azalea`, `rival-goldenrod-tunnel`,
+`rival-victory-road`, `petrel-radio-tower`, `archer-radio-tower`,
+`petrel-rocket-hq`, plus the second through fifth Kimono battles) still have
+boot rows only.
+
 ### The "stuck start menu" was a stale screen capture, not a save problem
 
 The earlier Kyogre attempt concluded the pause menu was open and would not

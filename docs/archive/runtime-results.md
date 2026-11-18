@@ -213,13 +213,14 @@ The remaining seven (`rival-azalea`, `rival-goldenrod-tunnel`,
 `petrel-rocket-hq`, plus the second through fifth Kimono battles) still have
 boot rows only.
 
-## Gym leaders fought from composed saves (Johto 1-4 and 6-8, 2026-11-18)
+## Gym leaders fought from composed saves (15 of 16, 2026-11-18)
 
-Four of the sixteen leaders have a real battle started from the composed save,
+Fifteen of the sixteen leaders have a real battle started from the composed save,
 not a boot-only row. Each save is `gym-0N-*-before` from
 `registry/hgss-us.scenes.json`, composed by `tools/make_scenes.py`, and each
 keeps the leader's own `FLAG_HIDE_*` cleared so the actor exists. A fight
-counts only when the leader's name and a party are on screen.
+counts only when the leader's name or party is on screen. Chuck is the
+exception and is covered below.
 
 | Scene | Map | Spawn | Proof |
 | --- | --- | --- | --- |
@@ -230,6 +231,14 @@ counts only when the leader's name and a party are on screen.
 | `gym-06-mineral-before` | 138 | free spawn (6,6) | frame 7298 `Leader Jasmine sent out MAGNEMITE!`, frame 7758 `Go! CYNDAQUIL!` (MAGNEMITE Lv30) |
 | `gym-07-glacier-before` | 140 | free spawn (7,5) | frame 7352 `Leader Pryce sent out SEEL!`, frame 7582 SEEL Lv30 vs CYNDAQUIL |
 | `gym-08-rising-before` | 141 | free spawn (12,4) | frame 7352 `Leader Clair sent out GYARADOS!`, frame 7582 GYARADOS Lv38 vs CYNDAQUIL |
+| `gym-09-boulder-before` | 473 | free spawn (7,5) | frame 7372 `Leader Brock sent out GRAVELER!`, frame 7622 GRAVELER Lv51 |
+| `gym-10-cascade-before` | 427 | free spawn (10,2) | frame 6912 `You are challenged by Leader Misty!`, frame 7372 GOLDUCK Lv49 |
+| `gym-11-thunder-before` | 365 | free spawn (6,5) | frame 6912 Surge's battle pose, frame 7372 RAICHU Lv51 |
+| `gym-12-rainbow-before` | 395 | free spawn (7,4) | frame 8422 JUMPLUFF Lv51, frame 8882 move prompt |
+| `gym-13-soul-before` | 480 | free spawn (7,17) | frame 7332 CROBAT Lv47, frame 7792 `The foe's CROBAT used Wing Attack!` |
+| `gym-14-marsh-before` | 410 | free spawn (15,14) | frame 7332 `You are challenged by Leader Sabrina!`, frame 7792 ESPEON Lv53 |
+| `gym-15-volcano-before` | 457 | free spawn (13,13) | frame 7332 `You are challenged by Leader Blaine!`, frame 7792 MAGCARGO Lv54 |
+| `gym-16-earth-before` | 496 | free spawn (5,5) | frame 7792 `You are challenged by Leader Blue!`, frame 8062 EXEGGUTOR Lv55 |
 
 None of the three needed a gate fix. Jasmine's script `000` gates only on `BADGE_MINERAL`, and her
 OnTransition script (`scr_seq_0913_T26GYM0101.s:22-32`) only hides her when

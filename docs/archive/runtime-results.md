@@ -213,7 +213,7 @@ The remaining seven (`rival-azalea`, `rival-goldenrod-tunnel`,
 `petrel-rocket-hq`, plus the second through fifth Kimono battles) still have
 boot rows only.
 
-## Gym leaders fought from composed saves (Johto 1-4, 2026-11-18)
+## Gym leaders fought from composed saves (Johto 1-4 and 6-8, 2026-11-18)
 
 Four of the sixteen leaders have a real battle started from the composed save,
 not a boot-only row. Each save is `gym-0N-*-before` from
@@ -227,6 +227,19 @@ counts only when the leader's name and a party are on screen.
 | `gym-02-hive-before` | 180 | free spawn (9,6) | frame 6698 `Leader Bugsy sent out SCYTHER!` |
 | `gym-03-plain-before` | 137 | free spawn (13,5) | frame 6698 `You are challenged by Leader Whitney!` |
 | `gym-04-fog-before` | 80 | free spawn (10,9) | frame 7782 `GASTLY Lv21` |
+| `gym-06-mineral-before` | 138 | free spawn (6,6) | frame 7298 `Leader Jasmine sent out MAGNEMITE!`, frame 7758 `Go! CYNDAQUIL!` (MAGNEMITE Lv30) |
+| `gym-07-glacier-before` | 140 | free spawn (7,5) | frame 7352 `Leader Pryce sent out SEEL!`, frame 7582 SEEL Lv30 vs CYNDAQUIL |
+| `gym-08-rising-before` | 141 | free spawn (12,4) | frame 7352 `Leader Clair sent out GYARADOS!`, frame 7582 GYARADOS Lv38 vs CYNDAQUIL |
+
+None of the three needed a gate fix. Jasmine's script `000` gates only on `BADGE_MINERAL`, and her
+OnTransition script (`scr_seq_0913_T26GYM0101.s:22-32`) only hides her when
+`GetPhoneBookRematch PHONE_CONTACT_JASMINE` is non-zero, which a mid-story save does not set.
+Pryce's gates only on `BADGE_GLACIER` (`scr_seq_0932_T28GYM0101.s`, `_000`). Clair checks
+`FLAG_UNK_0EA` and `FLAG_UNK_0D1` (`scr_seq_0943_T30GYM0101.s`, `_000`); `0xD1` is set by her own
+victory branch, so it is clear in a before-save. The ice puzzle and the Blackthorn walkway are
+walkability problems, not script gates, so a free spawn on the leader's platform skips them
+without producing an impossible state: the player standing next to the leader with the badge
+unearned is exactly what the walk produces.
 
 `gym-04-fog-before` is the first scene that cannot reuse the previous badge
 preset. Burned Tower is mandatory between badges 3 and 4 and is not a badge, so

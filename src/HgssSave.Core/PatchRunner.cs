@@ -157,8 +157,9 @@ public static class PatchRunner
                 session.SetLocation(location.Map, location.X, location.Y, location.Z);
                 break;
             case LocationWarpOperation warp:
-                // x/y are informational: the game overwrites them from the warp event at load
-                // (field_warp_tasks.c sub_02052F94); the runtime probe passed with x/y = 0 (docs/archive/state-log.md F5).
+                // For a real warp event the game overwrites x/y at load (field_warp_tasks.c sub_02052F94:206-209),
+                // so the table's tile is informational there. With warpId -1 that branch is skipped and the stored
+                // x/y are the spawn tile, which is the free-spawn path.
                 session.SetDynamicWarpSpawn(warp.Map, warp.Warp, warp.X ?? 0, warp.Y ?? 0, warp.Direction);
                 break;
             case DexSetOperation dex:
@@ -250,9 +251,12 @@ public static class PatchRunner
             {
                 var dynamicWarp = session.DynamicWarp;
                 session.TryGetFlag(0x966, out var continueFlag);
-                return continueFlag
-                    ? $"{dynamicWarp.MapId},{dynamicWarp.WarpId},{dynamicWarp.Direction}"
-                    : $"{dynamicWarp.MapId},{dynamicWarp.WarpId},{dynamicWarp.Direction},continue-flag-clear";
+                // With a real warp the game replaces x/y from the warp event at load, so only the warp id
+                // is meaningful. With warp id -1 the coordinates are the spawn tile and are asserted.
+                var state = dynamicWarp.WarpId == -1
+                    ? $"{dynamicWarp.MapId},-1,{dynamicWarp.X},{dynamicWarp.Y},{dynamicWarp.Direction}"
+                    : $"{dynamicWarp.MapId},{dynamicWarp.WarpId},{dynamicWarp.Direction}";
+                return continueFlag ? state : state + ",continue-flag-clear";
             }
             case DexSetOperation dex:
             {

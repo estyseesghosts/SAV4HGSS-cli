@@ -173,6 +173,27 @@ What fails: the walk stops at Route 30 north (556,288-289) and again at Route 31
 
 F15 follow-up. Bit 15 as "blocked" is supported by the saves: of the 26 distinct played positions, 16 are on overworld tiles with bit 15 clear, 7 are interior-map coordinates with no overworld tile, and 3 are on bit-15 tiles (entrances) (Blackthorn 676,177 and 669,180; Ruins of Alph 441,287). The failure is connectivity: with doors, ledges and water all treated as free, the 503,808 tiles split into 521 components of at most 8,290 tiles, and Cherrygrove/New Bark (one component) is separate from Violet, Azalea, Goldenrod, Ecruteak and Cianwood. The Route 30 corridor (550-552, 288-289) dead-ends against a 4x4 block of `0x8006` tiles (550-553, 284-287) although the zone event for Route 30 and 31 lists no object or warp there, so the join between the Route 30 and Route 31 blocks is not in the tile attributes as read. An emulator walk from the HG Cherrygrove save did not help: the player did not move under a held UP because an NPC stands on the tile north of the start (live structs show an NPC at 564,391). Open: find how the game joins blocks (candidates: runtime matrix edits by scripts, the object/model sections of the land-data member, or a loader detail not in `src/map_matrix.c`), then rerun the 26-position check.
 
+F15 follow-up 2 (2026-11-18). A path planner, `tools/tile_path.py`, was written on the same bit-15
+rule and then tested against six metatile behaviours read from the running game with a breakpoint on
+`Field_PlayerCanSurfOnTile` (`0x021F20C0`) in Whirl Islands B3F (map 244). Facing tile -> game
+behaviour -> land-data low byte with model 567 above y=32 and 667 below:
+
+| tile | game | model |
+|---|---|---|
+| (16,22) | 0x15 | 0x15 |
+| (16,24) | 0x00 | 0x15 |
+| (16,31) | 0x00 | 0x15 |
+| (16,33) | 0x08 | 0x08 |
+| (18,31) | 0x08 | 0x15 |
+| (20,31) | 0x00 | 0x15 |
+
+Four of six disagree, and swapping the two blocks makes the other four disagree, so the matrix block
+mapping or the attribute row origin is wrong for this map - the same calibration gap as above, not a
+one-tile error. The planner also treated surfable water as walkable by default, which on its own
+made the Lugia route bogus. It was deleted rather than shipped: a planner built on the uncalibrated
+model produces confident wrong paths, and `location.warp MAP -1 --x X --y Y` (F19) reaches any tile
+without needing one. The six-point table is the calibration fixture for whoever picks this up.
+
 ## F16. Scenes: a composed save per story point
 
 2026-11-18. The scene layer turns "any point in the story" into a named, auditable object.
@@ -346,6 +367,38 @@ HM08, and Oak's lab still on the pre-unlock branch. Both scenes now write the wh
 audit the flags, the three variables and the item (`tools/make_scenes.py`,
 `MT_SILVER_UNLOCK_EXTRAS`). Badge gating is transitive: Blue is the sixteenth leader, so the
 badge state cannot be separated from the chain.
+
+## F19. The dynamic warp can spawn on any tile, and F5's "warp tile only" limit was wrong
+
+2026-11-18. F5 shipped `location warp` with the note that the player must arrive on a warp event's
+tile. That is only true while `warpId != -1`. `sub_02052F94` replaces the Location's x/y from the
+warp event only inside that branch (`src/field_warp_tasks.c:206-209`); with `warpId == -1` the
+stored coordinates survive. The game does exactly this for the Union Room exit
+(`_SetDynamicWarpToUnionRoomExit`, `:380-382`), so a free spawn is a supported state rather than a
+patched-in hack.
+
+Shipped as `location.warp MAP -1 --x X --y Y` (recipe: `{"op":"location.warp","map":M,"warp":-1,
+"x":X,"y":Y}`), with the map id required to resolve, a planner note that the tile is unchecked and
+that `Field_InitMapEvents` still runs (`:205`), and a postcondition that asserts the coordinates
+when `warpId == -1`. Verified in-game on seven maps (Suicune, Articuno, Zapdos, Moltres, Mewtwo,
+Latios, Latias; `docs/archive/runtime-results.md`). This replaces `location.set` as the answer to
+"any tile": `location.set` writes the PKHeX Location block, which Continue ignores when flag `0x966`
+is set.
+
+## F20. Latios and Latias are gated on a Mystery Gift var, not only on the Enigma Stone
+
+2026-11-18. The Pewter actor was visible with the hide flag cleared and the Enigma Stone in the bag,
+but `A` produced nothing. `scr_seq_T03_010` starts with `ScrCmd_546 0, VAR_TEMP_x4000` and jumps to
+`_0649` (release, end) when the result is 0 (`scr_seq_0750_T03.s:360-362`), before any message.
+`ScrCmd_546` calls `sub_02066BC0`, which returns `VAR_UNK_4043 == _020FE4A4[0]`
+(`src/sys_vars.c:117-121`), and `_020FE4A4[0]` is `0x06F2` (`:10-13`). The only writer is the
+Enigma Stone branch of the Mystery Gift item handler (`src/scrcmd_mystery_gift.c:346-349`).
+
+So the legitimate state has both the stone and `VAR_UNK_4043 = 1778`; a save with only the item is a
+state the game never produces, and the script stays silent by design. Both legendary scenes now write
+the var (`tools/make_scenes.py`) and fight in-game. The same shape probably guards other Mystery
+Gift unlocks; `_020FE4A8` (`0x6208, 0xF229, 0x0382, 0x1228`) is the roamer-status equivalent
+(`sub_02066C00/74`) and is worth checking before trusting a hand-set roamer var.
 
 ## Open work from this log
 

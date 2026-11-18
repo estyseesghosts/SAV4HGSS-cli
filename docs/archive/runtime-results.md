@@ -130,6 +130,61 @@ writes is the save that boots.
   `scr_seq_0134_D52R0102.s:35-38` / `scr_seq_0133_D52R0101.s:35-38`) come from
   the scene's own inventory writes, not from a fixture.
 
+### Free-spawn runs: every legendary fought (2026-11-18, later session)
+
+`location.warp` with `warp: -1` writes a dynamic warp whose coordinates the
+game keeps, because `src/field_warp_tasks.c:206-209` only replaces x/y when
+`warpId != -1`; the game itself uses that path for the Union Room exit
+(`:380-382`). Each save below is `story scene apply`, then a one-op patch
+putting the player one tile south of the actor, then Continue.
+
+- **Lugia** (`legendary-lugia`, plus a Shellder with `MOVE_SURF` imported into
+  party slot 2): booted at the chamber entrance (16,38). The room is a water
+  crossing, so the walk is (16,38) -> (16,23), where the facing metatile
+  behaviour is 0x15 `TILE_BEHAVIOR_WATER_SEA` (`src/metatile_behavior.c:29`).
+  A gives "The water is a deep blue... Would you like to surf on it?", a second
+  A gives `SHELLDER used Surf!`, then Up twice reaches (16,18) below Lugia at
+  (16,17). A gives `LUGIA: Gyaaas!` at frame 9263 and frame 10093 is
+  `LUGIA Lv70` / `Go! CYNDAQUIL!`. The earlier "no Surf prompt" attempts were
+  all at tiles whose facing behaviour is 0 or 8, measured with a breakpoint on
+  `Field_PlayerCanSurfOnTile` (`0x021F20C0`, `asm/overlay_01_021F1AFC.s:763`):
+  0 at (16,32), 8 at (16,34), 8 at (18,32), 0 at (20,32), 0 at (16,25).
+- **Suicune** (`legendary-suicune`): free spawn at (1421,38) on map 29, one
+  tile south of the actor at (1421,37). Continue reads Ash / 0:48 / 16 badges;
+  A gives `SUICUNE Lv40` at frame 5812.
+- **Articuno** (`legendary-articuno`): free spawn at (27,23) on map 456.
+  Frame 6022 is `ARTICUNO Lv50` / `Go! CYNDAQUIL!`.
+- **Zapdos** (`legendary-zapdos`): free spawn at (1419,185) on map 18.
+  Frame 5972 is `ZAPDOS Lv50`.
+- **Moltres** (`legendary-moltres`): free spawn at (10,10) on map 462.
+  Frame 5972 is `MOLTRES Lv50`.
+- **Mewtwo** (`legendary-mewtwo`): free spawn at (56,25) on map 451 in the
+  dark Cerulean Cave room. Frame 6072 is `MEWTWO Lv70`.
+- **Latios** (`legendary-latios`, base `hg-kanto-4`): free spawn at (1039,84)
+  on map 51. A gives `LATIOS: Shuaaaann!`, frame 6102 is `LATIOS ♂Lv40`,
+  frame 6282 `Go! CYNDAQUIL!`.
+- **Latias** (`legendary-latias`, base `ss-kanto-8`): the same tile on
+  `soulsilver.nds` with the SS save (NotKris / 0:50 / 16 badges). A gives
+  `LATIAS: Huaaaaann!`, frame 6202 is `LATIAS ♀Lv40`, frame 6402
+  `Go! TODODILE!`.
+
+Latios and Latias needed a scene fix, not just a spawn. The talk script
+`scr_seq_T03_010` opens with `ScrCmd_546 0, VAR_TEMP_x4000` and returns to
+`_0649` (release and end, no message) when it is zero
+(`scr_seq_0750_T03.s:360-362`). That command is
+`BOOL sub_02066BC0(state, 0)`, which compares `VAR_UNK_4043` against
+`_020FE4A4[0] = 0x06F2` (`src/sys_vars.c:10-13,117-121`); the only writer is
+the Enigma Stone mystery gift (`src/scrcmd_mystery_gift.c:347-348`). The
+scenes already granted `ITEM_ENIGMA_STONE` (536, `include/constants/items.h:957`)
+and set `VAR_UNK_4083 = 3`, which is why the actor was visible but silent;
+adding `VAR_UNK_4043 = 1778` made A start the battle. Both scenes re-boot at
+their warp tile (1048,78) with the var written.
+
+Legendary coverage is now 13/13 fought from composed saves: Ho-Oh, Lugia,
+Articuno, Zapdos, Moltres, Mewtwo, Suicune, Latios, Latias, Kyogre, Groudon,
+Rayquaza and Red (Red is the trainer fight, not a legendary, and has its own
+bullet above). The nine story-battle scenes still have boot rows only.
+
 ### The "stuck start menu" was a stale screen capture, not a save problem
 
 The earlier Kyogre attempt concluded the pause menu was open and would not

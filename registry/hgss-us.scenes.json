@@ -2480,6 +2480,11 @@
      "value": 3
     },
     {
+     "op": "variable.set",
+     "id": 16451,
+     "value": 1778
+    },
+    {
      "op": "location.warp",
      "map": 51,
      "warp": 0
@@ -2501,6 +2506,10 @@
      {
       "name": "VAR_UNK_4083",
       "value": 3
+     },
+     {
+      "name": "VAR_UNK_4043",
+      "value": 1778
      }
     ],
     "items": [
@@ -2521,6 +2530,9 @@
     "zone_event 048_T03.json (static Latios object at 1039,83)",
     "scr_seq_0750_T03.s:238-245 (version 7/HG clears the Latios hide flag)",
     "scr_seq_0750_T03.s:356-379 (the battle species is chosen by version)",
+    "scr_seq_0750_T03.s:360-362 (ScrCmd_546 gate returns to _0649 without a battle)",
+    "src/sys_vars.c:10-13,117-121 (the gate is VAR_UNK_4043 == 0x06F2)",
+    "src/scrcmd_mystery_gift.c:347-348 (the Enigma Stone gift is what writes VAR_UNK_4043)",
     "scr_seq_0750_T03.s:226-232 (the Pewter transition only shows the actor for VAR_UNK_4083 2..4)",
     "fixtures/event-prereqs.json enigma-stone-pewter",
     "registry/hgss-us.warp-spawns.json map 51 MAP_PEWTER warp 0 tile (1048,78)",
@@ -2560,6 +2572,11 @@
      "value": 3
     },
     {
+     "op": "variable.set",
+     "id": 16451,
+     "value": 1778
+    },
+    {
      "op": "location.warp",
      "map": 51,
      "warp": 0
@@ -2581,6 +2598,10 @@
      {
       "name": "VAR_UNK_4083",
       "value": 3
+     },
+     {
+      "name": "VAR_UNK_4043",
+      "value": 1778
      }
     ],
     "items": [
@@ -2601,6 +2622,9 @@
     "zone_event 048_T03.json (static Latias object at 1039,83)",
     "scr_seq_0750_T03.s:238-245 (version 8/SS clears the Latias hide flag)",
     "scr_seq_0750_T03.s:356-379 (the battle species is chosen by version)",
+    "scr_seq_0750_T03.s:360-362 (ScrCmd_546 gate returns to _0649 without a battle)",
+    "src/sys_vars.c:10-13,117-121 (the gate is VAR_UNK_4043 == 0x06F2)",
+    "src/scrcmd_mystery_gift.c:347-348 (the Enigma Stone gift is what writes VAR_UNK_4043)",
     "scr_seq_0750_T03.s:226-232 (the Pewter transition only shows the actor for VAR_UNK_4083 2..4)",
     "fixtures/event-prereqs.json enigma-stone-pewter",
     "registry/hgss-us.warp-spawns.json map 51 MAP_PEWTER warp 0 tile (1048,78)",

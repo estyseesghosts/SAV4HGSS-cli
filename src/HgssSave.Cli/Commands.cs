@@ -1030,13 +1030,16 @@ internal static class Commands
 
     internal static int LocationWarp(string[] args)
     {
-        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save location warp INPUT MAP WARP --out OUT [--direction N] [--warp-spawns PATH]");
+        var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save location warp INPUT MAP WARP --out OUT [--direction N] [--x X --y Y] [--warp-spawns PATH]");
         var map = ParseInt(Args.Positional(args, 1) ?? throw HgssException.BadArguments("args", "location warp requires a map id."), "map");
-        var warp = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "location warp requires a warp index."), "warp");
+        var warp = ParseInt(Args.Positional(args, 2) ?? throw HgssException.BadArguments("args", "location warp requires a warp index, or -1 with --x/--y for a free tile."), "warp");
         var direction = ParseInt(Args.Option(args, "--direction", "1"), "--direction");
         var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "location warp requires --out OUT.");
-        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [new LocationWarpOperation(map, warp, direction)], []);
-        return RunPatch(input, doc, CanonicalPatchJson($"location.warp:{map}:{warp}:{direction}"), output, args);
+        int? x = Args.Option(args, "--x") is { } xText ? ParseInt(xText, "--x") : null;
+        int? y = Args.Option(args, "--y") is { } yText ? ParseInt(yText, "--y") : null;
+        var operation = new LocationWarpOperation(map, warp, direction) { X = x, Y = y };
+        var doc = new PatchDocument(PatchDocument.SchemaId, null, null, null, [operation], []);
+        return RunPatch(input, doc, CanonicalPatchJson($"location.warp:{map}:{warp}:{x}:{y}:{direction}"), output, args);
     }
 
     internal static int DexSet(string[] args)

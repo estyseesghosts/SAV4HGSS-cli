@@ -76,13 +76,18 @@ public sealed record LocationSetOperation(int Map, int X, int Y, int Z) : PatchO
 /// Teleport via the game's own Continue path: sets flag 0x966 and the saved dynamic warp to
 /// {Map, Warp} so Continue spawns on that warp event's tile with freshly initialised actors
 /// (docs/archive/state-log.md F5; field_warp_tasks.c FieldTask_ContinueGame_Normal).
+/// Warp -1 means "no warp event": the stored X/Y are kept verbatim, because
+/// field_warp_tasks.c:206 only overwrites the coordinates when warpId != -1.
 /// </summary>
 public sealed record LocationWarpOperation(int Map, int Warp, int Direction) : PatchOperation
 {
-    /// <summary>Warp tile from the warp table, filled in by the planner (not part of the recipe).</summary>
+    /// <summary>Warp tile from the warp table, or the literal coordinates when Warp is -1.</summary>
     public int? X { get; init; }
 
     public int? Y { get; init; }
+
+    /// <summary>True when Warp is -1: spawn on the given tile instead of a warp event.</summary>
+    public bool IsFreeSpawn => Warp == -1;
 
     public override string OpName => "location.warp";
 }
@@ -292,7 +297,7 @@ public static class PatchParser
             "box.slot.import" => new[] { "op", "box", "slot", "file", "expect_species", "update_dex" },
             "box.slot.clear" => new[] { "op", "box", "slot" },
             "location.set" => new[] { "op", "map", "x", "y", "z" },
-        "location.warp" => new[] { "op", "map", "warp", "direction" },
+        "location.warp" => new[] { "op", "map", "warp", "direction", "x", "y" },
             "dex.set" => new[] { "op", "species", "seen", "caught" },
             _ => throw HgssException.BadArguments("patch-unknown-op", $"Unknown operation '{op}' ({origin}). Supported: flag.set, variable.set, trainer.money.set, trainer.badges.set, inventory.quantity.set, party.slot.import, party.slot.clear, box.slot.import, box.slot.clear, location.set, location.warp, dex.set."),
         };
@@ -390,8 +395,21 @@ public static class PatchParser
             case "location.warp":
             {
                 var map = RequireIntInRange(item, "map", op, origin, 0, 0xFFFF);
-                var warp = RequireIntInRange(item, "warp", op, origin, 0, 0xFF);
+                var warp = RequireIntInRange(item, "warp", op, origin, -1, 0xFF);
                 var direction = item.TryGetProperty("direction", out _) ? RequireIntInRange(item, "direction", op, origin, 0, 3) : 1;
+                if (warp == -1)
+                {
+                    if (!item.TryGetProperty("x", out _) || !item.TryGetProperty("y", out _))
+                        throw HgssException.BadArguments("patch-warp-coords",
+                            $"location.warp with warp -1 (free spawn) needs x and y ({origin}).");
+                    var freeX = RequireIntInRange(item, "x", op, origin, 0, 0xFFFF);
+                    var freeY = RequireIntInRange(item, "y", op, origin, 0, 0xFFFF);
+                    return new LocationWarpOperation(map, -1, direction) { X = freeX, Y = freeY };
+                }
+
+                if (item.TryGetProperty("x", out _) || item.TryGetProperty("y", out _))
+                    throw HgssException.BadArguments("patch-warp-coords",
+                        $"location.warp takes its tile from warp event {warp}; x/y are only accepted with warp -1 ({origin}).");
                 return new LocationWarpOperation(map, warp, direction);
             }
             case "dex.set":

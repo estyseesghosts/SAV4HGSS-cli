@@ -61,6 +61,8 @@ WRITING COMMANDS (all require --out OUT.sav; all accept the common patch options
   location warp INPUT MAP WARP --out OUT [--direction 0..3] [--warp-spawns PATH]
                                                        teleport to warp event WARP of MAP (sets flag 0x966 and the
                                                        saved dynamic warp; Continue then spawns on that warp tile)
+  location warp INPUT MAP -1 --x X --y Y --out OUT     free spawn on any walkable tile: warp id -1 makes the game
+                                                       keep the stored coordinates (field_warp_tasks.c:206)
   party import INPUT SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]
   party clear INPUT SLOT --out OUT
   box import INPUT BOX SLOT FILE.pk4 --out OUT [--expect-species N] [--no-dex]

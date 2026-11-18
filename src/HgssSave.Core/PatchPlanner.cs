@@ -460,6 +460,30 @@ public static class PatchPlanner
                     symbol is null ? [$"map id {location.Map} has no symbol in {registry.Revision}."] : []);
             }
 
+            case LocationWarpOperation { IsFreeSpawn: true } warp:
+            {
+                var symbol = registry.NameFor(SymbolKind.Map, warp.Map);
+                if (symbol is null)
+                    throw HgssException.Unsafe("warp-unverified",
+                        $"Map {warp.Map} has no symbol in {registry.Revision}; a free spawn needs a real map id.");
+                var current = session.DynamicWarp;
+                return new PlannedOperation(
+                    warp,
+                    "location.dynamic_warp",
+                    "location.dynamic_warp",
+                    null,
+                    SymbolResolution.Resolved,
+                    $"{warp.Map},-1,{warp.X},{warp.Y},{warp.Direction}",
+                    $"{current.MapId},{current.WarpId},{current.Direction}",
+                    null,
+                    true,
+                    true,
+                    [
+                        $"Continue will spawn at tile ({warp.X},{warp.Y}) of {symbol} with warp id -1; the game keeps the stored coordinates because field_warp_tasks.c:206 only replaces x/y when warpId != -1.",
+                        "Free spawns are not checked against the warp table; the tile must be walkable, and the map's own init script may still move the player (field_warp_tasks.c:205).",
+                        "Sets flag 0x966 (FLAG_UNK_966); the game clears it on the next Continue.",
+                    ]);
+            }
             case LocationWarpOperation warp:
             {
                 var table = WarpRegistry.LoadDefault(warpSpawnsPath);

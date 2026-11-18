@@ -17,6 +17,15 @@ public sealed class WarpTests
             {"warp_index":2,"x":479,"y":257,"destination_symbol":"MAP_VIOLET_GYM"}]}]}
         """;
 
+    private const string MapRegistryJson = """
+        {"schema":"hgss-save.symbols/v1","registry_id":"test","source":{"project":"test","commit":"c","files":[]},
+        "symbols":[{"name":"MAP_VIOLET","kind":"map","id":73,"hex":"0x49","source":"t","line":1,"writable":false,"aliases":[],"confidence":"t"}],
+        "skipped":[]}
+        """;
+
+    private static SymbolRegistry MapRegistry() =>
+        SymbolRegistry.Parse(Encoding.UTF8.GetBytes(MapRegistryJson), "test");
+
     private static string TableFile()
     {
         var path = Path.Combine(Path.GetTempPath(), $"warp-table-{System.Guid.NewGuid():N}.json");
@@ -40,6 +49,49 @@ public sealed class WarpTests
         Assert.Throws<HgssException>(() => Doc("""{"op":"location.warp","map":73,"warp":2,"direction":4}"""));
         Assert.Throws<HgssException>(() => Doc("""{"op":"location.warp","map":73,"warp":2,"x":1}"""));
         Assert.Throws<HgssException>(() => Doc("""{"op":"location.warp","map":73}"""));
+    }
+
+    [Fact]
+    public void ParserReadsFreeSpawnCoordinates()
+    {
+        var op = Assert.IsType<LocationWarpOperation>(
+            Assert.Single(Doc("""{"op":"location.warp","map":73,"warp":-1,"x":16,"y":22}""").Operations));
+        Assert.True(op.IsFreeSpawn);
+        Assert.Equal((73, -1, 16, 22), (op.Map, op.Warp, op.X ?? -1, op.Y ?? -1));
+    }
+
+    [Fact]
+    public void ParserRejectsFreeSpawnWithoutCoordinates()
+    {
+        Assert.Throws<HgssException>(() => Doc("""{"op":"location.warp","map":73,"warp":-1}"""));
+        Assert.Throws<HgssException>(() => Doc("""{"op":"location.warp","map":73,"warp":-1,"x":16}"""));
+    }
+
+    [Fact]
+    public void FreeSpawnOnUnknownMapIsRefusedAsUnsafe()
+    {
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        var error = Assert.Throws<HgssException>(() => PatchPlanner.Plan(
+            session, Doc("""{"op":"location.warp","map":73,"warp":-1,"x":16,"y":22}"""), SymbolRegistry.Empty, "blank",
+            session.OriginalBytes, [1], false, null, null, null));
+        Assert.Equal(ExitCode.UnsafeOperation, error.ExitCode);
+    }
+
+    [Fact]
+    public void FreeSpawnKeepsItsCoordinatesAndClearsWarpEvent()
+    {
+        using var session = Factory.OpenBytes(SessionTests.BlankHgBytes(), "blank");
+        var plan = PatchPlanner.Plan(
+            session, Doc("""{"op":"location.warp","map":73,"warp":-1,"x":16,"y":22,"direction":0}"""),
+            MapRegistry(), "blank", session.OriginalBytes, [1], false, null, null, null);
+        Assert.True(plan.CanApply, string.Join("; ", plan.PreconditionFailures.Concat(plan.Conflicts)));
+        var result = PatchRunner.Apply(session, plan, Factory);
+
+        Assert.True(result.Validation.Passed);
+        using var reopened = Factory.OpenBytes(result.OutputBytes, "out");
+        // warp id -1 is what makes field_warp_tasks.c:206 skip the warp-event overwrite.
+        Assert.Equal(new DynamicWarpSnapshot(73, -1, 16, 22, 0), reopened.DynamicWarp);
+        Assert.True(reopened.TryGetFlag(0x966, out var after) && after);
     }
 
     [Fact]

@@ -328,7 +328,8 @@ public sealed class HgssSession : ISaveSession
 
     public void SetDynamicWarpSpawn(int mapId, int warpId, int x, int y, int direction)
     {
-        if ((uint)mapId > 0xFFFF || (uint)warpId > 0xFF || (uint)x > 0xFFFF || (uint)y > 0xFFFF || (uint)direction > 3)
+        // warpId -1 means "no warp event": field_warp_tasks.c:206 then keeps the stored x/y as the spawn tile.
+        if ((uint)mapId > 0xFFFF || warpId < -1 || warpId > 0xFF || (uint)x > 0xFFFF || (uint)y > 0xFFFF || (uint)direction > 3)
             throw HgssException.Precondition("warp-range", $"Dynamic warp (map {mapId}, warp {warpId}, {x},{y}, dir {direction}) is out of range.");
         var general = _sav.General;
         var o = DynamicWarpOffset;

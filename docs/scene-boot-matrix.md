@@ -8,8 +8,9 @@ boots the result headless, and requires the live player location to be the scene
 - run `C:\Users\julie\AppData\Local\Temp\opencode\scene-boot2\summary.json`: 68/72 reached their tile, rom(s) `..\heartgold.nds`
 - run `C:\Users\julie\AppData\Local\Temp\opencode\scene-legend\summary.json`: 2/2 reached their tile, rom(s) `soulsilver.nds`
 - run `C:\Users\julie\AppData\Local\Temp\opencode\scene-e4lance2\summary.json`: 1/1 reached their tile, rom(s) `heartgold.nds`
+- run `C:\Users\julie\AppData\Local\Temp\opencode\scene-battles\summary.json`: 10/10 reached their tile, rom(s) `heartgold.nds`
 
-Total rows: 71
+Total rows: 80
 
 Dropped (no longer in the registry): `legendary-rotom`
 
@@ -84,6 +85,7 @@ Dropped (no longer in the registry): `legendary-rotom`
 
 | scene | game | base | map | save tile | asserted tile | result |
 |---|---|---|---|---|---|---|
+| `event-archer-radio-tower` | HG | `hg-06-mineral` | 190 | (8,12) | (8,12) | ok |
 | `event-burned-tower` | HG | `hg-03-plain` | 217 | (23,16) | (23,16) | ok |
 | `event-cherrygrove-rival` | HG | `hg-00-cherrygrove` | 67 | (564,391) | (564,391) | ok |
 | `event-dragons-den-shrine` | HG | `hg-08-rising` | 288 | (6,19) | (6,19) | ok |
@@ -91,12 +93,20 @@ Dropped (no longer in the registry): `legendary-rotom`
 | `event-hall-of-fame` | HG | `hg-champion` | 306 | (6,22) | (6,22) | ok |
 | `event-ice-path` | HG | `hg-07-glacier` | 120 | (11,58) | (11,58) | ok |
 | `event-ilex-forest` | HG | `hg-02-hive` | 117 | (15,80) | (15,80) | ok |
+| `event-kimono-battles` | HG | `hg-08-rising` | 86 | (7,17) | (7,7) | ok |
 | `event-kimono-dance` | HG | `hg-08-rising` | 86 | (7,17) | (7,17) | ok |
 | `event-lake-of-rage` | HG | `hg-06-mineral` | 88 | (497,42) | (497,42) | ok |
 | `event-mr-pokemon` | HG | `hg-00-cherrygrove` | 143 | (4,9) | (4,9) | ok |
 | `event-mt-silver` | HG | `hg-kanto-4` | 32 | (887,266) | (887,266) | ok |
 | `event-olivine-lighthouse` | HG | `hg-05-storm` | 225 | (9,10) | (9,10) | ok |
+| `event-petrel-radio-tower` | HG | `hg-06-mineral` | 189 | (3,5) | (3,5) | ok |
+| `event-petrel-rocket-hq` | HG | `hg-06-mineral` | 249 | (10,10) | (10,10) | ok |
 | `event-radio-tower` | HG | `hg-06-mineral` | 112 | (2,14) | (2,14) | ok |
+| `event-rival-azalea` | HG | `hg-02-hive` | 74 | (392,462) | (392,462) | ok |
+| `event-rival-burned-tower` | HG | `hg-03-plain` | 7 | (22,16) | (22,16) | ok |
+| `event-rival-goldenrod-tunnel` | HG | `hg-06-mineral` | 201 | (27,4) | (27,4) | ok |
+| `event-rival-mount-moon` | HG | `hg-kanto-4` | 107 | (4,4) | (5,4) | ok |
+| `event-rival-victory-road` | HG | `hg-08-rising` | 179 | (38,14) | (38,14) | ok |
 | `event-rocket-hq` | HG | `hg-06-mineral` | 247 | (51,4) | (51,4) | ok |
 | `event-slowpoke-well` | HG | `hg-01-zephyr` | 181 | (13,20) | (13,20) | ok |
 | `event-sprout-tower` | HG | `hg-00-cherrygrove` | 156 | (15,27) | (15,27) | ok |

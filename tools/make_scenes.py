@@ -200,8 +200,11 @@ MILESTONES = [
      "MAP_POKEMON_LEAGUE_HALL_OF_FAME", [], ["census: Pokemon_HeartGoldposE4 save is on map 306"]),
     ("event-burned-tower", "Burned Tower B1F (the beasts flee)", "hg-03-plain",
      "MAP_BURNED_TOWER_B1F", [], ["fixtures/event-prereqs.json burned-tower-dogs-flee"]),
-    ("event-sprout-tower", "Sprout Tower 3F (Elder)", "hg-00-cherrygrove",
-     "MAP_SPROUT_TOWER_3F", [], ["zone_event 151_D15R0103.json"]),
+    ("event-sprout-tower", "Sprout Tower 3F (Elder Li battle)", "hg-00-cherrygrove",
+     "MAP_SPROUT_TOWER_3F", [("flag", "FLAG_UNK_076", False)],
+     ["zone_event 151_D15R0103.json object SPRITE_CHOUROU at (12,9) with FLAG_NOTHING",
+      "scr_seq_0018_D15R0103.s:111-118 (Elder Li's talk script and TRAINER_ELDER_LI)",
+      "scr_seq_0018_D15R0103.s:124 (the win sets FLAG_UNK_076, which the battle branch tests)"]),
     ("event-slowpoke-well", "Slowpoke Well B2F", "hg-01-zephyr",
      "MAP_SLOWPOKE_WELL_B2F", [], ["zone_event 174_D26R0103.json"]),
     ("event-victory-road-rival", "Indigo Plateau entrance (rival battle)", "hg-e4-gate",
@@ -234,6 +237,185 @@ MILESTONES = [
     ("event-mt-silver", "Route 28 (the road to Mt. Silver)", "hg-kanto-4",
      "MAP_ROUTE_28", MT_SILVER_UNLOCK_EXTRAS,
      ["fixtures/event-prereqs.json kanto-arc (FLAG_UNLOCKED_MT_SILVER at 16 badges)"] + MT_SILVER_UNLOCK_SOURCES),
+]
+
+
+# Rival and executive battles that are not gyms: each is a real map plus the gate the map's own
+# script reads. The gate is a variable or a hide flag, never an invented one:
+#   Burned Tower   005_D18R0101.json coord (22,19) runs scr_seq_D18R0101_003 while VAR_UNK_40A6 == 0;
+#                  the rival object is (23,14) FLAG_HIDE_BURNED_TOWER_1F_RIVAL and the win sets
+#                  that flag plus VAR_UNK_40A6 = 1 (scr_seq_0023_D18R0101.s:53-56).
+#   Azalea         071_T23.json coord (395,462) 1x5 runs scr_seq_T23_002 while VAR_UNK_4075 == 1;
+#                  the win sets VAR_UNK_4075 = 2 (scr_seq_0866_T23.s:125).
+#   Goldenrod Tunnel
+#                  194_D37R0104.json coord (19,5) runs scr_seq_D37R0104_004 while VAR_UNK_40A0 == 0;
+#                  the win sets VAR_UNK_40A0 = 1 (scr_seq_0096_D37R0104.s:444). The battle is
+#                  during the Rocket disguise, which is VAR_SCENE_ROCKET_TAKEOVER = 3
+#                  (scr_seq_0094_D37R0102.s:695).
+#   Victory Road   172_D43R0103.json coord (37,21) 3x1 runs scr_seq_D43R0103_000 while
+#                  VAR_UNK_40C5 == 0; that cutscene clears FLAG_HIDE_VICTORY_ROAD_RIVAL itself
+#                  (:21) and the win sets VAR_UNK_40C5 = 1 (:90).
+#   Mt. Moon       104_D02R0101.json header frame table runs scr_seq_D02R0101_000 while
+#                  VAR_UNK_40F5 == 0; the rival object is (10,4) FLAG_UNK_25C and the win sets
+#                  that flag plus VAR_UNK_40F5 = 1 (scr_seq_0007_D02R0101.s:52-55).
+#   Radio Tower 5F 182_D23R0105.json: the disguised director SPRITE_GSGENTLEMAN (5,13) and
+#                  SPRITE_RKANBUM2 share script _002; the talk branch requires
+#                  VAR_SCENE_ROCKET_TAKEOVER == 4 (scr_seq_0033_D23R0105.s:30-39) and the reveal
+#                  battle is :100-135. Var 4 is written by the tower-entrance rival
+#                  (scr_seq_0029_D23R0101.s:457).
+#   Observation deck
+#                  183_D23R0106.json SPRITE_RKANBUM (8,3) FLAG_HIDE_ROCKET_TAKEOVER_1; the map's
+#                  transition sets both takeover flags and clears them only at
+#                  VAR_SCENE_ROCKET_TAKEOVER == 4 (scr_seq_0034_D23R0106.s:11-20).
+#   Rocket HQ B3F  235_D35R0104.json coord (23,12) 2x1 runs scr_seq_D35R0104_003 while
+#                  VAR_UNK_40AC == 3; the cutscene reveals Petrel and battles at
+#                  scr_seq_0091_D35R0104.s:285. 0 calls Lance (:63), 2 is the post-grunt state
+#                  (:23), 3 is the door checkpoint (:198).
+#   Dance Theater  083_T27R0501.json: the frame table runs scr_seq_T27R0501_016 at
+#                  VAR_UNK_410C == 4 (scr_seq_0701_T27R0501_hdr.s:12-14); that cutscene is the
+#                  five Kimono Girl battles (scr_seq_0928_T27R0501.s:749-797) and hides them at
+#                  the end (:862). 4 is set by the city script (scr_seq_0920_T27.s:121).
+STORY_BATTLES = [
+    {
+        "id": "event-rival-burned-tower",
+        "title": "Burned Tower 1F (rival battle)",
+        "base": "hg-03-plain", "map": "MAP_BURNED_TOWER_1F", "warp": 1,
+        "ops": [("flag", "FLAG_HIDE_BURNED_TOWER_1F_RIVAL", False),
+                ("var", "VAR_UNK_40A6", 0)],
+        "actor": ("SPRITE_GSRIVEL", 23, 14, "FLAG_HIDE_BURNED_TOWER_1F_RIVAL"),
+        "sources": [
+            "scr_seq_0023_D18R0101.s:13-35 (SILVER_8/11/4 by starter choice)",
+            "scr_seq_0023_D18R0101.s:53-56 (the win hides the rival, sets FLAG_HIDE_BURNED_TOWER_1F_RIVAL and VAR_UNK_40A6)",
+            "005_D18R0101.json objects SPRITE_GSRIVEL at (23,14); coord (22,19) while VAR_UNK_40A6 == 0",
+            "scr_seq_0284_D18R0101_hdr.s has no init entries (the object state is the flag alone)",
+        ],
+        "note": "Warp 1 is the arrival from B1F, three tiles north of the coord that starts the battle.",
+    },
+    {
+        "id": "event-rival-azalea",
+        "title": "Azalea Town (rival battle)",
+        "base": "hg-02-hive", "map": "MAP_AZALEA", "warp": 0,
+        "ops": [("var", "VAR_UNK_4075", 1)],
+        "actor": ("SPRITE_GSRIVEL", 384, 448, None),
+        "sources": [
+            "scr_seq_0866_T23.s:54-116 (cutscene and SILVER_7/10/SILVER)",
+            "scr_seq_0866_T23.s:125 (the win sets VAR_UNK_4075 = 2)",
+            "scr_seq_0060_D26R0102.s:88 (Slowpoke Well sets VAR_UNK_4075 = 1, the armed state)",
+            "071_T23.json objects SPRITE_GSRIVEL at (384,448) with FLAG_NOTHING; coord (395,462) 1x5 while VAR_UNK_4075 == 1",
+            "scr_seq_0639_T23_hdr.s:10 (OnTransition scr_seq_T23_004 only clears the civilian flags)",
+        ],
+        "note": "The rival object is always present; the coord column east of the warp tile starts the battle.",
+    },
+    {
+        "id": "event-rival-goldenrod-tunnel",
+        "title": "Goldenrod Tunnel B2F (rival battle)",
+        "base": "hg-06-mineral", "map": "MAP_GOLDENROD_TUNNEL_B2F", "warp": 0,
+        "ops": [("var", "VAR_UNK_40A0", 0), ("var", "VAR_SCENE_ROCKET_TAKEOVER", 3)],
+        "actor": ("SPRITE_GSRIVEL", 29, 29, None),
+        "sources": [
+            "scr_seq_0096_D37R0104.s:405-435 (SILVER_18/12/17)",
+            "scr_seq_0096_D37R0104.s:444 (the win sets VAR_UNK_40A0 = 1)",
+            "194_D37R0104.json objects SPRITE_GSRIVEL at (29,29) with FLAG_NOTHING; coord (19,5) while VAR_UNK_40A0 == 0",
+            "scr_seq_0094_D37R0102.s:695 (the Rocket disguise sets VAR_SCENE_ROCKET_TAKEOVER = 3)",
+        ],
+        "note": "The battle is during the Rocket disguise; the tunnel itself has no badge or story guard.",
+    },
+    {
+        "id": "event-rival-victory-road",
+        "title": "Victory Road 3F (rival battle)",
+        "base": "hg-08-rising", "map": "MAP_VICTORY_ROAD_3F", "warp": 0,
+        "ops": [("var", "VAR_UNK_40C5", 0)],
+        "actor": None,
+        "sources": [
+            "scr_seq_0110_D43R0103.s:16-63 (cutscene and SILVER_9/13/5)",
+            "scr_seq_0110_D43R0103.s:21 (the cutscene clears FLAG_HIDE_VICTORY_ROAD_RIVAL)",
+            "scr_seq_0110_D43R0103.s:90 (the win sets VAR_UNK_40C5 = 1)",
+            "172_D43R0103.json objects SPRITE_GSRIVEL at (33,29) FLAG_HIDE_VICTORY_ROAD_RIVAL; coord (37,21) 3x1 while VAR_UNK_40C5 == 0",
+            "registry/hgss-us.warp-spawns.json map 179 MAP_VICTORY_ROAD_3F",
+        ],
+        "note": "The rival is hidden until the coord cutscene reveals him, which is the game's own order; the save keeps FLAG_HIDE_VICTORY_ROAD_RIVAL set.",
+        "expect_flags_on": ["FLAG_HIDE_VICTORY_ROAD_RIVAL"],
+    },
+    {
+        "id": "event-rival-mount-moon",
+        "title": "Mt. Moon (rival battle)",
+        "base": "hg-kanto-4", "map": "MAP_MOUNT_MOON", "warp": 0, "kanto": 255,
+        "ops": [("flag", "FLAG_UNK_25C", False), ("var", "VAR_UNK_40F5", 0)],
+        "actor": ("SPRITE_GSRIVEL", 10, 4, "FLAG_UNK_25C"),
+        "spawn_after": (5, 4),
+        "spawn_after_sources": [
+            "scr_seq_0007_D02R0101.s:16,70-73 (the cutscene applies _00DC: Delay8 4, WalkNormalEast)"],
+        "sources": [
+            "scr_seq_0007_D02R0101.s:10-38 (SILVER_15/16/14)",
+            "scr_seq_0007_D02R0101.s:50-56 (the win sets FLAG_UNK_25C and VAR_UNK_40F5 = 1)",
+            "scr_seq_0268_D02R0101_hdr.s:10-12 (OnFrameTable runs scr_seq_D02R0101_000 while VAR_UNK_40F5 == 0)",
+            "104_D02R0101.json objects SPRITE_GSRIVEL at (10,4) FLAG_UNK_25C",
+        ],
+        "note": "The frame table starts the cutscene on load; 16 badges is the story state for the Kanto rival, composed from hg-kanto-4 like the Kanto legendaries.",
+    },
+    {
+        "id": "event-petrel-radio-tower",
+        "title": "Radio Tower 5F (Petrel reveal)",
+        "base": "hg-06-mineral", "map": "MAP_GOLDENROD_RADIO_TOWER_5F", "warp": 0,
+        "ops": [("var", "VAR_SCENE_ROCKET_TAKEOVER", 4)],
+        "actor": ("SPRITE_GSGENTLEMAN", 5, 13, "FLAG_HIDE_RADIO_TOWER_5F_OFFICE_DIRECTOR"),
+        "sources": [
+            "scr_seq_0033_D23R0105.s:30-39 (the talk branch requires VAR_SCENE_ROCKET_TAKEOVER == 4)",
+            "scr_seq_0033_D23R0105.s:100-135 (hides the director, shows Petrel, battles, gives ITEM_BASEMENT_KEY)",
+            "182_D23R0105.json SPRITE_GSGENTLEMAN and SPRITE_RKANBUM2 both at (5,13) with script _002; the director's flag is the visible one",
+            "scr_seq_0029_D23R0101.s:457 (the tower-entrance rival sets VAR_SCENE_ROCKET_TAKEOVER = 4)",
+        ],
+        "note": "Talk to the director on the warp-0 side of the room; the reveal is the first talk after var 4.",
+    },
+    {
+        "id": "event-archer-radio-tower",
+        "title": "Radio Tower observation deck (Archer)",
+        "base": "hg-06-mineral", "map": "MAP_GOLDENROD_RADIO_TOWER_OBSERVATION_DECK", "warp": 0,
+        "ops": [("var", "VAR_SCENE_ROCKET_TAKEOVER", 4),
+                ("flag", "FLAG_HIDE_ROCKET_TAKEOVER_1", False)],
+        "actor": ("SPRITE_RKANBUM", 8, 3, "FLAG_HIDE_ROCKET_TAKEOVER_1"),
+        "sources": [
+            "scr_seq_0034_D23R0106.s:11-20 (the transition sets both takeover flags, then clears them only at VAR_SCENE_ROCKET_TAKEOVER == 4)",
+            "scr_seq_0034_D23R0106.s:22-28 (the talk script is the Archer battle)",
+            "183_D23R0106.json SPRITE_RKANBUM at (8,3) FLAG_HIDE_ROCKET_TAKEOVER_1",
+        ],
+        "note": "The save writes the same two pieces the transition writes at var 4; the boot check also sees the gate fire.",
+    },
+    {
+        "id": "event-petrel-rocket-hq",
+        "title": "Rocket HQ B3F (Petrel and Giovanni)",
+        "base": "hg-06-mineral", "map": "MAP_TEAM_ROCKET_HEADQUARTERS_B3F", "warp": 1,
+        "ops": [("var", "VAR_UNK_40AC", 3)],
+        "actor": None,
+        "sources": [
+            "scr_seq_0091_D35R0104.s:18-25 (the transition steps 0/1 to 2 once the two grunts are beaten)",
+            "scr_seq_0091_D35R0104.s:198 (VAR_UNK_40AC = 3 at the door checkpoint)",
+            "scr_seq_0091_D35R0104.s:246-285 (coord cutscene: Giovanni moves, Petrel is revealed, PETREL_2 battles at 285)",
+            "235_D35R0104.json coords (23,12) 2x1 while VAR_UNK_40AC == 3; SPRITE_RKANBUM2 at (21,7) FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL",
+        ],
+        "note": "Petrel stays hidden until the cutscene shows him; the save carries the checkpoint variable and warps to the nearer arrival (warp 1).",
+        "expect_flags_on": ["FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL"],
+    },
+    {
+        "id": "event-kimono-battles",
+        "title": "Ecruteak Dance Theater (five Kimono Girl battles)",
+        "base": "hg-08-rising", "map": "MAP_ECRUTEAK_DANCE_THEATER", "warp": 0,
+        "ops": [("var", "VAR_UNK_410C", 4),
+                ("flag", "FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS", False),
+                ("flag", "FLAG_UNK_23B", False)],
+        "actor": ("SPRITE_DANCER", 2, 6, "FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS"),
+        "spawn_after": (7, 7),
+        "spawn_after_sources": [
+            "scr_seq_0928_T27R0501.s:721,911-917 (the cutscene applies _0BF4: north 5, west 4, north 5, east 4)"],
+        "sources": [
+            "scr_seq_0701_T27R0501_hdr.s:12-14 (OnFrameTable: VAR_UNK_410C == 4 runs scr_seq_T27R0501_016)",
+            "scr_seq_0928_T27R0501.s:713-797 (the cutscene and ZUKI/NAOKO/MIKI/SAYO/KUNI)",
+            "scr_seq_0928_T27R0501.s:862-865 (the end hides the dancers and moves VAR_UNK_410C to 6)",
+            "scr_seq_0920_T27.s:121 (VAR_UNK_410C = 4 is the city's post-dance state)",
+            "083_T27R0501.json five SPRITE_DANCER objects on FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS and one on FLAG_UNK_23B",
+        ],
+        "note": "The five battles are one scripted sequence; setting 410C = 4 makes the map run it on load, with the girls visible.",
+    },
 ]
 
 
@@ -279,6 +461,14 @@ class Registry:
 
 def zone_objects(zone_file: str):
     return json.load(open(ZONE / zone_file, encoding="utf-8")).get("objects", [])
+
+
+def warp_arrival(map_entry, index: int) -> tuple[int, int, int]:
+    """The arrival tile of one specific warp event (some scenes need an interior arrival)."""
+    for a in map_entry.get("warp_arrivals") or []:
+        if a["warp_index"] == index:
+            return a["warp_index"], a["x"], a["y"]
+    raise SystemExit(f"{map_entry['map_symbol']} has no warp {index} arrival")
 
 
 def warp_tile(map_entry) -> tuple[int, int, int]:
@@ -544,6 +734,74 @@ def make_e4_scenes(reg: Registry) -> list[dict]:
     return scenes
 
 
+def make_story_battle_scenes(reg: Registry) -> list[dict]:
+    """Rival/executive battles: base preset, the map's own gate, its warp, and the actor."""
+    scenes = []
+    for spec in STORY_BATTLES:
+        sid = spec["id"]
+        m = reg.by_symbol.get(spec["map"])
+        if m is None:
+            raise SystemExit(f"{sid}: no map {spec['map']}")
+        warp, wx, wy = warp_arrival(m, spec["warp"])
+        preset = next((p for p in reg.presets if p["name"] == spec["base"]), None)
+        if preset is None:
+            raise SystemExit(f"{sid}: no preset {spec['base']}")
+        kanto = spec.get("kanto")
+        johto = 255 if kanto is not None else preset["badges_johto"]
+        kanto = preset["badges_kanto"] if kanto is None else kanto
+        ops: list[dict] = []
+        on, off = [], []
+        want_vars, want_items = [], []
+        for kind, name, value in spec["ops"]:
+            if kind == "flag":
+                ops.append({"op": "flag.set", "id": reg.fid(name), "value": value})
+                (on if value else off).append(name)
+            elif kind == "var":
+                ops.append({"op": "variable.set", "id": reg.vid(name), "value": value})
+                want_vars.append({"name": name, "value": value})
+            elif kind == "item":
+                ops.append({"op": "inventory.quantity.set", "item": reg.iid(name), "quantity": value})
+                want_items.append({"name": name, "quantity": value})
+            else:
+                raise SystemExit(f"{sid}: unknown op kind {kind}")
+        on += spec.get("expect_flags_on", [])
+        ops.append({"op": "location.warp", "map": m["map_id"], "warp": warp})
+        expect = {"map": m["map_id"], "warp": warp, "x": wx, "y": wy,
+                  "badges_johto": johto, "badges_kanto": kanto,
+                  "flags_on": on, "flags_off": off}
+        if want_vars:
+            expect["vars"] = want_vars
+        if want_items:
+            expect["items"] = want_items
+        after = spec.get("spawn_after")
+        if after:
+            expect["spawn_after"] = {"x": after[0], "y": after[1]}
+        actor = None
+        if spec["actor"]:
+            sprite, ax, az, hide = spec["actor"]
+            objs = [o for o in zone_objects(m["zone_event_file"])
+                    if o.get("spriteId") == sprite and o["x"] == ax and o["z"] == az]
+            if not objs:
+                raise SystemExit(f"{sid}: no {sprite} object at ({ax},{az}) in {m['zone_event_file']}")
+            actor = {"sprite": sprite, "x": ax, "z": az, "script": objs[0].get("scriptId"),
+                     "hide_flag": hide}
+        scenes.append({
+            "id": sid,
+            "title": spec["title"],
+            "kind": "event",
+            "game": GAME,
+            "base_preset": spec["base"],
+            "badges": {"johto": johto, "kanto": kanto},
+            "ops": ops,
+            "expect": expect,
+            "actor": actor,
+            "sources": spec["sources"] + spec.get("spawn_after_sources", []) + [
+                f"registry/hgss-us.warp-spawns.json map {m['map_id']} {spec['map']} warp {warp} tile ({wx},{wy})"],
+            "note": spec["note"],
+        })
+    return scenes
+
+
 def mt_silver_unlock_ops(reg: Registry):
     """Ops + expectations for the full Mt. Silver / Red unlock state (see MT_SILVER_UNLOCK_EXTRAS)."""
     ops: list[dict] = []
@@ -607,6 +865,7 @@ def main() -> int:
     scenes += make_legendary_scenes(reg)
     scenes += make_red_scene(reg)
     scenes += make_milestone_scenes(reg)
+    scenes += make_story_battle_scenes(reg)
     ids = [s["id"] for s in scenes]
     if len(ids) != len(set(ids)):
         raise SystemExit("duplicate scene ids")

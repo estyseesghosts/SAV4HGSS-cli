@@ -8,11 +8,11 @@
   "zone_events": "pokeheartgold/files/fielddata/eventdata/zone_event"
  },
  "counts": {
-  "total": 71,
+  "total": 80,
   "gym": 32,
   "e4": 7,
   "legendary": 13,
-  "event": 19
+  "event": 28
  },
  "scenes": [
   {
@@ -2857,7 +2857,7 @@
   },
   {
    "id": "event-sprout-tower",
-   "title": "Sprout Tower 3F (Elder)",
+   "title": "Sprout Tower 3F (Elder Li battle)",
    "kind": "event",
    "game": "HG",
    "base_preset": "hg-00-cherrygrove",
@@ -2866,6 +2866,11 @@
     "kanto": 0
    },
    "ops": [
+    {
+     "op": "flag.set",
+     "id": 118,
+     "value": false
+    },
     {
      "op": "location.warp",
      "map": 156,
@@ -2880,10 +2885,14 @@
     "badges_johto": 0,
     "badges_kanto": 0,
     "flags_on": [],
-    "flags_off": []
+    "flags_off": [
+     "FLAG_UNK_076"
+    ]
    },
    "sources": [
-    "zone_event 151_D15R0103.json",
+    "zone_event 151_D15R0103.json object SPRITE_CHOUROU at (12,9) with FLAG_NOTHING",
+    "scr_seq_0018_D15R0103.s:111-118 (Elder Li's talk script and TRAINER_ELDER_LI)",
+    "scr_seq_0018_D15R0103.s:124 (the win sets FLAG_UNK_076, which the battle branch tests)",
     "registry/hgss-us.warp-spawns.json map 156 MAP_SPROUT_TOWER_3F warp 0 tile (15,27)"
    ],
    "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
@@ -3429,6 +3438,539 @@
     "registry/hgss-us.warp-spawns.json map 32 MAP_ROUTE_28 warp 0 tile (887,266)"
    ],
    "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+  },
+  {
+   "id": "event-rival-burned-tower",
+   "title": "Burned Tower 1F (rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-03-plain",
+   "badges": {
+    "johto": 7,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 454,
+     "value": false
+    },
+    {
+     "op": "variable.set",
+     "id": 16550,
+     "value": 0
+    },
+    {
+     "op": "location.warp",
+     "map": 7,
+     "warp": 1
+    }
+   ],
+   "expect": {
+    "map": 7,
+    "warp": 1,
+    "x": 22,
+    "y": 16,
+    "badges_johto": 7,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_BURNED_TOWER_1F_RIVAL"
+    ],
+    "vars": [
+     {
+      "name": "VAR_UNK_40A6",
+      "value": 0
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSRIVEL",
+    "x": 23,
+    "z": 14,
+    "script": 0,
+    "hide_flag": "FLAG_HIDE_BURNED_TOWER_1F_RIVAL"
+   },
+   "sources": [
+    "scr_seq_0023_D18R0101.s:13-35 (SILVER_8/11/4 by starter choice)",
+    "scr_seq_0023_D18R0101.s:53-56 (the win hides the rival, sets FLAG_HIDE_BURNED_TOWER_1F_RIVAL and VAR_UNK_40A6)",
+    "005_D18R0101.json objects SPRITE_GSRIVEL at (23,14); coord (22,19) while VAR_UNK_40A6 == 0",
+    "scr_seq_0284_D18R0101_hdr.s has no init entries (the object state is the flag alone)",
+    "registry/hgss-us.warp-spawns.json map 7 MAP_BURNED_TOWER_1F warp 1 tile (22,16)"
+   ],
+   "note": "Warp 1 is the arrival from B1F, three tiles north of the coord that starts the battle."
+  },
+  {
+   "id": "event-rival-azalea",
+   "title": "Azalea Town (rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-02-hive",
+   "badges": {
+    "johto": 3,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16501,
+     "value": 1
+    },
+    {
+     "op": "location.warp",
+     "map": 74,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 74,
+    "warp": 0,
+    "x": 392,
+    "y": 462,
+    "badges_johto": 3,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [],
+    "vars": [
+     {
+      "name": "VAR_UNK_4075",
+      "value": 1
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSRIVEL",
+    "x": 384,
+    "z": 448,
+    "script": 0,
+    "hide_flag": null
+   },
+   "sources": [
+    "scr_seq_0866_T23.s:54-116 (cutscene and SILVER_7/10/SILVER)",
+    "scr_seq_0866_T23.s:125 (the win sets VAR_UNK_4075 = 2)",
+    "scr_seq_0060_D26R0102.s:88 (Slowpoke Well sets VAR_UNK_4075 = 1, the armed state)",
+    "071_T23.json objects SPRITE_GSRIVEL at (384,448) with FLAG_NOTHING; coord (395,462) 1x5 while VAR_UNK_4075 == 1",
+    "scr_seq_0639_T23_hdr.s:10 (OnTransition scr_seq_T23_004 only clears the civilian flags)",
+    "registry/hgss-us.warp-spawns.json map 74 MAP_AZALEA warp 0 tile (392,462)"
+   ],
+   "note": "The rival object is always present; the coord column east of the warp tile starts the battle."
+  },
+  {
+   "id": "event-rival-goldenrod-tunnel",
+   "title": "Goldenrod Tunnel B2F (rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16544,
+     "value": 0
+    },
+    {
+     "op": "variable.set",
+     "id": 16503,
+     "value": 3
+    },
+    {
+     "op": "location.warp",
+     "map": 201,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 201,
+    "warp": 0,
+    "x": 27,
+    "y": 4,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [],
+    "vars": [
+     {
+      "name": "VAR_UNK_40A0",
+      "value": 0
+     },
+     {
+      "name": "VAR_SCENE_ROCKET_TAKEOVER",
+      "value": 3
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSRIVEL",
+    "x": 29,
+    "z": 29,
+    "script": 0,
+    "hide_flag": null
+   },
+   "sources": [
+    "scr_seq_0096_D37R0104.s:405-435 (SILVER_18/12/17)",
+    "scr_seq_0096_D37R0104.s:444 (the win sets VAR_UNK_40A0 = 1)",
+    "194_D37R0104.json objects SPRITE_GSRIVEL at (29,29) with FLAG_NOTHING; coord (19,5) while VAR_UNK_40A0 == 0",
+    "scr_seq_0094_D37R0102.s:695 (the Rocket disguise sets VAR_SCENE_ROCKET_TAKEOVER = 3)",
+    "registry/hgss-us.warp-spawns.json map 201 MAP_GOLDENROD_TUNNEL_B2F warp 0 tile (27,4)"
+   ],
+   "note": "The battle is during the Rocket disguise; the tunnel itself has no badge or story guard."
+  },
+  {
+   "id": "event-rival-victory-road",
+   "title": "Victory Road 3F (rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16581,
+     "value": 0
+    },
+    {
+     "op": "location.warp",
+     "map": 179,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 179,
+    "warp": 0,
+    "x": 38,
+    "y": 14,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [
+     "FLAG_HIDE_VICTORY_ROAD_RIVAL"
+    ],
+    "flags_off": [],
+    "vars": [
+     {
+      "name": "VAR_UNK_40C5",
+      "value": 0
+     }
+    ]
+   },
+   "actor": null,
+   "sources": [
+    "scr_seq_0110_D43R0103.s:16-63 (cutscene and SILVER_9/13/5)",
+    "scr_seq_0110_D43R0103.s:21 (the cutscene clears FLAG_HIDE_VICTORY_ROAD_RIVAL)",
+    "scr_seq_0110_D43R0103.s:90 (the win sets VAR_UNK_40C5 = 1)",
+    "172_D43R0103.json objects SPRITE_GSRIVEL at (33,29) FLAG_HIDE_VICTORY_ROAD_RIVAL; coord (37,21) 3x1 while VAR_UNK_40C5 == 0",
+    "registry/hgss-us.warp-spawns.json map 179 MAP_VICTORY_ROAD_3F",
+    "registry/hgss-us.warp-spawns.json map 179 MAP_VICTORY_ROAD_3F warp 0 tile (38,14)"
+   ],
+   "note": "The rival is hidden until the coord cutscene reveals him, which is the game's own order; the save keeps FLAG_HIDE_VICTORY_ROAD_RIVAL set."
+  },
+  {
+   "id": "event-rival-mount-moon",
+   "title": "Mt. Moon (rival battle)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-kanto-4",
+   "badges": {
+    "johto": 255,
+    "kanto": 255
+   },
+   "ops": [
+    {
+     "op": "flag.set",
+     "id": 604,
+     "value": false
+    },
+    {
+     "op": "variable.set",
+     "id": 16629,
+     "value": 0
+    },
+    {
+     "op": "location.warp",
+     "map": 107,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 107,
+    "warp": 0,
+    "x": 4,
+    "y": 4,
+    "badges_johto": 255,
+    "badges_kanto": 255,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_UNK_25C"
+    ],
+    "vars": [
+     {
+      "name": "VAR_UNK_40F5",
+      "value": 0
+     }
+    ],
+    "spawn_after": {
+     "x": 5,
+     "y": 4
+    }
+   },
+   "actor": {
+    "sprite": "SPRITE_GSRIVEL",
+    "x": 10,
+    "z": 4,
+    "script": 0,
+    "hide_flag": "FLAG_UNK_25C"
+   },
+   "sources": [
+    "scr_seq_0007_D02R0101.s:10-38 (SILVER_15/16/14)",
+    "scr_seq_0007_D02R0101.s:50-56 (the win sets FLAG_UNK_25C and VAR_UNK_40F5 = 1)",
+    "scr_seq_0268_D02R0101_hdr.s:10-12 (OnFrameTable runs scr_seq_D02R0101_000 while VAR_UNK_40F5 == 0)",
+    "104_D02R0101.json objects SPRITE_GSRIVEL at (10,4) FLAG_UNK_25C",
+    "scr_seq_0007_D02R0101.s:16,70-73 (the cutscene applies _00DC: Delay8 4, WalkNormalEast)",
+    "registry/hgss-us.warp-spawns.json map 107 MAP_MOUNT_MOON warp 0 tile (4,4)"
+   ],
+   "note": "The frame table starts the cutscene on load; 16 badges is the story state for the Kanto rival, composed from hg-kanto-4 like the Kanto legendaries."
+  },
+  {
+   "id": "event-petrel-radio-tower",
+   "title": "Radio Tower 5F (Petrel reveal)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16503,
+     "value": 4
+    },
+    {
+     "op": "location.warp",
+     "map": 189,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 189,
+    "warp": 0,
+    "x": 3,
+    "y": 5,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [],
+    "vars": [
+     {
+      "name": "VAR_SCENE_ROCKET_TAKEOVER",
+      "value": 4
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_GSGENTLEMAN",
+    "x": 5,
+    "z": 13,
+    "script": "_EV_scr_seq_D23R0105_002 + 1",
+    "hide_flag": "FLAG_HIDE_RADIO_TOWER_5F_OFFICE_DIRECTOR"
+   },
+   "sources": [
+    "scr_seq_0033_D23R0105.s:30-39 (the talk branch requires VAR_SCENE_ROCKET_TAKEOVER == 4)",
+    "scr_seq_0033_D23R0105.s:100-135 (hides the director, shows Petrel, battles, gives ITEM_BASEMENT_KEY)",
+    "182_D23R0105.json SPRITE_GSGENTLEMAN and SPRITE_RKANBUM2 both at (5,13) with script _002; the director's flag is the visible one",
+    "scr_seq_0029_D23R0101.s:457 (the tower-entrance rival sets VAR_SCENE_ROCKET_TAKEOVER = 4)",
+    "registry/hgss-us.warp-spawns.json map 189 MAP_GOLDENROD_RADIO_TOWER_5F warp 0 tile (3,5)"
+   ],
+   "note": "Talk to the director on the warp-0 side of the room; the reveal is the first talk after var 4."
+  },
+  {
+   "id": "event-archer-radio-tower",
+   "title": "Radio Tower observation deck (Archer)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16503,
+     "value": 4
+    },
+    {
+     "op": "flag.set",
+     "id": 439,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 190,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 190,
+    "warp": 0,
+    "x": 8,
+    "y": 12,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_ROCKET_TAKEOVER_1"
+    ],
+    "vars": [
+     {
+      "name": "VAR_SCENE_ROCKET_TAKEOVER",
+      "value": 4
+     }
+    ]
+   },
+   "actor": {
+    "sprite": "SPRITE_RKANBUM",
+    "x": 8,
+    "z": 3,
+    "script": "_EV_scr_seq_D23R0106_001 + 1",
+    "hide_flag": "FLAG_HIDE_ROCKET_TAKEOVER_1"
+   },
+   "sources": [
+    "scr_seq_0034_D23R0106.s:11-20 (the transition sets both takeover flags, then clears them only at VAR_SCENE_ROCKET_TAKEOVER == 4)",
+    "scr_seq_0034_D23R0106.s:22-28 (the talk script is the Archer battle)",
+    "183_D23R0106.json SPRITE_RKANBUM at (8,3) FLAG_HIDE_ROCKET_TAKEOVER_1",
+    "registry/hgss-us.warp-spawns.json map 190 MAP_GOLDENROD_RADIO_TOWER_OBSERVATION_DECK warp 0 tile (8,12)"
+   ],
+   "note": "The save writes the same two pieces the transition writes at var 4; the boot check also sees the gate fire."
+  },
+  {
+   "id": "event-petrel-rocket-hq",
+   "title": "Rocket HQ B3F (Petrel and Giovanni)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-06-mineral",
+   "badges": {
+    "johto": 63,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16556,
+     "value": 3
+    },
+    {
+     "op": "location.warp",
+     "map": 249,
+     "warp": 1
+    }
+   ],
+   "expect": {
+    "map": 249,
+    "warp": 1,
+    "x": 10,
+    "y": 10,
+    "badges_johto": 63,
+    "badges_kanto": 0,
+    "flags_on": [
+     "FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL"
+    ],
+    "flags_off": [],
+    "vars": [
+     {
+      "name": "VAR_UNK_40AC",
+      "value": 3
+     }
+    ]
+   },
+   "actor": null,
+   "sources": [
+    "scr_seq_0091_D35R0104.s:18-25 (the transition steps 0/1 to 2 once the two grunts are beaten)",
+    "scr_seq_0091_D35R0104.s:198 (VAR_UNK_40AC = 3 at the door checkpoint)",
+    "scr_seq_0091_D35R0104.s:246-285 (coord cutscene: Giovanni moves, Petrel is revealed, PETREL_2 battles at 285)",
+    "235_D35R0104.json coords (23,12) 2x1 while VAR_UNK_40AC == 3; SPRITE_RKANBUM2 at (21,7) FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL",
+    "registry/hgss-us.warp-spawns.json map 249 MAP_TEAM_ROCKET_HEADQUARTERS_B3F warp 1 tile (10,10)"
+   ],
+   "note": "Petrel stays hidden until the cutscene shows him; the save carries the checkpoint variable and warps to the nearer arrival (warp 1)."
+  },
+  {
+   "id": "event-kimono-battles",
+   "title": "Ecruteak Dance Theater (five Kimono Girl battles)",
+   "kind": "event",
+   "game": "HG",
+   "base_preset": "hg-08-rising",
+   "badges": {
+    "johto": 255,
+    "kanto": 0
+   },
+   "ops": [
+    {
+     "op": "variable.set",
+     "id": 16652,
+     "value": 4
+    },
+    {
+     "op": "flag.set",
+     "id": 572,
+     "value": false
+    },
+    {
+     "op": "flag.set",
+     "id": 571,
+     "value": false
+    },
+    {
+     "op": "location.warp",
+     "map": 86,
+     "warp": 0
+    }
+   ],
+   "expect": {
+    "map": 86,
+    "warp": 0,
+    "x": 7,
+    "y": 17,
+    "badges_johto": 255,
+    "badges_kanto": 0,
+    "flags_on": [],
+    "flags_off": [
+     "FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS",
+     "FLAG_UNK_23B"
+    ],
+    "vars": [
+     {
+      "name": "VAR_UNK_410C",
+      "value": 4
+     }
+    ],
+    "spawn_after": {
+     "x": 7,
+     "y": 7
+    }
+   },
+   "actor": {
+    "sprite": "SPRITE_DANCER",
+    "x": 2,
+    "z": 6,
+    "script": "_EV_scr_seq_T27R0501_005 + 1",
+    "hide_flag": "FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS"
+   },
+   "sources": [
+    "scr_seq_0701_T27R0501_hdr.s:12-14 (OnFrameTable: VAR_UNK_410C == 4 runs scr_seq_T27R0501_016)",
+    "scr_seq_0928_T27R0501.s:713-797 (the cutscene and ZUKI/NAOKO/MIKI/SAYO/KUNI)",
+    "scr_seq_0928_T27R0501.s:862-865 (the end hides the dancers and moves VAR_UNK_410C to 6)",
+    "scr_seq_0920_T27.s:121 (VAR_UNK_410C = 4 is the city's post-dance state)",
+    "083_T27R0501.json five SPRITE_DANCER objects on FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS and one on FLAG_UNK_23B",
+    "scr_seq_0928_T27R0501.s:721,911-917 (the cutscene applies _0BF4: north 5, west 4, north 5, east 4)",
+    "registry/hgss-us.warp-spawns.json map 86 MAP_ECRUTEAK_DANCE_THEATER warp 0 tile (7,17)"
+   ],
+   "note": "The five battles are one scripted sequence; setting 410C = 4 makes the map run it on load, with the girls visible."
   }
  ]
 }

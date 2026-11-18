@@ -69,10 +69,11 @@ def parse_args() -> argparse.Namespace:
                         "(no auto-flush), so an in-game save only reaches disk "
                         "via this export (melonds_backup_export).")
     p.add_argument("--spawn-primary", action="store_true",
-                   help="Accept one agreeing Location copy, required at the primary player "
-                        "address 0x227d498. Use it for a save whose map script moves the "
-                        "player on load: the movement updates the live copy and leaves the "
-                        "mirrors stale, so the default two-copy rule cannot pass.")
+                   help="Assert a post-load tile with one agreeing Location copy. Use it for a "
+                        "save whose map script moves the player on load: the movement updates "
+                        "the live copy and leaves the mirrors at the saved tile, so the default "
+                        "two-copy rule cannot pass. The live copy's address is map-dependent, "
+                        "so this matches the tile, not 0x227d498.")
     return p.parse_args()
 
 
@@ -114,6 +115,15 @@ def check_spawn(lib, save: Path, spec: str, primary_only: bool = False) -> dict:
     2-3 agreeing player copies; a moved player leaves exactly 1. The
     report lists every same-map struct with coordinates so future
     divergence is visible instead of silent.
+
+    primary_only is for a save whose map script moves the player after
+    load, where the asserted tile is the POST-LOAD tile and therefore
+    differs from the saved tile by construction. Any copy showing the
+    post-load tile is proof: the stale mirrors hold the saved tile, so
+    they cannot match. The active copy is NOT at a fixed address -
+    measured 0x227d498 (HG map 305), 0x227d4f8 (HG map 525) and
+    0x227d4d0 (SS map 524) - so a hard-coded address would be
+    map-dependent; matching the asserted tile instead keys on data.
     """
     import struct
 
@@ -162,8 +172,8 @@ def check_spawn(lib, save: Path, spec: str, primary_only: bool = False) -> dict:
     match = len(matched) >= 2
     rule = "two-copies-agree"
     if primary_only:
-        match = any(m["address"] == "0x227d498" for m in matched)
-        rule = "primary-0x227d498"
+        match = len(matched) >= 1
+        rule = "any-copy-at-post-load-tile"
     live = [want_map, want_x, want_y] if match else None
     return {"prefix": pattern.hex(), "hits": hits, "matched": matched,
             "live": live, "want": [want_map, want_x, want_y],

@@ -4751,6 +4751,248 @@
    ],
    "writes": [],
    "player_moves": []
+  },
+  {
+   "id": "event-rival-burned-tower",
+   "kind": "event",
+   "map": 7,
+   "map_symbol": "MAP_BURNED_TOWER_1F",
+   "tag": "D18R0101",
+   "hide_flag": "FLAG_HIDE_BURNED_TOWER_1F_RIVAL",
+   "header": "scr_seq_0284_D18R0101_hdr.s",
+   "script": "scr_seq_0023_D18R0101.s",
+   "entries": [],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-rival-azalea",
+   "kind": "event",
+   "map": 74,
+   "map_symbol": "MAP_AZALEA",
+   "tag": "T23",
+   "hide_flag": null,
+   "header": "scr_seq_0639_T23_hdr.s",
+   "script": "scr_seq_0866_T23.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_T23_004 + 1",
+     "at": "scr_seq_0639_T23_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-rival-goldenrod-tunnel",
+   "kind": "event",
+   "map": 201,
+   "map_symbol": "MAP_GOLDENROD_TUNNEL_B2F",
+   "tag": "D37R0104",
+   "hide_flag": null,
+   "header": "scr_seq_0357_D37R0104_hdr.s",
+   "script": "scr_seq_0096_D37R0104.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D37R0104_006 + 1",
+     "at": "scr_seq_0357_D37R0104_hdr.s:9"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-rival-victory-road",
+   "kind": "event",
+   "map": 179,
+   "map_symbol": "MAP_VICTORY_ROAD_3F",
+   "tag": "D43R0103",
+   "hide_flag": null,
+   "header": "scr_seq_0371_D43R0103_hdr.s",
+   "script": "scr_seq_0110_D43R0103.s",
+   "entries": [],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-rival-mount-moon",
+   "kind": "event",
+   "map": 107,
+   "map_symbol": "MAP_MOUNT_MOON",
+   "tag": "D02R0101",
+   "hide_flag": "FLAG_UNK_25C",
+   "header": "scr_seq_0268_D02R0101_hdr.s",
+   "script": "scr_seq_0007_D02R0101.s",
+   "entries": [
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_D02R0101_000 + 1",
+     "at": "scr_seq_0268_D02R0101_hdr.s:12",
+     "when": "VAR_UNK_40F5 == 0"
+    }
+   ],
+   "writes": [
+    {
+     "label": "_007D",
+     "at": 52,
+     "op": "SetFlag",
+     "flag": "FLAG_UNK_25C",
+     "path": [
+      "Compare VAR_SPECIAL_RESULT, 152",
+      "GoTo _007D"
+     ],
+     "entry": "frame",
+     "when": "VAR_UNK_40F5 == 0"
+    }
+   ],
+   "player_moves": [
+    {
+     "label": "scr_seq_D02R0101_000",
+     "at": 16,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_00DC"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_40F5 == 0"
+    }
+   ]
+  },
+  {
+   "id": "event-petrel-radio-tower",
+   "kind": "event",
+   "map": 189,
+   "map_symbol": "MAP_GOLDENROD_RADIO_TOWER_5F",
+   "tag": "D23R0105",
+   "hide_flag": "FLAG_HIDE_RADIO_TOWER_5F_OFFICE_DIRECTOR",
+   "header": "scr_seq_0294_D23R0105_hdr.s",
+   "script": "scr_seq_0033_D23R0105.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D23R0105_000 + 1",
+     "at": "scr_seq_0294_D23R0105_hdr.s:8"
+    }
+   ],
+   "writes": [],
+   "player_moves": []
+  },
+  {
+   "id": "event-archer-radio-tower",
+   "kind": "event",
+   "map": 190,
+   "map_symbol": "MAP_GOLDENROD_RADIO_TOWER_OBSERVATION_DECK",
+   "tag": "D23R0106",
+   "hide_flag": "FLAG_HIDE_ROCKET_TAKEOVER_1",
+   "header": "scr_seq_0295_D23R0106_hdr.s",
+   "script": "scr_seq_0034_D23R0106.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D23R0106_000 + 1",
+     "at": "scr_seq_0295_D23R0106_hdr.s:8"
+    }
+   ],
+   "writes": [
+    {
+     "label": "scr_seq_D23R0106_000",
+     "at": 12,
+     "op": "SetFlag",
+     "flag": "FLAG_HIDE_ROCKET_TAKEOVER_1",
+     "path": [],
+     "entry": "ontransition"
+    },
+    {
+     "label": "scr_seq_D23R0106_000",
+     "at": 17,
+     "op": "ClearFlag",
+     "flag": "FLAG_HIDE_ROCKET_TAKEOVER_1",
+     "path": [],
+     "entry": "ontransition"
+    }
+   ],
+   "player_moves": []
+  },
+  {
+   "id": "event-petrel-rocket-hq",
+   "kind": "event",
+   "map": 249,
+   "map_symbol": "MAP_TEAM_ROCKET_HEADQUARTERS_B3F",
+   "tag": "D35R0104",
+   "hide_flag": null,
+   "header": "scr_seq_0352_D35R0104_hdr.s",
+   "script": "scr_seq_0091_D35R0104.s",
+   "entries": [
+    {
+     "kind": "ontransition",
+     "target": "_EV_scr_seq_D35R0104_006 + 1",
+     "at": "scr_seq_0352_D35R0104_hdr.s:8"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_D35R0104_001 + 1",
+     "at": "scr_seq_0352_D35R0104_hdr.s:14",
+     "when": "VAR_UNK_40AC == 0"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_D35R0104_001",
+     "at": 43,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_00EC"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_40AC == 0"
+    }
+   ]
+  },
+  {
+   "id": "event-kimono-battles",
+   "kind": "event",
+   "map": 86,
+   "map_symbol": "MAP_ECRUTEAK_DANCE_THEATER",
+   "tag": "T27R0501",
+   "hide_flag": "FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS",
+   "header": "scr_seq_0701_T27R0501_hdr.s",
+   "script": "scr_seq_0928_T27R0501.s",
+   "entries": [
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T27R0501_015 + 1",
+     "at": "scr_seq_0701_T27R0501_hdr.s:13",
+     "when": "VAR_UNK_410C == 0"
+    },
+    {
+     "kind": "frame",
+     "target": "_EV_scr_seq_T27R0501_016 + 1",
+     "at": "scr_seq_0701_T27R0501_hdr.s:14",
+     "when": "VAR_UNK_410C == 4"
+    }
+   ],
+   "writes": [],
+   "player_moves": [
+    {
+     "label": "scr_seq_T27R0501_016",
+     "at": 721,
+     "op": "ApplyMovement",
+     "args": [
+      "obj_player",
+      "_0BF4"
+     ],
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_410C == 4"
+    }
+   ]
   }
  ]
 }

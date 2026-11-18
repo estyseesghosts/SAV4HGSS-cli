@@ -177,7 +177,7 @@ F15 follow-up. Bit 15 as "blocked" is supported by the saves: of the 26 distinct
 
 2026-11-18. The scene layer turns "any point in the story" into a named, auditable object.
 `tools/make_scenes.py` writes `registry/hgss-us.scenes.json` (`hgss-save.scenes/v1`):
-71 scenes, 32 of them the before/after pair for each of the 16 gyms.
+80 scenes: 32 gym before/after pairs, 7 Elite Four/champion, 13 legendary and Red, 28 events.
 
 A scene composes in a fixed order, each step already verified on its own:
 
@@ -221,27 +221,45 @@ tile, in-game trigger. Every scene in the registry has since been composed and b
 71/71 reach their tile (`docs/scene-boot-matrix.md`, generated from the run summaries by
 `tools/scene_boot_matrix.py`), including the two SoulSilver scenes on `soulsilver.nds`.
 
-What a scene does not do: it does not force coordinate triggers (F11). The player is placed at a
-warp tile and the map's own header triggers run on load; a cutscene that fires on a specific tile
-still needs the player to walk there. And `location.set` remains allowlisted, so arbitrary X/Y
+Not yet forced: coordinate triggers (F11). The player is placed at a warp tile and the map's own
+header triggers run on load; a cutscene that fires on a specific tile still needs the player to
+walk there, which the scene note names. And `location.set` remains allowlisted, so arbitrary X/Y
 placement inside a map is still refused — reachable points are warp events, of which the table has
 1,317.
 
-Not yet scenes: a sweep of every `TrainerBattle TRAINER_*` in the script corpus, compared with the
-registry, leaves the battles below uncovered. Each is a warp to a real map plus, where one exists,
-an actor hide flag, so they fit the existing model; they are not shipped because they have not been
-boot-checked.
+### Story battles that are not gyms
 
-| Battle | Script | Zone event |
-|---|---|---|
-| Rival, Burned Tower | `scr_seq_0023_D18R0101.s:25,31,35` (`SILVER_8/11/4`) | `005_D18R0101.json` |
-| Rival, Goldenrod Underground | `scr_seq_0110_D43R0103.s:53,59,63` (`SILVER_9/13/5`) | `172_D43R0103.json` |
-| Rival, Azalea | `scr_seq_0866_T23.s:106,112,116` (`SILVER_7/10/SILVER`) | `071_T23.json` |
-| Petrel, Radio Tower | `scr_seq_0033_D23R0105.s:123` | `182_D23R0105.json` |
-| Archer, Radio Tower | `scr_seq_0034_D23R0106.s:28` (`SPRITE_RKANBUM` at (8,3), `FLAG_HIDE_ROCKET_TAKEOVER_1`) | `183_D23R0106.json` |
-| Petrel, Rocket HQ | `scr_seq_0091_D35R0104.s:285` | `235_D35R0104.json` |
-| Kimono Girls (five battles) | `scr_seq_0928_T27R0501.s:749-797` | `083_T27R0501.json` |
-| Elder Li | `scr_seq_0018_D15R0103.s:118` (`SPRITE_CHOUROU` at (12,9)) | `151_D15R0103.json` |
+A sweep of every `TrainerBattle TRAINER_*` in the script corpus against the registry found the
+rival and executive battles below. Each is a real map plus the gate its own script reads, so each
+is now a scene (`tools/make_scenes.py`, `STORY_BATTLES`); the boot matrix covers them like any
+other scene.
+
+The rival appears at six sites, not one per region. An earlier note called `D43R0103` "Goldenrod
+Underground" and then "Victory Road 2F"; both are wrong. `registry/hgss-us.warp-spawns.json` maps
+`172_D43R0103.json` to map 179 `MAP_VICTORY_ROAD_3F`, and the Goldenrod rival is a separate site,
+`194_D37R0104.json` (map 201 `MAP_GOLDENROD_TUNNEL_B2F`).
+
+| Battle | Script | Map (zone event) | Scene |
+|---|---|---|---|
+| Rival, Cherrygrove (first) | `TRAINER_PASSERBY_BOY` | 67 `MAP_CHERRYGROVE` | `event-cherrygrove-rival` |
+| Rival, Azalea | `scr_seq_0866_T23.s:106,112,116` (`SILVER_7/10/SILVER`) | 74 `MAP_AZALEA` (`071_T23.json`) | `event-rival-azalea` |
+| Rival, Burned Tower 1F | `scr_seq_0023_D18R0101.s:25,31,35` (`SILVER_8/11/4`) | 7 `MAP_BURNED_TOWER_1F` (`005_D18R0101.json`) | `event-rival-burned-tower` |
+| Rival, Goldenrod Tunnel B2F | `scr_seq_0096_D37R0104.s:425,431,435` (`SILVER_18/12/17`) | 201 `MAP_GOLDENROD_TUNNEL_B2F` (`194_D37R0104.json`) | `event-rival-goldenrod-tunnel` |
+| Rival, Victory Road 3F | `scr_seq_0110_D43R0103.s:53,59,63` (`SILVER_9/13/5`) | 179 `MAP_VICTORY_ROAD_3F` (`172_D43R0103.json`) | `event-rival-victory-road` |
+| Rival, League entrance | `scr_seq_0819_T10R0101.s:100,106,110` (`SILVER_20/21/19`) | 300 `MAP_POKEMON_LEAGUE_ENTRANCE` (`271_T10R0101.json`) | `event-victory-road-rival` (the id predates the correction; the title names the entrance) |
+| Rival, Mt. Moon | `scr_seq_0007_D02R0101.s:28,34,38` (`SILVER_15/16/14`) | 107 `MAP_MOUNT_MOON` (`104_D02R0101.json`) | `event-rival-mount-moon` |
+| Petrel, Radio Tower 5F | `scr_seq_0033_D23R0105.s:123` | 189 `MAP_GOLDENROD_RADIO_TOWER_5F` (`182_D23R0105.json`) | `event-petrel-radio-tower` |
+| Archer, Radio Tower deck | `scr_seq_0034_D23R0106.s:28` | 190 `MAP_GOLDENROD_RADIO_TOWER_OBSERVATION_DECK` (`183_D23R0106.json`) | `event-archer-radio-tower` |
+| Petrel, Rocket HQ B3F | `scr_seq_0091_D35R0104.s:285` (`PETREL_2`) | 249 `MAP_TEAM_ROCKET_HEADQUARTERS_B3F` (`235_D35R0104.json`) | `event-petrel-rocket-hq` |
+| Kimono Girls (five) | `scr_seq_0928_T27R0501.s:749,761,773,785,797` | 86 `MAP_ECRUTEAK_DANCE_THEATER` (`083_T27R0501.json`) | `event-kimono-battles` |
+| Elder Li | `scr_seq_0018_D15R0103.s:118` | 156 `MAP_SPROUT_TOWER_3F` (`151_D15R0103.json`) | `event-sprout-tower` (same map and warp; the scene also clears the beaten flag) |
+
+Two of the gates are the game's own progression checkpoints, not invented state:
+`VAR_UNK_40AC` 0 → 1 (Lance) → 2 (post-grunt transition) → 3 (the door cutscene) in the Rocket
+HQ (`scr_seq_0091_D35R0104.s:18-25,63,198`), and `VAR_UNK_410C` 4 → 5 → 6 across the dance and
+the five battles (`scr_seq_0928_T27R0501.s:717,865`). `VAR_SCENE_ROCKET_TAKEOVER = 4` is written
+by the tower-entrance rival (`scr_seq_0029_D23R0101.s:457`), which is why both Radio Tower scenes
+carry it.
 
 ## F17. Actor visibility is decided by the map's init script, not by the save alone
 
@@ -287,13 +305,21 @@ matter what the hide flag says.
 
 Map init can also move the player, and then the save's warp tile is not the runtime position.
 `tools/scene_actor_check.py` reports every reachable instruction that names `obj_player` for each
-scene; 19 of 71 scenes have such a gate, each behind a condition (`VAR_UNK_40C8 == 0` for the
-league rooms, `VAR_UNK_4079 == 0` for Ecruteak Gym, and so on). `e4-lance` fires it:
-`scr_seq_0824_T10R0601.s:31-33` walks six tiles north from the room's entry tile (6,28) to
-(6,22). That scene records `expect.spawn_after`, and the boot check asserts that tile against
-the primary Location copy (`leveld_run.py --spawn-primary`) because the movement updates the
-live copy and leaves the mirrors stale (F5). The save keeps the entry tile, which is what the
+scene; 22 of 80 scenes have such a gate, each behind a condition (`VAR_UNK_40C8 == 0` for the
+league rooms, `VAR_UNK_4079 == 0` for Ecruteak Gym, `VAR_UNK_40F5 == 0` for Mt. Moon, and so on).
+Three of them fire and are recorded as `expect.spawn_after`: `e4-lance`
+(`scr_seq_0824_T10R0601.s:31-33`, (6,28) → (6,22)), `event-rival-mount-moon`
+(`scr_seq_0007_D02R0101.s:16`, (4,4) → (5,4)) and `event-kimono-battles`
+(`scr_seq_0928_T27R0501.s:721,911-917`, (7,17) → (7,7)). The boot check asserts those tiles
+against the primary Location copy (`leveld_run.py --spawn-primary`) because the movement updates
+the live copy and leaves the mirrors stale (F5). The saves keep the entry tile, which is what the
 warp needs.
+
+The actor check also reports the map-init write that hides an actor. For Mt. Moon it attributes
+`SetFlag FLAG_UNK_25C` (`scr_seq_0007_D02R0101.s:52`) to the frame-table entry, but the write is
+on the post-battle win path (`CheckBattleWon`/`Compare VAR_SPECIAL_RESULT, 0`); the walker tracks
+`Compare`/`CheckBadge`/`GetGameVersion` and does not model `CheckBattleWon`, so that one is
+over-reported. The scene's own audit clears the flag and the battle branch runs before the set.
 
 Dropped: the Silph Co. Rotom room. `scr_seq_0838_T11R0702.s:17-34` sets all five appliance hide
 flags on every transition and then clears only the forms the player owns
@@ -323,7 +349,7 @@ badge state cannot be separated from the chain.
 
 ## Open work from this log
 
-1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: a broader sample of the 1,317 table entries. F16 uses it for 71 scene spawns (69 HG, 2 SS).
+1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: a broader sample of the 1,317 table entries. F16 uses it for 80 scene spawns (78 HG, 2 SS).
 2. ~~Name trainer flags in the registry (F2).~~ Done (733 derived entries).
 3. Decide what a progress preset must clear as well as set (F1); needs same-milestone samples to separate story from player choice. **Still open, and the corpus cannot close it for HG**: there is exactly one HG playthrough in the 29 saves. The closest same-milestone pairs are HG vs SS at 1, 2, 4 and 8 Johto badges; their flag sets share only 171/192/252/363 flags and differ by 1/7/16/64 (HG-only) and 21/23/32/75 (SS-only). The differences are dominated by version-exclusive story (`FLAG_CAUGHT_LUGIA` only in SS, Ho-Oh in HG), optional content (`FLAG_GOT_OLD_ROD`, `FLAG_GOT_APRICORN_BOX`, `FLAG_TRADE_VIOLET_CITY_BELLSPROUT_ONIX`) and which optional trainers were fought (`FLAG_TRAINER_*`), plus one real map-actor difference (`FLAG_HIDE_VIOLET_GYM_GYM_GUY_BEFORE_SPROUT` vs `_AFTER_SPROUT`). That mix is why presets stay absolute: they set and clear every persistent flag, and no evidence supports shipping a "set-only" preset. Closing the item needs a second HG playthrough dumped at the same milestones.
 4. Identify the remaining unmodelled tables (F6) and the `FLAG_UNK_*` ids that actually change across milestones. **Now measured**: `tools/unk_flags.py` walks the 11-save HG lineage and lists every flag that changes, split into named and unnamed. Unnamed flags that move, per step: 1→2 badges 10, 2→3 9, 3→4 15, 4→5 6, 5→6 6, 6→7 13, 7→8 13, 8→E4 7, E4→posE4 2, posE4→Kanto 30. `FLAG_UNK_966` in the last two steps is the Continue-at-dynamic-warp flag (`location.warp`'s own flag, F4/F5), and the `0x96x`/`0x97x`/`0x98x`/`0x99x`/`0xAA5` cluster moves with warps and play time, not story; the rest (`FLAG_UNK_0B7`, `_0C5`, `_0D1`, `_103`, `_108`, `_10A`, `_1BF`-`_1C5`, `_1E5`-`_1FE`, `_204`, `_22A`-`_23D`, `_25C`-`_27F`, `_288`-`_28C`, `_2B5`-`_2C9`, `_2E1`, `_318`) are real story writes that still need names. The unmodelled *tables* in F6 are unchanged: `0x23B8-0x2740` and `0x4434-0x4510` still need struct attribution.

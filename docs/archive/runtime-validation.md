@@ -1,5 +1,7 @@
 # Runtime validation (Level D) — melonDS DS mode
 
+> **Partly superseded.** The statement below that there is no headless test mode is out of date: `tools/leveld_run.py` boots saves headless. See [verification.md](../verification.md) for the current process and [runtime-results.md](runtime-results.md) for results. The manual save-and-diff steps and failure triage here still apply.
+
 Structural validity is not story validity. A fixture passes Level D only after
 it boots in melonDS, performs its event, and saves back to a parseable file.
 `hgss-save validate` reports `"semantic": "not-evaluated"` for exactly this reason.

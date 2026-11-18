@@ -104,7 +104,7 @@ writes is the save that boots.
   warp tile (30,36). Walking north reaches Red at (30,11), the prompt reads
   `TALK`, and A starts the battle: frames 5916-6504 show the fade and then
   `PKMN Trainer Red sent out PIKACHU!`. The save carries the whole unlock
-  chain, not only `FLAG_UNLOCKED_MT_SILVER` (`docs/state-log.md` F18).
+  chain, not only `FLAG_UNLOCKED_MT_SILVER` (`docs/archive/state-log.md` F18).
 - **Lance's room** (`e4-lance`): the map's frame table runs
   `WalkNormalNorth 6` on entry (`scr_seq_0597_T10R0601_hdr.s:10-14`,
   `scr_seq_0824_T10R0601.s:31-33`), so the player ends at (6,22) even though

@@ -2,13 +2,13 @@
 
 Edits only the active general block of a COPY (never the input), then recomputes the
 block CRC16-CCITT (init 0xFFFF, over the first 0xF618 bytes, stored little-endian in the
-last 2 bytes; verified against a real save in docs/state-log.md). The output must be
+last 2 bytes; verified against a real save in docs/archive/state-log.md). The output must be
 checked afterwards with `hgss-save validate`.
 
   save_edit.py IN OUT --dynwarp MAP WARP [X Y DIR] [--flag-966] [--set-flag ID] [--clear-flag ID]
   save_edit.py IN OUT --poke OFFSET HEXBYTES        (general-relative)
 
-Layout facts: docs/state-log.md F4. Flags: bit (id & 7) of byte (id >> 3) at general 0x10C4.
+Layout facts: docs/archive/state-log.md F4. Flags: bit (id & 7) of byte (id >> 3) at general 0x10C4.
 """
 
 from __future__ import annotations

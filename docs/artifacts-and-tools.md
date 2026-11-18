@@ -1,0 +1,102 @@
+# Data files and research tools
+
+What each data file under `registry/`, `research/` and `fixtures/` is, which tool produces it, and who consumes it; plus what each script in `tools/` does. Everything in `registry/` and `research/` is generated. Regenerate it with the tool named; do not hand-edit.
+
+Pinned inputs: `pret/pokeheartgold` at `4e9563397ab4e5c407271472935f9e270ac6a804` (local checkout `3DS/pokeheartgold`), PKHeX.Core 26.10.18, .NET 10. The decomp is an unstable work in progress, and every registry records the commit it was built from.
+
+## `registry/`: shipped with the CLI
+
+The CLI reads these at run time. The publish step copies them beside the exe.
+
+| File | Schema | Contents | Built by |
+|---|---|---|---|
+| `hgss-us.symbols.json` | `hgss-save.symbols/v1` | 5,485 symbols (flags, vars, maps, items, species, moves) with id, kind, source file and line, writability; 438 skipped macros listed with reasons | `hgss-save symbols build-registry --headers DIR --commit SHA` |
+| `source-manifest.json` | | commit, counts per kind | same |
+| `hgss-us.script-refs.json` | `hgss-save.script-refs/v1` | 9,960 reads/writes/checks of 965 symbols in `scr_seq/*.s`, each with file, line, enclosing `ScrDef` label and access kind (`read`, `write`, `check`) | `hgss-save script index --scripts DIR --commit SHA` |
+| `hgss-us.badge-rules.json` | `hgss-save.badge-rules/v1` | per badge (16): effects of the gym script, classified `confirmed`, `source-only` or `skipped`; the `VAR_MIDGAME_BADGES` counter; 4 HM grants; 8 field-move badge gates | `tools/make_badge_rules.py` (from `research/badge-effects.json` and the census) |
+| `hgss-us.warp-spawns.json` | `hgss-save.warp-spawns/v1` | 540 maps with their zone-event warp and door arrival tiles (1,317 warp events) | `tools/zone_spawn_index.py --decomp DIR` |
+| `hgss-us.scene-triggers.json` | `hgss-save.scene-triggers/v1` | 315 "VAR == value" cutscene triggers with script and reachable writes | `tools/scene_triggers.py` |
+| `hgss-us.scenes.json` | `hgss-save.scenes/v1` | 80 scenes: base preset, badges, ops, warp, expected state, citations | `tools/make_scenes.py` |
+| `presets/index.json`, `presets/*.json` | `hgss-save.presets/v1`, patch recipes | 18 full-state presets (`docs/corpus.md`) | `tools/make_presets.py` |
+
+Symbol kinds: `persistent_flag` 2,847, `save_work` 320, `temporary_flag` 127, `temporary_var` 48, `special_runtime_var` 14, `range_constant` 49, `unknown` 4, plus `map` 541, `item` 546, `species` 509, `move` 480. Writable kinds are `persistent_flag` and `save_work`. Names derived from a range (trainer flags) carry `confidence: "derived-range"`.
+
+Symbols are annotations on numeric ids; the id is the identity. Names can change with the decomp.
+
+## `research/`: evidence and analysis outputs
+
+Not read by the CLI at run time (scene audits cite some by path). They record how conclusions were reached.
+
+| File | Contents | Built by | Used by |
+|---|---|---|---|
+| `corpus-census.json` | per save: SHA-256, game, trainer, TID/SID, badges, map, play time, dex, bag, party, every set flag and nonzero variable. 29 saves, 12 skipped | `tools/corpus_census.py` | almost every research tool |
+| `lineage-HG-Master.md`, `lineage-SS-Master.md` | flags on/off and variable changes between consecutive saves of one trainer | `tools/lineage_diff.py` | F1, F7, F8 |
+| `badge-effects.json` | for each of 16 `GiveBadge` statements, the straight-line effects after it, with file and line | `tools/script_effects.py --anchor GiveBadge` | `make_badge_rules.py` |
+| `script-graph.json` | which scripts write (879 symbols) and read (439) each flag/variable | `tools/script_graph.py` | `story_atoms.py`, `delta_by_script.py` |
+| `script-guards.json` | the flag/variable conditions on the path to every state write: 497 scripts, 1,869 distinct writes, 6,650 guarded paths | `tools/script_guards.py` | F14 |
+| `story-atoms-hg.json` | 200 step-sized units of change across the HG lineage, linked by script data flow. The edges are file-level reads, not guards (F14) | `tools/story_atoms.py` | exploration only |
+| `scene-actor-gates.json` | for each of 80 scenes, writes to the actor's hide flag in map init, with conditions, and any init instruction that moves the player | `tools/scene_actor_check.py` | F17, scene audits |
+
+`research/script-graph.json` and `script-guards.json` are large (0.4 MB and 1.4 MB). Open them with a JSON-aware tool or use the query flags (`script_graph.py --query T22GYM0101`).
+
+## `fixtures/`
+
+| File | Contents |
+|---|---|
+| `recipes/*.json` | 30 fixture recipes (`hgss-save.fixture/v1`): a played base save by SHA-256, a patch, expected state, runtime checkpoints. Bases are not committed; pass `--bases DIR` |
+| `safe-spawns.json` | 20 map/x/y tiles seen in real saves; the only tiles `location set` accepts |
+| `event-prereqs.json` | 13 story beats with script reads and writes (file and line) and observed values |
+
+## `tools/`: research scripts
+
+Python 3, standard library plus the melonDS-MCP bindings for runtime tools. All read-only on saves and ROMs; outputs go to explicit paths.
+
+### Save analysis
+
+| Script | Purpose |
+|---|---|
+| `corpus_census.py` | Catalogue every HG/SS save in a tree through the CLI; collapse duplicates by SHA-256; record non-HGSS files as skipped |
+| `lineage_diff.py` | Flag and variable deltas between consecutive saves of one trainer |
+| `residual_diff.py` | Byte-diff the general block with modelled regions masked out, to find state nobody understands (F6) |
+| `field_locations.py` | Print the five `Location`s, music, weather and spawn of every census save (F4) |
+| `state_delta.py` | Turn two census saves into a patch recipe with flags on and off; `--verify` replays it (F7) |
+| `unk_flags.py` | Which unnamed flags change between HG milestones |
+| `save_edit.py` | Raw byte editor on a copy with CRC repair, for experiments the CLI does not model (dynamic warp, flag `0x966`, single flags, raw pokes) |
+
+### Decomp and ROM analysis
+
+| Script | Purpose |
+|---|---|
+| `script_effects.py` | Follow a script's straight-line path from an anchor and list the flag/variable/badge/item effects |
+| `script_graph.py` | Writer/reader graph for every flag and variable |
+| `script_guards.py` | Path conditions for every state write (F14) |
+| `story_atoms.py`, `delta_by_script.py` | Group a lineage step by writer script |
+| `badge_effect_check.py`, `make_badge_rules.py` | Check badge effects against the census and build `badge-rules.json` |
+| `scene_triggers.py` | Extract coordinate and frame triggers (F11) |
+| `scene_actor_check.py` | Walk map-init scripts for hide-flag writes and player moves (F17) |
+| `zone_spawn_index.py` | Build the warp table from zone-event JSON |
+| `spawn_registry_check.py` | Compare the warp table with safe spawns. Explains 0 of 20 because safe spawns are free-roam tiles; it is the wrong test and is kept as a record |
+| `nds_files.py`, `map_data.py`, `map_reach.py` | ROM filesystem and NARC reader, overworld tiles and collision, reachability flood fill (F15, unresolved) |
+
+### Generators
+
+| Script | Purpose |
+|---|---|
+| `make_presets.py` | Build presets from census milestones |
+| `make_scenes.py` | Build the 80-scene registry. Its tuples are the contract; edit with a citation and a boot check |
+
+### Runtime (melonDS)
+
+| Script | Purpose |
+|---|---|
+| `leveld_run.py` | Headless boot of a staged save: copies ROM and save, advances frames, captures screenshots and savestates, scans RAM for the live `Location` (`--assert-spawn`, `--spawn-primary`), injects inputs and touches, exports the in-game save (`--extract-save`) |
+| `dynwarp_probe.py` | Runtime test of flag `0x966` plus dynamic warp (F5) |
+| `preset_boot_check.py` | Apply every preset to a clean base and boot it (F9) |
+| `scene_boot_check.py` | Compose and boot every scene |
+| `scene_boot_matrix.py` | Render run summaries as `docs/scene-boot-matrix.md` |
+
+Runtime tools need the melonDS-MCP native core (`MELONDS_MCP_LIB`, `PYTHONPATH` or `--mcp-python`), the retail ROMs and a base save. An SS save loads only in the SS ROM, so SS scenes need `--base-ss` and `--rom-ss`.
+
+## Source layout
+
+`src/HgssSave.Core` holds format-independent logic (patch planning, byte audit, registries). `src/HgssSave.PKHeX` is the only layer that touches PKHeX.Core (`HgssLayout.cs` copies PKHeX's private constants with line citations; tests fail if PKHeX changes). `src/HgssSave.Cli` is the command surface (`HelpText.cs`, `docs/cli-reference.md`). `tests/HgssSave.Tests` has 69 tests.

@@ -8,7 +8,7 @@ namespace HgssSave.Core;
 
 /// <summary>
 /// What the game itself changes when a badge is won (registry/hgss-us.badge-rules.json, built by
-/// tools/make_badge_rules.py from the gym scripts and checked against played saves; docs/state-log.md F8).
+/// tools/make_badge_rules.py from the gym scripts and checked against played saves; docs/archive/state-log.md F8).
 /// <c>trainer.badges.set</c> with <c>consequences</c> expands to these writes for every badge newly gained,
 /// plus counter rules such as VAR_MIDGAME_BADGES.
 /// </summary>

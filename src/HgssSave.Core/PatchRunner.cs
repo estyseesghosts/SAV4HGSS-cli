@@ -158,7 +158,7 @@ public static class PatchRunner
                 break;
             case LocationWarpOperation warp:
                 // x/y are informational: the game overwrites them from the warp event at load
-                // (field_warp_tasks.c sub_02052F94); the runtime probe passed with x/y = 0 (docs/state-log.md F5).
+                // (field_warp_tasks.c sub_02052F94); the runtime probe passed with x/y = 0 (docs/archive/state-log.md F5).
                 session.SetDynamicWarpSpawn(warp.Map, warp.Warp, warp.X ?? 0, warp.Y ?? 0, warp.Direction);
                 break;
             case DexSetOperation dex:

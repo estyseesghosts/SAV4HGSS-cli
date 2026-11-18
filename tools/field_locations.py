@@ -1,6 +1,6 @@
 """Print the LocalFieldData of every save in a census: five Locations, music, weather, spawn.
 
-Layout (general-relative, docs/state-log.md F4): Location {i32 mapId, warpId, x, y, direction}
+Layout (general-relative, docs/archive/state-log.md F4): Location {i32 mapId, warpId, x, y, direction}
 at 0x1234 + 20*n for n = 0 current, 1 entrance, 2 previous, 3 dynamicWarp, 4 specialSpawn;
 u16 musicId 0x1298, u16 weather 0x129A, u16 lastSpawn 0x129C. Also reports flag 0x966.
 

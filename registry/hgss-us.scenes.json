@@ -60,7 +60,7 @@
     "registry/hgss-us.badge-rules.json badge 0 ZEPHYR (scr_seq_0859_T22GYM0101.s:75)",
     "131_T22GYM0101.json objects[] SPRITE_GSLEADER1 at (15,4) flag FLAG_HIDE_VIOLET_GYM_FALKNER script _EV_scr_seq_T22GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 135 MAP_VIOLET_GYM warp 0 tile (15,28)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_VIOLET_GYM_FALKNER to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -102,7 +102,7 @@
     "registry/hgss-us.badge-rules.json badge 0 ZEPHYR (scr_seq_0859_T22GYM0101.s:75)",
     "131_T22GYM0101.json objects[] SPRITE_GSLEADER1 at (15,4) flag FLAG_HIDE_VIOLET_GYM_FALKNER script _EV_scr_seq_T22GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 135 MAP_VIOLET_GYM warp 0 tile (15,28)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -151,7 +151,7 @@
     "registry/hgss-us.badge-rules.json badge 1 HIVE (scr_seq_0869_T23GYM0102.s:82)",
     "173_T23GYM0102.json objects[] SPRITE_GSLEADER2 at (9,5) flag FLAG_HIDE_AZALEA_GYM_BUGSY script _EV_scr_seq_T23GYM0102_001 + 1",
     "registry/hgss-us.warp-spawns.json map 180 MAP_AZALEA_GYM warp 0 tile (9,37)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_AZALEA_GYM_BUGSY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -193,7 +193,7 @@
     "registry/hgss-us.badge-rules.json badge 1 HIVE (scr_seq_0869_T23GYM0102.s:82)",
     "173_T23GYM0102.json objects[] SPRITE_GSLEADER2 at (9,5) flag FLAG_HIDE_AZALEA_GYM_BUGSY script _EV_scr_seq_T23GYM0102_001 + 1",
     "registry/hgss-us.warp-spawns.json map 180 MAP_AZALEA_GYM warp 0 tile (9,37)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -242,7 +242,7 @@
     "registry/hgss-us.badge-rules.json badge 2 PLAIN (scr_seq_0886_T25GYM0101.s:125)",
     "133_T25GYM0101.json objects[] SPRITE_GSLEADER3 at (13,4) flag FLAG_HIDE_GOLDENROD_GYM_WHITNEY script _EV_scr_seq_T25GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 137 MAP_GOLDENROD_GYM warp 0 tile (6,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_GOLDENROD_GYM_WHITNEY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -284,7 +284,7 @@
     "registry/hgss-us.badge-rules.json badge 2 PLAIN (scr_seq_0886_T25GYM0101.s:125)",
     "133_T25GYM0101.json objects[] SPRITE_GSLEADER3 at (13,4) flag FLAG_HIDE_GOLDENROD_GYM_WHITNEY script _EV_scr_seq_T25GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 137 MAP_GOLDENROD_GYM warp 0 tile (6,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -333,7 +333,7 @@
     "registry/hgss-us.badge-rules.json badge 3 FOG (scr_seq_0922_T27GYM0101.s:115)",
     "077_T27GYM0101.json objects[] SPRITE_GSLEADER4 at (10,8) flag FLAG_HIDE_ECRUTEAK_GYM_MORTY script _EV_scr_seq_T27GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 80 MAP_ECRUTEAK_GYM warp 0 tile (16,53)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_ECRUTEAK_GYM_MORTY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -375,7 +375,7 @@
     "registry/hgss-us.badge-rules.json badge 3 FOG (scr_seq_0922_T27GYM0101.s:115)",
     "077_T27GYM0101.json objects[] SPRITE_GSLEADER4 at (10,8) flag FLAG_HIDE_ECRUTEAK_GYM_MORTY script _EV_scr_seq_T27GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 80 MAP_ECRUTEAK_GYM warp 0 tile (16,53)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -424,7 +424,7 @@
     "registry/hgss-us.badge-rules.json badge 4 STORM (scr_seq_0877_T24GYM0101.s:40)",
     "135_T24GYM0101.json objects[] SPRITE_GSLEADER5 at (13,10) flag FLAG_HIDE_CIANWOOD_GYM_CHUCK script _EV_scr_seq_T24GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 139 MAP_CIANWOOD_GYM warp 0 tile (13,19)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_CIANWOOD_GYM_CHUCK to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -466,7 +466,7 @@
     "registry/hgss-us.badge-rules.json badge 4 STORM (scr_seq_0877_T24GYM0101.s:40)",
     "135_T24GYM0101.json objects[] SPRITE_GSLEADER5 at (13,10) flag FLAG_HIDE_CIANWOOD_GYM_CHUCK script _EV_scr_seq_T24GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 139 MAP_CIANWOOD_GYM warp 0 tile (13,19)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -515,7 +515,7 @@
     "registry/hgss-us.badge-rules.json badge 5 MINERAL (scr_seq_0913_T26GYM0101.s:134)",
     "134_T26GYM0101.json objects[] SPRITE_GSLEADER6 at (6,5) flag FLAG_HIDE_JASMINE_IN_GYM script _EV_scr_seq_T26GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 138 MAP_OLIVINE_GYM warp 0 tile (6,27)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_JASMINE_IN_GYM to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -557,7 +557,7 @@
     "registry/hgss-us.badge-rules.json badge 5 MINERAL (scr_seq_0913_T26GYM0101.s:134)",
     "134_T26GYM0101.json objects[] SPRITE_GSLEADER6 at (6,5) flag FLAG_HIDE_JASMINE_IN_GYM script _EV_scr_seq_T26GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 138 MAP_OLIVINE_GYM warp 0 tile (6,27)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -606,7 +606,7 @@
     "registry/hgss-us.badge-rules.json badge 6 GLACIER (scr_seq_0932_T28GYM0101.s:87)",
     "136_T28GYM0101.json objects[] SPRITE_GSLEADER7 at (7,4) flag FLAG_HIDE_MAHOGANY_GYM_PRYCE script _EV_scr_seq_T28GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 140 MAP_MAHOGANY_GYM_LEADER_ROOM warp 0 tile (5,19)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_MAHOGANY_GYM_PRYCE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -648,7 +648,7 @@
     "registry/hgss-us.badge-rules.json badge 6 GLACIER (scr_seq_0932_T28GYM0101.s:87)",
     "136_T28GYM0101.json objects[] SPRITE_GSLEADER7 at (7,4) flag FLAG_HIDE_MAHOGANY_GYM_PRYCE script _EV_scr_seq_T28GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 140 MAP_MAHOGANY_GYM_LEADER_ROOM warp 0 tile (5,19)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -697,7 +697,7 @@
     "registry/hgss-us.badge-rules.json badge 7 RISING (scr_seq_0112_D44R0103.s:152)",
     "137_T30GYM0101.json objects[] SPRITE_GSLEADER8 at (12,3) flag FLAG_HIDE_BLACKTHORN_GYM_CLAIR script _EV_scr_seq_T30GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 141 MAP_BLACKTHORN_GYM warp 0 tile (13,87)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_BLACKTHORN_GYM_CLAIR to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -739,7 +739,7 @@
     "registry/hgss-us.badge-rules.json badge 7 RISING (scr_seq_0112_D44R0103.s:152)",
     "137_T30GYM0101.json objects[] SPRITE_GSLEADER8 at (12,3) flag FLAG_HIDE_BLACKTHORN_GYM_CLAIR script _EV_scr_seq_T30GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 141 MAP_BLACKTHORN_GYM warp 0 tile (13,87)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -788,7 +788,7 @@
     "registry/hgss-us.badge-rules.json badge 8 BOULDER (scr_seq_0752_T03GYM0101.s:97)",
     "426_T03GYM0101.json objects[] SPRITE_GSLEADER14 at (7,4) flag FLAG_HIDE_PEWTER_GYM_BROCK script _EV_scr_seq_T03GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 473 MAP_PEWTER_GYM warp 0 tile (7,27)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_PEWTER_GYM_BROCK to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -830,7 +830,7 @@
     "registry/hgss-us.badge-rules.json badge 8 BOULDER (scr_seq_0752_T03GYM0101.s:97)",
     "426_T03GYM0101.json objects[] SPRITE_GSLEADER14 at (7,4) flag FLAG_HIDE_PEWTER_GYM_BROCK script _EV_scr_seq_T03GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 473 MAP_PEWTER_GYM warp 0 tile (7,27)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -879,7 +879,7 @@
     "registry/hgss-us.badge-rules.json badge 9 CASCADE (scr_seq_0760_T04GYM0101.s:216)",
     "382_T04GYM0101.json objects[] SPRITE_GSLEADER11 at (10,1) flag FLAG_HIDE_CERULEAN_GYM_POPULATION script _EV_scr_seq_T04GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 427 MAP_CERULEAN_GYM warp 0 tile (10,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_CERULEAN_GYM_POPULATION to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -921,7 +921,7 @@
     "registry/hgss-us.badge-rules.json badge 9 CASCADE (scr_seq_0760_T04GYM0101.s:216)",
     "382_T04GYM0101.json objects[] SPRITE_GSLEADER11 at (10,1) flag FLAG_HIDE_CERULEAN_GYM_POPULATION script _EV_scr_seq_T04GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 427 MAP_CERULEAN_GYM warp 0 tile (10,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -970,7 +970,7 @@
     "registry/hgss-us.badge-rules.json badge 10 THUNDER (scr_seq_0778_T06GYM0101.s:290)",
     "322_T06GYM0101.json objects[] SPRITE_GSLEADER9 at (6,4) flag FLAG_HIDE_VERMILION_GYM_LT_SURGE script _EV_scr_seq_T06GYM0101_023 + 1",
     "registry/hgss-us.warp-spawns.json map 365 MAP_VERMILION_GYM warp 0 tile (6,22)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_VERMILION_GYM_LT_SURGE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -1012,7 +1012,7 @@
     "registry/hgss-us.badge-rules.json badge 10 THUNDER (scr_seq_0778_T06GYM0101.s:290)",
     "322_T06GYM0101.json objects[] SPRITE_GSLEADER9 at (6,4) flag FLAG_HIDE_VERMILION_GYM_LT_SURGE script _EV_scr_seq_T06GYM0101_023 + 1",
     "registry/hgss-us.warp-spawns.json map 365 MAP_VERMILION_GYM warp 0 tile (6,22)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -1061,7 +1061,7 @@
     "registry/hgss-us.badge-rules.json badge 11 RAINBOW (scr_seq_0786_T07GYM0101.s:107)",
     "352_T07GYM0101.json objects[] SPRITE_GSLEADER12 at (7,3) flag FLAG_HIDE_CELADON_GYM_ERIKA script _EV_scr_seq_T07GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 395 MAP_CELADON_GYM warp 0 tile (7,46)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_CELADON_GYM_ERIKA to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -1103,7 +1103,7 @@
     "registry/hgss-us.badge-rules.json badge 11 RAINBOW (scr_seq_0786_T07GYM0101.s:107)",
     "352_T07GYM0101.json objects[] SPRITE_GSLEADER12 at (7,3) flag FLAG_HIDE_CELADON_GYM_ERIKA script _EV_scr_seq_T07GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 395 MAP_CELADON_GYM warp 0 tile (7,46)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -1152,7 +1152,7 @@
     "registry/hgss-us.badge-rules.json badge 12 SOUL (scr_seq_0809_T08GYM0101.s:519)",
     "433_T08GYM0101.json objects[] SPRITE_GSLEADER13 at (7,16) flag FLAG_HIDE_FUCHSIA_GYM_JANINE script _EV_scr_seq_T08GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 480 MAP_FUCHSIA_GYM warp 0 tile (7,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_FUCHSIA_GYM_JANINE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -1194,7 +1194,7 @@
     "registry/hgss-us.badge-rules.json badge 12 SOUL (scr_seq_0809_T08GYM0101.s:519)",
     "433_T08GYM0101.json objects[] SPRITE_GSLEADER13 at (7,16) flag FLAG_HIDE_FUCHSIA_GYM_JANINE script _EV_scr_seq_T08GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 480 MAP_FUCHSIA_GYM warp 0 tile (7,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -1243,7 +1243,7 @@
     "registry/hgss-us.badge-rules.json badge 13 MARSH (scr_seq_0829_T11GYM0101.s:61)",
     "366_T11GYM0101.json objects[] SPRITE_GSLEADER10 at (15,13) flag FLAG_HIDE_SAFFRON_GYM_SABRINA script _EV_scr_seq_T11GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 410 MAP_SAFFRON_GYM warp 0 tile (15,28)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_SAFFRON_GYM_SABRINA to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -1285,7 +1285,7 @@
     "registry/hgss-us.badge-rules.json badge 13 MARSH (scr_seq_0829_T11GYM0101.s:61)",
     "366_T11GYM0101.json objects[] SPRITE_GSLEADER10 at (15,13) flag FLAG_HIDE_SAFFRON_GYM_SABRINA script _EV_scr_seq_T11GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 410 MAP_SAFFRON_GYM warp 0 tile (15,28)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -1334,7 +1334,7 @@
     "registry/hgss-us.badge-rules.json badge 14 VOLCANO (scr_seq_0015_D11R0106.s:91)",
     "412_D11R0106.json objects[] SPRITE_GSLEADER15 at (13,12) flag FLAG_HIDE_SEAFOAM_GYM_BLAINE script _EV_scr_seq_D11R0106_000 + 1",
     "registry/hgss-us.warp-spawns.json map 457 MAP_SEAFOAM_ISLANDS_CINNABAR_GYM warp 0 tile (14,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_SEAFOAM_GYM_BLAINE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -1376,7 +1376,7 @@
     "registry/hgss-us.badge-rules.json badge 14 VOLCANO (scr_seq_0015_D11R0106.s:91)",
     "412_D11R0106.json objects[] SPRITE_GSLEADER15 at (13,12) flag FLAG_HIDE_SEAFOAM_GYM_BLAINE script _EV_scr_seq_D11R0106_000 + 1",
     "registry/hgss-us.warp-spawns.json map 457 MAP_SEAFOAM_ISLANDS_CINNABAR_GYM warp 0 tile (14,25)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -1425,7 +1425,7 @@
     "registry/hgss-us.badge-rules.json badge 15 EARTH (scr_seq_0743_T02GYM0101.s:54)",
     "448_T02GYM0101.json objects[] SPRITE_GSLEADER16 at (5,4) flag FLAG_HIDE_VIRIDIAN_GYM_BLUE script _EV_scr_seq_T02GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 496 MAP_VIRIDIAN_GYM warp 0 tile (5,47)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Clears FLAG_HIDE_VIRIDIAN_GYM_BLUE to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
   },
@@ -1467,7 +1467,7 @@
     "registry/hgss-us.badge-rules.json badge 15 EARTH (scr_seq_0743_T02GYM0101.s:54)",
     "448_T02GYM0101.json objects[] SPRITE_GSLEADER16 at (5,4) flag FLAG_HIDE_VIRIDIAN_GYM_BLUE script _EV_scr_seq_T02GYM0101_000 + 1",
     "registry/hgss-us.warp-spawns.json map 496 MAP_VIRIDIAN_GYM warp 0 tile (5,47)",
-    "docs/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
    ],
    "note": "Base preset is the played milestone after this badge; the warp puts the player back in the gym."
   },
@@ -1538,7 +1538,7 @@
    },
    "sources": [
     "272_T10R0201.json (room object)",
-    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+    "docs/archive/state-log.md F14 (E4 rooms have no story guard for the battle)"
    ],
    "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
   },
@@ -1577,7 +1577,7 @@
    },
    "sources": [
     "273_T10R0301.json (room object)",
-    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+    "docs/archive/state-log.md F14 (E4 rooms have no story guard for the battle)"
    ],
    "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
   },
@@ -1616,7 +1616,7 @@
    },
    "sources": [
     "274_T10R0401.json (room object)",
-    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+    "docs/archive/state-log.md F14 (E4 rooms have no story guard for the battle)"
    ],
    "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
   },
@@ -1655,7 +1655,7 @@
    },
    "sources": [
     "275_T10R0501.json (room object)",
-    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"
+    "docs/archive/state-log.md F14 (E4 rooms have no story guard for the battle)"
    ],
    "note": "Warp into the room; the member is a room object, talked to from the entrance tile."
   },
@@ -1698,7 +1698,7 @@
    },
    "sources": [
     "276_T10R0601.json (room object)",
-    "docs/state-log.md F14 (E4 rooms have no story guard for the battle)",
+    "docs/archive/state-log.md F14 (E4 rooms have no story guard for the battle)",
     "scr_seq_0597_T10R0601_hdr.s:10-14 (OnFrameTable entry, VAR_UNK_40C8 == 0)",
     "scr_seq_0824_T10R0601.s:12-33 (entry script: WalkNormalNorth 6)"
    ],
@@ -2754,7 +2754,7 @@
     "census: Pre-Dratini.sav stands at this shrine at 8 badges",
     "registry/hgss-us.warp-spawns.json map 288 MAP_DRAGONS_DEN_SHRINE warp 0 tile (6,19)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-dragons-den-test",
@@ -2787,7 +2787,7 @@
     "zone_event 239_D44R0102.json",
     "registry/hgss-us.warp-spawns.json map 253 MAP_DRAGONS_DEN warp 0 tile (28,6)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-hall-of-fame",
@@ -2820,7 +2820,7 @@
     "census: Pokemon_HeartGoldposE4 save is on map 306",
     "registry/hgss-us.warp-spawns.json map 306 MAP_POKEMON_LEAGUE_HALL_OF_FAME warp 0 tile (6,22)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-burned-tower",
@@ -2853,7 +2853,7 @@
     "fixtures/event-prereqs.json burned-tower-dogs-flee",
     "registry/hgss-us.warp-spawns.json map 217 MAP_BURNED_TOWER_B1F warp 0 tile (23,16)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-sprout-tower",
@@ -2895,7 +2895,7 @@
     "scr_seq_0018_D15R0103.s:124 (the win sets FLAG_UNK_076, which the battle branch tests)",
     "registry/hgss-us.warp-spawns.json map 156 MAP_SPROUT_TOWER_3F warp 0 tile (15,27)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-slowpoke-well",
@@ -2928,7 +2928,7 @@
     "zone_event 174_D26R0103.json",
     "registry/hgss-us.warp-spawns.json map 181 MAP_SLOWPOKE_WELL_B2F warp 0 tile (13,20)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-victory-road-rival",
@@ -2961,7 +2961,7 @@
     "zone_event 271_T10R0101.json object SPRITE_GSRIVEL at 10,24",
     "registry/hgss-us.warp-spawns.json map 300 MAP_POKEMON_LEAGUE_ENTRANCE warp 0 tile (11,25)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-starter",
@@ -2994,7 +2994,7 @@
     "zone_event for MAP_NEW_BARK_ELMS_LAB_1F",
     "registry/hgss-us.warp-spawns.json map 61 MAP_NEW_BARK_ELMS_LAB_1F warp 0 tile (4,14)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-mr-pokemon",
@@ -3027,7 +3027,7 @@
     "zone_event 052_T30R0201.json",
     "registry/hgss-us.warp-spawns.json map 143 MAP_ROUTE_30_MR_POKEMON_HOUSE warp 0 tile (4,9)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-cherrygrove-rival",
@@ -3060,7 +3060,7 @@
     "census: the 0-badge donor save stands here",
     "registry/hgss-us.warp-spawns.json map 67 MAP_CHERRYGROVE warp 0 tile (564,391)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-ilex-forest",
@@ -3093,7 +3093,7 @@
     "zone_event 114_D36R0101.json",
     "registry/hgss-us.warp-spawns.json map 117 MAP_ILEX_FOREST warp 0 tile (15,80)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-sudowoodo",
@@ -3126,7 +3126,7 @@
     "zone_event 100_R36.json",
     "registry/hgss-us.warp-spawns.json map 40 MAP_ROUTE_36 warp 0 tile (374,238)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-kimono-dance",
@@ -3159,7 +3159,7 @@
     "zone_event for MAP_ECRUTEAK_DANCE_THEATER",
     "registry/hgss-us.warp-spawns.json map 86 MAP_ECRUTEAK_DANCE_THEATER warp 0 tile (7,17)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-rocket-hq",
@@ -3192,7 +3192,7 @@
     "zone_event 148_D35R0101.json",
     "registry/hgss-us.warp-spawns.json map 247 MAP_TEAM_ROCKET_HEADQUARTERS_B1F warp 0 tile (51,4)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-lake-of-rage",
@@ -3239,7 +3239,7 @@
     "scr_seq_0938_T29.s:135 (the scene's own hide-flag write)",
     "registry/hgss-us.warp-spawns.json map 88 MAP_LAKE_OF_RAGE warp 0 tile (497,42)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-radio-tower",
@@ -3269,10 +3269,10 @@
     "flags_off": []
    },
    "sources": [
-    "docs/state-log.md F10/F11 (header script starts the takeover on load)",
+    "docs/archive/state-log.md F10/F11 (header script starts the takeover on load)",
     "registry/hgss-us.warp-spawns.json map 112 MAP_GOLDENROD_RADIO_TOWER_1F warp 0 tile (2,14)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-ice-path",
@@ -3305,7 +3305,7 @@
     "zone_event 117_D39R0101.json",
     "registry/hgss-us.warp-spawns.json map 120 MAP_ICE_PATH_1F warp 0 tile (11,58)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-olivine-lighthouse",
@@ -3335,10 +3335,10 @@
     "flags_off": []
    },
    "sources": [
-    "docs/state-log.md F8 (VAR_SCENE_LIGHTHOUSE_JASMINE gates this room)",
+    "docs/archive/state-log.md F8 (VAR_SCENE_LIGHTHOUSE_JASMINE gates this room)",
     "registry/hgss-us.warp-spawns.json map 225 MAP_OLIVINE_LIGHTHOUSE_LIGHT_ROOM warp 0 tile (9,10)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-mt-silver",
@@ -3437,7 +3437,7 @@
     "zone_event 270_R22R0101.json coords (VAR_UNK_4121 == 0 west path, VAR_UNK_4110 == 1 north gate)",
     "registry/hgss-us.warp-spawns.json map 32 MAP_ROUTE_28 warp 0 tile (887,266)"
    ],
-   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable."
+   "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable."
   },
   {
    "id": "event-rival-burned-tower",

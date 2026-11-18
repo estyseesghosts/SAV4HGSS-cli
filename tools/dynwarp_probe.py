@@ -1,4 +1,4 @@
-"""Runtime-test the flag-0x966 + dynamicWarp spawn mechanism (docs/state-log.md F5).
+"""Runtime-test the flag-0x966 + dynamicWarp spawn mechanism (docs/archive/state-log.md F5).
 
 For each target (map, warp index) from registry/hgss-us.warp-spawns.json: copy the base
 save with tools/save_edit.py (dynamic warp = {map, warp, x=0, y=0, dir=1}, flag 0x966 set;

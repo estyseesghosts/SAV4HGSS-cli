@@ -26,6 +26,6 @@
   },
   "review": {
     "status": "requires-runtime-verification",
-    "notes": "3rd-gym checkpoint (Master, Goldenrod): Falkner/Bugsy/Whitney TM flags set, Morty TM flag clear. Observed bit pattern 1110. Base is ndssc RLE-decompression of the NO$GBA container (see docs/coverage-gaps.md); self-spawn move exercises the location gate."
+    "notes": "3rd-gym checkpoint (Master, Goldenrod): Falkner/Bugsy/Whitney TM flags set, Morty TM flag clear. Observed bit pattern 1110. Base is ndssc RLE-decompression of the NO$GBA container (see docs/archive/coverage-gaps.md); self-spawn move exercises the location gate."
   }
 }

@@ -1,7 +1,7 @@
 # HGSS story state: what the save holds, how scripts read it, and what broke along the way
 
-This is the field-knowledge companion to `SAV4HGSS.md` (PKHeX-level
-format walkthrough) and `hgss_save_cli_engineering_design.md` (CLI
+This is the field-knowledge companion to `docs/save-format.md` (PKHeX-level
+format walkthrough) and `docs/archive/hgss_save_cli_engineering_design.md` (CLI
 architecture). It records how HeartGold/SoulSilver actually persist
 story and script progress, how the game's scripts consume that state,
 and every significant problem hit while building SAV4HGSS-cli with the
@@ -213,7 +213,7 @@ only passed by coincidence (Z equaled direction there).
   at the x=413-414 tree wall, so the path runs north at x~380 to the
   y=176 corridor (trek44: 380,176), east past the Mart via a south dip
   (trek46: 403,176 -> trek47: 411,177), to (414,174) and into the
-  gatehouse (legs 48-50), across to R42 (422,175, legs 51-52), east on R42 to (440,172) and into Mt. Mortar (legs 53-56). Route 42/Mortar outdoor/interior structs used warp 0, not `FFFFFFFF` (see `docs/research-findings.md`).
+  gatehouse (legs 48-50), across to R42 (422,175, legs 51-52), east on R42 to (440,172) and into Mt. Mortar (legs 53-56). Route 42/Mortar outdoor/interior structs used warp 0, not `FFFFFFFF` (see `docs/archive/research-findings.md`).
   Move-teach synth approved (Surf to Mantine, slot 5 Move3 97→57 PP 15, `trek-saves/hg-6gyn-surf.sav`, boot-verified). Surf replay and fast probes banked (`surf-states`, `surf-leg*`, `surf-probe`, `surf-fast*`): R42 lake crossed west shore (441,174) → (448,174) → (448,169)/(451,169)/(450,168) → south down x=450 under the island to (457,181) → (457,178)/(465,178)/(465,176) → auto-dismount (462,176) → east door (464,175) → Mt. Mortar 1F Entrance (45,50). Interior mapped to (57,41): (45,50) → (47,50) → (47,48) → surf east (53,48) → north channel (53,35) → (55,35) → (57,38) → (57,41). Continued R42-east to Mahogany (map 87), through the north gatehouse to Route 43 (524,156), north to (524,149).
   Continuation state (session ended on external `provider.quota`, no `hg-lake-pre-gyarados` staged): resume on `hg-6gyn-surf.sav` from `C:\Users\julie\workdir\leveld-out\surf-fast93..100\states\*.mcpr` and `C:\Users\julie\workdir\leveld-out\surf-battle1\states\sp_a1..sp_a8.mcpr` at map 45 (Route 43), (524,149), Spencer dialogue mid-battle. `hg-lake-pre-gyarados` not staged. Next: finish/bypass Spencer, find the north gap to Lake of Rage, in-game save + `--extract-save`, `inspect`/`diff`, stage fixture.
 - Tooling quirk (open, mechanism unknown): one combined run

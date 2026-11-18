@@ -49,7 +49,7 @@ HG Master (4 badges, Ecruteak) vs SS M@ster (4 badges, Ecruteak): 268 vs 284 fla
 
 ## F4. The save does contain actor and position state (correction to `coverage-gaps.md`)
 
-`docs/coverage-gaps.md` says story validity needs "actors, warps, and script context the save cannot encode". Most of that is encoded. Evidence:
+`docs/archive/coverage-gaps.md` says story validity needs "actors, warps, and script context the save cannot encode". Most of that is encoded. Evidence:
 
 `src/save_local_field_data.c:9-30` (pokeheartgold) defines `LocalFieldData`: five `Location` structs (`currentPosition`, `entrancePosition`, `previousPosition`, `dynamicWarp`, `specialSpawn`), `musicId`, `weather`, `lastSpawn` (blackout spawn), `cameraType`, `PlayerSaveData`, poison/safari counters. `Location` is five `int`s (`mapId, warpId, x, y, direction`, 20 bytes). `SAVE_MAP_OBJECTS` (`save_local_field_data.c:33-35`) is 64 `SavedMapObject`s, the actors of the current map.
 
@@ -329,7 +329,7 @@ different layer. Rotom is not a legendary battle, so it is not in the minimum se
 ## F18. Mt. Silver / Red is an unlock chain, and the scene now writes all of it
 
 2026-11-18. STORY-08 answered from source; the full trace is in
-`docs/research-findings.md`. The chain:
+`docs/archive/research-findings.md`. The chain:
 
 `scr_seq_0743_T02GYM0101.s:65` (Blue beaten → `VAR_UNK_4096 = 1`) →
 `scr_seq_0514_T02_hdr.s:13` (Viridian header runs `scr_seq_T02_011`) →

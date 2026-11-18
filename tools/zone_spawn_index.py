@@ -2,7 +2,7 @@
 
 Why this exists: `location.set` refused every tile except the hand-verified
 `fixtures/safe-spawns.json` entries because per-tile walkability lives in
-compiled binaries with no decompiled source (docs/coverage-gaps.md). A warp
+compiled binaries with no decompiled source (docs/archive/coverage-gaps.md). A warp
 arrival needs no walkability grid: the game itself places the player on a
 destination map's warp tile, so that tile is walkable by construction.
 

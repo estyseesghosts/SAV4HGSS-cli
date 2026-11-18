@@ -268,7 +268,7 @@ internal static class Commands
             foreach (var g in rules.LockedFieldMoves(result))
                 w.WriteStringValue(g.Move);
             w.WriteEndArray();
-            w.WriteString("note", "Badges beyond the base preset get their gym-script consequences only; scene variables, NPC flags and HM grants for those gyms are not modelled (docs/state-log.md F8, F12).");
+            w.WriteString("note", "Badges beyond the base preset get their gym-script consequences only; scene variables, NPC flags and HM grants for those gyms are not modelled (docs/archive/state-log.md F8, F12).");
             w.WriteEndObject();
         });
         return found.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;

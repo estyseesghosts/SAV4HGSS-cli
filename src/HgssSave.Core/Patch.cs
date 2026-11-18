@@ -75,7 +75,7 @@ public sealed record LocationSetOperation(int Map, int X, int Y, int Z) : PatchO
 /// <summary>
 /// Teleport via the game's own Continue path: sets flag 0x966 and the saved dynamic warp to
 /// {Map, Warp} so Continue spawns on that warp event's tile with freshly initialised actors
-/// (docs/state-log.md F5; field_warp_tasks.c FieldTask_ContinueGame_Normal).
+/// (docs/archive/state-log.md F5; field_warp_tasks.c FieldTask_ContinueGame_Normal).
 /// </summary>
 public sealed record LocationWarpOperation(int Map, int Warp, int Direction) : PatchOperation
 {

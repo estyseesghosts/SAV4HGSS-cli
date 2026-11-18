@@ -6,7 +6,7 @@ namespace HgssSave.PKHeX;
 /// <summary>Raw HGSS save geometry and pocket sizes.</summary>
 internal static class HgssLayout
 {
-    /// <summary>Full raw save, two 0x40000 partitions (SAV4HGSS.md §1; SaveUtil.SIZE_G4RAW).</summary>
+    /// <summary>Full raw save, two 0x40000 partitions (docs/save-format.md §1; SaveUtil.SIZE_G4RAW).</summary>
     public const int RawSize = 0x80000;
 
     /// <summary>Bytes per partition (SAV4.cs:20 <c>PartitionSize</c>).</summary>

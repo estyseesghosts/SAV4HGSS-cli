@@ -2,7 +2,7 @@
 
 ## Spawns are allowlisted, not arbitrary
 
-> **Update 2026-11-17:** the claim below that actors and warps cannot be encoded in the save is wrong in part. The save stores five `Location`s and 64 map objects, and Continue has a path (flag `0x966` plus `dynamicWarp`) that spawns from zone-event warps without any walkability data. See `docs/state-log.md` F4 and F5. The allowlist stays until that path is verified at runtime.
+> **Update 2026-11-17:** the claim below that actors and warps cannot be encoded in the save is wrong in part. The save stores five `Location`s and 64 map objects, and Continue has a path (flag `0x966` plus `dynamicWarp`) that spawns from zone-event warps without any walkability data. See `docs/archive/state-log.md` F4 and F5. The allowlist stays until that path is verified at runtime.
 
 `location.set` only writes exact `fixtures/safe-spawns.json` entries
 (19 verified tiles). This is deliberate: story validity needs actors,

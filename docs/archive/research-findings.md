@@ -1,4 +1,4 @@
-# Research findings log (answers to `hgss_save_state_research_plan.md`)
+# Research findings log (answers to `docs/archive/hgss_save_state_research_plan.md`)
 
 Each entry names the plan question, the evidence level from the
 plan's §2 hierarchy (SOURCE / SAVE_DIFF / INTERVENTION / RUNTIME /

@@ -190,7 +190,7 @@ public sealed class HgssFactory : ISaveFactory
             regions.Add(new ByteRegion("general.footer", partition, baseOff + HgssLayout.GeneralSize - HgssLayout.FooterSize, baseOff + HgssLayout.GeneralSize,
                 ByteRegionCategory.Checksum, "SAV4.cs:133-143 SetChecksums; Checksums.CRC16_CCITT"));
             regions.Add(new ByteRegion("general.gap", partition, baseOff + HgssLayout.GeneralSize, baseOff + HgssLayout.StorageStart,
-                ByteRegionCategory.Unassigned, "SAV4HGSS.md §1 gap 0xF628-0xF6FF"));
+                ByteRegionCategory.Unassigned, "docs/save-format.md §1 gap 0xF628-0xF6FF"));
             regions.Add(new ByteRegion("storage.data", partition, baseOff + HgssLayout.StorageStart, baseOff + HgssLayout.StorageStart + HgssLayout.StorageSize - HgssLayout.FooterSize,
                 ByteRegionCategory.Requested, "SAV4HGSS.cs:35 storage block minus FooterSize (:38)"));
             regions.Add(new ByteRegion("storage.box-changed-bits", partition, baseOff + HgssLayout.StorageStart + HgssLayout.BoxChangedOffset, baseOff + HgssLayout.StorageStart + HgssLayout.BoxChangedOffset + 4,

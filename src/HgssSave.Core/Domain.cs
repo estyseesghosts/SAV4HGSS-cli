@@ -108,7 +108,7 @@ public sealed record TrainerSnapshot(
 /// primary fields; <see cref="SecondaryX"/>/<see cref="SecondaryY"/>/<see cref="Z"/> are the
 /// mirrored fields PKHeX maintains (SAV4HGSS.cs <c>X2</c>/<c>Y2</c>/<c>Z</c>).
 /// </summary>
-/// <summary>The saved dynamic-warp Location {mapId, warpId, x, y, direction} (docs/state-log.md F4).</summary>
+/// <summary>The saved dynamic-warp Location {mapId, warpId, x, y, direction} (docs/archive/state-log.md F4).</summary>
 public sealed record DynamicWarpSnapshot(int MapId, int WarpId, int X, int Y, int Direction);
 
 public sealed record LocationSnapshot(

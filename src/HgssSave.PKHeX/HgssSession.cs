@@ -306,7 +306,7 @@ public sealed class HgssSession : ISaveSession
     }
 
     // LocalFieldData starts at general 0x1234 with five 20-byte Locations; dynamicWarp is the fourth
-    // (save_local_field_data.c:9-30; offsets verified against 29 saves, docs/state-log.md F4).
+    // (save_local_field_data.c:9-30; offsets verified against 29 saves, docs/archive/state-log.md F4).
     private const int DynamicWarpOffset = 0x1234 + (3 * 20);
 
     /// <summary>FLAG_UNK_966: Continue spawns at the dynamic warp instead of the saved position (flags.h 0x966; field_warp_tasks.c:423).</summary>

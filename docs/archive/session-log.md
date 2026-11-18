@@ -114,7 +114,7 @@ decisions, mistakes, and recoveries.
 - First approved synth: Surf taught to Mantine via export → PKHeX.Core
   Move3 97→57, PP 15 → import `--expect-species 226`; 130 data + 2
   checksum bytes, 0 unclassified, boot-verified. Justification is in
-  `docs/research-findings.md`; `hg-6gyn-surf.sav` is the trek base.
+  `docs/archive/research-findings.md`; `hg-6gyn-surf.sav` is the trek base.
 - R42 lake crossed on Surf (face-water + A): west shore (441,174) →
   east y=174 to (448,174) → north (448,169)/(451,169) → (450,168)
   pool → south down x=450 to y=181 → east under the island to

@@ -4,9 +4,9 @@ A scene is everything needed to put a save at one point of the story:
 
   base preset   a whole played milestone (registry/presets, tools/make_presets.py)
   badges        the badge set for that point; consequences come from
-                registry/hgss-us.badge-rules.json (docs/state-log.md F8/F13)
+                registry/hgss-us.badge-rules.json (docs/archive/state-log.md F8/F13)
   ops           explicit flag/variable/item writes for the scene itself
-  warp          a real warp event (WarpRegistry, docs/state-log.md F5)
+  warp          a real warp event (WarpRegistry, docs/archive/state-log.md F5)
 
 Machine data is not hand-typed where the decomp already has it:
 
@@ -229,11 +229,11 @@ MILESTONES = [
      ["zone_event 085_T29.json object SPRITE_RGYARADOSU at 525,71",
       "scr_seq_0938_T29.s:135 (the scene's own hide-flag write)"]),
     ("event-radio-tower", "Goldenrod Radio Tower 1F (takeover)", "hg-06-mineral",
-     "MAP_GOLDENROD_RADIO_TOWER_1F", [], ["docs/state-log.md F10/F11 (header script starts the takeover on load)"]),
+     "MAP_GOLDENROD_RADIO_TOWER_1F", [], ["docs/archive/state-log.md F10/F11 (header script starts the takeover on load)"]),
     ("event-ice-path", "Ice Path 1F", "hg-07-glacier",
      "MAP_ICE_PATH_1F", [], ["zone_event 117_D39R0101.json"]),
     ("event-olivine-lighthouse", "Olivine Lighthouse light room", "hg-05-storm",
-     "MAP_OLIVINE_LIGHTHOUSE_LIGHT_ROOM", [], ["docs/state-log.md F8 (VAR_SCENE_LIGHTHOUSE_JASMINE gates this room)"]),
+     "MAP_OLIVINE_LIGHTHOUSE_LIGHT_ROOM", [], ["docs/archive/state-log.md F8 (VAR_SCENE_LIGHTHOUSE_JASMINE gates this room)"]),
     ("event-mt-silver", "Route 28 (the road to Mt. Silver)", "hg-kanto-4",
      "MAP_ROUTE_28", MT_SILVER_UNLOCK_EXTRAS,
      ["fixtures/event-prereqs.json kanto-arc (FLAG_UNLOCKED_MT_SILVER at 16 badges)"] + MT_SILVER_UNLOCK_SOURCES),
@@ -504,7 +504,7 @@ def make_gym_scenes(reg: Registry) -> list[dict]:
             f"registry/hgss-us.badge-rules.json badge {badge['id']} {badge['name']} ({badge['script']})",
             f"{m['zone_event_file']} objects[] {leader['spriteId']} at ({leader['x']},{leader['z']}) flag {hide} script {leader.get('scriptId')}",
             f"registry/hgss-us.warp-spawns.json map {m['map_id']} {m['map_symbol']} warp {warp} tile ({wx},{wy})",
-            "docs/state-log.md F14 (gym scripts carry no story guard)",
+            "docs/archive/state-log.md F14 (gym scripts carry no story guard)",
         ]
         if badge["id"] < 8:
             johto_after = (1 << (badge["id"] + 1)) - 1
@@ -653,7 +653,7 @@ def make_milestone_scenes(reg: Registry) -> list[dict]:
             "expect": expect,
             "sources": sources + [
                 f"registry/hgss-us.warp-spawns.json map {m['map_id']} {map_sym} warp {warp} tile ({wx},{wy})"],
-            "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/state-log.md F11); this scene does not force a trigger variable.",
+            "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable.",
         })
     return scenes
 
@@ -701,7 +701,7 @@ def make_e4_scenes(reg: Registry) -> list[dict]:
         expect = {"map": m["map_id"], "warp": warp, "x": wx, "y": wy, "badges_johto": 255,
                   "badges_kanto": 0, "flags_on": [], "flags_off": []}
         sources = [f"{m['zone_event_file']} (room object)",
-                   "docs/state-log.md F14 (E4 rooms have no story guard for the battle)"]
+                   "docs/archive/state-log.md F14 (E4 rooms have no story guard for the battle)"]
         note = "Warp into the room; the member is a room object, talked to from the entrance tile."
         move = POST_LOAD_MOVE.get(sid)
         if move:

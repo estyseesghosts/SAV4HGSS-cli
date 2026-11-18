@@ -1,6 +1,6 @@
 """Which flags actually move between consecutive HG milestones, named and unnamed.
 
-Answers the open item in docs/state-log.md F6/F2: "identify the FLAG_UNK_* ids that actually
+Answers the open item in docs/archive/state-log.md F6/F2: "identify the FLAG_UNK_* ids that actually
 change across milestones". A flag that changes is story state the preset and the scene layer must
 carry; a flag that never changes across the 11-save HG lineage cannot be told apart from a constant.
 

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace HgssSave.Tests;
 
-/// <summary>location.warp: flag 0x966 + saved dynamic warp (docs/state-log.md F4/F5).</summary>
+/// <summary>location.warp: flag 0x966 + saved dynamic warp (docs/archive/state-log.md F4/F5).</summary>
 public sealed class WarpTests
 {
     private static readonly HgssFactory Factory = new();

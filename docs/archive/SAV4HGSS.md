@@ -1,5 +1,7 @@
 # SAV4HGSS: Complete technical walkthrough
 
+> **Superseded.** Read [docs/save-format.md](../save-format.md) instead. It states the same layout with sources checked against PKHeX 26.10.18, and corrects this file's TM/HM pouch size (101 slots, not 100). This file is kept for its source links and the generator-pipeline sketch in sections 13-14. Some code blocks and headings below lost their formatting in an earlier export.
+
 `SAV4HGSS` is PKHeX's implementation of the Pokémon HeartGold and SoulSilver save format. It is built on the shared Generation IV save system, but HGSS introduces different offsets, additional save blocks, padded PC storage, Johto-specific event state, the Pokéwalker, Pokéathlon, Safari Zone, and other features.
 
 The most important distinction is that the save file is not one continuous, flat structure representing the player's current state. It contains redundant copies of several independently updated blocks. Within those blocks are smaller structures containing everything from Pokémon and inventory to map coordinates, script variables, and event flags.

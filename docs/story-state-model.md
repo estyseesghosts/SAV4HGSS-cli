@@ -1,6 +1,6 @@
 # How story state works in HeartGold/SoulSilver
 
-What the game stores for story progress, how its scripts read and write it, and what that means for generating a save at an arbitrary story point. `docs/save-format.md` covers the bytes; this file covers the meaning. Finding numbers (F1-F18) refer to `docs/archive/state-log.md`; the evidence behind each is listed in `docs/findings.md`.
+What the game stores for story progress, how its scripts read and write it, and what that means for generating a save at an arbitrary story point. `docs/save-format.md` covers the bytes; this file covers the meaning. Finding numbers (F1-F23) refer to `docs/archive/state-log.md`; the evidence behind each is listed in `docs/findings.md`.
 
 Evidence labels used throughout: **SOURCE** (decomp line), **SAVE_DIFF** (compared real saves), **RUNTIME** (observed in the emulator), **INTERVENTION** (edited copy against a control). The definitions are in `docs/archive/hgss_save_state_research_plan.md` §2.
 
@@ -21,7 +21,7 @@ Setting one of these without the others produces states the game never creates. 
 
 SAVE_DIFF on consecutive HG saves from one playthrough (`research/lineage-HG-Master.md`) shows 2 to 9 flags clearing at every step, alongside 7 to 65 setting (F1). Almost all clearing flags are `FLAG_HIDE_*`, where *set means hidden*, so clearing makes an NPC or object appear (`FLAG_HIDE_JASMINE_IN_GYM` clears when Jasmine becomes available). Other flags that clear: `FLAG_ROCKET_TAKEOVER_ACTIVE`, `FLAG_AZALEA_ROCKET_HARASSING_CIVILIAN`, `FLAG_DAILY_*`, and several `FLAG_UNK_*`. After the Hall of Fame the league resets: `FLAG_DEFEATED_WILL/KOGA/BRUNO/KAREN` clear (25 flags clear on the SS Elite Four step).
 
-A "set progress to X" feature that only adds flags would leave NPCs hidden that the game expects visible. Presets therefore set and clear every persistent flag. The corpus cannot show which clears are story and which are player choice (section 9).
+A "set progress to X" feature that only adds flags would leave NPCs hidden that the game expects visible. Presets therefore set and clear every persistent flag. The corpus cannot show which clears are story and which are player choice (section 10).
 
 Flag families across the corpus (F2): `FLAG_HIDE_*` 5,270 set instances, trainer-defeated 2,154, `FLAG_UNK_*` 1,430 (184 distinct ids), `FLAG_GOT_*` 643, `FLAG_CAUGHT_*` 47, hidden items 46, `FLAG_DEFEATED_*` 12, daily 7.
 
@@ -76,12 +76,35 @@ Findings:
 
 See `docs/save-format.md` §6 for the structures. The behaviours that matter:
 
-- `location set` writes only `currentPosition`, and only to tiles in `fixtures/safe-spawns.json` (20 tiles seen in real saves). Walkability per tile is not decoded (section 10).
-- `location warp MAP WARP` sets flag `0x966` and the saved dynamic warp. On Continue the game resolves the warp to its event tile and builds actors from zone-event data (F5). RUNTIME: a hand-edited warp with deliberately wrong x/y landed on the table's tile; 6 of 6 random (map, warp) targets landed exactly; 80 scene spawns use it. The destination is a warp event tile (a door, stairs or map exit), never an arbitrary tile. The `registry/hgss-us.warp-spawns.json` table has 1,317 such tiles over 540 maps.
+- `location set` writes only `currentPosition`, and only to tiles in `fixtures/safe-spawns.json` (20 tiles seen in real saves). Walkability per tile is not decoded (section 11).
+- `location warp MAP WARP` sets flag `0x966` and the saved dynamic warp. On Continue the game resolves the warp to its event tile and builds actors from zone-event data (F5). RUNTIME: a hand-edited warp with deliberately wrong x/y landed on the table's tile; 6 of 6 random (map, warp) targets landed exactly; 80 scene spawns use it. The `registry/hgss-us.warp-spawns.json` table has 1,317 such tiles over 540 maps.
+- `location warp MAP -1 --x=X --y=Y` sets the same warp with `warpId = -1`, so the game keeps the stored coordinates instead of replacing them from a warp event (`src/field_warp_tasks.c:206-209`; the game uses the same path for the Union Room exit, `:380-382`). This is a supported path, not a hack (F19). MAP must resolve to a map symbol. The tile is not checked for walkability, and the map's init script may still move the player.
 - In saves, flag `0x966` is set once (HG Master right after the Hall of Fame), with the New Bark player room as dynamic warp. The final SS save carries the same dynamic warp with the flag clear, as expected after one Continue.
 - In the live RAM struct the warp field depends on the map: outdoor Ecruteak shows `0xFFFFFFFF`, while Route 42, Mt. Mortar and interiors show warp ids such as 0 (`docs/archive/research-findings.md`, `docs/archive/session-log.md`).
 
-## 8. Multi-step unlock chains: Mt. Silver and Red (F18, STORY-08)
+## 8. Multi-step unlock chains and hidden actors
+
+### The Kimono sequence is one script run (F23)
+
+`scr_seq_0928_T27R0501.s` `_016` is a linear chain of five `TrainerBattle` calls (ZUKI, NAOKO, MIKI, SAYO, KUNI), each followed by `CheckBattleWon` and a branch to `WhiteOut`; a loss ends the cutscene, a win falls through to the next sister. One boot therefore covers all five fights, and the chain gates on winning, so the base preset's Lv9 Cyndaquil cannot pass it. The run sets `VAR_UNK_40FA = 1`, which is the gate on the Whirl Islands summoning event at (16,36) (`_EV_scr_seq_D40R0107_005` runs only while `VAR_UNK_40FA == 1`). The Dance Theater and Lugia's chamber are one story.
+
+The in-game save that closes the loop confirms the delta against the composed save: `VAR_UNK_410C` 4→6, `VAR_UNK_40FA` 0→1, `ITEM_CLEAR_BELL` 0→1, `FLAG_UNK_103` set, both Kimono hide flags flip, `VAR_BATTLE_RESULT` 0→1, money 3,444→26,244 (exactly five prizes of ₽4,560), and `FLAG_UNK_966` cleared. It also shows that `VAR_TEMP_*` ids are in `SaveVarsFlags.vars[]`: `VAR_BATTLE_RESULT` (0x4013) survived the in-game save. They are zeroed on map load (`src/script_manager.c:406-407`), not absent from the file.
+
+### Mystery Gift-gated actors (F20)
+
+The Latios/Latias talk script opens with `ScrCmd_546 0` and returns before any message when `VAR_UNK_4043 != 0x06F2`; the only writer of that var is the Enigma Stone branch of the Mystery Gift handler (`src/scrcmd_mystery_gift.c:346-349`). A save with `ITEM_ENIGMA_STONE` and without the var is a state the game cannot produce, and the script stays silent by design. Both Latis scenes now write `VAR_UNK_4043 = 1778` and both fought in-game. The general rule: any scene that grants an item needs the companion var the script gates on, not just the item.
+
+### The winch, and other gimmicks that cannot be saved (F21)
+
+Cianwood's winch is a save-block struct (`gymmickUnion->cianwood.winch`) cleared by the map's own init script on every load (`Save_Gymmick_Init` via `CianwoodGymInit`). No save can encode "winch already turned", and writing `VAR_TEMP_x4000` changes nothing: it is in `vars[]` but zeroed on map load, and Chuck's script branches to the "doesn't notice you" message while it is zero. The only route is to turn the winch in-session (free spawn at the winch tile, A, wait ~1,500 frames, walk the room).
+
+Three different lifetimes exist for gym gimmicks: story-variable gated (Ecruteak, savable), save-block cleared by the map initialiser (Cianwood, not savable), and re-randomised at load (Vermilion's cans via `PlaceVermilionGymSwitches`, not savable). The ice floor, Fuchsia's invisible walls, Saffron's pads, Vermilion's cans and Blackthorn's walkway gate movement, not the leader's script, so a free spawn next to the leader is a state a real player reaches by solving the puzzle.
+
+### Elite Four rooms move the player, and scripted walking does not trip coordinate triggers (F22)
+
+Will, Koga, Bruno and Karen carry object scripts reached with A. Lance has no object script; his battle is a coordinate trigger over x 5..7, z 10 gated on `VAR_UNK_40C7 == 0`. Every room also runs an intro from the frame table that walks the player six tiles north (`WalkNormalNorth 6`), so a free spawn does not stay where it was written, and the scripted walk does not satisfy a coordinate trigger: stepping off the strip and back on does. Coordinate triggers are evaluated against real steps.
+
+## 9. Mt. Silver and Red (F18, STORY-08)
 
 Unlocking Red is a five-write chain from Blue's gym, not one flag (SOURCE, all in `pokeheartgold@4e95633`):
 
@@ -93,7 +116,7 @@ Unlocking Red is a five-write chain from Blue's gym, not one flag (SOURCE, all i
 
 The corpus cannot show this chain (Kanto badge counts are 0 and 255 only; the 16-badge SS save confirms the end state). The intermediate values come from source. An earlier version of the Red scenes wrote only `FLAG_UNLOCKED_MT_SILVER`, a state the game never produces; both scenes now write the whole chain.
 
-## 9. What the corpus can and cannot separate
+## 10. What the corpus can and cannot separate
 
 HG and SS share a story core. At 4 badges, HG has 268 flags set and SS 284, with 252 in common (F3). The differences are optional state: item balls, a few trainers, side events (`FLAG_GOT_OLD_ROD`, `FLAG_GOT_APRICORN_BOX`), version-exclusive story (`FLAG_CAUGHT_LUGIA` in SS, Ho-Oh in HG), and one real actor difference (`FLAG_HIDE_VIOLET_GYM_GYM_GUY_BEFORE_SPROUT` versus `_AFTER_SPROUT`). At 1, 2, 4 and 8 Johto badges the HG and SS flag sets share 171/192/252/363 flags.
 
@@ -103,7 +126,7 @@ State replay works. `tools/state_delta.py` turns two corpus saves into a recipe 
 
 Unnamed flags that change between consecutive HG milestones (`tools/unk_flags.py`), for the steps 1→2 badges through post-Elite-Four→Kanto: 10, 9, 15, 6, 6, 13, 13, 7, 2 and 30. A cluster at `0x96x-0x99x` and `0xAA5` moves with warps and play time rather than story; `FLAG_UNK_966` is the Continue-at-dynamic-warp flag. The rest (for example `FLAG_UNK_0B7`, `_0C5`, `_103`, `_1BF`-`_1C5`, `_1E5`-`_1FE`, `_25C`-`_27F`) are real story writes without names.
 
-## 10. Walkability and reachability (F15, unresolved)
+## 11. Walkability and reachability (F15, unresolved)
 
 The aim was to derive which field-move gates each map needs, since gym scripts do not encode order (section 4). A pipeline exists: `tools/nds_files.py` reads the ROM filesystem and NARCs, `tools/map_data.py` loads the overworld map matrix and the land-data tile attributes (u16 at member offset `0x14`, bit 15 = blocked, low byte = behaviour), `tools/map_reach.py` floods the 47x17-block overworld (503,808 tiles).
 

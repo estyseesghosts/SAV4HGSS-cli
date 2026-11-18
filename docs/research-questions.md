@@ -38,7 +38,7 @@ Tally at the end of the file.
 
 | ID | Status | What we know |
 |---|---|---|
-| MAP-01 | Answered | Position state is five `Location`s (current, entrance, previous, dynamic warp, special spawn), music, weather, blackout spawn and 64 saved map objects (F4). The minimum for a safe placement is a warp: flag `0x966` plus `dynamicWarp` (F5). Arbitrary tiles are not solved (F15). |
+| MAP-01 | Answered | Position state is five `Location`s (current, entrance, previous, dynamic warp, special spawn), music, weather, blackout spawn and 64 saved map objects (F4). The minimum for a safe placement is a warp: flag `0x966` plus `dynamicWarp` (F5); `warpId == -1` keeps stored x/y, so the same path spawns on any tile (F19). Tile walkability is not verified. |
 | MAP-02 | Partly | Editing current M/X/Y alone leaves the other four locations and actors inconsistent (F4). The two Continue paths are documented from source (F5). 20 verified spawn tiles reload with matching live Location. Interior placement by `location.set` was found to need its own pattern work (`docs/archive/research-findings.md`). A camera/follower/object comparison against a real warp was not made. |
 | MAP-03 | Partly | Map header frame triggers fire on load; shown by F10 (takeover call plays on warp into Mahogany) and F17 (init scripts move the player in 22 of 80 scenes). Three entry paths for one map were not compared with a script log. |
 | MAP-04 | Partly | Actor visibility is flags (`FLAG_HIDE_*`), but map init can override them (F17). `SAVE_MAP_OBJECTS` is documented from source; the matching save bytes are not attributed (F6). |
@@ -67,15 +67,15 @@ The repository stages Lugia and Ho-Oh states and checks their gates. It does not
 | ID | Status | What we know |
 |---|---|---|
 | LUG-01 | Partly | Gate at `scr_seq_0884_T24R0801.s:46` (`HasItem ITEM_SILVER_WING`); fixture `ss-lugia-pre-event-stage` and scenes boot. The omit-one-prerequisite experiments were not run. |
-| LUG-02 | Not investigated | |
+| LUG-02 | Partly | The five Kimono fights are one script run (`scr_seq_0928_T27R0501.s`, `_016`) with `VAR_UNK_410C == 4`; the run sets `VAR_UNK_40FA = 1` (the Lugia gate) and `VAR_UNK_410C` to 6 (F23). The exact per-sister write ordering inside a mid-chain loss was not traced. |
 | LUG-03 | Not investigated | `FLAG_UNK_10B` meaning not determined. |
 | LUG-04 | Not investigated | `FLAG_UNK_109` meaning not determined. |
-| LUG-05 | Not investigated | Scene logic clears the hide flag and `FLAG_ENGAGING_STATIC_POKEMON` for Lugia (F17); the factorial test with `FLAG_CAUGHT_LUGIA` was not run. |
-| LUG-06 | Partly | Temp variables are runtime state and are never in a `.sav`; mid-cutscene capture uses `.mcpr` savestates (`docs/archive/runtime-results.md`). Which temp vars drive camera sync was not annotated. |
-| LUG-07 | Not investigated | The Kohjoh crash was not reproduced or localized in this repository. The Lugia battle itself has not been triggered from a composed save. |
+| LUG-05 | Not investigated | Scene logic clears the hide flag and `FLAG_ENGAGING_STATIC_POKEMON` for Lugia (F17); the factorial test with `FLAG_CAUGHT_LUGIA` was not run. Lugia itself was fought from a composed save with an operator-imported Surf Shellder at frame 9263. |
+| LUG-06 | Partly | Temp vars are stored in the save (`SaveVarsFlags.vars[]`, `0x4000` base) but zeroed by `ScriptManager` on map load (`script_manager.c:406-407`); `VAR_BATTLE_RESULT` survived an in-game save (F23). Which temp vars drive camera sync was not annotated. |
+| LUG-07 | Partly | The Kohjoh crash was not reproduced or localized in this repository. Lugia was triggered from a composed save on 2026-11-18 (frame 9263, `LUGIA Lv70`); the room required a Surf-capable party. |
 | LUG-08 | Not investigated | |
-| LUG-09 | Partly | Version locks: Ho-Oh HG, Lugia SS, Kyogre HG, Groudon SS, Latios HG, Latias SS (F17). Parallel CFG comparison not done. |
-| LUG-10 | Partly | Composed saves reach the Ho-Oh, Kyogre, Groudon, Rayquaza and Red battles by warp, not by the legitimate route; they behave correctly. A cutscene-setup comparison was not made. |
+| LUG-09 | Partly | Version locks: Kyogre HG, Groudon SS, Latios HG, Latias SS, Rayquaza both HG and SS while `VAR_SCENE_EMBEDDED_TOWER < 7` (F17). Ho-Oh is HG-only and the HG room is the summit; the SS equivalent was not read. Parallel CFG comparison not done. |
+| LUG-10 | Partly | Composed saves reach the Ho-Oh, Kyogre, Groudon, Rayquaza, Suicune, Articuno, Zapdos, Moltres, Mewtwo, Latios, Latias, Lugia and Red battles by warp, not by the legitimate route; they behave correctly. A cutscene-setup comparison was not made. `VAR_UNK_4043 = 0x06F2` is required for the Latis actors (F20). |
 | LUG-11 | Not investigated | |
 | LUG-12 | Not investigated | |
 
@@ -132,7 +132,7 @@ The repository stages Lugia and Ho-Oh states and checks their gates. It does not
 | TRACE-01 | Not investigated | The index covers `.s` scripts only. No instrumented comparison against runtime reads and writes. |
 | TRACE-02 | Not investigated | Changes are attributed to writer scripts by file (`tools/delta_by_script.py`), not by traced program counter. |
 | TRACE-03 | Not investigated | No hardware run and no emulator-versus-hardware comparison. |
-| TRACE-04 | Partly | The byte audit and 69 tests verify the CLI round trip against PKHeX; the game's own round trip was observed once (the play-to-fill loop). |
+| TRACE-04 | Partly | The byte audit and 73 tests verify the CLI round trip against PKHeX; the game's own round trip was observed once (the play-to-fill loop). |
 | TRACE-05 | Partly | `docs/archive/coverage-matrix.md` and `docs/archive/coverage-gaps.md` list missing branches (Chikorita, pre-Blue, pre-Red, Lake pre-Gyarados, Mewtwo and Groudon pre-states). |
 | TRACE-06 | Partly | HG and SS were compared for the core; other languages were not. |
 
@@ -141,7 +141,7 @@ The repository stages Lugia and Ho-Oh states and checks their gates. It does not
 Counted per ID (98 questions), since some rows cover a range:
 
 - Answered: MAP-01, STORY-02, STORY-03, STORY-04, STORY-08, SYM-01, COH-01 (7).
-- Partly: FMT-02 to FMT-05 (4), LIFE-01 to LIFE-03 (3), MAP-02 to MAP-05 (4), STORY-01, STORY-05, STORY-06, STORY-07, STORY-10 (5), LUG-01, LUG-06, LUG-09, LUG-10 (4), SYM-02, SYM-03 (2), ITEM-01 to ITEM-04 (4), COH-02, COH-05, COH-07, COH-08 (4), TRACE-04, TRACE-05, TRACE-06 (3) = 33.
-- Not investigated: the remaining 58.
+- Partly: FMT-02 to FMT-05 (4), LIFE-01 to LIFE-03 (3), MAP-02 to MAP-05 (4), STORY-01, STORY-05, STORY-06, STORY-07, STORY-10 (5), LUG-01, LUG-02, LUG-06, LUG-07, LUG-09, LUG-10 (6), SYM-02, SYM-03 (2), ITEM-01 to ITEM-04 (4), COH-02, COH-05, COH-07, COH-08 (4), TRACE-04, TRACE-05, TRACE-06 (3) = 35.
+- Not investigated: the remaining 56.
 
 The practical result: the project answered the questions that block generating verified saves at story points (badges, the Rocket takeover, Red, positions via warps) and none of the long-tail systems.

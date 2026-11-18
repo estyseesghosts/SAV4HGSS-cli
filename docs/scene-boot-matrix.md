@@ -9,6 +9,7 @@ boots the result headless, and requires the live player location to be the scene
 - run `C:\Users\julie\AppData\Local\Temp\opencode\scene-legend\summary.json`: 2/2 reached their tile, rom(s) `soulsilver.nds`
 - run `C:\Users\julie\AppData\Local\Temp\opencode\scene-e4lance2\summary.json`: 1/1 reached their tile, rom(s) `heartgold.nds`
 - run `C:\Users\julie\AppData\Local\Temp\opencode\scene-battles\summary.json`: 10/10 reached their tile, rom(s) `heartgold.nds`
+- run `C:\Users\julie\AppData\Local\Temp\opencode\bootcheck-lati\summary.json`: 2/2 reached their tile, rom(s) `heartgold.nds`, `soulsilver.nds`
 
 Total rows: 80
 

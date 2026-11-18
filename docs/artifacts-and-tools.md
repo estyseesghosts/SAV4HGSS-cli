@@ -99,4 +99,4 @@ Runtime tools need the melonDS-MCP native core (`MELONDS_MCP_LIB`, `PYTHONPATH` 
 
 ## Source layout
 
-`src/HgssSave.Core` holds format-independent logic (patch planning, byte audit, registries). `src/HgssSave.PKHeX` is the only layer that touches PKHeX.Core (`HgssLayout.cs` copies PKHeX's private constants with line citations; tests fail if PKHeX changes). `src/HgssSave.Cli` is the command surface (`HelpText.cs`, `docs/cli-reference.md`). `tests/HgssSave.Tests` has 69 tests.
+`src/HgssSave.Core` holds format-independent logic (patch planning, byte audit, registries). `src/HgssSave.PKHeX` is the only layer that touches PKHeX.Core (`HgssLayout.cs` copies PKHeX's private constants with line citations; tests fail if PKHeX changes). `src/HgssSave.Cli` is the command surface (`HelpText.cs`, `docs/cli-reference.md`). `tests/HgssSave.Tests` has 73 tests.

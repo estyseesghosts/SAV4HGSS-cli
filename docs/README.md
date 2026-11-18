@@ -55,7 +55,7 @@ Original working documents, kept unchanged apart from path updates. They hold th
 
 | File | Content |
 |---|---|
-| `archive/state-log.md` | Findings F1-F18 in order, each with its evidence |
+| `archive/state-log.md` | Findings F1-F23 in order, each with its evidence |
 | `archive/research-findings.md` | Answers to the plan: Lake of Rage gate, interior structs, Surf synth, Olivine, Mt. Silver chain |
 | `archive/story-state-field-knowledge.md` | Live RAM struct, containers, issue log, deliberate refusals, Lake of Rage trek and play-to-fill notes (sections 7-9 are a navigation log) |
 | `archive/runtime-results.md` | Boot matrix, Continue sequences, legendary and Red encounter proofs |
@@ -90,7 +90,7 @@ New findings: add a row to `findings.md` with the full account under a new headi
 | Fixture | A curated recipe from a played base save, with a manifest and runtime record |
 | Level A-D | Structural, invariant, story and runtime verification |
 | `.mcpr` | A melonDS savestate. Not a `.sav` |
-| F1-F18 | Findings in `archive/state-log.md` |
+| F1-F23 | Findings in `archive/state-log.md` |
 | Decomp | `pret/pokeheartgold`, pinned at `4e95633` |
 
 ## Conventions

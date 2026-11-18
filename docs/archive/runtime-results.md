@@ -183,12 +183,13 @@ their warp tile (1048,78) with the var written.
 Legendary coverage is now 13/13 fought from composed saves: Ho-Oh, Lugia,
 Articuno, Zapdos, Moltres, Mewtwo, Suicune, Latios, Latias, Kyogre, Groudon,
 Rayquaza and Red (Red is the trainer fight, not a legendary, and has its own
-bullet above). The nine story-battle scenes still have boot rows only.
+bullet above). The story-battle scenes had boot rows only at this point;
+fight evidence for most of them is recorded in the sections below.
 
-### Story-battle scenes: two fought, seven still boot-only
+### Story-battle scenes: fight evidence added 2026-11-18
 
-The nine story battles added in `2ac4acd` had boot rows only. Two now have
-fight evidence:
+The nine story battles added in `2ac4acd` had boot rows only at this point in
+the record; two now have fight evidence:
 
 - **Mt. Moon rival** (`event-rival-mount-moon`, free spawn (10,5) on map 107):
   the encounter is a coord event, so it fires on arrival without an input -
@@ -208,10 +209,11 @@ fight evidence:
   actor at (23,14) is on the raised level. It needs the walk from the scene's
   own (22,16) spawn, not a free spawn.
 
-The remaining seven (`rival-azalea`, `rival-goldenrod-tunnel`,
-`rival-victory-road`, `petrel-radio-tower`, `archer-radio-tower`,
-`petrel-rocket-hq`, plus the second through fifth Kimono battles) still have
-boot rows only.
+The remaining seven listed here had boot rows only at this point in the
+record; the later sections below close six of them (Azalea, Goldenrod Tunnel,
+Petrel Radio Tower, Archer, and all five Kimono sisters as one chain), leaving
+Burned Tower, Victory Road 3F, Rocket HQ Petrel and the League-entrance rival
+without fight evidence.
 
 ## Gym leaders fought from composed saves (16 of 16, 2026-11-18)
 

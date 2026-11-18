@@ -8,36 +8,41 @@ Two lists. The first is what is not known or not done, with what would unblock i
 
 | Item | State | What unblocks it |
 |---|---|---|
-| Arbitrary X/Y placement | `location set` accepts only 20 verified tiles; `location warp` reaches any of 1,317 warp event tiles. "Any location" currently means any warp tile | Calibrate collision (F15): the overworld splits into 521 components because block joins are missing from the tile attributes as read. Needs the real join rule (script matrix edits, land-data object section, or a loader detail), then all 26 played positions must be reachable before any verdict ships |
-| Coordinate triggers | Frame triggers fire on load; coordinate triggers need the player to stand on a tile (F11) | Walkability, or walking in the emulator |
+| Arbitrary X/Y placement | `location warp MAP -1 --x X --y Y` spawns on any tile but does not check walkability or elevation; `location set` stays allowlisted | Walkability check (`--probe-tile`: report the four neighbours' blocked bit) |
+| Collision calibration (F15) | The overworld splits into 521 components; block joins are missing from the tile attributes as read. `tile_path.py` was deleted after six probes disagreed with its land-data model in four places | The real join rule (script matrix edits, land-data object section, or a loader detail); all 26 played positions must be reachable before any verdict ships |
+| Coordinate triggers | Frame triggers fire on load; coordinate triggers need the player to stand on a tile (F11, F22) | Walkability, or walking in the emulator |
 | Out-of-order badge sets | `story build` gives badges their gym consequences but not scene variables, NPC flags or HM grants for the world to match (F13) | Prerequisites from the map graph, which needs F15 |
 | One HG playthrough | Cannot separate story from player choice (F1) | A second HG run dumped at the same milestones |
 | Chikorita start | No save with starter 152 | Play the intro and save at Cherrygrove |
-| Lugia battle | Spawned and reachable on a composed save; the run stopped when a greedy walker oscillated at (16,26). Not fought | Plan the path with `tools/map_data.py` `tile_grid` (matrix 144, bit 15 blocked) instead of guessing directions |
-| Other legendaries | Articuno, Zapdos, Moltres, Mewtwo, Suicune, Latios, Latias have boot rows only | Walk to the actor and press A on each |
-| Nine story-battle scenes | Rivals, Petrel, Archer, Kimono Girls, boot-verified only | Fight each |
+| Story battles not fought | Burned Tower rival (actor on the raised level above the spawn; A from below does nothing), Victory Road 3F rival, Rocket HQ Petrel (no actor position recorded). The League-entrance rival scene (`event-victory-road-rival`) has no fight recorded either | `story triggers --map` and the zone event for the two without a position; a warp plus a real walk for Burned Tower |
 | Lake of Rage pre-Gyarados | No fixture. The trek reached Route 43 (524,149) mid-battle | Resume from `hg-6gyn-surf.sav` and the banked `.mcpr` anchors (local `leveld-out/`) |
 | Unmodelled general-block tables | `0x23B8-0x2740` and `0x4434-0x4510` (F6) | Compute chunk sizes from decomp structs and place each cluster |
 | Named flags | Unnamed flags that move between HG milestones (`tools/unk_flags.py`) | Attribution from the writer script plus runtime tests |
 | Actor checker | Does not model `CheckBattleWon`; over-reports one Mt. Moon write | Add the opcode to the walker |
+| `variable.set VAR_TEMP_*` | The planner refuses the name with "not persistent save fields" (`PatchPlanner.cs:232`), which is false: `SaveVarsFlags.vars[]` holds them, and `ScriptManager` zeroes them on map load (`script_manager.c:406-407`). `variable.set 0x4000` applies with a warning and bypasses the review | Allow the name with the same warning as the numeric form, or fix the message |
 | Facing field | The u16 at +16 of the live `Location` lagged once | More observations |
 | Unexplained tooling | A long combined input hold freezes after the first hold | Root cause unknown; use short holds |
+| Boot timing | Boot is frame-counted (logo at ~4,400, Continue menu at ~4,600), landing A during the fade at least three times | Poll for the title logo / Continue menu state instead of counting frames |
 | Most of the research plan | 58 of 98 questions untouched | `docs/research-questions.md` |
+| Lugia party precondition | The Lugia proof depended on an operator-imported Shellder with Surf; the scene does not encode a party precondition | A Surf-capable party check in the scene audit, or a note in the scene |
+| Progress presets must clear as well as set | Open since the corpus was built; needs a second HG playthrough at the same milestones | A scheduled play session, or decide to answer it from source instead |
+| Victory Road rival ids | `event-victory-road-rival` (League entrance, pre-existing) and `event-rival-victory-road` (3F, new) differ only in word order and mean different maps | Rename one, or add a hard note in the registry |
+| Boot matrix regeneration | Generated from run summaries; regenerated 2026-11-18 to fold in the Latios/Latias re-boot, but it must be regenerated as part of every registry commit | Make the matrix part of the registry commit path |
 
 ### Deliberate refusals
 
 These are rules, not gaps (`docs/archive/story-state-field-knowledge.md` §6):
 
 - Backward resets ("un-beat Clair to restage Ecruteak") fabricate states the scripts never produce.
-- Arbitrary teleports (exit 8 `location-unverified`).
+- Unverified warp indices (exit 8 `warp-unverified`). A `warpId == -1` free spawn is allowed; the tile is the caller's claim to verify in-game (F19).
 - A walkability verdict from undecoded data.
 - Mid-cutscene `.sav` states do not exist; use savestates.
 - Granting a key item whose give-flag or counter would disagree.
 
 ### Documentation state
 
-- Counts in older docs have drifted. `README.md` says 54 tests (the suite is 69); `docs/archive/coverage-gaps.md` and `docs/archive/story-state-field-knowledge.md` say 19 safe spawns (the file holds 20); `docs/archive/state-log.md` F9 says 17 presets (there are 18). The generated files and tools hold the current numbers.
-- Raw agent transcripts `chatlog00.*`, `chatlog01.md` are git-ignored and kept for provenance only. Nothing in them is needed to use the project.
+- Counts in older docs drift. `README.md` said 54 tests and `docs/artifacts-and-tools.md` said 69; the suite is 73. `docs/archive/coverage-gaps.md` and `docs/archive/story-state-field-knowledge.md` say 19 safe spawns (the file holds 20); `docs/archive/state-log.md` F9 says 17 presets (there are 18). The generated files and tools hold the current numbers.
+- Raw agent transcripts at the repository root (`chatlog00.*`, `chatlog01.md`) are git-ignored and kept for provenance. `chatlog06.md` (the 2026-11-18 session record, 4 h, one build-agent session that added the scene layer) lives at the workspace root, one directory above this repo, not in it.
 
 ## Corrections
 
@@ -53,11 +58,18 @@ Claims that were stated, later disproved, and where the fix is.
 | The D-pad is broken | Two misreads: a stale mirror and a static menu UI | §3, §5 item 9 |
 | Interiors drop the Location struct | The scan keyed on the `0xFFFFFFFF` warp sentinel, which interiors do not use | `docs/archive/session-log.md` |
 | The live player struct is at `0x227d498` | The address varies by map | `docs/archive/runtime-results.md`, `docs/verification.md` |
-| The start menu was stuck open on the Kyogre run | A stale screen capture; the Down press moved the player out | `docs/archive/runtime-results.md` |
 | `D43R0103` is Goldenrod Underground, then Victory Road 2F | Map 179 `MAP_VICTORY_ROAD_3F`; the Goldenrod rival is `D37R0104`, map 201 | F16 |
 | `spawn_registry_check.py` is a valid check of the warp table | It compares warp tiles with free-roam positions and explains 0 of 20; runtime probing is the right test | F5 |
 | Mt. Silver needs `FLAG_UNLOCKED_MT_SILVER` | Five-write chain | F18 |
 | `needs` edges in `story-atoms-hg.json` are prerequisites | File-level reads, not guards | F14 |
 | `docs/archive/SAV4HGSS.md`: TM/HM pouch is 100 slots | 101 | `docs/save-format.md` |
 | `docs/archive/runtime-validation.md`: no headless mode | `tools/leveld_run.py` exists | `docs/verification.md` |
-| Rotom is a scene | Not producible from flags alone | F17 |
+| Rotom is a scene | Not producible from flags alone; the map rewrites every appliance flag on transition | F17 |
+| Kyogre/Groudon/Rayquaza/Articuno/Zapdos/Moltres/Mewtwo/Suicune/Latios/Latias/Lugia are not fought | All 13 fought from composed saves on 2026-11-18 | `docs/archive/runtime-results.md` |
+| The Kimono battle is five separate encounters | One script run; `scr_seq_0928_T27R0501.s` `_016` chains all five, sets `VAR_UNK_40FA = 1` (the Lugia gate) | F23 |
+| "The player is stuck inside raised geometry" in Cianwood | The winch cutscene holds input; a negative movement result is not map data while input is locked | F21, `docs/archive/runtime-results.md` |
+| The start menu was stuck open on the Kyogre run | A stale bottom-screen capture; the decisive test is the live Location across a d-pad press | `docs/archive/runtime-results.md` |
+| `VAR_TEMP_*` / temp vars are not persistent save fields | They are in `SaveVarsFlags.vars[]`; they are zeroed on map load | F21, F23 |
+| The Kimono save sequence is `X → right` (or `X → right → down`) | The cursor position is not pinned to a frame in either record; measure the menu instead of guessing the path | F23 |
+| `docs/runtime-results.md` is the live path | It moved to `docs/archive/runtime-results.md` | docs reorganisation |
+| `cli-reference.md`: arbitrary tiles are impossible | Free spawns ship as `location warp MAP -1 --x X --y Y` | F19 |

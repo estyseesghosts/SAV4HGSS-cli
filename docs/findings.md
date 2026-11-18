@@ -25,10 +25,15 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | F12 | HM01/02/03/08 flag and item always agree (29/29); field moves are badge-gated in `field_move.c` | SOURCE, SAVE_DIFF | holds. HM04-07 have no grant flag |
 | F13 | `story build`: preset base plus badge consequences; out-of-order badges get no scene variables or HM grants | INTERVENTION, RUNTIME | holds, limits stated |
 | F14 | No story guards on badge or HM award scripts; order lives in access and triggers | SOURCE (path walk) | holds. Supersedes the `needs` edges in `story-atoms-hg.json` |
-| F15 | Map reachability pipeline built; collision semantics not calibrated (521 components, joins between blocks missing) | SOURCE, SAVE_DIFF | open. Blocks arbitrary-tile spawns |
+| F15 | Map reachability pipeline built; collision semantics not calibrated (521 components, joins between blocks missing) | SOURCE, SAVE_DIFF | open. `tile_path.py` deleted after six probes. Free spawns shipped instead (F19); collision only still blocks the per-gym field-move gate analysis and walkability checks |
 | F16 | 80 scenes composed from preset, badges, scene ops, warp; 80/80 reach their tile | RUNTIME | holds. Table of story battles corrected (see `docs/open-questions.md`) |
 | F17 | Map-init scripts decide actor visibility and can move the player; version locks for legendaries | SOURCE | holds. Checker over-reports one write (`CheckBattleWon`) |
 | F18 | Mt. Silver and Red are a five-write unlock chain | SOURCE, SAVE_DIFF (end state only) | holds. Scenes rewritten to carry it |
+| F19 | The dynamic warp can spawn on any tile: `warpId == -1` keeps stored x/y (`field_warp_tasks.c:206-209`) | SOURCE, RUNTIME (7 maps) | holds. Shipped as `location warp MAP -1 --x X --y Y`. Tile walkability unchecked |
+| F20 | Latios and Latias are gated on `VAR_UNK_4043 == 0x06F2`, the Mystery Gift Enigma Stone var; the item alone is silent | SOURCE, RUNTIME (both fought) | holds. Both scenes write `VAR_UNK_4043 = 1778` |
+| F21 | Cianwood's winch is a save-block gimmick wiped by the map's own init (`Save_Gymmick_Init`); `VAR_TEMP_x4000` is stored but zeroed on load; the waterfall flag is sound-only | SOURCE, RUNTIME | holds. Chuck beaten by turning the winch in-session. The planner's refusal message is wrong (see `docs/open-questions.md`) |
+| F22 | E4 rooms run an intro from the frame table that walks the player; scripted walking does not trip coordinate triggers | SOURCE, RUNTIME | holds. Lance's battle is a coordinate trigger, not an object script |
+| F23 | The Dance Theater is one script run (five `TrainerBattle`s); the in-game save proves its delta, including `VAR_UNK_40FA = 1` (the Lugia gate) | SOURCE, SAVE_DIFF (in-game save) | holds. Temp vars are in `SaveVarsFlags.vars[]` |
 
 ## B. Research findings (`docs/archive/research-findings.md`)
 
@@ -64,6 +69,9 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | Result | Evidence |
 |---|---|
 | All 30 fixtures boot headless; Violet, Lugia and Kanto fixtures continue to the overworld and many assert the live spawn (`docs/archive/runtime-results.md`) | RUNTIME |
-| 80 of 80 scenes reach their tile on the correct ROM (78 HG, 2 SS) | RUNTIME (generated matrix) |
-| Encounters fought from composed saves: Ho-Oh, Red, Kyogre, Groudon, Rayquaza | RUNTIME. Rayquaza is in commit `2ac4acd`'s message and the implementer's report; `docs/archive/runtime-results.md` does not list it yet |
-| Not fought: Lugia (spawned and reachable, battle not triggered), Articuno, Zapdos, Moltres, Mewtwo, Suicune, Latios, Latias, and the nine story-battle scenes added in `2ac4acd` | open |
+| 80 of 80 scenes reach their tile on the correct ROM (78 HG, 2 SS) | RUNTIME (generated matrix; regenerated 2026-11-18 to include the Latios/Latias re-boot) |
+| All 16 gym leaders fought from composed saves | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
+| All 5 Elite Four rooms fought from composed saves | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
+| Legendaries and Red fought from composed saves: Ho-Oh, Lugia, Kyogre, Groudon, Rayquaza, Suicune, Articuno, Zapdos, Moltres, Mewtwo, Latios, Latias, Red (13/13) | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
+| Story battles fought: Mt. Moon rival, Azalea rival, Goldenrod Tunnel rival, Petrel (Radio Tower), Archer, Kimono chain (five fights in one cutscene) | RUNTIME (frame numbers) |
+| Not fought: Burned Tower rival (actor on the raised level), Victory Road 3F rival, Rocket HQ Petrel (no actor position recorded), League-entrance rival (`event-victory-road-rival`, pre-existing) | open |

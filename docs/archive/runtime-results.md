@@ -336,6 +336,44 @@ Three entries needed correction from what the earlier free spawns assumed:
   `up` press sends the player to `MAP_GOLDENROD_RADIO_TOWER_ELEVATOR` (447). Archer is a plain
   A-triggered object, so the free spawn at (8,4) is the correct entry for this room.
 
+## Kimono Girls: five fights in one cutscene (2026-11-18)
+
+`event-kimono-battles` composed from the base save, party led by a Lv100 Typhlosion with
+Earthquake in slot 1 (harness rig: the chain gates each fight on winning). One boot, one A press
+per turn, no move-menu navigation:
+
+| Fight | Frame | Proof |
+| --- | --- | --- |
+| Zuki | 9052 | `You are challenged by Kimono Girl Zuki!`, UMBREON Lv38 |
+| Naoko | 13652 | `You are challenged by Kimono Girl Naoko!`, ESPEON Lv38 |
+| Miki | 18252 | `You are challenged by Kimono Girl Miki!`, FLAREON Lv38 |
+| Sayo | 29108 | `You are challenged by Kimono Girl Sayo!`, JOLTEON Lv38 |
+| Kuni | 33708 | `You are challenged by Kimono Girl Kuni!`, VAPOREON Lv38 |
+
+Ending: `Player defeated Kimono Girl Kuni!`, `Ash got ₽4560 for winning!`, `Ash put the Clear Bell
+in the KEY ITEMS Pocket.` The intermediate tabs are the script's own: `scr_seq_0928_T27R0501.s`
+`_016` calls all five `TrainerBattle`s in one run and only whiteouts on a loss.
+
+Then saved in-game (`X` -> right -> down -> SAVE -> YES -> overwrite) and diffed against the
+composed save. melonDS wrote `heartgold.sav` at 6:07:10 PM, SHA-256 `C58D4B23…`; the composed input
+was `232D2643…`. The game-written delta, all of it accounted for in the script:
+
+| Field | Before | After |
+| --- | --- | --- |
+| `VAR_UNK_410C` | 4 | 6 |
+| `VAR_UNK_40FA` | 0 | 1 |
+| `VAR_BATTLE_RESULT` (0x4013) | 0 | 1 |
+| `ITEM_CLEAR_BELL` | 0 | 1 |
+| `FLAG_UNK_103` | off | on |
+| `FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS` | off | on |
+| `FLAG_HIDE_BELL_TOWER_SUMMIT_KIMONO_GIRLS` | on | off |
+| money | 3,444 | 26,244 |
+| `FLAG_UNK_966` | on | off |
+
+`FLAG_UNK_966` is `location warp`'s own dynamic-warp flag, cleared by the game on load; the money
+delta is 5 x 4,560, an independent count of the five wins. Details and the temp-var storage
+correction are F23 in `state-log.md`.
+
 ## How to reproduce
 
 ```powershell

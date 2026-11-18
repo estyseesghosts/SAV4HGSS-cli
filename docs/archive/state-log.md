@@ -466,6 +466,58 @@ and nothing happens. Stepping off the strip to (6,13) and back to (6,8) fires it
 (`Lance: I've been waiting for you.`). Coordinate triggers appear to be evaluated against real steps,
 not script-driven movement, so a scene that relies on one needs a walk, not just a spawn.
 
+## F23. The Dance Theater is one script run, and an in-game save proves its delta
+
+2026-11-18. The five Kimono Girl fights are not five encounters. `scr_seq_0928_T27R0501.s`
+`_016` runs them back to back: `TrainerBattle TRAINER_KIMONO_GIRL_ZUKI`, then
+`CheckBattleWon`/`Compare 0`/`GoToIfEq _0BC9`, then NAOKO, MIKI, SAYO and KUNI the same way.
+`_0BC9` is `WhiteOut`, so a loss ends the cutscene and a win falls through to the next sister.
+That is why one boot covers all five, and why the scene registry models it as a single
+`event-kimono-battles` composed of `VAR_UNK_410C = 4`, the two `FLAG_HIDE_*` clears and warp 0.
+
+The chain gates on winning, so the base preset's Lv9 Cyndaquil cannot reach the end. Proof runs
+used a Lv100 Typhlosion generated with the repo's `PKHeX.Core` and imported into slot 0 (starter
+kept in slot 3); that is a harness rig, not a claim about the save state. Leading with
+Earthquake makes plain A-spam win every fight, including Flareon (Flash Fire absorbs Fire moves).
+
+The in-game save that closes the loop: **X** opens the field menu (Start is title-screen only).
+The cursor starts on POKéDEX; `right` goes to the trainer card ("Ash"), `down` from there is
+SAVE, so the full sequence is `X` -> `right` -> `down` -> `A` -> `A` (YES) -> `A` (overwrite).
+melonDS flushes the `.sav` on save: `heartgold.sav` changed mtime and hash the moment the
+overwrite was confirmed, with no reload, reset or SRAM step. The bottom-screen capture can still
+be a stale frame, so menu-vs-field is measured by reading the live Location across a d-pad press.
+
+Diffing the composed save against the game-written one (`hgss-save diff kimono-eq.sav
+kimono-after.sav`) gives the real before/after delta, and every entry is pinned to a script line:
+
+| Delta | Source |
+| --- | --- |
+| `VAR_UNK_410C` 4 -> 6 | `SetVar VAR_UNK_410C, 6` before the final `End` |
+| `VAR_UNK_40FA` 0 -> 1 | `SetVar VAR_UNK_40FA, 1` beside it |
+| `ITEM_CLEAR_BELL` 0 -> 1 | `GiveItemNoCheck ITEM_CLEAR_BELL, 1`; the `GoToIfNe _0AA4` branch gives `ITEM_TIDAL_BELL` on the other version |
+| `FLAG_UNK_103` set | `SetFlag FLAG_UNK_103` (line 810) |
+| `FLAG_HIDE_DANCE_STUDIO_KIMONO_GIRLS` (0x23C) set | `SetFlag` after the five `HidePerson` calls |
+| `FLAG_HIDE_BELL_TOWER_SUMMIT_KIMONO_GIRLS` (0x244) cleared | `ClearFlag` in the HG branch after `SetVar VAR_UNK_410C` |
+| money 3,444 -> 26,244 (+22,800) | five prizes of ₽4,560; the game prints `Ash got ₽4560 for winning!` after Kuni |
+| `VAR_BATTLE_RESULT` (0x4013) 0 -> 1 | last `CheckBattleWon` result |
+| `FLAG_UNK_966` cleared | `location warp`'s own dynamic-warp flag, consumed by the game on load |
+| location 67/(564,392) -> 86/(7,7) | the in-game save records the actual map, unlike `location.warp`'s saved-warp mechanism |
+
+The last two rows are harness artefacts, not story writes. The money row is a useful independent
+check: +22,800 is exactly five times the one printed prize, so the after-save proves five wins even
+without reading the battle text.
+
+One correction to the tool's own model: `VAR_TEMP_*` **is** stored in the save.
+`SaveVarsFlags` is `u16 vars[NUM_VARS]` (`include/save_vars_flags.h:9-12`) addressed as
+`&vars[varId - VAR_BASE]` (`src/save_vars_flags.c:57-60`), and `VAR_BASE` is `0x4000` with
+`NUM_VARS 0x170` (`include/constants/vars.h:4,384`). So ids `0x4000..0x416F` — including
+`VAR_TEMP_x4000` and `VAR_BATTLE_RESULT` — are all in the same saved array. The diff proves it
+empirically: `VAR_BATTLE_RESULT` changed 0 -> 1 and survived the in-game save. `PatchPlanner.cs:232`
+refuses `VAR_TEMP_*` with the message "not persistent save fields", which is a naming-based policy,
+not a storage fact. The policy is still defensible for scene composition (map init scripts reset
+these; Cianwood's winch is the example in F21), but the message should not be read as "the save
+cannot hold them".
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: a broader sample of the 1,317 table entries. F16 uses it for 80 scene spawns (78 HG, 2 SS).

@@ -49,6 +49,29 @@ GYM_MAPS = ["MAP_VIOLET_GYM", "MAP_AZALEA_GYM", "MAP_GOLDENROD_GYM", "MAP_ECRUTE
             "MAP_CELADON_GYM", "MAP_FUCHSIA_GYM", "MAP_SAFFRON_GYM",
             "MAP_SEAFOAM_ISLANDS_CINNABAR_GYM", "MAP_VIRIDIAN_GYM"]
 
+# Ecruteak is the one gym whose "before" state is not simply the previous badge save. The
+# Burned Tower event is mandatory between the Plain and Fog badges, and while VAR_UNK_4079
+# is 0 the gym header runs the old man's ejection script
+# (scr_seq_0695_T27GYM0101_hdr.s:13 -> _EV_scr_seq_T27GYM0101_004; 0922_T27GYM0101.s:71
+# sets 1). The real 4-badge save is the first one holding the post-tower value 2, so the
+# before scene is composed from it with the Fog badge and Morty's rewards taken back out.
+GYM_BEFORE_OVERRIDES = {
+    3: {
+        "base": "hg-04-fog",
+        "ops": [
+            {"op": "flag.set", "id": 166, "value": False},                 # FLAG_GOT_TM30_FROM_MORTY
+            {"op": "inventory.quantity.set", "item": 357, "quantity": 0},  # TM30
+        ],
+        "sources": [
+            "scr_seq_0695_T27GYM0101_hdr.s:13 (VAR_UNK_4079 == 0 runs the ejection)",
+            "scr_seq_0920_T27.s:65,120 (the city/rival scenes set 0 and 4)",
+            "scr_seq_0024_D18R0102.s:133 (the Burned Tower completion sets 2)",
+            "registry/presets/hg-04-fog.json holds VAR_UNK_4079=2",
+            "registry/hgss-us.badge-rules.json badge 3 FOG effects",
+        ],
+    },
+}
+
 # Static legendary battles: (id, title, game, map symbol, sprite prefix, hide flag,
 # base preset, Kanto badge mask, extra ops, sources).
 #
@@ -534,11 +557,13 @@ def make_gym_scenes(reg: Registry) -> list[dict]:
         for phase in ("before", "after"):
             mask_j = johto_after if phase == "after" else johto_before
             mask_k = kanto_after if phase == "after" else kanto_before
-            base = after_preset if phase == "after" else before_preset
-            ops = []
+            override = GYM_BEFORE_OVERRIDES.get(badge["id"]) if phase == "before" else None
+            base = override["base"] if override else (after_preset if phase == "after" else before_preset)
+            ops = list(override["ops"]) if override else []
             if phase == "before":
                 ops.append({"op": "flag.set", "id": reg.fid(hide), "value": False})
             ops.append({"op": "location.warp", "map": m["map_id"], "warp": warp})
+            scene_sources = sources + (override["sources"] if override else [])
             scenes.append({
                 "id": f"gym-{n:02d}-{badge['name'].lower()}-{phase}",
                 "title": f"{m['map_symbol']} ({LEADERS[badge['id']]}), {phase} the badge",
@@ -554,8 +579,13 @@ def make_gym_scenes(reg: Registry) -> list[dict]:
                 },
                 "actor": {"sprite": leader["spriteId"], "x": leader["x"], "z": leader["z"],
                           "script": leader.get("scriptId"), "hide_flag": hide},
-                "sources": sources,
-                "note": (f"Clears {hide} to make the leader present, which is what the gym's own "
+                "sources": scene_sources,
+                "note": (f"Base preset is the played milestone after this badge with the badge and "
+                         f"its rewards taken back out, because the story gate between the previous "
+                         f"badge and this one (Burned Tower) is not a badge; then clears {hide} and "
+                         f"warps onto warp {warp} of the same map.")
+                if override else
+                        (f"Clears {hide} to make the leader present, which is what the gym's own "
                          f"init script does, then warps onto warp {warp} of the same map.")
                 if phase == "before" else
                         "Base preset is the played milestone after this badge; the warp puts the player back in the gym.",

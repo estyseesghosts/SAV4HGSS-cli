@@ -400,6 +400,48 @@ the var (`tools/make_scenes.py`) and fight in-game. The same shape probably guar
 Gift unlocks; `_020FE4A8` (`0x6208, 0xF229, 0x0382, 0x1228`) is the roamer-status equivalent
 (`sub_02066C00/74`) and is worth checking before trusting a hand-set roamer var.
 
+## F21. Cianwood's winch is a save-block gimmick the map script wipes, and its waterfall flag is sound only
+
+2026-11-18. The Cianwood Gym winch had been assumed to be session memory. It is save data:
+`CianwoodGymmick_LaunchWinchTask` writes `gymmickUnion->cianwood.winch = TRUE`
+(`src/field/gymmick/cianwood.c:61`) into the `BOOL winch` field of the gymmick union
+(`include/gymmick.h:25`), and `GymmickInit_Cianwood` reads it back at map load to park the waterfall
+prop animations on their last frame (`src/field/gymmick/cianwood.c:31-42`). That read is dead in
+practice, because the map's own init script calls `InitCianwoodGym`
+(`scr_seq_0877_T24GYM0101.s:13-16`), which calls `Save_Gymmick_Init`
+(`src/gymmick_init.c:50-55`), which is `Save_Gymmick_Clear` plus a type tag
+(`src/save_gymmick.c:9-12`). So the bit cannot survive a Continue and no save can encode "winch
+already turned". Unlike Ecruteak there is no override that helps: the state is cleared by the
+gym's own initialiser, not by a story guard.
+
+The second half of the lock is not the waterfall but `VAR_TEMP_x4000`. Chuck's script branches to
+the "doesn't notice you" message when that var is zero (`scr_seq_0877_T24GYM0101.s:24-27`, message
+`msg_0574_T24GYM0101_00009`), and only the winch script writes it
+(`CianwoodGymTurnWinch VAR_TEMP_x4000`, `:121`; implemented at `src/scrcmd_c.c:3119-3123` as the
+return value of `CianwoodGymmick_ActivateWinch`). The var is index `0x4000`
+(`include/constants/vars.h:7`), inside the physical `vars[NUM_VARS]` array with `NUM_VARS = 0x170`
+(`:384`, `include/save_vars_flags.h:10`), so the bytes exist in the save block - but the planner
+refuses them on purpose (`src/HgssSave.Core/PatchPlanner.cs:232`), and the value is session state
+the game expects to be written by the script. Writing it would produce a state the game never
+produces.
+
+`FLAG_SYS_CIANWOOD_WATERFALL_DISABLE` is unrelated to collision. Its only reader is
+`FieldSystem_SoundplateIsActive`, to mute the waterfall loop
+(`src/field/field_control.c:1068`, `src/sys_flags.c:302`). Setting it changes nothing physical, and
+the map init script clears it anyway (`scr_seq_0877_T24GYM0101.s:14`).
+
+The free spawn also produces a trap on this map, not a soft-lock. `gym-05-storm-before` with a free
+spawn at (10,3) reaches the winch prompt and turns it, and the waterfall prop visibly changes. All
+four directions then read as blocked at (11,3), which is what "stuck inside the geometry" meant in
+the previous note - but the cause is the winch cutscene, which pans the camera and waits on a prop
+animation loop (`src/field/gymmick/cianwood.c:87-130`) with input locked. Measured after the task
+finishes (~1000 frames past the prompt), `left` and `right` both move normally: (10,3) -> (11,3) ->
+(9,3) -> (4,3). The real trap is that the westward strip at z=3 has no descent - `down` is blocked
+at every x from 4 to 11 - and the gate at x=12 closes once the winch is turned, leaving (11,3)
+blocked in all four directions. The winch platform is not reachable from below, so the only honest
+route to Chuck is the intended walk from the entrance, and the pre-badge save is correct as
+shipped: entrance warp, Chuck present, badge unearned, puzzle unsolved.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: a broader sample of the 1,317 table entries. F16 uses it for 80 scene spawns (78 HG, 2 SS).

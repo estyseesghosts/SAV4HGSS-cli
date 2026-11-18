@@ -213,6 +213,36 @@ The remaining seven (`rival-azalea`, `rival-goldenrod-tunnel`,
 `petrel-rocket-hq`, plus the second through fifth Kimono battles) still have
 boot rows only.
 
+## Gym leaders fought from composed saves (Johto 1-4, 2026-11-18)
+
+Four of the sixteen leaders have a real battle started from the composed save,
+not a boot-only row. Each save is `gym-0N-*-before` from
+`registry/hgss-us.scenes.json`, composed by `tools/make_scenes.py`, and each
+keeps the leader's own `FLAG_HIDE_*` cleared so the actor exists. A fight
+counts only when the leader's name and a party are on screen.
+
+| Scene | Map | Spawn | Proof |
+| --- | --- | --- | --- |
+| `gym-01-zephyr-before` | 135 | free spawn (15,5) | frame 6698 `Leader Falk`, frame 6998 `PIDGEY Lv9` vs `CYNDAQUIL` |
+| `gym-02-hive-before` | 180 | free spawn (9,6) | frame 6698 `Leader Bugsy sent out SCYTHER!` |
+| `gym-03-plain-before` | 137 | free spawn (13,5) | frame 6698 `You are challenged by Leader Whitney!` |
+| `gym-04-fog-before` | 80 | free spawn (10,9) | frame 7782 `GASTLY Lv21` |
+
+`gym-04-fog-before` is the first scene that cannot reuse the previous badge
+preset. Burned Tower is mandatory between badges 3 and 4 and is not a badge, so
+the scene takes `hg-04-fog` and walks the Morty rewards back: Fog badge masked
+to 7 (three badges), `flag.set 166 false` and `inventory.quantity.set 357 0`
+(`GYM_BEFORE_OVERRIDES` in `tools/make_scenes.py`). The previous attempt was
+ejected from the gym because `VAR_UNK_4079 == 0` sends the player to the
+Ecruteak exit (`scr_seq_0695_T27GYM0101_hdr.s`), and the override writes the
+Burned Tower completion value 2 (`scr_seq_0024_D18R0102.s:133`).
+
+`gym-05-storm-before` is not in this table. Chuck is gated on the winch, which
+is save-block state that the map initialiser wipes and a script variable that
+the tool refuses to write; the scene is a correct pre-badge state (entrance
+warp, Chuck present, badge unearned) but the fight needs the puzzle solved in
+session. See F21 in `docs/archive/state-log.md`.
+
 ### The "stuck start menu" was a stale screen capture, not a save problem
 
 The earlier Kyogre attempt concluded the pause menu was open and would not

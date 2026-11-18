@@ -293,12 +293,22 @@
    "title": "MAP_ECRUTEAK_GYM (Morty), before the badge",
    "kind": "gym",
    "game": "HG",
-   "base_preset": "hg-03-plain",
+   "base_preset": "hg-04-fog",
    "badges": {
     "johto": 7,
     "kanto": 0
    },
    "ops": [
+    {
+     "op": "flag.set",
+     "id": 166,
+     "value": false
+    },
+    {
+     "op": "inventory.quantity.set",
+     "item": 357,
+     "quantity": 0
+    },
     {
      "op": "flag.set",
      "id": 749,
@@ -333,9 +343,14 @@
     "registry/hgss-us.badge-rules.json badge 3 FOG (scr_seq_0922_T27GYM0101.s:115)",
     "077_T27GYM0101.json objects[] SPRITE_GSLEADER4 at (10,8) flag FLAG_HIDE_ECRUTEAK_GYM_MORTY script _EV_scr_seq_T27GYM0101_001 + 1",
     "registry/hgss-us.warp-spawns.json map 80 MAP_ECRUTEAK_GYM warp 0 tile (16,53)",
-    "docs/archive/state-log.md F14 (gym scripts carry no story guard)"
+    "docs/archive/state-log.md F14 (gym scripts carry no story guard)",
+    "scr_seq_0695_T27GYM0101_hdr.s:13 (VAR_UNK_4079 == 0 runs the ejection)",
+    "scr_seq_0920_T27.s:65,120 (the city/rival scenes set 0 and 4)",
+    "scr_seq_0024_D18R0102.s:133 (the Burned Tower completion sets 2)",
+    "registry/presets/hg-04-fog.json holds VAR_UNK_4079=2",
+    "registry/hgss-us.badge-rules.json badge 3 FOG effects"
    ],
-   "note": "Clears FLAG_HIDE_ECRUTEAK_GYM_MORTY to make the leader present, which is what the gym's own init script does, then warps onto warp 0 of the same map."
+   "note": "Base preset is the played milestone after this badge with the badge and its rewards taken back out, because the story gate between the previous badge and this one (Burned Tower) is not a badge; then clears FLAG_HIDE_ECRUTEAK_GYM_MORTY and warps onto warp 0 of the same map."
   },
   {
    "id": "gym-04-fog-after",

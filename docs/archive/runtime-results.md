@@ -213,14 +213,14 @@ The remaining seven (`rival-azalea`, `rival-goldenrod-tunnel`,
 `petrel-rocket-hq`, plus the second through fifth Kimono battles) still have
 boot rows only.
 
-## Gym leaders fought from composed saves (15 of 16, 2026-11-18)
+## Gym leaders fought from composed saves (16 of 16, 2026-11-18)
 
-Fifteen of the sixteen leaders have a real battle started from the composed save,
-not a boot-only row. Each save is `gym-0N-*-before` from
+All sixteen leaders have a real battle started from the composed save, not a
+boot-only row. Each save is `gym-0N-*-before` from
 `registry/hgss-us.scenes.json`, composed by `tools/make_scenes.py`, and each
 keeps the leader's own `FLAG_HIDE_*` cleared so the actor exists. A fight
-counts only when the leader's name or party is on screen. Chuck is the
-exception and is covered below.
+counts only when the leader's name or party is on screen. Chuck needed the
+winch turned in the same session; the route is recorded below the table.
 
 | Scene | Map | Spawn | Proof |
 | --- | --- | --- | --- |
@@ -228,6 +228,7 @@ exception and is covered below.
 | `gym-02-hive-before` | 180 | free spawn (9,6) | frame 6698 `Leader Bugsy sent out SCYTHER!` |
 | `gym-03-plain-before` | 137 | free spawn (13,5) | frame 6698 `You are challenged by Leader Whitney!` |
 | `gym-04-fog-before` | 80 | free spawn (10,9) | frame 7782 `GASTLY Lv21` |
+| `gym-05-storm-before` | 139 | free spawn (10,3), winch turned in-session | 26556 `Chuck: Oomph!`, 29006 VS Chuck, 29226 `You are challenged by Leader Chuck!`, 29666 PRIMEAPE Lv29, 31426 `Leader Chuck sent out POLIWRATH!` (Lv31), 34506 `The foe's POLIWRATH fainted!`, 34726 `We...lost...`, 34946 `Ash got ₽3720 for winning!`, 35606 `Ash received the Storm Badge from Chuck!` |
 | `gym-06-mineral-before` | 138 | free spawn (6,6) | frame 7298 `Leader Jasmine sent out MAGNEMITE!`, frame 7758 `Go! CYNDAQUIL!` (MAGNEMITE Lv30) |
 | `gym-07-glacier-before` | 140 | free spawn (7,5) | frame 7352 `Leader Pryce sent out SEEL!`, frame 7582 SEEL Lv30 vs CYNDAQUIL |
 | `gym-08-rising-before` | 141 | free spawn (12,4) | frame 7352 `Leader Clair sent out GYARADOS!`, frame 7582 GYARADOS Lv38 vs CYNDAQUIL |
@@ -259,11 +260,36 @@ ejected from the gym because `VAR_UNK_4079 == 0` sends the player to the
 Ecruteak exit (`scr_seq_0695_T27GYM0101_hdr.s`), and the override writes the
 Burned Tower completion value 2 (`scr_seq_0024_D18R0102.s:133`).
 
-`gym-05-storm-before` is not in this table. Chuck is gated on the winch, which
-is save-block state that the map initialiser wipes and a script variable that
-the tool refuses to write; the scene is a correct pre-badge state (entrance
-warp, Chuck present, badge unearned) but the fight needs the puzzle solved in
-session. See F21 in `docs/archive/state-log.md`.
+`gym-05-storm-before` is the one gym that cannot be fought from a free spawn alone. Chuck's
+script branches to the "doesn't notice you" message while `VAR_TEMP_x4000 == 0`
+(`scr_seq_0877_T24GYM0101.s:24-27`), and only the winch script writes it
+(`CianwoodGymTurnWinch VAR_TEMP_x4000`, `:121`; `src/scrcmd_c.c:3119-3123`). That var cannot be
+baked into the save: `ScriptManager` zeroes `NUM_TEMP_VARS * 2` bytes at `TEMP_VAR_BASE` on map
+load (`src/script_manager.c:406-407`), and the gym's init script calls `CianwoodGymInit`
+(`scr_seq_0877_T24GYM0101.s:13-16`, `src/gymmick_init.c:49-54`). Writing `0x4000` with the
+numeric patch form applies, reads back as 1, and still produces the "doesn't notice you" line
+in game.
+
+So this proof turns the winch in the session it fights in:
+
+1. Free spawn at the winch talk tile (10,3), face north, A (`There is a large winch. Will you
+   turn it?`), then A again (`Ash turned the winch with pure might!`). The message needs its own
+   A press; until it is dismissed every d-pad press is swallowed.
+2. Wait out the camera task (~1,500 frames; `Task_CianwoodGymmick_LiftWinchCutscene` walks
+   through six states in `src/field/gymmick/cianwood.c:87-130`). The rebind is visual only:
+   `renderObj_173` gets animation set 174 and `renderObj_175` is animated, no collision change.
+3. Walk the room. Confirmed route: (10,3) -> (6,3) -> (6,4) -> (6,5) -> (4,5) [Black Belt Nob]
+   -> (4,6) -> (4,7) -> (10,7) -> (10,8) -> (10,9) -> (7,9) [Black Belt Yoshi] -> (7,10) ->
+   (7,11) -> (13,11), then face north and press A on Chuck.
+4. Both Black Belts sit on the route with sight lines (`xRange` 3 and 4 on the other two; Nob and
+   Yoshi engage on the crossing), so their battles are part of the walk. A single-member party is
+   what keeps this runnable: with three members, the second Pokémon's send-out raises the Shift
+   prompt, and an empty message box there wedged the run.
+
+Two harness corrections came out of this and are worth keeping: HGSS movement is `up` = z-1 and
+`down` = z+1 (I had it inverted for a while and kept walking into the north wall), and the
+pause menu is toggled by `X` — an accidental `X` press looks exactly like "the geometry is
+blocked" because the d-pad then moves the menu cursor while the live Location stays put.
 
 ## Elite Four rooms fought from composed saves (5 of 5, 2026-11-18)
 

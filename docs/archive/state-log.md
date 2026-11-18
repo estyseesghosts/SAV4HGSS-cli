@@ -442,6 +442,19 @@ blocked in all four directions. The winch platform is not reachable from below, 
 route to Chuck is the intended walk from the entrance, and the pre-badge save is correct as
 shipped: entrance warp, Chuck present, badge unearned, puzzle unsolved.
 
+**Resolved 2026-11-18: Chuck fought, 16/16 gyms.** The winch var cannot be written into a save at
+all. `ScriptManager` zeroes `NUM_TEMP_VARS * 2` bytes at `TEMP_VAR_BASE` on every map load
+(`src/script_manager.c:406-407`), and the gym init script calls `CianwoodGymInit`
+(`scr_seq_0877_T24GYM0101.s:13-16` -> `src/gymmick_init.c:49-54`). Verified: a save carrying
+`0x4000 = 1` (numeric patch form) reads back as 1 with `var get`, boots into map 139, and Chuck
+still answers with `msg_0574_T24GYM0101_00009` ("He's so into his training, he doesn't seem to
+notice you."). The proof therefore turns the winch in-session from a free spawn at (10,3) and
+walks the room to (13,11); the route and frame evidence are in
+`docs/archive/runtime-results.md` under the gym table. The cutscene message needs its own A press
+before movement returns, and the camera task is ~1,500 frames. Nob and Yoshi both sit on the
+route with sight lines, so their battles are part of the walk, and the party must be a single
+member or the Shift prompt blocks the run.
+
 ## F22. Elite Four rooms: intros move the player, and scripted walking does not trip coordinate triggers
 
 2026-11-18. The five League rooms are two different mechanisms. Will, Koga, Bruno and Karen carry a

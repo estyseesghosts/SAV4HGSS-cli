@@ -265,6 +265,29 @@ the tool refuses to write; the scene is a correct pre-badge state (entrance
 warp, Chuck present, badge unearned) but the fight needs the puzzle solved in
 session. See F21 in `docs/archive/state-log.md`.
 
+## Elite Four rooms fought from composed saves (5 of 5, 2026-11-18)
+
+All five rooms battle from an `hg-e4-gate` base plus a free spawn. Four rooms use a plain object
+script (A on the leader); Lance's is a coordinate trigger, not an object script.
+
+| Scene | Map | Spawn | Proof |
+| --- | --- | --- | --- |
+| `e4-will` | 301 | free spawn (6,11) | frame 7744 `Welcome to the Pokémon League!`, 9724 `You are challenged by Elite Four Will!`, 9944 XATU Lv40 |
+| `e4-koga` | 302 | free spawn (6,12) | frame 6166 `Fwahahahaha!`, 7706 VS Koga, 8396 ARIADOS Lv40 |
+| `e4-bruno` | 303 | free spawn (6,11) | frame 7726 VS Bruno, 8416 HITMONTOP Lv42 |
+| `e4-karen` | 304 | free spawn (6,11) | frame 7266 VS Karen, 7726 `Elite Four Karen sent out UMBREON!` |
+| `e4-lance` | 305 | free spawn (6,16) | frame 7144 `Lance: I've been waiting for you.`, 8904 `You are challenged by Champion Lance!`, 9124 `Champion Lance sent out GYARADOS!`, 9344 GYARADOS Lv46 |
+
+Two room behaviours had to be handled. The four object-script rooms run an intro from the frame
+table on load (`InitScriptEntry_OnFrameTable` -> `_EV_scr_seq_..._000`), which walks the player six
+tiles north with `ApplyMovement obj_player` before releasing. A free spawn therefore lands the player
+*past* the leader: Will's room put the live Location at (6,5) with Will still at (6,10), so the run
+walks back to (6,9) and presses A. Lance's room is the opposite case: his object has `script: 0`, and
+the battle comes from a coordinate trigger at (5..7, 10) gated on `VAR_UNK_40C7 == 0`
+(`registry/hgss-us.scene-triggers.json`, `scr_seq_0824_T10R0601.s` `_000`). Spawning at (6,16) makes
+the intro's six-tile walk end on that tile, but the scripted walk does **not** satisfy the trigger;
+stepping off to (6,13) and back onto (6,8) does, and the battle starts.
+
 ### The "stuck start menu" was a stale screen capture, not a save problem
 
 The earlier Kyogre attempt concluded the pause menu was open and would not

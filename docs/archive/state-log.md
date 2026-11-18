@@ -442,6 +442,30 @@ blocked in all four directions. The winch platform is not reachable from below, 
 route to Chuck is the intended walk from the entrance, and the pre-badge save is correct as
 shipped: entrance warp, Chuck present, badge unearned, puzzle unsolved.
 
+## F22. Elite Four rooms: intros move the player, and scripted walking does not trip coordinate triggers
+
+2026-11-18. The five League rooms are two different mechanisms. Will, Koga, Bruno and Karen carry a
+plain object script reached with A (`_EV_scr_seq_T10R0201_001 + 1`, gated only on
+`FLAG_DEFEATED_WILL` and the rematch counter `VAR_UNK_4135`, `scr_seq_0820_T10R0201.s:38-46`). Lance
+carries no object script at all: the room's `276_T10R0601.json` gives `SPRITE_WATARU` at (6,6) with
+`scriptId: 0`, and the battle is a coordinate trigger over x 5..7, z 10 gated on
+`VAR_UNK_40C7 == 0`, pointing at `scr_seq_T10R0601_000`
+(`registry/hgss-us.scene-triggers.json`; the trigger table is worth querying before assuming a room
+is A-triggered).
+
+The rooms also run an intro from the frame table on load: `InitScriptEntry_OnFrameTable` calls `_000`
+while `VAR_TEMP_x4001 == 0` (Will) or `_001` while `VAR_UNK_40C8 == 0` (Lance), and both end with
+`ApplyMovement obj_player, <WalkNormalNorth 6>` plus a door-shut sound. That means a free spawn does
+not stay where it was written: the live Location was (6,5) after booting Will's room at a spawn of
+(6,11). Scene work on these maps has to walk the player back to the leader, or spawn south of where
+the intro ends.
+
+The part that costs time if unknown: `ApplyMovement` walking over a coordinate trigger does not fire
+it. Spawning at (6,16) in Lance's room makes his six-tile intro end exactly on the (5..7, 10) strip,
+and nothing happens. Stepping off the strip to (6,13) and back to (6,8) fires it immediately
+(`Lance: I've been waiting for you.`). Coordinate triggers appear to be evaluated against real steps,
+not script-driven movement, so a scene that relies on one needs a walk, not just a spawn.
+
 ## Open work from this log
 
 1. ~~Runtime-test the flag-`0x966` + `dynamicWarp` teleport (F5).~~ Done; shipped as `location warp`. Remaining: a broader sample of the 1,317 table entries. F16 uses it for 80 scene spawns (78 HG, 2 SS).

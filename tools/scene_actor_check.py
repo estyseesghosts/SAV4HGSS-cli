@@ -1,16 +1,18 @@
-"""Do a scene's map-load scripts override the actor visibility the scene writes?
+"""Do a scene's map-load scripts override what the scene writes?
 
-A scene clears an actor's zone-event hide flag in the save. The map's own init scripts
-(InitScriptEntry_OnLoad / OnTransition / OnFrameTable in scr_seq_####_<TAG>_hdr.s) run when
-the player enters, so any SetFlag of that hide flag there can undo the scene. This tool reads
-those entries from the decomp, walks GoTo/Call inside the same script file, and reports every
-write to the actor's flag plus the conditions that guard it (Compare/GoToIf/CheckBadge lines
-in the same label block).
+A scene clears an actor's zone-event hide flag in the save, and it may also write variables
+its trigger rows test. The map's own init scripts (InitScriptEntry_OnLoad / OnTransition /
+OnFrameTable in scr_seq_####_<TAG>_hdr.s) run when the player enters, so any SetFlag of that
+hide flag, or any write to a trigger variable, can undo the scene. This tool reads those
+entries from the decomp, walks GoTo/Call inside the same script file, and reports every such
+write plus the conditions that guard it (Compare/GoToIf/CheckBadge lines in the same label
+block).
 
 The registry is the plan; this check is the source-level counterpart to
 tools/scene_boot_check.py (which only proves the live Location).
 
-usage: scene_actor_check.py [--scenes PATH] [--warps PATH] [--decomp DIR] [--out PATH]
+usage: scene_actor_check.py [--scenes PATH] [--warps PATH] [--triggers PATH]
+                            [--decomp DIR] [--out PATH]
 """
 
 from __future__ import annotations
@@ -146,10 +148,34 @@ def reach_player_moves(labels, start: str) -> list[dict]:
     return out
 
 
+# Ops that store into their first argument. Set/Add/Sub are obvious; the Get* family writes its
+# destination the same way (GetWeekday VAR, for one), which is how a trigger variable stops
+# holding the value the save carried.
+def var_write(op: str) -> bool:
+    return op in ("SetVar", "AddVar", "SubVar", "MoveVar") or op.startswith("Get")
+
+
+def reach_var_writes(labels, start: str, names: set[str]) -> list[dict]:
+    """Every reachable write to one of `names`, with the path conditions that lead there."""
+    out: list[dict] = []
+    for name, n, op, args, conds in walk(labels, start):
+        if var_write(op) and args and args[0] in names:
+            value = None
+            if op == "SetVar" and len(args) > 1:
+                try:
+                    value = int(args[1], 0)
+                except ValueError:
+                    value = None
+            out.append({"label": name, "at": n, "op": op, "var": args[0], "sets": value,
+                        "path": list(conds)})
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--scenes", default=str(ROOT / "registry" / "hgss-us.scenes.json"))
     ap.add_argument("--warps", default=str(ROOT / "registry" / "hgss-us.warp-spawns.json"))
+    ap.add_argument("--triggers", default=str(ROOT / "registry" / "hgss-us.scene-triggers.json"))
     ap.add_argument("--decomp", default=str(DEFAULT_DECOMP))
     ap.add_argument("--out", default=str(ROOT / "research" / "scene-actor-gates.json"))
     opts = ap.parse_args()
@@ -159,6 +185,11 @@ def main() -> int:
     by_id = {m["map_id"]: m for m in warps}
     scr = Path(opts.decomp) / "files" / "fielddata" / "script" / "scr_seq"
     scenes = json.load(open(scen, encoding="utf-8"))["scenes"]
+    triggers = json.load(open(opts.triggers, encoding="utf-8"))["triggers"]
+    trig_by_map: dict[int, list[dict]] = {}
+    for t in triggers:
+        if t.get("var"):
+            trig_by_map.setdefault(t["map_id"], []).append(t)
 
     rows = []
     for scene in scenes:
@@ -172,10 +203,22 @@ def main() -> int:
                "map_symbol": m["map_symbol"] if m else None, "tag": tag, "hide_flag": flag,
                "header": hdrs[0].name if hdrs else None,
                "script": script[0].name if script else None,
-               "entries": [], "writes": [], "player_moves": []}
+               "entries": [], "writes": [], "player_moves": [],
+               "map_triggers": [], "trigger_var_writes": []}
         if hdrs and script:
             labels = parse_labels(script[0])
             row["entries"] = header_entries(hdrs[0], tag)
+            map_trigs = [t for t in trig_by_map.get(row["map"], []) if t.get("kind") == "coord"]
+            tvars = {t["var"] for t in map_trigs}
+            wants: dict[str, set] = {}
+            for t in map_trigs:
+                want = t["value"]
+                if isinstance(want, str):
+                    try:
+                        want = int(want, 0)
+                    except ValueError:
+                        pass
+                wants.setdefault(t["var"], set()).add(want)
             for e in row["entries"]:
                 name = entry_label(e["target"])
                 if not name:
@@ -186,6 +229,24 @@ def main() -> int:
                         if "when" in e:
                             w["when"] = e["when"]
                         row["writes"].append(w)
+                if tvars:
+                    for w in reach_var_writes(labels, name, tvars):
+                        if any(x["at"] == w["at"] and x["op"] == w["op"] and x["var"] == w["var"]
+                               for x in row["trigger_var_writes"]):
+                            continue
+                        w["entry"] = e["kind"]
+                        if "when" in e:
+                            w["when"] = e["when"]
+                        cand = [t for t in map_trigs if t["var"] == w["var"]]
+                        w["trigger"] = next((t for t in cand if t["value"] in (w["sets"], str(w["sets"]))),
+                                            cand[0])
+                        if w["sets"] is None:
+                            w["effect"] = "unknown"
+                        elif w["sets"] in wants[w["var"]]:
+                            w["effect"] = "match"
+                        else:
+                            w["effect"] = "differ"
+                        row["trigger_var_writes"].append(w)
                 for mv in reach_player_moves(labels, name):
                     key = (mv["at"], mv["op"], tuple(mv["args"]))
                     if any((x["at"], x["op"], tuple(x["args"])) == key for x in row["player_moves"]):
@@ -194,24 +255,56 @@ def main() -> int:
                     if "when" in e:
                         mv["when"] = e["when"]
                     row["player_moves"].append(mv)
+            written = {w["var"] for w in row["trigger_var_writes"]}
+            row["map_triggers"] = [
+                {k: t[k] for k in ("kind", "var", "value", "area", "script", "file") if k in t}
+                for t in map_trigs if t["var"] in written]
         rows.append(row)
 
     with_actor = [r for r in rows if r["hide_flag"]]
     identical = [r for r in with_actor if r["writes"]]
     movers = [r for r in rows if r["player_moves"]]
+    rewriters = [r for r in rows if r["trigger_var_writes"]]
+    blockers = [w for r in rewriters for w in r["trigger_var_writes"] if w["effect"] == "differ"]
+    arms = [w for r in rewriters for w in r["trigger_var_writes"] if w["effect"] == "match"]
+    unknown = [w for r in rewriters for w in r["trigger_var_writes"] if w["effect"] == "unknown"]
     Path(opts.out).write_text(json.dumps({"schema": "hgss-save.scene-actor-gates/v1",
                                           "decomp": str(Path(opts.decomp)),
                                           "scenes": rows}, indent=1), encoding="utf-8")
 
     print(f"{len(rows)} scenes checked; {len(with_actor)} with an actor, "
           f"{len(identical)} whose map init writes the hide flag, "
-          f"{len(movers)} whose map init scripts can move the player "
+          f"{len(movers)} whose map init scripts can move the player, "
+          f"{len(rewriters)} whose map init writes a variable their own coord triggers test "
+          f"({len(blockers)} of those writes set a value no coord trigger on the map tests, "
+          f"{len(arms)} set one that a coord trigger does test, {len(unknown)} unknown) "
           f"(each is gated; the boot matrix shows which gates fire)")
     for r in identical:
         for w in r["writes"]:
             print(f"  {r['id']:26} {r['tag']:12} {w['entry']:6} {w['at']:5} {w['op']:9} {r['hide_flag']}")
             for g in w["path"]:
                 print(f"      guard: {g}")
+    for r in rewriters:
+        for w in r["trigger_var_writes"]:
+            if w["effect"] != "differ":
+                continue
+            t = w["trigger"]
+            a = t.get("area") or {}
+            where = (f"{a['w']}x{a['h']} at {a['x']},{a['y']},z{a['z']}" if a
+                     else "no tile (load trigger)")
+            print(f"  DIFFERS {r['id']:20} {r['tag']:12} {w['entry']:6} {w['at']:5} {w['op']} "
+                  f"{w['var']} = {w['sets']} (coord {where} needs {t['value']})")
+            for g in w["path"]:
+                print(f"      guard: {g}")
+    for r in rewriters:
+        for w in r["trigger_var_writes"]:
+            if w["effect"] == "differ":
+                continue
+            t = w["trigger"]
+            print(f"  {w['effect'].upper():5} {r['id']:22} {r['tag']:12} {w['entry']:6} {w['at']:5} "
+                  f"{w['op']} {w['var']}"
+                  + (f" = {w['sets']}" if w["sets"] is not None else "")
+                  + f" (coord trigger needs {t['value']})")
     for r in movers:
         for mv in r["player_moves"]:
             print(f"  MOVE {r['id']:26} {r['tag']:12} {mv['entry']:6} {mv['at']:5} "

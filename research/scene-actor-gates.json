@@ -71,7 +71,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-01-zephyr-after",
@@ -142,7 +144,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-02-hive-before",
@@ -232,7 +236,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-02-hive-after",
@@ -322,7 +328,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-03-plain-before",
@@ -486,7 +494,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-03-plain-after",
@@ -650,7 +660,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-04-fog-before",
@@ -784,7 +796,9 @@
      "entry": "frame",
      "when": "VAR_UNK_4079 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-04-fog-after",
@@ -918,7 +932,9 @@
      "entry": "frame",
      "when": "VAR_UNK_4079 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-05-storm-before",
@@ -937,7 +953,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-05-storm-after",
@@ -956,7 +974,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-06-mineral-before",
@@ -1094,7 +1114,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-06-mineral-after",
@@ -1232,7 +1254,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-07-glacier-before",
@@ -1367,7 +1391,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-07-glacier-after",
@@ -1502,7 +1528,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-08-rising-before",
@@ -1693,7 +1721,77 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_4120",
+     "value": 0,
+     "area": {
+      "x": 12,
+      "z": 82,
+      "w": 3,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T30GYM0101_004",
+     "file": "scr_seq_0943_T30GYM0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T30GYM0101_001",
+     "at": 17,
+     "op": "SetVar",
+     "var": "VAR_UNK_4120",
+     "sets": 0,
+     "path": [],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_BLACKTHORN_GYM",
+      "map_id": 141,
+      "tag": "T30GYM0101",
+      "var": "VAR_UNK_4120",
+      "value": 0,
+      "area": {
+       "x": 12,
+       "z": 82,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T30GYM0101_004",
+      "file": "scr_seq_0943_T30GYM0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0943_T30GYM0101.s:229",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_138"
+        ]
+       },
+       {
+        "at": "scr_seq_0943_T30GYM0101.s:250",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4120",
+         "1"
+        ]
+       },
+       {
+        "at": "scr_seq_0943_T30GYM0101.s:251",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4120",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    }
+   ]
   },
   {
    "id": "gym-08-rising-after",
@@ -1884,7 +1982,77 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_4120",
+     "value": 0,
+     "area": {
+      "x": 12,
+      "z": 82,
+      "w": 3,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T30GYM0101_004",
+     "file": "scr_seq_0943_T30GYM0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T30GYM0101_001",
+     "at": 17,
+     "op": "SetVar",
+     "var": "VAR_UNK_4120",
+     "sets": 0,
+     "path": [],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_BLACKTHORN_GYM",
+      "map_id": 141,
+      "tag": "T30GYM0101",
+      "var": "VAR_UNK_4120",
+      "value": 0,
+      "area": {
+       "x": 12,
+       "z": 82,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T30GYM0101_004",
+      "file": "scr_seq_0943_T30GYM0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0943_T30GYM0101.s:229",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_138"
+        ]
+       },
+       {
+        "at": "scr_seq_0943_T30GYM0101.s:250",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4120",
+         "1"
+        ]
+       },
+       {
+        "at": "scr_seq_0943_T30GYM0101.s:251",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4120",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    }
+   ]
   },
   {
    "id": "gym-09-boulder-before",
@@ -2021,7 +2189,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-09-boulder-after",
@@ -2158,7 +2328,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-10-cascade-before",
@@ -2349,7 +2521,9 @@
      "entry": "frame",
      "when": "VAR_UNK_411C == 1"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-10-cascade-after",
@@ -2540,7 +2714,9 @@
      "entry": "frame",
      "when": "VAR_UNK_411C == 1"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-11-thunder-before",
@@ -2719,7 +2895,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-11-thunder-after",
@@ -2898,7 +3076,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-12-rainbow-before",
@@ -3009,7 +3189,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-12-rainbow-after",
@@ -3120,7 +3302,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-13-soul-before",
@@ -3229,7 +3413,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-13-soul-after",
@@ -3338,7 +3524,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-14-marsh-before",
@@ -3409,7 +3597,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-14-marsh-after",
@@ -3480,7 +3670,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-15-volcano-before",
@@ -3579,7 +3771,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-15-volcano-after",
@@ -3678,7 +3872,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "gym-16-earth-before",
@@ -3746,7 +3942,69 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_4127",
+     "value": 0,
+     "area": {
+      "x": 1,
+      "z": 46,
+      "w": 9,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T02GYM0101_003",
+     "file": "scr_seq_0743_T02GYM0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T02GYM0101_002",
+     "at": 16,
+     "op": "SetVar",
+     "var": "VAR_UNK_4127",
+     "sets": 0,
+     "path": [],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_VIRIDIAN_GYM",
+      "map_id": 496,
+      "tag": "T02GYM0101",
+      "var": "VAR_UNK_4127",
+      "value": 0,
+      "area": {
+       "x": 1,
+       "z": 46,
+       "w": 9,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T02GYM0101_003",
+      "file": "scr_seq_0743_T02GYM0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0743_T02GYM0101.s:189",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_13A"
+        ]
+       },
+       {
+        "at": "scr_seq_0743_T02GYM0101.s:240",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4127",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    }
+   ]
   },
   {
    "id": "gym-16-earth-after",
@@ -3814,7 +4072,69 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_4127",
+     "value": 0,
+     "area": {
+      "x": 1,
+      "z": 46,
+      "w": 9,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T02GYM0101_003",
+     "file": "scr_seq_0743_T02GYM0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T02GYM0101_002",
+     "at": 16,
+     "op": "SetVar",
+     "var": "VAR_UNK_4127",
+     "sets": 0,
+     "path": [],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_VIRIDIAN_GYM",
+      "map_id": 496,
+      "tag": "T02GYM0101",
+      "var": "VAR_UNK_4127",
+      "value": 0,
+      "area": {
+       "x": 1,
+       "z": 46,
+       "w": 9,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T02GYM0101_003",
+      "file": "scr_seq_0743_T02GYM0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0743_T02GYM0101.s:189",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_13A"
+        ]
+       },
+       {
+        "at": "scr_seq_0743_T02GYM0101.s:240",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4127",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    }
+   ]
   },
   {
    "id": "e4-before",
@@ -3845,7 +4165,216 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_4119",
+     "value": 1,
+     "area": {
+      "x": 10,
+      "z": 14,
+      "w": 3,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T10R0101_006",
+     "file": "scr_seq_0819_T10R0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T10R0101_005",
+     "at": 37,
+     "op": "SetVar",
+     "var": "VAR_UNK_4119",
+     "sets": 1,
+     "path": [
+      "NOT (Compare VAR_UNK_40FC, 1) [GoToIfLe _00AC]",
+      "NOT (GoToIfSet FLAG_UNK_AA9, _00AC)",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _008B]"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+      "map_id": 300,
+      "tag": "T10R0101",
+      "var": "VAR_UNK_4119",
+      "value": 1,
+      "area": {
+       "x": 10,
+       "z": 14,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T10R0101_006",
+      "file": "scr_seq_0819_T10R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0819_T10R0101.s:82",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:121",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4119",
+         "0"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:122",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_AA9"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:130",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    },
+    {
+     "label": "_008B",
+     "at": 43,
+     "op": "SetVar",
+     "var": "VAR_UNK_4119",
+     "sets": 1,
+     "path": [
+      "NOT (Compare VAR_UNK_40FC, 1) [GoToIfLe _00AC]",
+      "NOT (GoToIfSet FLAG_UNK_AA9, _00AC)",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _008B",
+      "NOT (Compare VAR_TEMP_x4000, 3) [GoToIfNe _00A4]"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+      "map_id": 300,
+      "tag": "T10R0101",
+      "var": "VAR_UNK_4119",
+      "value": 1,
+      "area": {
+       "x": 10,
+       "z": 14,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T10R0101_006",
+      "file": "scr_seq_0819_T10R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0819_T10R0101.s:82",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:121",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4119",
+         "0"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:122",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_AA9"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:130",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    },
+    {
+     "label": "_00A4",
+     "at": 47,
+     "op": "SetVar",
+     "var": "VAR_UNK_4119",
+     "sets": 0,
+     "path": [
+      "NOT (Compare VAR_UNK_40FC, 1) [GoToIfLe _00AC]",
+      "NOT (GoToIfSet FLAG_UNK_AA9, _00AC)",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _008B",
+      "Compare VAR_TEMP_x4000, 3",
+      "GoToIfNe _00A4"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+      "map_id": 300,
+      "tag": "T10R0101",
+      "var": "VAR_UNK_4119",
+      "value": 1,
+      "area": {
+       "x": 10,
+       "z": 14,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T10R0101_006",
+      "file": "scr_seq_0819_T10R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0819_T10R0101.s:82",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:121",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4119",
+         "0"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:122",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_AA9"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:130",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
+    }
+   ]
   },
   {
    "id": "e4-will",
@@ -3883,7 +4412,9 @@
      "entry": "frame",
      "when": "VAR_TEMP_x4001 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "e4-koga",
@@ -3921,7 +4452,9 @@
      "entry": "frame",
      "when": "VAR_TEMP_x4001 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "e4-bruno",
@@ -3959,7 +4492,9 @@
      "entry": "frame",
      "when": "VAR_TEMP_x4001 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "e4-karen",
@@ -3997,7 +4532,9 @@
      "entry": "frame",
      "when": "VAR_TEMP_x4001 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "e4-lance",
@@ -4035,7 +4572,9 @@
      "entry": "frame",
      "when": "VAR_UNK_40C8 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "e4-after",
@@ -4085,7 +4624,9 @@
      "entry": "frame",
      "when": "VAR_TEMP_x4001 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-lugia",
@@ -4120,7 +4661,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-ho-oh",
@@ -4155,7 +4698,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-articuno",
@@ -4185,7 +4730,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-zapdos",
@@ -4220,7 +4767,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-moltres",
@@ -4250,7 +4799,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-mewtwo",
@@ -4280,7 +4831,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-suicune",
@@ -4315,7 +4868,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-kyogre",
@@ -4380,7 +4935,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-groudon",
@@ -4443,7 +5000,9 @@
      "entry": "onload"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-rayquaza",
@@ -4519,7 +5078,9 @@
      "entry": "frame",
      "when": "VAR_SCENE_EMBEDDED_TOWER == 5"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-latios",
@@ -4603,7 +5164,9 @@
      "entry": "frame",
      "when": "VAR_UNK_4083 == 2"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-latias",
@@ -4689,7 +5252,9 @@
      "entry": "frame",
      "when": "VAR_UNK_4083 == 2"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "legendary-red",
@@ -4702,7 +5267,9 @@
    "script": "scr_seq_0107_D41R0108.s",
    "entries": [],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-dragons-den-shrine",
@@ -4740,7 +5307,9 @@
      "entry": "frame",
      "when": "VAR_UNK_40C3 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-dragons-den-test",
@@ -4759,7 +5328,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-hall-of-fame",
@@ -4809,7 +5380,9 @@
      "entry": "frame",
      "when": "VAR_TEMP_x4001 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-burned-tower",
@@ -4828,7 +5401,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-sprout-tower",
@@ -4847,7 +5422,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-slowpoke-well",
@@ -4860,7 +5437,9 @@
    "script": "scr_seq_0061_D26R0103.s",
    "entries": [],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-league-gate-rival",
@@ -4891,7 +5470,216 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_4119",
+     "value": 1,
+     "area": {
+      "x": 10,
+      "z": 14,
+      "w": 3,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T10R0101_006",
+     "file": "scr_seq_0819_T10R0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T10R0101_005",
+     "at": 37,
+     "op": "SetVar",
+     "var": "VAR_UNK_4119",
+     "sets": 1,
+     "path": [
+      "NOT (Compare VAR_UNK_40FC, 1) [GoToIfLe _00AC]",
+      "NOT (GoToIfSet FLAG_UNK_AA9, _00AC)",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _008B]"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+      "map_id": 300,
+      "tag": "T10R0101",
+      "var": "VAR_UNK_4119",
+      "value": 1,
+      "area": {
+       "x": 10,
+       "z": 14,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T10R0101_006",
+      "file": "scr_seq_0819_T10R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0819_T10R0101.s:82",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:121",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4119",
+         "0"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:122",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_AA9"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:130",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    },
+    {
+     "label": "_008B",
+     "at": 43,
+     "op": "SetVar",
+     "var": "VAR_UNK_4119",
+     "sets": 1,
+     "path": [
+      "NOT (Compare VAR_UNK_40FC, 1) [GoToIfLe _00AC]",
+      "NOT (GoToIfSet FLAG_UNK_AA9, _00AC)",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _008B",
+      "NOT (Compare VAR_TEMP_x4000, 3) [GoToIfNe _00A4]"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+      "map_id": 300,
+      "tag": "T10R0101",
+      "var": "VAR_UNK_4119",
+      "value": 1,
+      "area": {
+       "x": 10,
+       "z": 14,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T10R0101_006",
+      "file": "scr_seq_0819_T10R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0819_T10R0101.s:82",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:121",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4119",
+         "0"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:122",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_AA9"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:130",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    },
+    {
+     "label": "_00A4",
+     "at": 47,
+     "op": "SetVar",
+     "var": "VAR_UNK_4119",
+     "sets": 0,
+     "path": [
+      "NOT (Compare VAR_UNK_40FC, 1) [GoToIfLe _00AC]",
+      "NOT (GoToIfSet FLAG_UNK_AA9, _00AC)",
+      "Compare VAR_TEMP_x4000, 1",
+      "GoToIfNe _008B",
+      "Compare VAR_TEMP_x4000, 3",
+      "GoToIfNe _00A4"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_POKEMON_LEAGUE_ENTRANCE",
+      "map_id": 300,
+      "tag": "T10R0101",
+      "var": "VAR_UNK_4119",
+      "value": 1,
+      "area": {
+       "x": 10,
+       "z": 14,
+       "w": 3,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T10R0101_006",
+      "file": "scr_seq_0819_T10R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0819_T10R0101.s:82",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:121",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4119",
+         "0"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:122",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_UNK_AA9"
+        ]
+       },
+       {
+        "at": "scr_seq_0819_T10R0101.s:130",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_INDIGO_PLATEAU_RIVAL"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
+    }
+   ]
   },
   {
    "id": "event-starter",
@@ -4978,6 +5766,95 @@
      "entry": "frame",
      "when": "VAR_SCENE_ELMS_LAB == 8"
     }
+   ],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_SCENE_ELMS_LAB",
+     "value": 1,
+     "area": {
+      "x": 3,
+      "z": 11,
+      "w": 4,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T20R0101_003",
+     "file": "scr_seq_0843_T20R0101.s"
+    },
+    {
+     "kind": "coord",
+     "var": "VAR_SCENE_ELMS_LAB",
+     "value": 0,
+     "area": {
+      "x": 3,
+      "z": 10,
+      "w": 4,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T20R0101_011",
+     "file": "scr_seq_0843_T20R0101.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "_0BF3",
+     "at": 944,
+     "op": "SetVar",
+     "var": "VAR_SCENE_ELMS_LAB",
+     "sets": 9,
+     "path": [
+      "NOT (Compare VAR_SPECIAL_RESULT, 0) [GoToIfNe _0BEF]",
+      "GoTo _0BF3"
+     ],
+     "entry": "frame",
+     "when": "VAR_SCENE_ELMS_LAB == 8",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_NEW_BARK_ELMS_LAB_1F",
+      "map_id": 61,
+      "tag": "T20R0101",
+      "var": "VAR_SCENE_ELMS_LAB",
+      "value": 1,
+      "area": {
+       "x": 3,
+       "z": 11,
+       "w": 4,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T20R0101_003",
+      "file": "scr_seq_0843_T20R0101.s",
+      "writes": [
+       {
+        "at": "scr_seq_0843_T20R0101.s:521",
+        "op": "SetVar",
+        "args": [
+         "VAR_SPECIAL_x8004",
+         "ITEM_POTION"
+        ]
+       },
+       {
+        "at": "scr_seq_0843_T20R0101.s:522",
+        "op": "SetVar",
+        "args": [
+         "VAR_SPECIAL_x8005",
+         "5"
+        ]
+       },
+       {
+        "at": "scr_seq_0843_T20R0101.s:525",
+        "op": "SetVar",
+        "args": [
+         "VAR_SCENE_ELMS_LAB",
+         "2"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
+    }
    ]
   },
   {
@@ -5043,7 +5920,9 @@
      "entry": "frame",
      "when": "VAR_SCENE_MR_POKEMONS_HOUSE == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-cherrygrove-rival",
@@ -5062,7 +5941,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-ilex-forest",
@@ -5100,7 +5981,9 @@
      "entry": "frame",
      "when": "VAR_UNK_40FE == 4"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-sudowoodo",
@@ -5124,7 +6007,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-kimono-dance",
@@ -5163,6 +6048,144 @@
      "entry": "frame",
      "when": "VAR_UNK_410C == 4"
     }
+   ],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_410C",
+     "value": 2,
+     "area": {
+      "x": 3,
+      "z": 8,
+      "w": 1,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T27R0501_011",
+     "file": "scr_seq_0928_T27R0501.s"
+    },
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_410C",
+     "value": 2,
+     "area": {
+      "x": 11,
+      "z": 8,
+      "w": 1,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T27R0501_012",
+     "file": "scr_seq_0928_T27R0501.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T27R0501_015",
+     "at": 107,
+     "op": "SetVar",
+     "var": "VAR_UNK_410C",
+     "sets": 1,
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_410C == 0",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_ECRUTEAK_DANCE_THEATER",
+      "map_id": 86,
+      "tag": "T27R0501",
+      "var": "VAR_UNK_410C",
+      "value": 2,
+      "area": {
+       "x": 3,
+       "z": 8,
+       "w": 1,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T27R0501_011",
+      "file": "scr_seq_0928_T27R0501.s",
+      "writes": [
+       {
+        "at": "scr_seq_0928_T27R0501.s:378",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_GOT_HM03"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:379",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_410C",
+         "3"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:380",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4090",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
+    },
+    {
+     "label": "scr_seq_T27R0501_016",
+     "at": 717,
+     "op": "SetVar",
+     "var": "VAR_UNK_410C",
+     "sets": 5,
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_410C == 4",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_ECRUTEAK_DANCE_THEATER",
+      "map_id": 86,
+      "tag": "T27R0501",
+      "var": "VAR_UNK_410C",
+      "value": 2,
+      "area": {
+       "x": 3,
+       "z": 8,
+       "w": 1,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T27R0501_011",
+      "file": "scr_seq_0928_T27R0501.s",
+      "writes": [
+       {
+        "at": "scr_seq_0928_T27R0501.s:378",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_GOT_HM03"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:379",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_410C",
+         "3"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:380",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4090",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
+    }
    ]
   },
   {
@@ -5187,7 +6210,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-lake-of-rage",
@@ -5211,7 +6236,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-radio-tower",
@@ -5230,7 +6257,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-ice-path",
@@ -5249,7 +6278,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-olivine-lighthouse",
@@ -5268,7 +6299,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-mt-silver",
@@ -5287,7 +6320,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-rival-burned-tower",
@@ -5300,7 +6335,9 @@
    "script": "scr_seq_0023_D18R0101.s",
    "entries": [],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-rival-azalea",
@@ -5319,7 +6356,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-rival-goldenrod-tunnel",
@@ -5338,7 +6377,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-rival-victory-road",
@@ -5351,7 +6392,9 @@
    "script": "scr_seq_0110_D43R0103.s",
    "entries": [],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-rival-mount-moon",
@@ -5399,7 +6442,9 @@
      "entry": "frame",
      "when": "VAR_UNK_40F5 == 0"
     }
-   ]
+   ],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-petrel-radio-tower",
@@ -5418,7 +6463,9 @@
     }
    ],
    "writes": [],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-archer-radio-tower",
@@ -5456,7 +6503,9 @@
      "entry": "ontransition"
     }
    ],
-   "player_moves": []
+   "player_moves": [],
+   "map_triggers": [],
+   "trigger_var_writes": []
   },
   {
    "id": "event-petrel-rocket-hq",
@@ -5493,6 +6542,159 @@
      "path": [],
      "entry": "frame",
      "when": "VAR_UNK_40AC == 0"
+    }
+   ],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_40AC",
+     "value": 2,
+     "area": {
+      "x": 20,
+      "z": 17,
+      "w": 1,
+      "h": 3,
+      "y": 0
+     },
+     "script": "scr_seq_D35R0104_002",
+     "file": "scr_seq_0091_D35R0104.s"
+    },
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_40AC",
+     "value": 3,
+     "area": {
+      "x": 23,
+      "z": 12,
+      "w": 2,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_D35R0104_003",
+     "file": "scr_seq_0091_D35R0104.s"
+    },
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_40AC",
+     "value": 5,
+     "area": {
+      "x": 50,
+      "z": 4,
+      "w": 1,
+      "h": 2,
+      "y": 0
+     },
+     "script": "scr_seq_D35R0104_007",
+     "file": "scr_seq_0091_D35R0104.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_D35R0104_006",
+     "at": 23,
+     "op": "SetVar",
+     "var": "VAR_UNK_40AC",
+     "sets": 2,
+     "path": [
+      "NOT (GoToIfNotDefeated TRAINER_TEAM_ROCKET_F_GRUNT_5, _004F)",
+      "NOT (GoToIfNotDefeated TRAINER_TEAM_ROCKET_GRUNT_19, _004F)",
+      "NOT (Compare VAR_UNK_40AC, 3) [GoToIfGe _004F]"
+     ],
+     "entry": "ontransition",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_TEAM_ROCKET_HEADQUARTERS_B3F",
+      "map_id": 249,
+      "tag": "D35R0104",
+      "var": "VAR_UNK_40AC",
+      "value": 2,
+      "area": {
+       "x": 20,
+       "z": 17,
+       "w": 1,
+       "h": 3,
+       "y": 0
+      },
+      "script": "scr_seq_D35R0104_002",
+      "file": "scr_seq_0091_D35R0104.s",
+      "writes": [
+       {
+        "at": "scr_seq_0091_D35R0104.s:155",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_ROCKET_HIDEOUT_B3F_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0091_D35R0104.s:196",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_ROCKET_HIDEOUT_B3F_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0091_D35R0104.s:198",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_40AC",
+         "3"
+        ]
+       }
+      ]
+     },
+     "effect": "match"
+    },
+    {
+     "label": "scr_seq_D35R0104_001",
+     "at": 63,
+     "op": "SetVar",
+     "var": "VAR_UNK_40AC",
+     "sets": 1,
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_40AC == 0",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_TEAM_ROCKET_HEADQUARTERS_B3F",
+      "map_id": 249,
+      "tag": "D35R0104",
+      "var": "VAR_UNK_40AC",
+      "value": 2,
+      "area": {
+       "x": 20,
+       "z": 17,
+       "w": 1,
+       "h": 3,
+       "y": 0
+      },
+      "script": "scr_seq_D35R0104_002",
+      "file": "scr_seq_0091_D35R0104.s",
+      "writes": [
+       {
+        "at": "scr_seq_0091_D35R0104.s:155",
+        "op": "ClearFlag",
+        "args": [
+         "FLAG_HIDE_ROCKET_HIDEOUT_B3F_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0091_D35R0104.s:196",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_HIDE_ROCKET_HIDEOUT_B3F_RIVAL"
+        ]
+       },
+       {
+        "at": "scr_seq_0091_D35R0104.s:198",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_40AC",
+         "3"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
     }
    ]
   },
@@ -5532,6 +6734,144 @@
      "path": [],
      "entry": "frame",
      "when": "VAR_UNK_410C == 4"
+    }
+   ],
+   "map_triggers": [
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_410C",
+     "value": 2,
+     "area": {
+      "x": 3,
+      "z": 8,
+      "w": 1,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T27R0501_011",
+     "file": "scr_seq_0928_T27R0501.s"
+    },
+    {
+     "kind": "coord",
+     "var": "VAR_UNK_410C",
+     "value": 2,
+     "area": {
+      "x": 11,
+      "z": 8,
+      "w": 1,
+      "h": 1,
+      "y": 0
+     },
+     "script": "scr_seq_T27R0501_012",
+     "file": "scr_seq_0928_T27R0501.s"
+    }
+   ],
+   "trigger_var_writes": [
+    {
+     "label": "scr_seq_T27R0501_015",
+     "at": 107,
+     "op": "SetVar",
+     "var": "VAR_UNK_410C",
+     "sets": 1,
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_410C == 0",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_ECRUTEAK_DANCE_THEATER",
+      "map_id": 86,
+      "tag": "T27R0501",
+      "var": "VAR_UNK_410C",
+      "value": 2,
+      "area": {
+       "x": 3,
+       "z": 8,
+       "w": 1,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T27R0501_011",
+      "file": "scr_seq_0928_T27R0501.s",
+      "writes": [
+       {
+        "at": "scr_seq_0928_T27R0501.s:378",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_GOT_HM03"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:379",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_410C",
+         "3"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:380",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4090",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
+    },
+    {
+     "label": "scr_seq_T27R0501_016",
+     "at": 717,
+     "op": "SetVar",
+     "var": "VAR_UNK_410C",
+     "sets": 5,
+     "path": [],
+     "entry": "frame",
+     "when": "VAR_UNK_410C == 4",
+     "trigger": {
+      "kind": "coord",
+      "map": "MAP_ECRUTEAK_DANCE_THEATER",
+      "map_id": 86,
+      "tag": "T27R0501",
+      "var": "VAR_UNK_410C",
+      "value": 2,
+      "area": {
+       "x": 3,
+       "z": 8,
+       "w": 1,
+       "h": 1,
+       "y": 0
+      },
+      "script": "scr_seq_T27R0501_011",
+      "file": "scr_seq_0928_T27R0501.s",
+      "writes": [
+       {
+        "at": "scr_seq_0928_T27R0501.s:378",
+        "op": "SetFlag",
+        "args": [
+         "FLAG_GOT_HM03"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:379",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_410C",
+         "3"
+        ]
+       },
+       {
+        "at": "scr_seq_0928_T27R0501.s:380",
+        "op": "SetVar",
+        "args": [
+         "VAR_UNK_4090",
+         "1"
+        ]
+       }
+      ]
+     },
+     "effect": "differ"
     }
    ]
   }

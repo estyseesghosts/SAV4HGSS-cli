@@ -35,7 +35,7 @@ Not read by the CLI at run time (scene audits cite some by path). They record ho
 | `script-graph.json` | which scripts write (879 symbols) and read (439) each flag/variable | `tools/script_graph.py` | `story_atoms.py`, `delta_by_script.py` |
 | `script-guards.json` | the flag/variable conditions on the path to every state write: 497 scripts, 1,869 distinct writes, 6,650 guarded paths | `tools/script_guards.py` | F14 |
 | `story-atoms-hg.json` | 200 step-sized units of change across the HG lineage, linked by script data flow. The edges are file-level reads, not guards (F14) | `tools/story_atoms.py` | exploration only |
-| `scene-actor-gates.json` | for each of 80 scenes, writes to the actor's hide flag in map init, with conditions, and any init instruction that moves the player | `tools/scene_actor_check.py` | F17, scene audits |
+| `scene-actor-gates.json` | for each of 80 scenes: writes to the actor's hide flag in map init, with conditions; any init instruction that moves the player; and any init write to a variable one of the map's coord triggers tests, with the stored value and whether some coord trigger on that map wants it (10 scenes, 8 writes that differ, 9 that match) | `tools/scene_actor_check.py` | F17, scene audits |
 
 `research/script-graph.json` and `script-guards.json` are large (0.4 MB and 1.4 MB). Open them with a JSON-aware tool or use the query flags (`script_graph.py --query T22GYM0101`).
 

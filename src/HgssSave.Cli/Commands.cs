@@ -1086,6 +1086,15 @@ internal static class Commands
     private static (string Label, string Value) ResolveVar(ISaveSession session, SymbolRegistry registry, string reference)
     {
         var lookup = registry.LookupAs(reference, SymbolKind.SaveWork);
+        if (lookup.Resolution == SymbolResolution.WrongKind)
+        {
+            // VAR_TEMP_* shares the SaveVarsFlags.vars[] address space with save-work vars (F23); it is
+            // readable by name even though ScriptManager zeroes it on map load (script_manager.c:406-407).
+            var temporary = lookup.Candidates.FirstOrDefault(c => c.Kind == SymbolKind.TemporaryVar);
+            if (temporary is not null)
+                lookup = SymbolLookupResult.Found(temporary);
+        }
+
         int id = lookup.Resolution switch
         {
             SymbolResolution.Resolved => lookup.Entry!.Id,
@@ -1094,7 +1103,7 @@ internal static class Commands
         };
         if (!session.TryGetVar(id, out var value))
             throw HgssException.Precondition("variable-range", $"Variable id {id} is not a save-work slot.");
-        var name = lookup.Entry?.Name ?? registry.NameFor(SymbolKind.SaveWork, id);
+        var name = lookup.Entry?.Name ?? registry.VarNameFor(id);
         return ($"variable.{name ?? $"0x{id:X4}"}", value.ToString());
     }
 

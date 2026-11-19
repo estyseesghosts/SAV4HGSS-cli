@@ -167,7 +167,7 @@ public static class ReportWriter
             writer.WriteStartObject();
             writer.WriteNumber("id", pair.Key);
             writer.WriteString("hex", $"0x{pair.Key:X4}");
-            writer.WriteNullableString("name", registry.NameFor(SymbolKind.SaveWork, pair.Key));
+            writer.WriteNullableString("name", registry.VarNameFor(pair.Key));
             writer.WriteNumber("value", pair.Value);
             writer.WriteEndObject();
         }

@@ -116,7 +116,7 @@ public static class SaveDiff
         var varChanges = varIds
             .Select(id => (Id: id, Before: varsBefore.GetValueOrDefault(id, 0), After: varsAfter.GetValueOrDefault(id, 0)))
             .Where(v => v.Before != v.After)
-            .Select(v => new VarChange(v.Id, registry.NameFor(SymbolKind.SaveWork, v.Id), v.Before, v.After))
+            .Select(v => new VarChange(v.Id, registry.VarNameFor(v.Id), v.Before, v.After))
             .ToList();
 
         var bagBefore = before.BagEntries().Where(e => e.Quantity > 0).ToDictionary(e => e.ItemId, e => e);

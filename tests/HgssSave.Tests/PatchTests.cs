@@ -276,4 +276,23 @@ public sealed class PatchTests
         Assert.Contains(diff.Fields, f => f.Field == "trainer.money" && f.After == "123");
         Assert.False(diff.SameFile);
     }
+
+    [Fact]
+    public void DiffNamesTemporaryVars()
+    {
+        // Temp vars share SaveVarsFlags.vars[] with save-work vars (F23), so a diff must name them the
+        // same way it names 0x4030. Asking the registry for SaveWork alone printed "name": null here.
+        var registry = TestRegistry();
+        using var before = OpenBlank();
+        var beforeBytes = (byte[])before.OriginalBytes.Clone();
+        var document = Parse("""
+            {"schema":"hgss-save.patch/v1","operations":[{"op":"variable.set","id":"VAR_TEMP_x4000","value":7}]}
+            """);
+        var plan = PatchPlanner.Plan(before, document, registry, "before", beforeBytes, [1], false);
+        var result = PatchRunner.Apply(before, plan, Factory);
+        using var beforeView = Factory.OpenBytes(beforeBytes, "before");
+        using var after = Factory.OpenBytes(result.OutputBytes, "after");
+        var diff = SaveDiff.Compare(beforeView, after, registry, "before", beforeBytes, "after", result.OutputBytes, Factory.KnownRegions);
+        Assert.Contains(diff.Vars, v => v.Id == 0x4000 && v.Name == "VAR_TEMP_x4000" && v.After == 7);
+    }
 }

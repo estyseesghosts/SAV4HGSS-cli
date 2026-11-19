@@ -255,6 +255,14 @@ public sealed class SymbolRegistry
     public string? NameFor(SymbolKind kind, int id) =>
         _byId.TryGetValue((kind, id), out var entry) ? entry.Name : null;
 
+    /// <summary>
+    /// Name for a variable slot id. Both kinds share one address space: <c>SaveVarsFlags.vars[]</c> covers
+    /// 0x4000..0x416F and the temp window is its first <c>NUM_TEMP_VARS</c> entries (F23,
+    /// <c>include/constants/vars.h</c> TEMP_VAR_BASE/NUM_TEMP_VARS), so a temp var is readable by name.
+    /// </summary>
+    public string? VarNameFor(int id) =>
+        NameFor(SymbolKind.SaveWork, id) ?? NameFor(SymbolKind.TemporaryVar, id);
+
     public static bool TryParseNumber(string text, out int number)
     {
         text = text.Trim();

@@ -120,4 +120,62 @@ public sealed class PartyCreateTests
         Assert.Equal("Pikachu", plain.SpeciesName);
         Assert.True(nicknamed.Nicknamed);
     }
+
+    /// <summary>
+    /// Issue 15: PK4 passes 7 to SetString for the OT and 10 for the nickname (PK4.cs:242-247), and
+    /// SetString hard-truncates past that. Seven UTF-16 units is the most the OT can hold.
+    /// </summary>
+    [Theory]
+    [InlineData(7, true)]
+    [InlineData(8, false)]
+    public void OtLengthMatchesThePk4Field(int length, bool accepted)
+    {
+        var ot = new string('A', length);
+        if (accepted)
+        {
+            var (_, result) = Pk4Builder.Create(157, 100, null, ot, 4242, 1717, 2, null);
+            Assert.Equal(ot, result.OriginalTrainer);
+        }
+        else
+        {
+            var error = Assert.Throws<HgssException>(() =>
+                Pk4Builder.Create(157, 100, null, ot, 4242, 1717, 2, null));
+            Assert.Equal("name-length", error.DiagnosticId);
+        }
+    }
+
+    /// <summary>Issue 15: the nickname field holds 10 UTF-16 units, so 9 and 10 survive and 11 does not.</summary>
+    [Theory]
+    [InlineData(9, true)]
+    [InlineData(10, true)]
+    [InlineData(11, false)]
+    public void NicknameLengthMatchesThePk4Field(int length, bool accepted)
+    {
+        var nickname = new string('Z', length);
+        if (accepted)
+        {
+            var (bytes, _) = Pk4Builder.Create(25, 20, null, "STAGE", 4242, 1717, 2, nickname);
+            // Round trip through the serialized bytes, not the builder's own object.
+            var pk = new global::PKHeX.Core.PK4(bytes);
+            Assert.Equal(nickname, pk.Nickname);
+            Assert.True(pk.IsNicknamed);
+            Assert.Equal("STAGE", pk.OriginalTrainerName);
+        }
+        else
+        {
+            var error = Assert.Throws<HgssException>(() =>
+                Pk4Builder.Create(25, 20, null, "STAGE", 4242, 1717, 2, nickname));
+            Assert.Equal("name-length", error.DiagnosticId);
+        }
+    }
+
+    /// <summary>Issue 15: the OT and nickname limits are independent, not one shared value.</summary>
+    [Fact]
+    public void OtAtItsLimitStillTakesALongNickname()
+    {
+        var (bytes, _) = Pk4Builder.Create(25, 20, null, "ABCDEFG", 4242, 1717, 2, "ABCDEFGHIJ");
+        var pk = new global::PKHeX.Core.PK4(bytes);
+        Assert.Equal("ABCDEFG", pk.OriginalTrainerName);
+        Assert.Equal("ABCDEFGHIJ", pk.Nickname);
+    }
 }

@@ -22,7 +22,15 @@ public static class Pk4Builder
 
     private const int MaxSpecies = 493; // Legal.MaxSpeciesID_4, internal to PKHeX.Core.
     private const int MaxMove = 467;    // Legal.MaxMoveID_4, likewise.
-    private const int MaxNameLength = 8; // Gen 4 trainer and nickname fields are 8 UTF-16 units.
+    /// <summary>
+    /// PK4's two name fields are sized differently. `OriginalTrainerName` passes 7 to
+    /// StringConverter4.SetString and `Nickname` passes 10 (PKHeX.Core PKM/PK4.cs:242-247), and
+    /// SetString hard-truncates past that count rather than rejecting, so anything longer would be
+    /// silently lossy.
+    /// </summary>
+    private const int MaxOtLength = 7;
+
+    private const int MaxNicknameLength = 10;
 
     public static (byte[] Bytes, PartyCreateResult Result) Create(
         int species,
@@ -42,9 +50,9 @@ public static class Pk4Builder
             throw HgssException.BadArguments("language-range", $"Language {language} is outside 1..8 (2 is English).");
         if (tid is < 0 or > 0xFFFF || sid is < 0 or > 0xFFFF)
             throw HgssException.BadArguments("id-range", $"TID/SID {tid}/{sid} must each fit in 16 bits.");
-        CheckName(originalTrainer, "OT");
+        CheckName(originalTrainer, "OT", MaxOtLength);
         if (nickname is not null)
-            CheckName(nickname, "nickname");
+            CheckName(nickname, "nickname", MaxNicknameLength);
         if (moves is { Count: > 4 })
             throw HgssException.BadArguments("moves-range", $"A PK4 holds four moves; got {moves.Count}.");
 
@@ -103,6 +111,15 @@ public static class Pk4Builder
         if (bytes.Length != PartyBytes)
             throw HgssException.Internal("pk-size", $"Generated {bytes.Length} bytes; the party form is {PartyBytes}.");
 
+        // No successful create may silently change a submitted name: PK4 stores both as UTF-16 and
+        // the getter decodes what the setter wrote, so a mismatch means the value was lossy.
+        if (!string.Equals(pk.OriginalTrainerName, originalTrainer, StringComparison.Ordinal))
+            throw HgssException.BadArguments("name-roundtrip",
+                $"The OT '{originalTrainer}' did not survive PK4 serialization (read back as '{pk.OriginalTrainerName}').");
+        if (nickname is not null && !string.Equals(pk.Nickname, nickname, StringComparison.Ordinal))
+            throw HgssException.BadArguments("name-roundtrip",
+                $"The nickname '{nickname}' did not survive PK4 serialization (read back as '{pk.Nickname}').");
+
         var moveIds = slots.Select(m => (int)m).ToArray();
         var result = new PartyCreateResult(
             Species: species,
@@ -123,11 +140,16 @@ public static class Pk4Builder
         return (bytes, result);
     }
 
-    private static void CheckName(string name, string what)
+    private static void CheckName(string name, string what, int maxLength)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw HgssException.BadArguments("name-empty", $"The {what} must not be empty (an empty one renders as garbage).");
-        if (name.Length > MaxNameLength)
-            throw HgssException.BadArguments("name-length", $"The {what} '{name}' is longer than {MaxNameLength} characters; gen 4 truncates.");
+        // Gen 4 stores UTF-16 code units and SetString counts chars, so a surrogate pair costs two.
+        if (name.Length > maxLength)
+            throw HgssException.BadArguments("name-length",
+                $"The {what} '{name}' is {name.Length} UTF-16 units; gen 4 stores at most {maxLength} and truncates beyond that.");
+        if (name.Any(char.IsSurrogate))
+            throw HgssException.BadArguments("name-encoding",
+                $"The {what} '{name}' contains a surrogate pair, which gen 4 cannot encode.");
     }
 }

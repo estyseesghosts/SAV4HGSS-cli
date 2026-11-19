@@ -70,6 +70,8 @@ Builds the 236-byte party-format file an emulator run needs, without an input sa
 
 Without `--moves`, the moveset is the species' own level-up moves at that level (the last four, from the HGSS learn table), so move slot 1 — the one a bare A press selects — is legal for that species. `--moves` writes the four ids in order; `0` is an empty slot. Defaults: OT `STAGE`, TID 4242, SID 1717, language 2, no nickname (the nickname field still holds the species name, because a zeroed one renders as garbage in the battle box). `--nickname` sets one and marks the entity nicknamed.
 
+The two name fields have different limits, because PK4 serializes them with different maxima (`PK4.cs:242-247` passes 7 to `StringConverter4.SetString` for the OT and 10 for the nickname, and that function hard-truncates instead of rejecting). The OT is limited to 7 UTF-16 units and the nickname to 10; longer input exits 2 with `name-length` rather than being silently shortened, and a value that would not survive serialization exits 2 with `name-roundtrip`. Surrogate pairs are rejected (`name-encoding`) because gen 4 cannot encode them.
+
 This is staging tooling, not a legality claim: trainer ids, IVs (31), EVs (6/252/0/0/0/252), ball and met location are fixed, and the report says so (`harness_entity: true`, `legality: "not-evaluated"`). The generated file passes the same size/parse/species/checksum validation `party import` runs. Recipes still take exported templates; nothing in the patch path synthesizes a Pokémon from a species id.
 
 ### `box export INPUT BOX SLOT --out FILE.pk4 [--force] [--symbols PATH]`

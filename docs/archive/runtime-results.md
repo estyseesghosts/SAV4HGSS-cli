@@ -348,6 +348,7 @@ base preset, map, saved tile, asserted tile and result.
 | `event-archer-radio-tower` | 190 | free spawn (8,4), A on Archer at (8,3) | frame 5716 `Archer: Oh? You managed to get this far...?`, 7396 `You are challenged by Executive Archer!`, 8086 HOUNDOUR Lv35 |
 | `event-rival-burned-tower` | 7 (Burned Tower 1F) | scene warp 1 -> (22,16), four `down` steps to the coord trigger at (22,19) | frame 5401 `Barry: ...` fires, 6003 VS screen, 6407 `Go! TYPHLOSION!` into GASTLY Lv20, 22901 `Player defeated Rival Barry!` |
 | `event-rival-victory-road` | 179 (Victory Road 3F) | scene warp 0 -> (38,14), walk to the coord trigger at x 37..39, z 21 | frame 5451 `Hold it.`, battle vs `TRAINER_RIVAL_SILVER_13` SNEASEL Lv36, win ~20130, in-game save `B7795FAF` with `VAR_UNK_40C5` 0 -> 1 |
+| `event-petrel-rocket-hq` | 249 (Team Rocket HQ B3F) | scene warp 1 -> (10,10), east to x 16, south to z 17, east to x 23, north to the corridor door at (23,15), A to open it, north to the coord trigger at (23,12) | cutscene runs (Giovanni, then Petrel's `...Huh? I don't sound anything like Giovanni?`), frame 8457 `Executive Petrel sent out ZUBAT!`, battle won, in-game save `E0B56B9C` with `VAR_UNK_40AC` 3 -> 4 |
 
 Burned Tower is the first of these whose win was saved in-game and diffed, so it carries more than
 a message string. The composed input was `47FFCB20` (scene warp 1 plus a Lv100 Typhlosion in party
@@ -431,6 +432,55 @@ Three entries needed correction from what the earlier free spawns assumed:
 - **Radio Tower observation deck.** Warp 0's tile (8,12) is the elevator landing and the next
   `up` press sends the player to `MAP_GOLDENROD_RADIO_TOWER_ELEVATOR` (447). Archer is a plain
   A-triggered object, so the free spawn at (8,4) is the correct entry for this room.
+
+### Rocket HQ B3F Petrel: the corridor door gates the checkpoint
+
+`event-petrel-rocket-hq` composes `hg-06-mineral` with `VAR_UNK_40AC = 3` and warps to 249's warp 1
+tile (10,10). The room's geometry forces the long way round: a barrier at x 17-18 runs from z 4 to
+z 12, so the x 23-24 corridor is reached from the south (z 17) and entered northward. The coord
+trigger is the strip (23..24, 12) while `VAR_UNK_40AC == 3` (`235_D35R0104.json` coords,
+`scr_seq_0091_D35R0104.s:246`).
+
+The corridor's row z 15 is a closed door: two objects at (23,15) and (24,15) both run
+`_EV_scr_seq_D35R0104_004` (`event_D35R0104.h:8`), and `_004:427-428` is
+`GoToIfNotDefeated TRAINER_TEAM_ROCKET_F_GRUNT_5 / TRAINER_TEAM_ROCKET_GRUNT_19 -> _0561`, where
+`_0561` prints `The door's closed...`. With both flags set the script falls through, plays
+`msg_0114_D35R0104_00012`, and walks both door objects three tiles west (`_056C`).
+
+The first version of the scene carried the checkpoint variable without those two flags, which is a
+state the game never produces: `_006:18-25` only raises `VAR_UNK_40AC` to 2 after both grunts are
+beaten, and `_002:198` raises it to 3. The scene now sets `FLAG_TRAINER(404)` and `FLAG_TRAINER(222)`
+alongside the variable (`tools/make_scenes.py`), so the composed state carries the trainers' own
+defeat flags.
+
+One measurement does not fit the source and is recorded rather than explained: **the first A press
+on that door in a session takes the closed branch and the second opens it**, on the flags-set save.
+Two presses 40 frames apart cannot differ in flag state, because `TrainerFlagSet` is only called
+from a won trainer battle (`src/scrcmd_battle.c:249`) and from `ScrCmd_SetTrainerFlag`
+(`src/scrcmd_c.c:524`); nothing clears them on load either. The win proof below does not rest on
+this, but anyone re-running the scene will see it.
+
+The win was saved in-game and diffed against the composed save (`4560CAAA`), which the game wrote
+as `E0B56B9C`:
+
+| Field | Before | After | Script line |
+| --- | --- | --- | --- |
+| `VAR_UNK_40AC` (0x40AC) | 3 | 4 | `scr_seq_0091_D35R0104.s:310` |
+| `FLAG_HIDE_ROCKET_HIDEOUT_B3F_GIOVANNI` (640) | off | on | `:279` |
+| `FLAG_HIDE_ROCKET_HIDEOUT_B3F_MURKROW_1` (586) | off | on | `:312` |
+| `FLAG_HIDE_ROCKET_HIDEOUT_B2F_MURKROW_1` (587) | on | off | `:313` |
+| `VAR_TEMP_x4000` / `x4001` | 0 / 0 | 23 / 12 | `GetPlayerCoords` at `:254` (the trigger tile) |
+| `VAR_BATTLE_RESULT` (0x4013) | 0 | 1 | `Encounter_GetResult`, `src/encounter.c:106` |
+| money | 3,444 | 4,324 | 880 = 22 x 4 x 10: Koffing is Petrel's last member and `sPrizeMoneyTbl[TRAINERCLASS_EXECUTIVE_PETREL]` is 10 (`asm/overlay_12_battle_command.s`, class 118 at `include/constants/trainer_class.h:122`) |
+| `VAR_FRIENDSHIP_STEPS` | 88 | 112 | +1 per step event |
+| `FLAG_UNK_966` (0x966) | on | off | `location warp`'s dynamic-warp flag, consumed on load |
+
+Two independent checks agree on where the trigger fired: the two temp vars hold (23,12), the coord
+event's own rectangle, and the saved location is (22,10), which is where `_040C`/`_041C` put the
+player before Giovanni's dialogue (`:257-261`).
+
+The staged party carried a second member (Hoothoot Lv3) and the opponent has three Pokémon, so the
+Shift prompt appeared after each KO; `down` + `A` declines it and keeps the Lv100 lead in.
 
 ## Kimono Girls: five fights in one cutscene (2026-11-18)
 

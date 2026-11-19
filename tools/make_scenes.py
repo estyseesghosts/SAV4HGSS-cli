@@ -420,15 +420,22 @@ STORY_BATTLES = [
         "id": "event-petrel-rocket-hq",
         "title": "Rocket HQ B3F (Petrel and Giovanni)",
         "base": "hg-06-mineral", "map": "MAP_TEAM_ROCKET_HEADQUARTERS_B3F", "warp": 1,
-        "ops": [("var", "VAR_UNK_40AC", 3)],
+        "ops": [("var", "VAR_UNK_40AC", 3),
+                # The checkpoint variable is only reachable after both corridor grunts are beaten
+                # (_006 at :18-25 raises it to 2 only when both trainer flags are set), and the door
+                # object at (23,15) re-checks them before it steps aside (_004 at :427-428). Without
+                # these two the scene composes clean but the corridor stays shut.
+                ("flag", "FLAG_TRAINER_TEAM_ROCKET_F_GRUNT_5", True),
+                ("flag", "FLAG_TRAINER_TEAM_ROCKET_GRUNT_19", True)],
         "actor": None,
         "sources": [
             "scr_seq_0091_D35R0104.s:18-25 (the transition steps 0/1 to 2 once the two grunts are beaten)",
             "scr_seq_0091_D35R0104.s:198 (VAR_UNK_40AC = 3 at the door checkpoint)",
+            "scr_seq_0091_D35R0104.s:427-428 (_004's door object requires both trainer flags before it moves west)",
             "scr_seq_0091_D35R0104.s:246-285 (coord cutscene: Giovanni moves, Petrel is revealed, PETREL_2 battles at 285)",
             "235_D35R0104.json coords (23,12) 2x1 while VAR_UNK_40AC == 3; SPRITE_RKANBUM2 at (21,7) FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL",
         ],
-        "note": "Petrel stays hidden until the cutscene shows him; the save carries the checkpoint variable and warps to the nearer arrival (warp 1).",
+        "note": "Petrel stays hidden until the cutscene shows him; the save carries the checkpoint variable, the two grunt trainer flags that gate the door, and warps to the nearer arrival (warp 1).",
         "expect_flags_on": ["FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL"],
     },
     {

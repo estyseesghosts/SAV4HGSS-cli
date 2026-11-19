@@ -3905,6 +3905,16 @@
      "value": 3
     },
     {
+     "op": "flag.set",
+     "id": 1764,
+     "value": true
+    },
+    {
+     "op": "flag.set",
+     "id": 1582,
+     "value": true
+    },
+    {
      "op": "location.warp",
      "map": 249,
      "warp": 1
@@ -3918,6 +3928,8 @@
     "badges_johto": 63,
     "badges_kanto": 0,
     "flags_on": [
+     "FLAG_TRAINER_TEAM_ROCKET_F_GRUNT_5",
+     "FLAG_TRAINER_TEAM_ROCKET_GRUNT_19",
      "FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL"
     ],
     "flags_off": [],
@@ -3932,11 +3944,12 @@
    "sources": [
     "scr_seq_0091_D35R0104.s:18-25 (the transition steps 0/1 to 2 once the two grunts are beaten)",
     "scr_seq_0091_D35R0104.s:198 (VAR_UNK_40AC = 3 at the door checkpoint)",
+    "scr_seq_0091_D35R0104.s:427-428 (_004's door object requires both trainer flags before it moves west)",
     "scr_seq_0091_D35R0104.s:246-285 (coord cutscene: Giovanni moves, Petrel is revealed, PETREL_2 battles at 285)",
     "235_D35R0104.json coords (23,12) 2x1 while VAR_UNK_40AC == 3; SPRITE_RKANBUM2 at (21,7) FLAG_HIDE_ROCKET_HIDEOUT_B3F_PETREL",
     "registry/hgss-us.warp-spawns.json map 249 MAP_TEAM_ROCKET_HEADQUARTERS_B3F warp 1 tile (10,10)"
    ],
-   "note": "Petrel stays hidden until the cutscene shows him; the save carries the checkpoint variable and warps to the nearer arrival (warp 1)."
+   "note": "Petrel stays hidden until the cutscene shows him; the save carries the checkpoint variable, the two grunt trainer flags that gate the door, and warps to the nearer arrival (warp 1)."
   },
   {
    "id": "event-kimono-battles",

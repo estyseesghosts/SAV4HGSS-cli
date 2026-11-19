@@ -556,10 +556,10 @@ gave the weekday from two sides:
   whole temp window zeroed, so 6 is what the game read from the RTC; `4119 = 0` is the `:45-47`
   branch for "neither 1 nor 3".
 - Emulator side. A savestate's `RTC.` section carries `State.DateTime = 00 01 01 06 04 07 01`:
-  2000-01-01 04:07:01, week byte 6. melonDS derives that byte as `(6 + days since 2000-01-01) % 7`,
-  "01/01/2000 is a Saturday, so the starting value is 6" (melonDS `src/RTC.cpp:186-187`), under the
-  DS firmware's 0=Sunday count (`:176`). `RTC::ResetState` only forces month and day to 1
-  (`src/RTC.cpp:208-213`), so a clock nobody syncs stays on that value.
+  2000-01-01 04:07:01, week byte 6. That is the value melonDS's own rule gives for the date
+  (`SetDateTime`: `(6 + days) % 7`, "01/01/2000 is a Saturday, so the starting value is 6",
+  `src/RTC.cpp:186-187`) under the DS firmware's 0=Sunday count (`:176`). `RTC::ResetState` forces
+  only month and day to 1 (`src/RTC.cpp:208-213`), so nothing in the core moves it off January 1.
 
 The MCP core does not run the frontend's host sync (`EmuInstance::setDateTime`,
 `src/frontend/qt_sdl/EmuInstance.cpp:1206-1214`). That path would store `(6 + 9818) % 7 = 3`, i.e.

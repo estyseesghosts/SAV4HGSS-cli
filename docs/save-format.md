@@ -66,7 +66,13 @@ Checksums never decide which counter is higher, but they decide validity: a copy
 
 ### Auxiliary blocks (Hall of Fame, Battle Hall, Battle Videos)
 
-These use `BlockInfo4` (`BlockInfo4.cs`) and a different footer in the block's last `0x10` bytes:
+These live at partition-relative `0x23000`, `0x26000`, `0x27000`, `0x29000`, `0x2B000` and `0x2D000`
+(`gExtraSaveChunkHeaders`, `save_arrays.c:334-373`). Each is written twice, at `hdr->sector` and
+`hdr->sector + 64` (`save.c:906-907`); flash is 128 sectors of `0x1000` and a partition is 64 sectors, so
+the second write is the same slot in the **other partition**. One copy per partition, which is the pair
+PKHeX compares (`SAV4.cs:189`). `research/aux-matrix.json` has a boot per recovery case.
+
+They use `BlockInfo4` (`BlockInfo4.cs`) and a different footer in the block's last `0x10` bytes:
 
 | Footer offset | Field |
 |---|---|

@@ -89,6 +89,9 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | FMT-H | `hgss-save blank` produced chunks the game would reject: PKHeX writes only the CRC, leaving size, magic and slot zero. Blanks now carry the full footer | SOURCE (`save.c:338-347`), INTERVENTION | corrected, `HgssFactory.WritePartitionFooters` |
 | FMT-I | A PKHeX no-op export differs from its input in 5 bytes: the forced box mask `0x3FFFF` at storage+`0x12004` in the active partition and that partition's storage CRC. The mask survives the next in-game save, which writes the other partition, and is gone once the game writes that partition - the second save. A PKHeX export is loadable as-is | INTERVENTION, RUNTIME (`research/fmt-04-roundtrip.json`) | holds |
 | FMT-J | A general-only edit cannot undo a newer PC block, because that state cannot be loaded: the game takes one partition and a split is `TOTAL_FAIL`. The edit itself changes the flag byte, both CRCs and the 3-byte forced box mask; no box byte moves, and the edit survives a boot and a save into the other partition | INTERVENTION, RUNTIME | holds |
+| FMT-K | The six auxiliary chunks are written at `sector` and `sector+64`, which is the same slot in the other partition, not two copies inside one (flash is 128 sectors of `0x1000`; `save.c:906-907`). `SAVE_MISC` is general `0x2064`: the key table `0x230C` is `+0x2A8` and `rivalName 0x22D4` is `+0x270`, both matching the decomp struct and PKHeX. | Runtime, 9 boots (`research/aux-matrix.json`) | Answered |
+| FMT-L | Battle Hall and Battle Video recovery depends on the `prefer` byte, not on `saveno`: the same corrupted copy 1 warns ("The most recent Battle Hall record is corrupted.") when `prefer = 0` and is silent when `prefer = 1`. No valid copy gives "The Battle Hall record has been erased." With `extraChunksExist = 0` the check never runs and both a dead pair and a good pair are silent. | Runtime, 9 boots | Answered |
+| FMT-M | A no-op in-game save does not touch the auxiliary region at all: 0 of ~780 changed bytes fall in `0x23000-0x2F000` of either partition, including when the chunk is dead and the boot printed a recovery message. The repair, when it happens, goes to `SAVE_MISC` (`prefer`), not to the chunk. | Runtime, 3 saves | Answered |
 
 ### The counter and the write target
 
@@ -209,6 +212,54 @@ The writer side is closed by refusal. `hgss-save patch` on `cross-partition` and
 The preflight runs before PKHeX's own checksum gate, so the refusal names the game's status instead of
 "Small block checksum is invalid", which PKHeX emits because it picks the newer copy without validating it
 (`HgssFactory.cs`).
+
+### Auxiliary chunks: where the copies live, and what a recovery costs (FMT-06, FMT-07)
+
+The six extra chunks (Hall of Fame, Battle Hall, four Battle Videos) are listed in
+`gExtraSaveChunkHeaders` (`save_arrays.c:334-373`) and are at partition-relative `0x23000`,
+`0x26000`, `0x27000`, `0x29000`, `0x2B000`, `0x2D000`. Each is written twice, at `hdr->sector` and
+`hdr->sector + 64` (`save.c:906-907`). Since flash is 128 sectors of `0x1000` and a partition is 64
+sectors, the second write is the **same slot in the other partition**. There is one copy per partition,
+and PKHeX compares exactly that pair (`SAV4.cs:189`, `CompareExtra(Data, Data[PartitionSize..], block)`).
+
+`SAVE_MISC` sits at general `0x2064`, established two ways rather than assumed. Its `unk_02A8[2][5]` and
+`unk_02D0[5]` (`save_misc_data.h:55-56`) are the aux key table, which PKHeX calls `Extra = 0x230C`
+(`SAV4HGSS.cs:72`): `0x230C - 0x2A8 = 0x2064`. Independently, `rivalName` is at `+0x270` in the struct
+(`save_misc_data.h:45`) and at `0x22D4` in PKHeX (`SAV4HGSS.cs:196`): `0x2064 + 0x270 = 0x22D4`. The
+`extraChunksExist` bit is bit 0 of `+0x29B` (`save_misc_data.h:51`); in the corpus it is set in exactly
+the one save that carries initialized aux chunks (`Gen 4 - Pokemon HeartGold (ENG).sav`) and clear in the
+four Hall-of-Fame-bearing saves that carry `0xFFFFFFFF` in every key slot.
+
+The gate matters. `Save_CheckFrontierData` (`save.c:540`) returns before looking at any chunk when
+`extraChunksExist` is clear, and skips any chunk whose key pair is `-1` (`save.c:542`). `gate-off-both-bad`
+has both Battle Hall copies dead and the gate cleared, and the boot is silent; `both-bad` is the same
+corruption with the gate set, and the boot prints "The Battle Hall record has been erased."
+
+For chunks 1-5 the `saveno` is never compared (`save.c:1057-1078`). What decides is the `prefer` byte
+(`SAVE_MISC + 0x2D0[id-1]`), which selects which of the two stored keys is tested first, and only falling
+through to the second one sets `ret2_p`, which becomes `statusFlags |= 4`:
+
+| corruption | `prefer` | message | source |
+|---|---|---|---|
+| copy 1 dead | 0 | "The most recent Battle Hall record is corrupted." | `save.c:1022-1030`, `save.c:546` |
+| copy 1 dead | 1 | none | `save.c:1031-1040` |
+| copy 2 dead | 0 | none | `save.c:1057-1070` |
+| copy 2 dead | 1 | "The most recent Battle Hall record is corrupted." | `save.c:1071-1078` |
+| both dead | either | "The Battle Hall record has been erased." | `save.c:1087-1095`, `save.c:544` |
+| any, gate off | either | none | `save.c:540` |
+
+Every row booted and the message matched. `copy2-newer` was built to test whether `saveno` could break
+the tie between two valid copies; it does not. With both keys equal and `prefer = 0` the partition-A copy
+is taken silently even though partition B advertises `saveno = 2`. The first draft of the predictor
+assumed `saveno` ordering here, the boot disproved it, and the predictor was corrected against
+`save.c:1057-1078` rather than patched to fit the observation.
+
+A no-op save leaves the whole aux region alone: in `control-clean`, `copy1-bad-prefer0` and `both-bad`,
+zero of the roughly 780 changed bytes fall inside `0x23000-0x2F000` of either partition. The one thing a
+recovery does write is `SAVE_MISC`: `copy1-bad-prefer0` comes back with `prefer[0] = 1`, which records that
+copy 2 is now the current one, while the dead copy is not repaired on load. `both-bad` comes back with
+`prefer` unchanged at 0 and the chunk still dead on both sides, so "erased" describes the status flag the
+game shows, not a write.
 
 ### Consequence in the CLI
 

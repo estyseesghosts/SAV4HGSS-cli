@@ -38,6 +38,7 @@ Not read by the CLI at run time (scene audits cite some by path). They record ho
 | `save-selection.json` | per corpus save: the game's boot status, the partition it loads, both partitions' counters, and PKHeX's per-block pick. 29 unique saves, all `IS_GOOD`, zero disagreements | `tools/save_selection_scan.py` | FMT-02 |
 | `fmt-04-roundtrip.json` | four stages of a PKHeX no-op round trip with counters, box masks, chunk CRCs and byte deltas between them | `tools/noop_roundtrip_report.py` | FMT-04 |
 | `fmt-matrix.json` | per crafted fault: predicted status, message, loaded partition, written partition, and the play time carried into it | `tools/fmt_matrix_report.py` | FMT-01, FMT-08 |
+| `aux-matrix.json` | per crafted auxiliary-chunk fault: predicted and observed recovery, which partition each copy came from, and the `SAVE_MISC` `prefer`/`extraChunksExist` state after the save | `tools/aux_matrix_report.py` | FMT-06, FMT-07 |
 | `scene-actor-gates.json` | for each of 80 scenes: writes to the actor's hide flag in map init, with conditions; any init instruction that moves the player; and any init write to a variable one of the map's coord triggers tests, with the stored value and whether some coord trigger on that map wants it (10 scenes, 8 writes that differ, 9 that match) | `tools/scene_actor_check.py` | F17, scene audits |
 
 `research/script-graph.json` and `script-guards.json` are large (0.4 MB and 1.4 MB). Open them with a JSON-aware tool or use the query flags (`script_graph.py --query T22GYM0101`).
@@ -69,6 +70,8 @@ Python 3, standard library plus the melonDS-MCP bindings for runtime tools. All 
 | `fault_matrix.py` | Craft one boot-time save fault per image, predict the status, boot it, save once in-game and record which partition loaded and which was rewritten |
 | `fmt_matrix_report.py` | Summarise a `fault_matrix.py` run into `research/fmt-matrix.json` |
 | `noop_roundtrip_report.py` | Stage a PKHeX no-op export, the save after one in-game save and the save after two, and record counters, masks, play times and byte deltas |
+| `aux_fault_matrix.py` | Craft one auxiliary-chunk fault per image (dead copy, both dead, key mismatch, gate off, `saveno` disagreement, both `prefer` values), predict the recovery from `sub_020284A4`, and boot each |
+| `aux_matrix_report.py` | Summarise an `aux_fault_matrix.py` run into `research/aux-matrix.json` |
 | `block_selection_scan.py` | Superseded by `save_selection_scan.py`; its per-block question is not the game's |
 
 ### Decomp and ROM analysis

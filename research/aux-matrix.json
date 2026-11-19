@@ -1,0 +1,550 @@
+{
+  "schema": "hgss-save.aux-matrix/v1",
+  "question": "FMT-06",
+  "base": "..\\hgss-saves\\Gen 4 - Pokemon HeartGold (ENG).sav",
+  "chunk": "battle-hall (id 1, partition-relative 0x26000, 0x0BB0 bytes)",
+  "rules": {
+    "gate": "Save_CheckExtraChunksExist(SAVE_MISC + 0x29B bit 0) must be set; otherwise Save_CheckFrontierData returns without looking at any chunk (save.c:540)",
+    "key": "chunk 1-5 are skipped when both stored keys are -1 (save.c:542)",
+    "copies": "copy 1 is the chunk at `sector` (partition A), copy 2 at `sector+64` (partition B); flash is 128 sectors of 0x1000 (save.c:906-907)",
+    "selection": "chunk 1-5 ignore saveno. The prefer byte (SAVE_MISC + 0x2D0[id-1]) selects which key is tested first; only falling through to the second key sets ret2_p, which becomes statusFlags |= 4 (save.c:1057-1078, save.c:546-547)",
+    "erased": "no valid copy -> ret_p = 2 -> err = 3 -> statusFlags |= 8 (save.c:1087-1095, save.c:544-545)"
+  },
+  "messages": {
+    "err1=2": "The most recent Battle Hall record is corrupted.",
+    "err1=3": "The Battle Hall record has been erased."
+  },
+  "rows": [
+    {
+      "variant": "control-clean",
+      "predicted": "load p0, err1=1 (silent)",
+      "aux_in": {
+        "p0": {
+          "valid": true,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "copy1-bad-prefer0",
+      "predicted": "load p1 -> err1=2 statusFlags|=4 (previous record loaded)",
+      "aux_in": {
+        "p0": {
+          "valid": false,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "copy1-bad-prefer1",
+      "predicted": "load p1 -> err1=1, silent",
+      "aux_in": {
+        "p0": {
+          "valid": false,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "copy2-bad-prefer0",
+      "predicted": "load p0 -> err1=1, silent",
+      "aux_in": {
+        "p0": {
+          "valid": true,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "copy2-bad-prefer1",
+      "predicted": "load p0 -> err1=2 statusFlags|=4 (previous record loaded)",
+      "aux_in": {
+        "p0": {
+          "valid": true,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "both-bad",
+      "predicted": "err1=3 statusFlags|=8 (Battle Hall record erased)",
+      "aux_in": {
+        "p0": {
+          "valid": false,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "copy2-newer",
+      "predicted": "load p0, err1=1 (silent)",
+      "aux_in": {
+        "p0": {
+          "valid": true,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 2
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 2,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "copy1-bad-key-mismatch",
+      "predicted": "load p1 -> err1=2 statusFlags|=4 (previous record loaded)",
+      "aux_in": {
+        "p0": {
+          "valid": false,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": true,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 1,
+          "prefer": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 1,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    },
+    {
+      "variant": "gate-off-both-bad",
+      "predicted": "GATE_OFF: no check, err1 stays 1, no message",
+      "aux_in": {
+        "p0": {
+          "valid": false,
+          "saveno": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1
+        }
+      },
+      "reached_field": true,
+      "loaded_partition": "p1",
+      "written_partition": "p0",
+      "aux_after": {
+        "p0": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        },
+        "p1": {
+          "valid": false,
+          "saveno": 1,
+          "idx": 1
+        }
+      },
+      "misc_after": {
+        "p0": {
+          "extraChunksExist": 0,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "p1": {
+          "extraChunksExist": 0,
+          "prefer": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "field.png",
+        "after-save.png"
+      ]
+    }
+  ]
+}

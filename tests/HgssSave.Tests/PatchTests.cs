@@ -18,6 +18,7 @@ public sealed class PatchTests
         {"name":"FLAG_MAPTEMP_001","kind":"temporary_flag","id":1,"hex":"0x1","source":"t","line":2,"writable":false,"aliases":[],"confidence":"t"},
         {"name":"VAR_PLAYER_STARTER","kind":"save_work","id":16432,"hex":"0x4030","source":"t","line":3,"writable":true,"aliases":[],"confidence":"t"},
         {"name":"VAR_TEMP_x4000","kind":"temporary_var","id":16384,"hex":"0x4000","source":"t","line":4,"writable":false,"aliases":[],"confidence":"t"},
+        {"name":"VAR_SPECIAL_x8000","kind":"special_runtime_var","id":32768,"hex":"0x8000","source":"t","line":6,"writable":false,"aliases":[],"confidence":"t"},
         {"name":"ITEM_POTION","kind":"item","id":17,"hex":"0x11","source":"t","line":5,"writable":false,"aliases":[],"confidence":"t"}],
         "skipped":[]}
         """;
@@ -129,12 +130,32 @@ public sealed class PatchTests
     }
 
     [Fact]
-    public void TemporaryVarWriteIsUnsafe()
+    public void TemporaryVarWriteAppliesWithAMapLoadWarning()
     {
+        // Temp vars are stored in SaveVarsFlags.vars[] (vars.h TEMP_VAR_BASE 0x4000, NUM_VARS 0x170) and
+        // zeroed by ScriptManager on map load (script_manager.c:406-407). The named form must behave like
+        // the numeric spelling: apply, warn, and say why the value is short-lived.
         var registry = TestRegistry();
         using var session = OpenBlank();
         var document = Parse("""
             {"schema":"hgss-save.patch/v1","operations":[{"op":"variable.set","id":"VAR_TEMP_x4000","value":1}]}
+            """);
+        var plan = PatchPlanner.Plan(session, document, registry, "blank", session.OriginalBytes, [1], false);
+        Assert.True(plan.CanApply);
+        Assert.Contains(plan.Warnings, w => w.Contains("VAR_TEMP_x4000") && w.Contains("map load"));
+        var result = PatchRunner.Apply(session, plan, Factory);
+        Assert.True(result.Audit.Accepted);
+        Assert.True(session.TryGetVar(0x4000, out var value) && value == 1);
+    }
+
+    [Fact]
+    public void SpecialVarWriteIsUnsafe()
+    {
+        // VAR_SPECIAL_* lives at 0x8000, outside the saved window 0x4000..0x416F (vars.h VARS_END).
+        var registry = TestRegistry();
+        using var session = OpenBlank();
+        var document = Parse("""
+            {"schema":"hgss-save.patch/v1","operations":[{"op":"variable.set","id":"VAR_SPECIAL_x8000","value":1}]}
             """);
         var error = Assert.Throws<HgssException>(() =>
             PatchPlanner.Plan(session, document, registry, "blank", session.OriginalBytes, [1], false));

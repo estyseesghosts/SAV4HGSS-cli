@@ -226,10 +226,23 @@ public static class PatchPlanner
                 if (lookup.Resolution == SymbolResolution.NotFound)
                     throw HgssException.Symbol("variable-unknown", $"variable.set id '{variable.Reference}' is not in registry {registry.Revision}.");
 
+                // VAR_TEMP_* is a temporary_var symbol but addresses a real slot: SaveVarsFlags.vars[] covers
+                // 0x4000..0x416F and the temp window is the first NUM_TEMP_VARS (32) entries
+                // (vars.h TEMP_VAR_BASE/NUM_TEMP_VARS; script_manager.c:406-407 zeroes that window on every
+                // map load). The named form is accepted with the same warning the numeric form gets, so the
+                // reviewed spelling is not worse than the unreviewed one.
+                SymbolEntry? temporary;
                 if (lookup.Resolution == SymbolResolution.WrongKind)
                 {
-                    var found = string.Join(", ", lookup.Candidates.Select(c => $"{c.Name} ({SymbolKinds.ToJson(c.Kind)}, id {c.Id})"));
-                    throw HgssException.Unsafe("variable-kind", $"'{variable.Reference}' is not a save-work variable; candidates: {found}. Temporary vars (VAR_TEMP_*) and special vars (VAR_SPECIAL_*) are not persistent save fields.");
+                    temporary = lookup.Candidates.FirstOrDefault(c => c.Kind == SymbolKind.TemporaryVar);
+                    if (temporary is null)
+                    {
+                        var found = string.Join(", ", lookup.Candidates.Select(c => $"{c.Name} ({SymbolKinds.ToJson(c.Kind)}, id {c.Id})"));
+                        throw HgssException.Unsafe("variable-kind", $"'{variable.Reference}' is not a save-work variable; candidates: {found}. Special vars (VAR_SPECIAL_*, 0x8000+) are runtime slots and are not stored in the save.");
+                    }
+
+                    warnings.Add($"variable {temporary.Name} is a temporary var: it is stored in SaveVarsFlags.vars[] but ScriptManager zeroes the temp window on every map load (script_manager.c:406-407), so the value only matters until the next load.");
+                    lookup = SymbolLookupResult.Found(temporary);
                 }
 
                 if (lookup.Resolution == SymbolResolution.Ambiguous)

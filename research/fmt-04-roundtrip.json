@@ -1,0 +1,287 @@
+{
+  "stages": {
+    "game": {
+      "path": "leveld-out\\fmt-lyra-c2\\out.sav",
+      "sha256": "5fe1aba384af7cc38d829543abfce470718103a759879ca9d28ac3f41599bb0d",
+      "bytes": 524288,
+      "p0": {
+        "general": {
+          "count": 12,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 12,
+          "crc_valid": true
+        },
+        "play_time": "3:02:35",
+        "box_mask": 0
+      },
+      "p1": {
+        "general": {
+          "count": 11,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 11,
+          "crc_valid": true
+        },
+        "play_time": "3:01:08",
+        "box_mask": 0
+      }
+    },
+    "pkhex-noop": {
+      "path": "leveld-out\\fmt-04\\pkhex-noop.sav",
+      "sha256": "da039cfbbad3757e18b55f45633211d406b60e488e643e27cee1a1b69487a6d9",
+      "bytes": 524288,
+      "p0": {
+        "general": {
+          "count": 12,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 12,
+          "crc_valid": true
+        },
+        "play_time": "3:02:35",
+        "box_mask": 262143
+      },
+      "p1": {
+        "general": {
+          "count": 11,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 11,
+          "crc_valid": true
+        },
+        "play_time": "3:01:08",
+        "box_mask": 0
+      }
+    },
+    "after-one-save": {
+      "path": "leveld-out\\fmt-04\\roundtrip\\out.sav",
+      "sha256": "d6a9b8d9d9f95043f7a9db3ec3046b56c3aaf111a11a493f0d37735781c994e1",
+      "bytes": 524288,
+      "p0": {
+        "general": {
+          "count": 12,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 12,
+          "crc_valid": true
+        },
+        "play_time": "3:02:35",
+        "box_mask": 262143
+      },
+      "p1": {
+        "general": {
+          "count": 13,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 13,
+          "crc_valid": true
+        },
+        "play_time": "3:02:58",
+        "box_mask": 0
+      }
+    },
+    "after-two-saves": {
+      "path": "leveld-out\\fmt-04\\roundtrip2\\out.sav",
+      "sha256": "029e2e338b9bc67846fba297f2990a7df77245069fe233bc3a0ebd1d9847fd20",
+      "bytes": 524288,
+      "p0": {
+        "general": {
+          "count": 14,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 14,
+          "crc_valid": true
+        },
+        "play_time": "3:03:20",
+        "box_mask": 0
+      },
+      "p1": {
+        "general": {
+          "count": 13,
+          "crc_valid": true
+        },
+        "storage": {
+          "count": 13,
+          "crc_valid": true
+        },
+        "play_time": "3:02:58",
+        "box_mask": 0
+      }
+    }
+  },
+  "deltas": [
+    {
+      "from": "game",
+      "to": "pkhex-noop",
+      "changed_bytes": 5,
+      "bytes": [
+        {
+          "partition": "p0",
+          "offset": 136964,
+          "before": 0,
+          "after": 255
+        },
+        {
+          "partition": "p0",
+          "offset": 136965,
+          "before": 0,
+          "after": 255
+        },
+        {
+          "partition": "p0",
+          "offset": 136966,
+          "before": 0,
+          "after": 3
+        },
+        {
+          "partition": "p0",
+          "offset": 137742,
+          "before": 112,
+          "after": 184
+        },
+        {
+          "partition": "p0",
+          "offset": 137743,
+          "before": 210,
+          "after": 167
+        }
+      ]
+    },
+    {
+      "from": "pkhex-noop",
+      "to": "after-one-save",
+      "changed_bytes": 7,
+      "bytes": [
+        {
+          "partition": "p1",
+          "offset": 68,
+          "before": 160,
+          "after": 159
+        },
+        {
+          "partition": "p1",
+          "offset": 136,
+          "before": 1,
+          "after": 2
+        },
+        {
+          "partition": "p1",
+          "offset": 137,
+          "before": 8,
+          "after": 58
+        },
+        {
+          "partition": "p1",
+          "offset": 63000,
+          "before": 11,
+          "after": 13
+        },
+        {
+          "partition": "p1",
+          "offset": 63014,
+          "before": 42,
+          "after": 19
+        },
+        {
+          "partition": "p1",
+          "offset": 63015,
+          "before": 105,
+          "after": 236
+        },
+        {
+          "partition": "p1",
+          "offset": 137728,
+          "before": 11,
+          "after": 13
+        }
+      ]
+    },
+    {
+      "from": "after-one-save",
+      "to": "after-two-saves",
+      "changed_bytes": 12,
+      "bytes": [
+        {
+          "partition": "p0",
+          "offset": 40,
+          "before": 2,
+          "after": 1
+        },
+        {
+          "partition": "p0",
+          "offset": 136,
+          "before": 2,
+          "after": 3
+        },
+        {
+          "partition": "p0",
+          "offset": 137,
+          "before": 35,
+          "after": 20
+        },
+        {
+          "partition": "p0",
+          "offset": 63000,
+          "before": 12,
+          "after": 14
+        },
+        {
+          "partition": "p0",
+          "offset": 63014,
+          "before": 201,
+          "after": 232
+        },
+        {
+          "partition": "p0",
+          "offset": 63015,
+          "before": 137,
+          "after": 174
+        },
+        {
+          "partition": "p0",
+          "offset": 136964,
+          "before": 255,
+          "after": 0
+        },
+        {
+          "partition": "p0",
+          "offset": 136965,
+          "before": 255,
+          "after": 0
+        },
+        {
+          "partition": "p0",
+          "offset": 136966,
+          "before": 3,
+          "after": 0
+        },
+        {
+          "partition": "p0",
+          "offset": 137728,
+          "before": 12,
+          "after": 14
+        },
+        {
+          "partition": "p0",
+          "offset": 137742,
+          "before": 184,
+          "after": 112
+        },
+        {
+          "partition": "p0",
+          "offset": 137743,
+          "before": 167,
+          "after": 210
+        }
+      ]
+    }
+  ]
+}

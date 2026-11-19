@@ -36,6 +36,7 @@ Not read by the CLI at run time (scene audits cite some by path). They record ho
 | `script-guards.json` | the flag/variable conditions on the path to every state write: 497 scripts, 1,869 distinct writes, 6,650 guarded paths | `tools/script_guards.py` | F14 |
 | `story-atoms-hg.json` | 200 step-sized units of change across the HG lineage, linked by script data flow. The edges are file-level reads, not guards (F14) | `tools/story_atoms.py` | exploration only |
 | `save-selection.json` | per corpus save: the game's boot status, the partition it loads, both partitions' counters, and PKHeX's per-block pick. 29 unique saves, all `IS_GOOD`, zero disagreements | `tools/save_selection_scan.py` | FMT-02 |
+| `fmt-04-roundtrip.json` | four stages of a PKHeX no-op round trip with counters, box masks, chunk CRCs and byte deltas between them | `tools/noop_roundtrip_report.py` | FMT-04 |
 | `fmt-matrix.json` | per crafted fault: predicted status, message, loaded partition, written partition, and the play time carried into it | `tools/fmt_matrix_report.py` | FMT-01, FMT-08 |
 | `scene-actor-gates.json` | for each of 80 scenes: writes to the actor's hide flag in map init, with conditions; any init instruction that moves the player; and any init write to a variable one of the map's coord triggers tests, with the stored value and whether some coord trigger on that map wants it (10 scenes, 8 writes that differ, 9 that match) | `tools/scene_actor_check.py` | F17, scene audits |
 
@@ -67,6 +68,7 @@ Python 3, standard library plus the melonDS-MCP bindings for runtime tools. All 
 | `save_selection_scan.py` | Port the game's partition-selection tree (`save.c:429-526`) over a save tree: status, loaded partition, and where PKHeX's per-block pick differs |
 | `fault_matrix.py` | Craft one boot-time save fault per image, predict the status, boot it, save once in-game and record which partition loaded and which was rewritten |
 | `fmt_matrix_report.py` | Summarise a `fault_matrix.py` run into `research/fmt-matrix.json` |
+| `noop_roundtrip_report.py` | Stage a PKHeX no-op export, the save after one in-game save and the save after two, and record counters, masks, play times and byte deltas |
 | `block_selection_scan.py` | Superseded by `save_selection_scan.py`; its per-block question is not the game's |
 
 ### Decomp and ROM analysis

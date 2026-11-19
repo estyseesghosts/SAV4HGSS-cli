@@ -87,6 +87,7 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | FMT-F | With no consistent partition the game shows "The save file will be erased due to corruption or damage." and starts a new game | RUNTIME, SOURCE (`check_savedata.c:256-259`) | holds |
 | FMT-G | The 29-save corpus cannot separate PKHeX's per-block rule from the game's per-partition rule: all 29 are `IS_GOOD` and both rules name the same partition in 29/29 | SAVE_DIFF (`research/save-selection.json`) | holds |
 | FMT-H | `hgss-save blank` produced chunks the game would reject: PKHeX writes only the CRC, leaving size, magic and slot zero. Blanks now carry the full footer | SOURCE (`save.c:338-347`), INTERVENTION | corrected, `HgssFactory.WritePartitionFooters` |
+| FMT-I | A PKHeX no-op export differs from its input in 5 bytes: the forced box mask `0x3FFFF` at storage+`0x12004` in the active partition and that partition's storage CRC. The mask survives the next in-game save, which writes the other partition, and is gone once the game writes that partition - the second save. A PKHeX export is loadable as-is | INTERVENTION, RUNTIME (`research/fmt-04-roundtrip.json`) | holds |
 
 ### The counter and the write target
 
@@ -145,6 +146,32 @@ Evidence: `research/fmt-matrix.json`, screenshots under `leveld-out/fmt-matrix/<
 ### Corpus check
 
 `tools/save_selection_scan.py` ports the same tree and runs it over the corpus: 30 files, 29 unique, all `LOAD_STATUS_IS_GOOD`, 17 loading p0 and 12 loading p1. PKHeX's per-block pick agrees with the game in all 29. So the corpus contains no counterexample either way; the crafted states are what distinguish the rules, which is why the CLI had to be changed rather than its inputs re-examined.
+
+### PKHeX no-op export, loaded and resaved (FMT-04)
+
+`hgss-save patch leveld-out/fmt-lyra-c2/out.sav --recipe <empty> --out ...` gives an export with no
+semantic diff and 5 changed bytes: the box-changed mask at storage+`0x12004` goes `0x000000` to
+`0x03FFFF`, and that partition's storage CRC follows. PKHeX forces the mask so the game rewrites every
+box on its next save (`SAV4HGSS.cs:52-58`).
+
+| stage | counters p0/general | mask p0 | mask p1 | play time p0 / p1 |
+|---|---|---|---|---|
+| game save (C2) | 12/12, 11/11 | `0x000000` | `0x000000` | 3:02:35 / 3:01:08 |
+| PKHeX no-op export | 12/12, 11/11 | `0x03FFFF` | `0x000000` | 3:02:35 / 3:01:08 |
+| after one in-game save | 12/12, 13/13 | `0x03FFFF` | `0x000000` | 3:02:35 / 3:02:58 |
+| after two in-game saves | 14/14, 13/13 | `0x000000` | `0x000000` | 3:03:20 / 3:02:58 |
+
+Each stage boots and saves normally; both saves changed only the written partition (7 bytes, then 12).
+The export is loadable as it stands, and its partition is the one the game loaded: the first save was
+written to the other partition and carried the loaded play time (3:02:35 plus 23 s).
+
+The forced mask does not converge on first use. It is payload, so it survives until the game rewrites
+that partition, which happens on the second save. That is also why the second save jumps p0 from 12 to
+14: the footer counter is `loaded + 1`, not `previous + 1`.
+
+Not measured: the "saving a lot of data" path (`Save_NumModifiedPCBoxesIsMany`, >= 6 boxes). The mask is
+read at load into `boxModifiedFlags` (`save.c:98`), so the first save enters with all 18 boxes marked,
+but the write finished inside the driver's 1,500-frame window and the message was not captured.
 
 ### Consequence in the CLI
 

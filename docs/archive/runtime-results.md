@@ -346,6 +346,28 @@ base preset, map, saved tile, asserted tile and result.
 | `event-rival-goldenrod-tunnel` | 201 | scene warp 0 -> (27,4), walk to the coord trigger at (19,5) | frame 5838 rival walks in and pushes the player back to (20,5), 7518 VS Barry, 8418 GOLBAT Lv30 |
 | `event-petrel-radio-tower` | 189 | scene warp 0 -> (3,5), walk to (4,13) beside the seated director | frame 6722 `Ahem, do you hear me?`, 8192 `Petrel: No, no, no!` reveal, 9062 `You are challenged by Executive Petrel!`, 9282 KOFFING Lv30 |
 | `event-archer-radio-tower` | 190 | free spawn (8,4), A on Archer at (8,3) | frame 5716 `Archer: Oh? You managed to get this far...?`, 7396 `You are challenged by Executive Archer!`, 8086 HOUNDOUR Lv35 |
+| `event-rival-burned-tower` | 7 (Burned Tower 1F) | scene warp 1 -> (22,16), four `down` steps to the coord trigger at (22,19) | frame 5401 `Barry: ...` fires, 6003 VS screen, 6407 `Go! TYPHLOSION!` into GASTLY Lv20, 22901 `Player defeated Rival Barry!` |
+
+Burned Tower is the first of these whose win was saved in-game and diffed, so it carries more than
+a message string. The composed input was `47FFCB20` (scene warp 1 plus a Lv100 Typhlosion in party
+slot 0); melonDS wrote `heartgold.sav` at 7:15:21 PM, SHA-256 `829CB64D`. The game-written delta:
+
+| Field | Before | After | Script line |
+| --- | --- | --- | --- |
+| `FLAG_HIDE_BURNED_TOWER_1F_RIVAL` (454) | off | on | `scr_seq_0023_D18R0101.s:55` |
+| `VAR_UNK_40A6` (0x40A6) | 0 | 1 | `scr_seq_0023_D18R0101.s:56` |
+| `VAR_BATTLE_RESULT` (0x4013) | 0 | 1 | the encounter result, written by `Encounter_GetResult` (`src/encounter.c:106`) from the battle's win flag (1 = won); `ScrCmd_CheckBattleWon` only reads it (`scrcmd_battle.c:218`) |
+| money | 3,444 | 4,852 | 1,408 = 22 x 4 x 16: last party member's level x 4 x the rival class multiplier (`battle_command.c:2176,2218`, `sPrizeMoneyTbl` `TRAINERCLASS_RIVAL, 16` at `asm/overlay_12_battle_command.s:216`) |
+| `VAR_FRIENDSHIP_STEPS` (0x404B) | 88 | 90 | +1 per step event, wrapping to 0 at 128 (`FieldSystem_UpdateFriendship`, `src/field/field_control.c:766-777`); the two steps are the walk onto the trigger |
+| `FLAG_UNK_966` (0x966) | on | off | `location warp`'s dynamic-warp flag, cleared on load |
+
+The saved tile is also independent proof: the script's own `_00E8` movement at `:75-79` is
+`WalkNormalSouth 2` then `WalkNormalEast`, so from the trigger at (22,19) the player ends on
+(23,21). The written save has `location.map_id` 7 at x 23, y 21 - exactly that.
+
+`VAR_BATTLE_RESULT` printing as `"name": null` in the first diff is what exposed a second instance
+of the temp-var bug: `SaveDiff` asked the registry for `SymbolKind.SaveWork` only, but `0x4013` is
+registered as `temporary_var`. Fixed alongside this recording.
 
 Three entries needed correction from what the earlier free spawns assumed:
 

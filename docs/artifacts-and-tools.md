@@ -35,6 +35,8 @@ Not read by the CLI at run time (scene audits cite some by path). They record ho
 | `script-graph.json` | which scripts write (879 symbols) and read (439) each flag/variable | `tools/script_graph.py` | `story_atoms.py`, `delta_by_script.py` |
 | `script-guards.json` | the flag/variable conditions on the path to every state write: 497 scripts, 1,869 distinct writes, 6,650 guarded paths | `tools/script_guards.py` | F14 |
 | `story-atoms-hg.json` | 200 step-sized units of change across the HG lineage, linked by script data flow. The edges are file-level reads, not guards (F14) | `tools/story_atoms.py` | exploration only |
+| `save-selection.json` | per corpus save: the game's boot status, the partition it loads, both partitions' counters, and PKHeX's per-block pick. 29 unique saves, all `IS_GOOD`, zero disagreements | `tools/save_selection_scan.py` | FMT-02 |
+| `fmt-matrix.json` | per crafted fault: predicted status, message, loaded partition, written partition, and the play time carried into it | `tools/fmt_matrix_report.py` | FMT-01, FMT-08 |
 | `scene-actor-gates.json` | for each of 80 scenes: writes to the actor's hide flag in map init, with conditions; any init instruction that moves the player; and any init write to a variable one of the map's coord triggers tests, with the stored value and whether some coord trigger on that map wants it (10 scenes, 8 writes that differ, 9 that match) | `tools/scene_actor_check.py` | F17, scene audits |
 
 `research/script-graph.json` and `script-guards.json` are large (0.4 MB and 1.4 MB). Open them with a JSON-aware tool or use the query flags (`script_graph.py --query T22GYM0101`).
@@ -62,6 +64,10 @@ Python 3, standard library plus the melonDS-MCP bindings for runtime tools. All 
 | `state_delta.py` | Turn two census saves into a patch recipe with flags on and off; `--verify` replays it (F7) |
 | `unk_flags.py` | Which unnamed flags change between HG milestones |
 | `save_edit.py` | Raw byte editor on a copy with CRC repair, for experiments the CLI does not model (dynamic warp, flag `0x966`, single flags, raw pokes) |
+| `save_selection_scan.py` | Port the game's partition-selection tree (`save.c:429-526`) over a save tree: status, loaded partition, and where PKHeX's per-block pick differs |
+| `fault_matrix.py` | Craft one boot-time save fault per image, predict the status, boot it, save once in-game and record which partition loaded and which was rewritten |
+| `fmt_matrix_report.py` | Summarise a `fault_matrix.py` run into `research/fmt-matrix.json` |
+| `block_selection_scan.py` | Superseded by `save_selection_scan.py`; its per-block question is not the game's |
 
 ### Decomp and ROM analysis
 
@@ -89,6 +95,9 @@ Python 3, standard library plus the melonDS-MCP bindings for runtime tools. All 
 
 | Script | Purpose |
 |---|---|
+| `save_once.py` | One no-op in-game save, exported as a battery file: polls the field panel instead of counting frames, navigates the save menu, exports |
+| `boot_probe.py`, `boot_timeline.py`, `save_probe.py`, `save_timing.py` | Boot and save-menu instrumentation: step-by-step screenshots, message text, and the frame at which the write finishes |
+| `contact_sheet.py` | Tile several screenshots into one labelled image for reading message text |
 | `leveld_run.py` | Headless boot of a staged save: copies ROM and save, advances frames, captures screenshots and savestates, scans RAM for the live `Location` (`--assert-spawn`, `--spawn-primary`), injects inputs and touches, exports the in-game save (`--extract-save`) |
 | `dynwarp_probe.py` | Runtime test of flag `0x966` plus dynamic warp (F5) |
 | `preset_boot_check.py` | Apply every preset to a clean base and boot it (F9) |

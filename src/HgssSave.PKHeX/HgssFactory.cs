@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -66,8 +67,10 @@ public sealed class HgssFactory : ISaveFactory
         var preflight = Preflight.Scan(working);
         if (!Preflight.ActiveCopiesValid(preflight))
         {
+            var detail = preflight.Warnings.Count > 0 ? " " + string.Join(" ", preflight.Warnings) : string.Empty;
             throw HgssException.Structural("save-preflight",
-                "The active general or storage copy failed its integrity check. Refusing to edit a damaged save.");
+                $"The save is not in the state the game would load (preflight status {preflight.LoadStatus}). "
+                + $"Refusing to edit a damaged save.{detail}");
         }
 
         return new HgssSession(sav, (byte[])bytes.Clone(), origin, preflight, registry);
@@ -156,7 +159,36 @@ public sealed class HgssFactory : ISaveFactory
             sav.Language = 2;
         }
 
-        return sav.Write().ToArray();
+        var blank = sav.Write().ToArray();
+        WritePartitionFooters(blank);
+        return blank;
+    }
+
+    /// <summary>
+    /// Fresh-structure blanks come back from PKHeX with only the CRC written.
+    /// The game rejects a chunk whose size, magic or slot disagree
+    /// (<c>save.c:338-347</c>), so a blank needs the full footer to be shaped
+    /// like a save the game would load.
+    /// </summary>
+    private static void WritePartitionFooters(byte[] bytes)
+    {
+        for (var partition = 0; partition < 2; partition++)
+        {
+            var baseOff = partition * HgssLayout.PartitionSize;
+            WriteFooter(bytes, baseOff, HgssLayout.GeneralSize, 0);
+            WriteFooter(bytes, baseOff + HgssLayout.StorageStart, HgssLayout.StorageSize, 1);
+        }
+    }
+
+    private static void WriteFooter(byte[] bytes, int offset, int size, int slot)
+    {
+        var footer = bytes.AsSpan(offset + size - HgssLayout.FooterSize, HgssLayout.FooterSize);
+        BinaryPrimitives.WriteUInt32LittleEndian(footer, 0);
+        BinaryPrimitives.WriteUInt32LittleEndian(footer[4..], (uint)size);
+        BinaryPrimitives.WriteUInt32LittleEndian(footer[8..], 0x20060623);
+        BinaryPrimitives.WriteUInt16LittleEndian(footer[12..], (ushort)slot);
+        BinaryPrimitives.WriteUInt16LittleEndian(footer[14..],
+            Checksums.CRC16_CCITT(bytes.AsSpan(offset, size - HgssLayout.FooterSize)));
     }
 
     private static int CheckedU16(int value, string name)

@@ -16,14 +16,14 @@ Tally at the end of the file.
 
 | ID | Status | What we know |
 |---|---|---|
-| FMT-01 | Not investigated | No corruption experiments on the game. PKHeX's selection rule is documented (`docs/save-format.md` §2): counters decide, checksums do not. The CLI refuses a save whose active copy is invalid instead of falling back. |
-| FMT-02 | Partly | Documented from PKHeX source that general and storage can be active in different partitions; the CLI selects each independently. A played save flipped the active partition A to B (`docs/archive/story-state-field-knowledge.md` §8). A corpus save with general and storage in different partitions has not been recorded. |
-| FMT-03 | Partly | One in-game save compared with its staged source: 925 changed bytes, only play time, location, `VAR_FRIENDSHIP_STEPS` and the partition flip. No separate no-op `S0→C1→C2` control. |
-| FMT-04 | Partly | PKHeX export is not byte-identical to its input (changed-box bits `0x3FFFF`, backup CRCs, footers). The CLI derives that baseline from PKHeX and audits every other byte. A game load-and-resave of a PKHeX export was not compared. |
-| FMT-05 | Partly | Handled by design: strict open requires both active copies intact and the writer rewrites through PKHeX. Not tested against the game with distinct active copies. |
+| FMT-01 | Answered | Seven crafted states booted (`tools/fault_matrix.py`, `research/fmt-matrix.json`): a bad CRC in the newer partition's general or storage chunk, a counter edited past the CRC, both general chunks broken, and a general/storage split. Every case matched a port of `save.c:429-526`, including which partition loaded, which was rewritten, and the message. A single bad chunk costs the whole partition; a split costs the save. |
+| FMT-02 | Answered | Selection is per whole partition, not per block: the general and storage counters inside one partition must agree, and a file whose blocks come from different partitions is not loadable (`save.c:483-515`; crafted case `cross-partition` gives TOTAL_FAIL). All 29 corpus saves report `IS_GOOD` and PKHeX's per-block pick equals the partition the game loads in 29/29 (`research/save-selection.json`), so the corpus alone cannot separate the two rules. |
+| FMT-03 | Answered | Two no-op saves from `Lyra - Pichu.sav`, one per boot: counters 10/9 -> 10/11 -> 12/11 with all four chunk CRCs valid at every step. C1->C2 changes 28 bytes: play time (`+0x86..+0x89`), one u16 at `+0x44`, three script variables (`+0xE4A`, `+0xE5C`, `+0xE66`), five timestamps at `+0x4434..+0x4513`, the general footer count and CRC, and one byte of the storage footer count. The storage payload is byte-identical; only its counter moves. |
+| FMT-04 | Partly | PKHeX export is not byte-identical to its input (changed-box bits `0x3FFFF`, backup CRCs, footers). A PKHeX no-op export has not been loaded and resaved by the game; the in-game no-op cycle it would be compared against is now measured (FMT-03). |
+| FMT-05 | Partly | The CLI now implements the game's rule and refuses any image that is not `IS_GOOD` (`src/HgssSave.PKHeX/Preflight.cs`, `tests/HgssSave.Tests/SelectionTests.cs`), instead of selecting general and storage independently. Not tested: whether a CLI/PKHeX write of a damaged file can be made loadable again. |
 | FMT-06 | Not investigated | Auxiliary blocks are located and checksummed (`docs/save-format.md` §2); recovery behaviour not tested. |
 | FMT-07 | Not investigated | |
-| FMT-08 | Not investigated | |
+| FMT-08 | Answered | `LOAD_STATUS` maps to `statusFlags` (`save.c:87-118`): SLOT_FAIL sets bit 0 and the game loads the older partition after "The save file is corrupted. The previous save file will be loaded."; TOTAL_FAIL sets bit 1, shows "The save file will be erased due to corruption or damage." and reinitialises the state (`Save_InitDynamicRegion`) so the intro runs; NOT_EXIST is silent. The first two were observed at frame ~1800, before the title screen. |
 
 ## B. Lifetimes (LIFE)
 

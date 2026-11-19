@@ -1,0 +1,587 @@
+{
+  "directory": "leveld-out\\fmt-matrix",
+  "rows": [
+    {
+      "variant": "both-general-bad",
+      "input_sha256": "371059b7bded7e5c7f092962c91fbc0daabd69df3751c0193b4613f71ade36d7",
+      "predicted": "LOAD_STATUS_TOTAL_FAIL",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": false,
+            "count": 0
+          },
+          "storage": {
+            "valid": true,
+            "count": 12
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": false,
+            "count": 0
+          },
+          "storage": {
+            "valid": true,
+            "count": 11
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": false,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "no-field.png"
+      ]
+    },
+    {
+      "variant": "control-clean",
+      "input_sha256": "5a4c7496d4584fafb7e422fc0a980f444286b8ae1240350be526240bec13c31c",
+      "predicted": "LOAD_STATUS_IS_GOOD p0",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": true,
+            "count": 12
+          },
+          "storage": {
+            "valid": true,
+            "count": 12
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": true,
+            "count": 11
+          },
+          "storage": {
+            "valid": true,
+            "count": 11
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": true,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "field.png",
+        "after-save.png"
+      ],
+      "after_save": {
+        "sha256": "d4de853cbd30e5cdd54b7a3ade8b37e26e8930d72f48d2ad01ba0c2a8877a39f",
+        "footers": {
+          "p0": {
+            "general": {
+              "valid": true,
+              "count": 12
+            },
+            "storage": {
+              "valid": true,
+              "count": 12
+            }
+          },
+          "p1": {
+            "general": {
+              "valid": true,
+              "count": 13
+            },
+            "storage": {
+              "valid": true,
+              "count": 13
+            }
+          }
+        },
+        "playtime": {
+          "p0": [
+            1,
+            17,
+            17
+          ],
+          "p1": [
+            1,
+            17,
+            40
+          ]
+        }
+      },
+      "written": "p1",
+      "loaded": "p0",
+      "carried_playtime": [
+        1,
+        17,
+        40
+      ],
+      "loaded_marker": [
+        1,
+        17,
+        17
+      ],
+      "carried_matches_loaded": 23,
+      "after_all_crc_valid": true
+    },
+    {
+      "variant": "counters-unequal",
+      "input_sha256": "889bc1c507f0d2702772feca5c84c925deb95bfd5ad06c7081d0c89324bd2952",
+      "predicted": "LOAD_STATUS_SLOT_FAIL p1",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": true,
+            "count": 13
+          },
+          "storage": {
+            "valid": true,
+            "count": 12
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": true,
+            "count": 11
+          },
+          "storage": {
+            "valid": true,
+            "count": 11
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": true,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "field.png",
+        "after-save.png"
+      ],
+      "after_save": {
+        "sha256": "b803e314dd63ae82d100b9e5850df4b5554fd8e88cb3c883e355577862d10068",
+        "footers": {
+          "p0": {
+            "general": {
+              "valid": true,
+              "count": 12
+            },
+            "storage": {
+              "valid": true,
+              "count": 12
+            }
+          },
+          "p1": {
+            "general": {
+              "valid": true,
+              "count": 11
+            },
+            "storage": {
+              "valid": true,
+              "count": 11
+            }
+          }
+        },
+        "playtime": {
+          "p0": [
+            2,
+            34,
+            57
+          ],
+          "p1": [
+            2,
+            34,
+            34
+          ]
+        }
+      },
+      "written": "p0",
+      "loaded": "p1",
+      "carried_playtime": [
+        2,
+        34,
+        57
+      ],
+      "loaded_marker": [
+        2,
+        34,
+        34
+      ],
+      "carried_matches_loaded": 23,
+      "after_all_crc_valid": true
+    },
+    {
+      "variant": "cross-partition",
+      "input_sha256": "e68be91e3de3a900d68d454c6decd3bbb76f0c31c1f961292ccf6ed88fc1ba6d",
+      "predicted": "LOAD_STATUS_TOTAL_FAIL",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": false,
+            "count": 0
+          },
+          "storage": {
+            "valid": true,
+            "count": 12
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": true,
+            "count": 11
+          },
+          "storage": {
+            "valid": false,
+            "count": 0
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": false,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "no-field.png"
+      ]
+    },
+    {
+      "variant": "newer-general-crc-bad",
+      "input_sha256": "363c7647ce9e5a2be19097b5131cb225021114a77ec42b363feea2969aba20c8",
+      "predicted": "LOAD_STATUS_SLOT_FAIL p1",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": false,
+            "count": 0
+          },
+          "storage": {
+            "valid": true,
+            "count": 12
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": true,
+            "count": 11
+          },
+          "storage": {
+            "valid": true,
+            "count": 11
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": true,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "field.png",
+        "after-save.png"
+      ],
+      "after_save": {
+        "sha256": "44eae457e3a839709fa16c4e4ef5887d93364c0be1c3a7c4f3734c1cb96deefd",
+        "footers": {
+          "p0": {
+            "general": {
+              "valid": true,
+              "count": 12
+            },
+            "storage": {
+              "valid": true,
+              "count": 12
+            }
+          },
+          "p1": {
+            "general": {
+              "valid": true,
+              "count": 11
+            },
+            "storage": {
+              "valid": true,
+              "count": 11
+            }
+          }
+        },
+        "playtime": {
+          "p0": [
+            2,
+            34,
+            57
+          ],
+          "p1": [
+            2,
+            34,
+            34
+          ]
+        }
+      },
+      "written": "p0",
+      "loaded": "p1",
+      "carried_playtime": [
+        2,
+        34,
+        57
+      ],
+      "loaded_marker": [
+        2,
+        34,
+        34
+      ],
+      "carried_matches_loaded": 23,
+      "after_all_crc_valid": true
+    },
+    {
+      "variant": "newer-storage-crc-bad",
+      "input_sha256": "cd4ea87ad16c50a711c01a74a7bc1db12b06c8d06b7ce8e43e69b0b37735367b",
+      "predicted": "LOAD_STATUS_SLOT_FAIL p1",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": true,
+            "count": 12
+          },
+          "storage": {
+            "valid": false,
+            "count": 0
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": true,
+            "count": 11
+          },
+          "storage": {
+            "valid": true,
+            "count": 11
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": true,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "field.png",
+        "after-save.png"
+      ],
+      "after_save": {
+        "sha256": "8754e6d0f688a243bcf4ac714bef771dd29d005c1d7f876168b6a1733bed2a23",
+        "footers": {
+          "p0": {
+            "general": {
+              "valid": true,
+              "count": 12
+            },
+            "storage": {
+              "valid": true,
+              "count": 12
+            }
+          },
+          "p1": {
+            "general": {
+              "valid": true,
+              "count": 11
+            },
+            "storage": {
+              "valid": true,
+              "count": 11
+            }
+          }
+        },
+        "playtime": {
+          "p0": [
+            2,
+            34,
+            57
+          ],
+          "p1": [
+            2,
+            34,
+            34
+          ]
+        }
+      },
+      "written": "p0",
+      "loaded": "p1",
+      "carried_playtime": [
+        2,
+        34,
+        57
+      ],
+      "loaded_marker": [
+        2,
+        34,
+        34
+      ],
+      "carried_matches_loaded": 23,
+      "after_all_crc_valid": true
+    },
+    {
+      "variant": "older-general-crc-bad",
+      "input_sha256": "d39df27f4676f786b72d876072ea6d7c5eff80275e51115e19f5f5eeaea188db",
+      "predicted": "LOAD_STATUS_SLOT_FAIL p0",
+      "footers": {
+        "p0": {
+          "general": {
+            "valid": true,
+            "count": 12
+          },
+          "storage": {
+            "valid": true,
+            "count": 12
+          }
+        },
+        "p1": {
+          "general": {
+            "valid": false,
+            "count": 0
+          },
+          "storage": {
+            "valid": true,
+            "count": 11
+          }
+        }
+      },
+      "playtime_in": {
+        "p0": [
+          1,
+          17,
+          17
+        ],
+        "p1": [
+          2,
+          34,
+          34
+        ]
+      },
+      "reached_field": true,
+      "screenshots": [
+        "d0.png",
+        "d1.png",
+        "d2.png",
+        "field.png",
+        "after-save.png"
+      ],
+      "after_save": {
+        "sha256": "209cc50dc9d9c9c97b2ad845c6683dfb000fe50f0410621d33f1cb8484292bc0",
+        "footers": {
+          "p0": {
+            "general": {
+              "valid": true,
+              "count": 12
+            },
+            "storage": {
+              "valid": true,
+              "count": 12
+            }
+          },
+          "p1": {
+            "general": {
+              "valid": true,
+              "count": 13
+            },
+            "storage": {
+              "valid": true,
+              "count": 13
+            }
+          }
+        },
+        "playtime": {
+          "p0": [
+            1,
+            17,
+            17
+          ],
+          "p1": [
+            1,
+            17,
+            40
+          ]
+        }
+      },
+      "written": "p1",
+      "loaded": "p0",
+      "carried_playtime": [
+        1,
+        17,
+        40
+      ],
+      "loaded_marker": [
+        1,
+        17,
+        17
+      ],
+      "carried_matches_loaded": 23,
+      "after_all_crc_valid": true
+    }
+  ]
+}

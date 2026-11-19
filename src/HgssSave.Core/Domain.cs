@@ -202,12 +202,18 @@ public sealed record BlockCopyInfo(
     uint Magic,
     uint RecordedSize);
 
-/// <summary>Which copy PKHeX selected for each independently-versioned block.</summary>
+/// <summary>
+/// Which partition the game would load, how it would get there, and the
+/// integrity of every chunk copy. <see cref="ActiveGeneral"/> and
+/// <see cref="ActiveStorage"/> are always the same partition: the game selects
+/// per partition, not per block (<c>save.c:429-526</c>).
+/// </summary>
 public sealed record PreflightReport(
     IReadOnlyList<BlockCopyInfo> Copies,
     Partition ActiveGeneral,
     Partition ActiveStorage,
-    IReadOnlyList<string> Warnings);
+    IReadOnlyList<string> Warnings,
+    string LoadStatus);
 
 /// <summary>Structural validation outcome for a save (design §9 "Level A").</summary>
 public sealed record StructuralValidation(

@@ -27,8 +27,22 @@ internal static class HgssLayout
     /// <summary>Main-block footer excluded from the CRC (SAV4HGSS.cs:38 <c>FooterSize</c>).</summary>
     public const int FooterSize = 0x10;
 
-    /// <summary>Revision counters sit this far before the end of each main block (SAV4.cs:180-184).</summary>
-    public const int CounterFromEnd = 0x14;
+    /// <summary>
+    /// Save counter, the first footer field (<c>struct SaveChunkFooter</c> in
+    /// <c>include/save.h</c>; written at <c>save.c:370</c>). The game compares
+    /// this, never the dword before it.
+    /// </summary>
+    public const int CounterFromEnd = 0x10;
+
+    /// <summary>
+    /// Last payload dword, inside the CRC range. PKHeX reads it as a "major
+    /// counter" (<c>SAV4.cs:180-184</c>) but it is not one: it is 0 in the
+    /// general and storage blocks of the corpus saves. Kept only for reports.
+    /// </summary>
+    public const int PayloadDwordFromEnd = 0x14;
+
+    /// <summary>Chunk slot field, <c>u16</c>, 0 = general and 1 = storage (<c>save.c:344-346</c>).</summary>
+    public const int SlotFromEnd = 0x04;
 
     /// <summary>Script-variable region start, general-relative (SAV4HGSS.cs:61 <c>EventWork</c>).</summary>
     public const int EventWork = 0xDE4;

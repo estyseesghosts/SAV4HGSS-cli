@@ -708,6 +708,7 @@ public static class ReportWriter
     private static void WritePartition(Utf8JsonWriter writer, PreflightReport preflight)
     {
         writer.WriteStartObject("blocks");
+        writer.WriteString("load_status", preflight.LoadStatus);
         writer.WriteString("active_general", preflight.ActiveGeneral.ToString());
         writer.WriteString("active_storage", preflight.ActiveStorage.ToString());
         writer.WriteStartArray("copies");

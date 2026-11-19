@@ -75,3 +75,78 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | Legendaries and Red fought from composed saves: Ho-Oh, Lugia, Kyogre, Groudon, Rayquaza, Suicune, Articuno, Zapdos, Moltres, Mewtwo, Latios, Latias, Red (13/13) | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
 | Story battles fought: Mt. Moon rival, Azalea rival, Goldenrod Tunnel rival, Petrel (Radio Tower), Archer, Kimono chain (five fights in one cutscene), Burned Tower rival, Victory Road 3F rival, Rocket HQ Petrel, League-entrance rival | RUNTIME (frame numbers) |
 | League-entrance rival gate | Fought from a `VAR_UNK_40FC = 1` test state. The scene's real state (`40FC = 2`) never arms: the headless clock reports weekday 6, and `scr_seq_0819_T10R0101.s:34-47` arms only for 1 or 3 | RUNTIME |
+
+## E. Save mechanics (FMT-01, FMT-02, FMT-08)
+
+| ID | Result | Evidence | Status |
+|---|---|---|---|
+| FMT-B | The main-block footer is `{count, size, magic, slot, crc}` in the last `0x10` bytes. The dword at `-0x14`, which PKHeX calls a "major counter", is the last payload dword and is `0` in all four chunk copies of `Lyra - Pichu.sav` | SOURCE (`save.c:329-376`, `include/save.h`), SAVE_DIFF | holds |
+| FMT-C | The save counter is one global value. A save writes `loaded count + 1` into the partition it did *not* load, so the partitions stay one apart and trade the lead every save | SOURCE (`save.c:622-635`, `save.c:425`), RUNTIME (S0 to C1 to C2) | holds |
+| FMT-D | A boot loads one whole partition, and the general and storage counters inside it must agree. A per-block split is not loadable | SOURCE (`save.c:429-526`), RUNTIME (7 crafted states) | holds |
+| FMT-E | A chunk with a bad CRC costs its whole partition, not just the chunk: the game loads the other partition and says "The save file is corrupted. The previous save file will be loaded." | RUNTIME, SOURCE (`save.c:95-96`, `check_savedata.c:260-263`) | holds. Also the Ash HG exhibit, `save.c:503-515` |
+| FMT-F | With no consistent partition the game shows "The save file will be erased due to corruption or damage." and starts a new game | RUNTIME, SOURCE (`check_savedata.c:256-259`) | holds |
+| FMT-G | The 29-save corpus cannot separate PKHeX's per-block rule from the game's per-partition rule: all 29 are `IS_GOOD` and both rules name the same partition in 29/29 | SAVE_DIFF (`research/save-selection.json`) | holds |
+| FMT-H | `hgss-save blank` produced chunks the game would reject: PKHeX writes only the CRC, leaving size, magic and slot zero. Blanks now carry the full footer | SOURCE (`save.c:338-347`), INTERVENTION | corrected, `HgssFactory.WritePartitionFooters` |
+
+### The counter and the write target
+
+`Save_WriteManInit` takes `saveData->saveCounter`, stores it in the write manager and increments the field (`save.c:622-624`); the footer is built from it (`save.c:370`). At boot the field was set from the chosen partition's footer (`save.c:425`), so the value written next is `chosen count + 1`. The chunk goes to the partition that was *not* loaded (`save.c:635`, `writeMan->curSector` written with `lastGoodSector == 0`).
+
+Measured on `hgss-saves/Lyra - Pichu.sav`, one save per boot (`tools/save_once.py`), all four chunk CRCs valid at every step:
+
+| save | general count p0 | storage count p0 | general count p1 | storage count p1 | loaded | written |
+|---|---|---|---|---|---|---|
+| S0 input | 10 | 10 | 9 | 9 | p0 | - |
+| C1 | 10 | 10 | 11 | 11 | p0 | p1 |
+| C2 | 12 | 12 | 11 | 11 | p1 | p0 |
+
+C2's p0 is 12, not 11: the counter is not per partition. The two partitions stay one apart and the leading one flips each save.
+
+### What one no-op save changes
+
+C1 to C2 differs in 28 bytes: 27 in the general chunk and 1 in the storage footer.
+
+| Offset (chunk-relative) | Change |
+|---|---|
+| `+0x0B..+0x0F` | clock/timestamp bytes |
+| `+0x14`, `+0x2294` | two 20-byte timestamp blocks |
+| `+0x44` | one `u16` (two in the two saves) |
+| `+0x86..+0x89` | play time (hours `u16`, minutes, seconds) |
+| `+0xE4A`, `+0xE5C..+0xE66` | three script variables, in `EventWork` |
+| `+0x0C0DE` | one byte |
+| `+0x4434..+0x4513` | five `u32` timestamps, in the range F6 lists as unmodelled |
+| `+0xF618` | general footer counter |
+| `+0xF626` | general footer CRC |
+| storage `+0x21A00` | storage footer counter only |
+
+The storage payload is byte-identical; only its counter moves, which matches `numModifiedBoxes == 0` and the changed-box bits staying at `0`. Two `u32` timestamps (`+0x4460`, `+0x5BBC`, `+0x68A4`) also carry the save time, so `0x4434-0x4510` is live state, not a static table.
+
+### Selection, from the game's own tree
+
+`tools/fault_matrix.py` crafts one fault per image from C2 (each partition given a distinct play time: p0 `1:17`, p1 `2:34`), predicts the status with a port of `Save_GetSaveFilesStatus`, boots it, then saves once in-game and reads which partition moved. `loaded` comes from the play time carried into the written chunk (marker plus elapsed), not from the counter, because a fallback makes the counter repeat a value.
+
+| fault | predicted | message | loaded | wrote | new counts p0/p1 |
+|---|---|---|---|---|---|
+| none (control) | `IS_GOOD` p0 | none | p0 | p1 | 12/13 |
+| newer general CRC bad | `SLOT_FAIL` p1 | corrupted / previous loaded | p1 | p0 | 12/11 |
+| newer storage CRC bad | `SLOT_FAIL` p1 | corrupted / previous loaded | p1 | p0 | 12/11 |
+| older general CRC bad | `SLOT_FAIL` p0 | corrupted / previous loaded | p0 | p1 | 12/13 |
+| newer general counter +1 | `SLOT_FAIL` p1 | corrupted / previous loaded | p1 | p0 | 12/11 |
+| both general CRCs bad | `TOTAL_FAIL` | erased due to corruption | none | - | new game |
+| p0 general + p1 storage bad | `TOTAL_FAIL` | erased due to corruption | none | - | new game |
+
+All seven matched their prediction. Two consequences worth stating:
+
+- A file whose general and storage blocks are current in different partitions is not "half valid": the game finds no consistent partition and erases the save. The old per-block reading of such a file named a state the game can never hold.
+- After a fallback the next save writes count `loaded + 1`, which in this fixture is the value the rejected partition already had (12). A tool cannot conclude "no write happened" from an unchanged counter; the payload is the evidence.
+
+Evidence: `research/fmt-matrix.json`, screenshots under `leveld-out/fmt-matrix/<case>/` (`d2`/`d3` hold the message), and the per-case `after_save.sav`.
+
+### Corpus check
+
+`tools/save_selection_scan.py` ports the same tree and runs it over the corpus: 30 files, 29 unique, all `LOAD_STATUS_IS_GOOD`, 17 loading p0 and 12 loading p1. PKHeX's per-block pick agrees with the game in all 29. So the corpus contains no counterexample either way; the crafted states are what distinguish the rules, which is why the CLI had to be changed rather than its inputs re-examined.
+
+### Consequence in the CLI
+
+`src/HgssSave.PKHeX/Preflight.cs` now implements the game's tree, reports it as `blocks.load_status`, keeps `active_general` and `active_storage` equal, and refuses any image that is not `IS_GOOD` with the reason. `tests/HgssSave.Tests/SelectionTests.cs` covers the six loadable/unloadable shapes. Before this, `Preflight` compared the `-0x14` dword first and selected each block independently, so a split or damaged image could be read as a valid save.
+

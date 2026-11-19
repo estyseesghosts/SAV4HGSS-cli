@@ -21,36 +21,48 @@ A raw save is `0x80000` bytes (512 KiB): two partitions of `0x40000`. Each parti
 
 Partition B is the same layout plus `0x40000`.
 
-The two partitions are not "active" and "backup". The game alternates writes, and each block is resolved on its own. The general block can be current in partition A while the storage block is current in partition B. Editing byte `0x1234` in the first half of a file may do nothing because the game reads `0x41234`. A tool must select the active copy per block. `hgss-save inspect` reports the choice as `blocks.active_general` and `blocks.active_storage`. In the corpus, a played in-game save flips the active partition (A to B in the `walk-save-loop` run, `docs/archive/story-state-field-knowledge.md` §8).
+The two partitions are not "active" and "backup" in the sense of one being live and one idle: the game alternates writes, and the next save always lands in the partition it did not load (`Save_WriteSlotAsync`, `save.c:635`, target chosen by `saveData->lastGoodSector == 0`).
+
+Selection, however, is per whole partition, not per block. The game validates both copies of the general block and both copies of the storage block, then requires the two counters *inside one partition* to agree (`save.c:429-526`). A file whose general block is current in partition A and whose storage block is current in partition B is not representable at load: the game loads one whole partition or fails. `hgss-save inspect` reports `blocks.active_general` and `blocks.active_storage`; they name the same partition in all 29 corpus saves (`research/save-selection.json`).
 
 ## 2. Footers, counters, checksums
 
 ### Main blocks (general, storage)
 
-The last `0x14` bytes of each main block:
+The footer is the last `0x10` bytes of each main block: `struct SaveChunkFooter` in `include/save.h`, built at `save.c:362-376`, validated at `save.c:329-348`.
 
 | From block end | Size | Field |
 |---|---|---|
-| `-0x14` | 4 | major revision counter |
-| `-0x10` | 4 | minor revision counter |
-| `-0x0C` | 4 | block size (general: `0xF628`; observed `u32[1]=0xF628` in real saves) |
+| `-0x10` | 4 | save counter (`footer->count = saveData->saveCounter`, `save.c:370`) |
+| `-0x0C` | 4 | block size: `0xF628` general, `0x12310` storage |
 | `-0x08` | 4 | magic: `0x20060623` (JP/international, which includes US) or `0x20070903` (Korean), `SAV4.cs:117-119` |
-| `-0x04` | 2 | metadata (not interpreted) |
-| `-0x02` | 2 | CRC16-CCITT |
+| `-0x04` | 2 | chunk slot, compared against the index being validated: 0 = general, 1 = storage (`save.c:344-346`) |
+| `-0x02` | 2 | CRC16-CCITT over the block except these last `0x10` bytes |
+
+A copy is valid only when its size, magic, slot and CRC all match (`save.c:338-347`). Anything else is recorded with counter 0 (`save.c:350-360`), which is what makes a corrupt chunk lose to its twin in the other partition.
+
+The `u32` at `-0x14` is not a counter: it is the last payload dword, it sits inside the CRC range, and it is `0x00000000` in all four chunk copies of `Lyra - Pichu.sav`. PKHeX reads it as a "major counter" (`SAV4BlockDetection.CompareFooters`, `SAV4.cs:180-184`) and then breaks the tie with the real counter at `-0x10`; because the phantom is always zero there, PKHeX reaches the same partition the game does.
 
 Absolute positions inside a partition:
 
 | Field | General | Storage |
 |---|---|---|
-| major counter | `0xF614` | `0x219FC` |
-| minor counter | `0xF618` | `0x21A00` |
+| count | `0xF618` | `0x21A00` |
 | size | `0xF61C` | `0x21A04` |
 | magic | `0xF620` | `0x21A08` |
+| slot | `0xF624` | `0x21A0C` |
 | CRC | `0xF626` | `0x21A0E` |
 
-**Which copy is newer** (`SAV4BlockDetection.CompareFooters`, `SAV4.cs:180-184`): compare the major counters; if equal, compare the minors. `0xFFFFFFFF` means uninitialized and loses, except for the rollover case. Equal counters resolve to partition A. Checksums play no part in this choice. A validator should still check each candidate's CRC, size and magic before trusting it; the CLI's strict open does that and refuses anything it cannot verify instead of repairing it.
+**How the game picks a partition** (`Save_GetSaveFilesStatus`, `save.c:429-526`): validate all four copies, then compare the counters with `SaveCounterCompare` (`save.c:378-389`, higher wins, `-1` beats `0`, a tie resolves to partition A).
 
-**CRC**: CRC16-CCITT, polynomial `0x1021`, initial value `0xFFFF`, no final XOR, stored little-endian. It covers the block minus its last `0x10` bytes (`SAV4.cs:113`, `FooterSize = 0x10`), which is `0xF618` bytes for the general block and `0x12300` for storage. The major counter is inside the covered range; the minor counter, size, magic, metadata and the CRC itself are not. Python equivalent: `binascii.crc_hqx(block[:-0x10], 0xFFFF)`.
+- Both counters in the newer partition equal: load that partition, `LOAD_STATUS_IS_GOOD`.
+- Otherwise, both counters in the older partition equal: load that one, `LOAD_STATUS_SLOT_FAIL`. The game announces "The save file is corrupted. The previous save file will be loaded." (`save.c:95-96`, `check_savedata.c:260-263`) and continues.
+- Otherwise `LOAD_STATUS_TOTAL_FAIL`: "The save file will be erased due to corruption or damage." (`check_savedata.c:256-259`).
+- No valid copy in either block: `LOAD_STATUS_NOT_EXIST`, no message, a new game (`check_savedata.c:248-249`).
+
+Checksums never decide which counter is higher, but they decide validity: a copy whose CRC, size, magic or slot is wrong is given counter 0 before the comparison (`save.c:350-360`). PKHeX's `SAV4BlockDetection.CompareFooters` implements a different, per-block rule; on the 29-save corpus it reaches the same partition as the game in all 29 files (`research/save-selection.json`), so the corpus cannot distinguish the two.
+
+**CRC**: CRC16-CCITT, polynomial `0x1021`, initial value `0xFFFF`, no final XOR, stored little-endian. It covers the block minus its last `0x10` bytes (`SAV4.cs:113`, `FooterSize = 0x10`), which is `0xF618` bytes for the general block and `0x12300` for storage. The counter, size, magic, slot and the CRC itself all sit outside the covered range, so a counter can be edited without breaking the CRC; only a payload edit is caught. Python equivalent: `binascii.crc_hqx(block[:-0x10], 0xFFFF)`.
 
 ### Auxiliary blocks (Hall of Fame, Battle Hall, Battle Videos)
 

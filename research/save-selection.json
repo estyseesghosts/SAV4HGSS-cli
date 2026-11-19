@@ -1,0 +1,2567 @@
+{
+  "files_scanned": 30,
+  "unique_saves": 29,
+  "game_status": {
+    "IS_GOOD": 29
+  },
+  "game_partition": {
+    "p1": 12,
+    "p0": 17
+  },
+  "pkhex_split_selection": 0,
+  "pkhex_disagreements": 0,
+  "rows": [
+    {
+      "file": "Gen 4 - Pokemon HeartGold (ENG).sav",
+      "sha256": "6f70eb0ee066b6a108de7c0d586f844f59bf81ec2cf8a580c9bdfc1bf8008eaf",
+      "game": "HG",
+      "trainer": "Ash",
+      "badges": [
+        0,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          6,
+          6
+        ],
+        "p1": [
+          7,
+          7
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 6,
+            "count_raw": 6,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 48421,
+            "crc_computed": 48421,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 7,
+            "count_raw": 7,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 55375,
+            "crc_computed": 55375,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 6,
+            "count_raw": 6,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 7,
+            "count_raw": 7,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 14587,
+            "crc_computed": 14587,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Gen 4 - Pokemon SoulSilver (ENG).sav",
+      "sha256": "6182d4f5369c02929ee8a7d0aa1953f2ae36b8ce82cbdebfb6ddb31345c950db",
+      "game": "SS",
+      "trainer": "NotKris",
+      "badges": [
+        0,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          10,
+          10
+        ],
+        "p1": [
+          9,
+          9
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 59206,
+            "crc_computed": 59206,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 9,
+            "count_raw": 9,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 30875,
+            "crc_computed": 30875,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 14587,
+            "crc_computed": 14587,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 9,
+            "count_raw": 9,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Lyra - Arceus Event.sav",
+      "sha256": "766a20cd38d81029ab7d4d1d4acb9525fd0dd48f394b8e7fd487803433e7529b",
+      "game": "HG",
+      "trainer": "Lyra",
+      "badges": [
+        1,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          4,
+          4
+        ],
+        "p1": [
+          3,
+          3
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 11427,
+            "crc_computed": 11427,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 3,
+            "count_raw": 3,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 58914,
+            "crc_computed": 58914,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 3,
+            "count_raw": 3,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Lyra - Celebi Event.sav",
+      "sha256": "83710a08e1a97d198e0a5ee665c19a3e2336582ecef7cde584e34a85b7e45b0e",
+      "game": "HG",
+      "trainer": "Lyra",
+      "badges": [
+        127,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          4,
+          4
+        ],
+        "p1": [
+          5,
+          5
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 38225,
+            "crc_computed": 38225,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 5,
+            "count_raw": 5,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 11659,
+            "crc_computed": 11659,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 23632,
+            "crc_computed": 23632,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 5,
+            "count_raw": 5,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Lyra - Enigma Stone.sav",
+      "sha256": "6e17ba8af61f57fac071f181b99fe9e04af5af1998139a572f6350aa3a85ff60",
+      "game": "HG",
+      "trainer": "Lyra",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          10,
+          10
+        ],
+        "p1": [
+          11,
+          11
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 36597,
+            "crc_computed": 36597,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 11,
+            "count_raw": 11,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 4653,
+            "crc_computed": 4653,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 11,
+            "count_raw": 11,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Lyra - Pichu.sav",
+      "sha256": "b19c81f7846220914291cfd524cce1bf686abe764579c2b5a2a5a0f7d43d1a61",
+      "game": "HG",
+      "trainer": "Lyra",
+      "badges": [
+        3,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          10,
+          10
+        ],
+        "p1": [
+          9,
+          9
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 1900,
+            "crc_computed": 1900,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 9,
+            "count_raw": 9,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 13018,
+            "crc_computed": 13018,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 9,
+            "count_raw": 9,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Lyra - Rotom.sav",
+      "sha256": "c079b37e1b58f64c320f18407b49ecce3e48d97957edb48bcbcb5ca80367bd9b",
+      "game": "HG",
+      "trainer": "Lyra",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          14,
+          14
+        ],
+        "p1": [
+          13,
+          13
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 14,
+            "count_raw": 14,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 38358,
+            "crc_computed": 38358,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 13,
+            "count_raw": 13,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 30431,
+            "crc_computed": 30431,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 14,
+            "count_raw": 14,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 13,
+            "count_raw": 13,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_SoulSilver16gyns.sav",
+      "sha256": "af325b8027e00dd44a2b9e85b08bd1eac540dd62362b12abf782dcfdeb488183",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        255,
+        255
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          50,
+          50
+        ],
+        "p1": [
+          51,
+          51
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 50,
+            "count_raw": 50,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 25344,
+            "crc_computed": 25344,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 51,
+            "count_raw": 51,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 55029,
+            "crc_computed": 55029,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 50,
+            "count_raw": 50,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 55547,
+            "crc_computed": 55547,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 51,
+            "count_raw": 51,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 55547,
+            "crc_computed": 55547,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_SoulSilver7gyn.sav",
+      "sha256": "c5ddd8346c75f2ac229525e5aa9991267c022b1fb9d28b58e8ca1b7abb8593c5",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        127,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          18,
+          18
+        ],
+        "p1": [
+          19,
+          19
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 18,
+            "count_raw": 18,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 27311,
+            "crc_computed": 27311,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 19,
+            "count_raw": 19,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 14058,
+            "crc_computed": 14058,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 18,
+            "count_raw": 18,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 1301,
+            "crc_computed": 1301,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 19,
+            "count_raw": 19,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 45408,
+            "crc_computed": 45408,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_SoulSilver8gyn.sav",
+      "sha256": "f4eb1ee4fe1d3381340ebbc3efbe5c8e85dfcd3a7e14344bc8f877a32d339101",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          32,
+          32
+        ],
+        "p1": [
+          31,
+          31
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 32,
+            "count_raw": 32,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 12578,
+            "crc_computed": 12578,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 31,
+            "count_raw": 31,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 12825,
+            "crc_computed": 12825,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 32,
+            "count_raw": 32,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 11098,
+            "crc_computed": 11098,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 31,
+            "count_raw": 31,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 17276,
+            "crc_computed": 17276,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_SoulSilverpose4.sav",
+      "sha256": "12d609a415ec6ca742d972e7cff2ea2531b893df82224115cd31490737cb3518",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          38,
+          38
+        ],
+        "p1": [
+          39,
+          39
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 38,
+            "count_raw": 38,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 38906,
+            "crc_computed": 38906,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 39,
+            "count_raw": 39,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 54012,
+            "crc_computed": 54012,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 38,
+            "count_raw": 38,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 61476,
+            "crc_computed": 61476,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 39,
+            "count_raw": 39,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 33358,
+            "crc_computed": 33358,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "PokemonSS1gyn.sav",
+      "sha256": "7337e3b4f77b7d5077e5c967484e3f1fb2fc86086b91fbbd0dfc5027d0baf50f",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        1,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          4,
+          4
+        ],
+        "p1": [
+          3,
+          3
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 61293,
+            "crc_computed": 61293,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 3,
+            "count_raw": 3,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 24988,
+            "crc_computed": 24988,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 3,
+            "count_raw": 3,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "PokemonSS2gyn.sav",
+      "sha256": "959e9b26bc84fa7c6d70a5ced4bf28ad37bd0e569c6c174c8dc845ac468b6310",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        3,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          8,
+          8
+        ],
+        "p1": [
+          7,
+          7
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 8,
+            "count_raw": 8,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 32005,
+            "crc_computed": 32005,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 7,
+            "count_raw": 7,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 44070,
+            "crc_computed": 44070,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 8,
+            "count_raw": 8,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 7,
+            "count_raw": 7,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pok\u00e9mon HeartGold.sav",
+      "sha256": "8efd7444e0b4094ddccdcc67ae3d868418694c45703d042cdf9019582ea5d3f4",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        127,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          24,
+          24
+        ],
+        "p1": [
+          23,
+          23
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 24,
+            "count_raw": 24,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 28498,
+            "crc_computed": 28498,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 23,
+            "count_raw": 23,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 24269,
+            "crc_computed": 24269,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 24,
+            "count_raw": 24,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 16192,
+            "crc_computed": 16192,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 23,
+            "count_raw": 23,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 16192,
+            "crc_computed": 16192,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pok\u00e9mon HGSS (before wing).sav",
+      "sha256": "965481c8f876cde83f2056f0ec8fd28db8996b0869cec9d86ba7f06c9c833b09",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        127,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          22,
+          22
+        ],
+        "p1": [
+          21,
+          21
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 22,
+            "count_raw": 22,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 50020,
+            "crc_computed": 50020,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 21,
+            "count_raw": 21,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 55326,
+            "crc_computed": 55326,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 22,
+            "count_raw": 22,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 16192,
+            "crc_computed": 16192,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 21,
+            "count_raw": 21,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 16192,
+            "crc_computed": 16192,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pok\u00e9mon SoulSilver.sav",
+      "sha256": "65680c932709341720f689748ef4a96a43933ba28c0c0acb3f979868eee7755b",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        127,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          24,
+          24
+        ],
+        "p1": [
+          23,
+          23
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 24,
+            "count_raw": 24,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 4123,
+            "crc_computed": 4123,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 23,
+            "count_raw": 23,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 24269,
+            "crc_computed": 24269,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 24,
+            "count_raw": 24,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 16192,
+            "crc_computed": 16192,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 23,
+            "count_raw": 23,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 16192,
+            "crc_computed": 16192,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pre-Dratini.sav",
+      "sha256": "7238010360891408339d11ba976c62fa808dda87dfbb7dc2dc9fc196d41ad18e",
+      "game": "HG",
+      "trainer": "Desmond",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          224,
+          224
+        ],
+        "p1": [
+          225,
+          225
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 224,
+            "count_raw": 224,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 53141,
+            "crc_computed": 53141,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 225,
+            "count_raw": 225,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 11933,
+            "crc_computed": 11933,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 224,
+            "count_raw": 224,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 51446,
+            "crc_computed": 51446,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 225,
+            "count_raw": 225,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 17554,
+            "crc_computed": 17554,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold1gyn.SAV.raw.sav",
+      "sha256": "c5f8ad0656cf0a06ba2d7bd78a49ca118a8e26529f295b7e604e099be5c57ea3",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        1,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          4,
+          4
+        ],
+        "p1": [
+          5,
+          5
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 41243,
+            "crc_computed": 41243,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 5,
+            "count_raw": 5,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 36262,
+            "crc_computed": 36262,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 4,
+            "count_raw": 4,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 5,
+            "count_raw": 5,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold2gyn.SAV.raw.sav",
+      "sha256": "4ced4d1a154fd6e7f751168ca13294df4b8edead9c23c3b3655f972e0f42d990",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        3,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          8,
+          8
+        ],
+        "p1": [
+          7,
+          7
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 8,
+            "count_raw": 8,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 1044,
+            "crc_computed": 1044,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 7,
+            "count_raw": 7,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 32232,
+            "crc_computed": 32232,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 8,
+            "count_raw": 8,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 7,
+            "count_raw": 7,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 53872,
+            "crc_computed": 53872,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold3gyn.SAV.raw.sav",
+      "sha256": "98cda5b438e668e5af06e2bd387068f6efd0ddbc532c8ef50b8cebe133970028",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        7,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          10,
+          10
+        ],
+        "p1": [
+          11,
+          11
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 6964,
+            "crc_computed": 6964,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 11,
+            "count_raw": 11,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 30024,
+            "crc_computed": 30024,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 10,
+            "count_raw": 10,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 21440,
+            "crc_computed": 21440,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 11,
+            "count_raw": 11,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 56800,
+            "crc_computed": 56800,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold4gyn.SAV.raw.sav",
+      "sha256": "45b8a9f70e0a63536c2165d4be51867775ab7fc271bfd34acda778d5215b9bc8",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        15,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          16,
+          16
+        ],
+        "p1": [
+          15,
+          15
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 16,
+            "count_raw": 16,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 12114,
+            "crc_computed": 12114,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 15,
+            "count_raw": 15,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 62181,
+            "crc_computed": 62181,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 16,
+            "count_raw": 16,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 34851,
+            "crc_computed": 34851,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 15,
+            "count_raw": 15,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 34851,
+            "crc_computed": 34851,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold5gyn.SAV.raw.sav",
+      "sha256": "0be278e8143c13e67364a94a6548c5c884a51849f1154b7d2397d1d5d4220b36",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        31,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          20,
+          20
+        ],
+        "p1": [
+          21,
+          21
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 20,
+            "count_raw": 20,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 49604,
+            "crc_computed": 49604,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 21,
+            "count_raw": 21,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 52075,
+            "crc_computed": 52075,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 20,
+            "count_raw": 20,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 62969,
+            "crc_computed": 62969,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 21,
+            "count_raw": 21,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 3378,
+            "crc_computed": 3378,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold6gyn.SAV.raw.sav",
+      "sha256": "64287599de6a3ef316e8740091772a4f9f16914c407efcb0b059bd0a918b6b3a",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        63,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          22,
+          22
+        ],
+        "p1": [
+          23,
+          23
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 22,
+            "count_raw": 22,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 32846,
+            "crc_computed": 32846,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 23,
+            "count_raw": 23,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 23173,
+            "crc_computed": 23173,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 22,
+            "count_raw": 22,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 36723,
+            "crc_computed": 36723,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 23,
+            "count_raw": 23,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 3440,
+            "crc_computed": 3440,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold7gyn.SAV.raw.sav",
+      "sha256": "ffc51c7b063c9cf98fbb525c2229f7fa947f9fc83937c137659cdf3e602ce37e",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        127,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          30,
+          30
+        ],
+        "p1": [
+          29,
+          29
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 30,
+            "count_raw": 30,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 63023,
+            "crc_computed": 63023,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 29,
+            "count_raw": 29,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 8271,
+            "crc_computed": 8271,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 30,
+            "count_raw": 30,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 40585,
+            "crc_computed": 40585,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 29,
+            "count_raw": 29,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 4265,
+            "crc_computed": 4265,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGold8gyn.SAV.raw.sav",
+      "sha256": "fff327271aea57b00e53dbe7e2bb5f850b0b093b1dc095fbe249d98b58d7e871",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          38,
+          38
+        ],
+        "p1": [
+          37,
+          37
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 38,
+            "count_raw": 38,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 7652,
+            "crc_computed": 7652,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 37,
+            "count_raw": 37,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 57268,
+            "crc_computed": 57268,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 38,
+            "count_raw": 38,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 12643,
+            "crc_computed": 12643,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 37,
+            "count_raw": 37,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 15660,
+            "crc_computed": 15660,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGoldCelebi.SAV.raw.sav",
+      "sha256": "67ca1e390988f2f77269cd56ce6e5e59d213291ed0a31d74d25aea37e0626b79",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        255,
+        60
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p1",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          58,
+          58
+        ],
+        "p1": [
+          59,
+          59
+        ]
+      },
+      "pkhex_general": "B",
+      "pkhex_storage": "B",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 58,
+            "count_raw": 58,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 5326,
+            "crc_computed": 5326,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 59,
+            "count_raw": 59,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 57021,
+            "crc_computed": 57021,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 58,
+            "count_raw": 58,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 6188,
+            "crc_computed": 6188,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 59,
+            "count_raw": 59,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 39533,
+            "crc_computed": 39533,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGoldE4.SAV.raw.sav",
+      "sha256": "cab74aef97b2ccb230b813d0dc0dbbe346aa55b8b5d63dc221ebdc92bb713d0e",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          42,
+          42
+        ],
+        "p1": [
+          41,
+          41
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 42,
+            "count_raw": 42,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 54346,
+            "crc_computed": 54346,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 41,
+            "count_raw": 41,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 34085,
+            "crc_computed": 34085,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 42,
+            "count_raw": 42,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 27568,
+            "crc_computed": 27568,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 41,
+            "count_raw": 41,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 26577,
+            "crc_computed": 26577,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_HeartGoldposE4.SAV.raw.sav",
+      "sha256": "aeb8ad10602c931a449f804bbac3479ae6adf2f2fa1548202fe73b843b6cd27a",
+      "game": "HG",
+      "trainer": "Master",
+      "badges": [
+        255,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          50,
+          50
+        ],
+        "p1": [
+          49,
+          49
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 50,
+            "count_raw": 50,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 21381,
+            "crc_computed": 21381,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 49,
+            "count_raw": 49,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 15240,
+            "crc_computed": 15240,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 50,
+            "count_raw": 50,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 27568,
+            "crc_computed": 27568,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 49,
+            "count_raw": 49,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 27568,
+            "crc_computed": 27568,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "Pokemon_SoulSilver4gyn.SAV.raw.sav",
+      "sha256": "02b54e537d850275e58bb0b3f1b7c93ec3425cd77bda3e7512b00c63a540fd2b",
+      "game": "SS",
+      "trainer": "M@ster",
+      "badges": [
+        15,
+        0
+      ],
+      "game_status": "IS_GOOD",
+      "game_partition": "p0",
+      "game_message": "",
+      "counts": {
+        "p0": [
+          14,
+          14
+        ],
+        "p1": [
+          13,
+          13
+        ]
+      },
+      "pkhex_general": "A",
+      "pkhex_storage": "A",
+      "pkhex_split": false,
+      "pkhex_disagrees": {
+        "general": false,
+        "storage": false
+      },
+      "copies": {
+        "general": [
+          {
+            "count": 14,
+            "count_raw": 14,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 59273,
+            "crc_computed": 59273,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 13,
+            "count_raw": 13,
+            "recorded_size": 63016,
+            "magic": 537265699,
+            "slot": 0,
+            "crc_saved": 50187,
+            "crc_computed": 50187,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ],
+        "storage": [
+          {
+            "count": 14,
+            "count_raw": 14,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 36317,
+            "crc_computed": 36317,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          },
+          {
+            "count": 13,
+            "count_raw": 13,
+            "recorded_size": 74512,
+            "magic": 537265699,
+            "slot": 1,
+            "crc_saved": 58357,
+            "crc_computed": 58357,
+            "crc_valid": true,
+            "size_ok": true,
+            "slug_ok": true,
+            "valid": true
+          }
+        ]
+      }
+    }
+  ]
+}

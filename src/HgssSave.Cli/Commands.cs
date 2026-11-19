@@ -147,24 +147,10 @@ internal static class Commands
             foreach (var g in rules.LockedFieldMoves(session))
                 w.WriteStringValue($"{g.Move} (needs {g.Name}; {g.Source})");
             w.WriteEndArray();
-            w.WriteNumber("violation_count", violations.Count);
-            w.WriteStartArray("violations");
-            foreach (var v in violations)
-            {
-                w.WriteStartObject();
-                w.WriteString("rule", v.Rule);
-                w.WriteString("symbol", v.Symbol);
-                w.WriteNumber("id", v.Id);
-                w.WriteString("expected", v.Expected);
-                w.WriteString("actual", v.Actual);
-                w.WriteString("because", v.Because);
-                w.WriteEndObject();
-            }
-
-            w.WriteEndArray();
+            WriteFindings(w, violations);
             w.WriteEndObject();
         });
-        return violations.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
+        return BadgeRules.HasErrors(violations) && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
     }
 
     /// <summary>
@@ -218,6 +204,32 @@ internal static class Commands
         }
 
         var current = bytes;
+        var requestMask = BadgeRules.FullMask(johto, kanto);
+
+        int inputMask;
+        using (var probe = Factory.OpenBytes((byte[])bytes.Clone(), input))
+            inputMask = BadgeRules.FullMask(probe.Trainer.JohtoBadges, probe.Trainer.KantoBadges);
+
+        // Issue 3: presets are patches, not replacements. Applying a low-badge preset to a late-game
+        // save lowers the badge byte and leaves the postgame flags and scene variables in place, which
+        // is a rewind no script performs. It therefore needs an explicit opt-in and is reported as
+        // partial; the same applies when no preset matches at all.
+        var useInputAsBase = Args.Flag(args, "--use-input-as-base");
+        var rewound = (inputMask & ~requestMask) != 0;
+        if ((baseName is null || rewound) && !useInputAsBase)
+        {
+            var why = baseName is null
+                ? $"No played {game} preset has badges that are a subset of johto={johto} kanto={kanto}"
+                : $"INPUT already owns badges that johto={johto} kanto={kanto} does not ask for (input mask 0x{inputMask:X}); " +
+                  $"base preset '{baseName}' would lower them without undoing their story consequences";
+            throw HgssException.BadArguments("no-coherent-base-preset",
+                why + ". story build continues from a real played state; pass --use-input-as-base to accept " +
+                "a partial state carried from INPUT (docs/open-questions.md, 'Deliberate refusals').");
+        }
+
+        // Whether every requested badge has a base the scripts could actually have produced.
+        var coherent = baseName is not null && !rewound;
+
         if (baseName is not null)
         {
             var presetPath = Path.Combine(presetDir, baseName + ".json");
@@ -244,10 +256,17 @@ internal static class Commands
         }
 
         var final = PatchRunner.Apply(s1, plan1, Factory).OutputBytes;
-        WriteOutputAtomic(output, final, Args.Flag(args, "--force"));
         var rules = BadgeRules.LoadDefault(rulesPath);
         using var result = Factory.OpenBytes(final, output);
         var found = rules.Audit(result);
+
+        // Audit before the write: a --strict build that fails must not leave bytes at --out, and
+        // must not destroy an existing file there (issue 1).
+        var strict = Args.Flag(args, "--strict");
+        var rejected = strict && BadgeRules.HasErrors(found);
+        if (!rejected)
+            WriteOutputAtomic(output, final, Args.Flag(args, "--force"));
+
         Emit(w =>
         {
             w.WriteStartObject();
@@ -259,19 +278,53 @@ internal static class Commands
             if (baseName is null) w.WriteNull("base_preset"); else w.WriteString("base_preset", baseName);
             w.WriteNumber("badges_johto", johto);
             w.WriteNumber("badges_kanto", kanto);
-            w.WriteNumber("violation_count", found.Count);
-            w.WriteStartArray("violations");
-            foreach (var v in found)
-                w.WriteStringValue($"{v.Rule}: {v.Symbol} expected {v.Expected}, actual {v.Actual} ({v.Because})");
+            w.WriteBoolean("coherent", coherent);
+            w.WriteBoolean("rewinds_input_badges", rewound);
+            w.WriteStartArray("uncovered_domains");
+            w.WriteStringValue("scene variables for gyms won beyond the base preset");
+            w.WriteStringValue("NPC and actor flags for those gyms");
+            w.WriteStringValue("HM grants modeled only by flag/item agreement");
             w.WriteEndArray();
+            WriteFindings(w, found);
+            w.WriteBoolean("written", !rejected);
             w.WriteStartArray("locked_field_moves");
             foreach (var g in rules.LockedFieldMoves(result))
                 w.WriteStringValue(g.Move);
             w.WriteEndArray();
-            w.WriteString("note", "Badges beyond the base preset get their gym-script consequences only; scene variables, NPC flags and HM grants for those gyms are not modelled (docs/archive/state-log.md F8, F12).");
+            w.WriteString("note", coherent
+                ? "Badges beyond the base preset get their gym-script consequences only; scene variables, NPC flags and HM grants for those gyms are not modelled (docs/archive/state-log.md F8, F12)."
+                : "PARTIAL: no played preset matched the request, so INPUT's story state was carried over and only the badge byte and its consequences were written. The result is not a coherent early-game state (issue 3).");
             w.WriteEndObject();
         });
-        return found.Count > 0 && Args.Flag(args, "--strict") ? (int)ExitCode.PreconditionFailed : 0;
+        return rejected ? (int)ExitCode.PreconditionFailed : 0;
+    }
+
+    /// <summary>
+    /// Writes the audit findings with their severity and evidence class, so a caller can tell a proven
+    /// contradiction from a corpus correlation without re-deriving it.
+    /// </summary>
+    private static void WriteFindings(Utf8JsonWriter w, IReadOnlyList<BadgeRules.Violation> findings)
+    {
+        var errors = findings.Count(v => v.Severity == BadgeRules.Severity.Error);
+        w.WriteNumber("violation_count", findings.Count);
+        w.WriteNumber("error_count", errors);
+        w.WriteNumber("warning_count", findings.Count - errors);
+        w.WriteStartArray("violations");
+        foreach (var v in findings)
+        {
+            w.WriteStartObject();
+            w.WriteString("rule", v.Rule);
+            w.WriteString("symbol", v.Symbol);
+            w.WriteNumber("id", v.Id);
+            w.WriteString("expected", v.Expected);
+            w.WriteString("actual", v.Actual);
+            w.WriteString("because", v.Because);
+            w.WriteString("severity", v.SeverityName);
+            w.WriteString("evidence", v.EvidenceName);
+            w.WriteEndObject();
+        }
+
+        w.WriteEndArray();
     }
 
     /// <summary>
@@ -447,7 +500,7 @@ internal static class Commands
             ("warp.index", expect.GetProperty("warp").GetInt32().ToString(), warp.WarpId.ToString(), warp.WarpId == expect.GetProperty("warp").GetInt32()),
             ("warp.x", expect.GetProperty("x").GetInt32().ToString(), warp.X.ToString(), warp.X == expect.GetProperty("x").GetInt32()),
             ("warp.y", expect.GetProperty("y").GetInt32().ToString(), warp.Y.ToString(), warp.Y == expect.GetProperty("y").GetInt32()),
-            ("badge_rules", "0 violations", $"{violations.Count} violations", violations.Count == 0),
+            ("badge_rules", "0 errors", $"{violations.Count(v => v.Severity == BadgeRules.Severity.Error)} errors", !BadgeRules.HasErrors(violations)),
         };
         foreach (var flag in expect.GetProperty("flags_on").EnumerateArray())
         {
@@ -543,11 +596,7 @@ internal static class Commands
             }
 
             w.WriteEndArray();
-            w.WriteNumber("violation_count", violations.Count);
-            w.WriteStartArray("violations");
-            foreach (var v in violations)
-                w.WriteStringValue($"{v.Rule}: {v.Symbol} expected {v.Expected}, actual {v.Actual} ({v.Because})");
-            w.WriteEndArray();
+            WriteFindings(w, violations);
             w.WriteStartArray("sources");
             foreach (var source in entry.GetProperty("sources").EnumerateArray())
                 w.WriteStringValue(source.GetString());

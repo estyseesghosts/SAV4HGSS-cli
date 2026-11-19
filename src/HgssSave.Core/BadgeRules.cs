@@ -99,7 +99,55 @@ public sealed class BadgeRules
         }
     }
 
-    public sealed record Violation(string Rule, string Symbol, int Id, string Expected, string Actual, string Because);
+    /// <summary>
+    /// How much weight a finding carries. Only <see cref="Severity.Error"/> blocks a strict run: the
+    /// rules prove it from the game's own scripts, so a played save cannot show it. <see cref="Severity.Warning"/>
+    /// is a correlation over the corpus and is reported without failing (docs/open-questions.md).
+    /// </summary>
+    public enum Severity
+    {
+        Error,
+        Warning,
+        Info,
+    }
+
+    /// <summary>
+    /// Where the rule came from, so a consumer can tell a script-proven invariant from a corpus correlation.
+    /// </summary>
+    public enum Evidence
+    {
+        /// <summary>Read out of the gym or item scripts themselves (state-log F8, F12).</summary>
+        ScriptProven,
+
+        /// <summary>Observed in the headless harness, not read from a script.</summary>
+        RuntimeVerified,
+
+        /// <summary>Every sampled played save agrees; no script or runtime test enforces it.</summary>
+        CorpusCorrelated,
+    }
+
+    public sealed record Violation(
+        string Rule, string Symbol, int Id, string Expected, string Actual, string Because,
+        Severity Severity = Severity.Error, Evidence Evidence = Evidence.ScriptProven)
+    {
+        public string SeverityName => Severity switch
+        {
+            Severity.Error => "error",
+            Severity.Warning => "warning",
+            _ => "info",
+        };
+
+        public string EvidenceName => Evidence switch
+        {
+            Evidence.ScriptProven => "script-proven",
+            Evidence.RuntimeVerified => "runtime-verified",
+            _ => "corpus-correlated",
+        };
+    }
+
+    /// <summary>Findings that make a save impossible for the game to have produced. Warnings do not count.</summary>
+    public static bool HasErrors(IEnumerable<Violation> findings) =>
+        findings.Any(v => v.Severity == Severity.Error);
 
     /// <summary>
     /// Compares a save against the rules: every owned badge's effects must hold, and each counter must agree with the
@@ -122,11 +170,11 @@ public sealed class BadgeRules
                 {
                     case "flag":
                         if (!session.TryGetFlag(e.Id, out var flag) || flag != (e.Value != 0))
-                            result.Add(new Violation("badge-effect", e.Name, e.Id, (e.Value != 0).ToString().ToLowerInvariant(), (!(e.Value != 0)).ToString().ToLowerInvariant(), because));
+                            result.Add(new Violation("badge-effect", e.Name, e.Id, (e.Value != 0).ToString().ToLowerInvariant(), (!(e.Value != 0)).ToString().ToLowerInvariant(), because, Severity.Error, Evidence.ScriptProven));
                         break;
                     case "var":
                         if (!session.TryGetVar(e.Id, out var v) || v != e.Value)
-                            result.Add(new Violation("badge-effect", e.Name, e.Id, e.Value.ToString(), session.TryGetVar(e.Id, out var actual) ? actual.ToString() : "unreadable", because));
+                            result.Add(new Violation("badge-effect", e.Name, e.Id, e.Value.ToString(), session.TryGetVar(e.Id, out var actual) ? actual.ToString() : "unreadable", because, Severity.Error, Evidence.ScriptProven));
                         break;
                     // Items are not audited: Gen 4 TMs are consumed on use, and 10 of 29 played saves own the badge without the TM.
                 }
@@ -139,13 +187,15 @@ public sealed class BadgeRules
             var item = session.TryGetBagQuantity(g.ItemId, out var q, out _) && q > 0;
             if (flag != item)
                 result.Add(new Violation("hm-grant", g.Flag, g.FlagId, item ? "true" : "false", flag ? "true" : "false",
-                    $"{g.Item} {(item ? "is" : "is not")} in the bag; {g.Source} sets the flag and gives the item together"));
+                    $"{g.Item} {(item ? "is" : "is not")} in the bag; {g.Source} sets the flag and gives the item together",
+                    Severity.Error, Evidence.ScriptProven));
         }
 
         foreach (var g in Grants.Where(g => session.TryGetFlag(g.FlagId, out var on) && on))
             foreach (var b in g.ObservedBadges.Where(b => ((mask >> b) & 1) == 0))
                 result.Add(new Violation("observed-order", g.Flag, g.FlagId, $"badge {b} owned", "missing",
-                    "advisory: every played save with this HM also owns the badge; no script enforces it"));
+                    "every played save with this HM also owns the badge; no script enforces it",
+                    Severity.Warning, Evidence.CorpusCorrelated));
 
         foreach (var counter in Counters)
         {
@@ -156,7 +206,8 @@ public sealed class BadgeRules
             if (!ok)
                 result.Add(new Violation("counter", counter.Name, counter.VarId,
                     count < counter.HoldFrom ? count.ToString() : $">= {count}", value.ToString(),
-                    $"{count} of badges [{string.Join(",", counter.Badges)}] owned"));
+                    $"{count} of badges [{string.Join(",", counter.Badges)}] owned",
+                    Severity.Error, Evidence.ScriptProven));
         }
 
         return result;

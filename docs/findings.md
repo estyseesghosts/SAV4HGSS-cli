@@ -88,6 +88,7 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | FMT-G | The 29-save corpus cannot separate PKHeX's per-block rule from the game's per-partition rule: all 29 are `IS_GOOD` and both rules name the same partition in 29/29 | SAVE_DIFF (`research/save-selection.json`) | holds |
 | FMT-H | `hgss-save blank` produced chunks the game would reject: PKHeX writes only the CRC, leaving size, magic and slot zero. Blanks now carry the full footer | SOURCE (`save.c:338-347`), INTERVENTION | corrected, `HgssFactory.WritePartitionFooters` |
 | FMT-I | A PKHeX no-op export differs from its input in 5 bytes: the forced box mask `0x3FFFF` at storage+`0x12004` in the active partition and that partition's storage CRC. The mask survives the next in-game save, which writes the other partition, and is gone once the game writes that partition - the second save. A PKHeX export is loadable as-is | INTERVENTION, RUNTIME (`research/fmt-04-roundtrip.json`) | holds |
+| FMT-J | A general-only edit cannot undo a newer PC block, because that state cannot be loaded: the game takes one partition and a split is `TOTAL_FAIL`. The edit itself changes the flag byte, both CRCs and the 3-byte forced box mask; no box byte moves, and the edit survives a boot and a save into the other partition | INTERVENTION, RUNTIME | holds |
 
 ### The counter and the write target
 
@@ -172,6 +173,42 @@ that partition, which happens on the second save. That is also why the second sa
 Not measured: the "saving a lot of data" path (`Save_NumModifiedPCBoxesIsMany`, >= 6 boxes). The mask is
 read at load into `boxModifiedFlags` (`save.c:98`), so the first save enters with all 18 boxes marked,
 but the write finished inside the driver's 1,500-frame window and the message was not captured.
+
+### General-only edits and the PC block (FMT-05)
+
+The question assumes the general block and the PC block can be current in different partitions. That state
+does not survive a load: the game selects one partition (FMT-01, FMT-02), and the crafted `cross-partition`
+file is `TOTAL_FAIL` - it erases the save rather than mixing blocks (`research/fmt-matrix.json`).
+
+What a general-only edit actually writes, measured on C2 (`sha 5fe1aba3...`) with
+`hgss-save flag set <save> 0x200 true` (`sha 8cfc7866...`): 8 bytes, all in the active partition.
+
+| offset | change | region |
+|---|---|---|
+| general `+0x1104` | `8A` to `8B` | the flag bit (0x10C4 + 0x200/8) |
+| general `+0xF626` | new CRC | footer |
+| storage `+0x12004..+0x12006` | `00 00 00` to `FF FF 03` | forced box mask |
+| storage `+0x21A0E` | new CRC | footer |
+
+No byte of box data (storage `0` to `0x12004`) changes, and the diff reports 0 unclassified bytes. So an
+edit described as "general only" is not literally storage-neutral - PKHeX sets the box mask in the active
+partition's storage so the game rewrites every box - but it does not touch the PC payload.
+
+Booted that file and saved once: 8 bytes changed, the flag propagated into the written partition
+(`+0x1104` `8A` to `8B` there), and afterwards both partitions' box data is byte-identical. The mask in the
+loaded partition stays as PKHeX wrote it, the same way it does after a no-op export (FMT-04).
+
+The writer side is closed by refusal. `hgss-save patch` on `cross-partition` and on
+`newer-general-crc-bad` exits 4 and creates no output:
+
+- `TOTAL_FAIL` - "The save is not in the state the game would load ... The game finds no consistent
+  partition and erases the save (\"The save file will be erased due to corruption or damage.\")"
+- `SLOT_FAIL` - "... The newest partition is inconsistent, so the game loads partition B and announces
+  \"The save file is corrupted. The previous save file will be loaded.\""
+
+The preflight runs before PKHeX's own checksum gate, so the refusal names the game's status instead of
+"Small block checksum is invalid", which PKHeX emits because it picks the newer copy without validating it
+(`HgssFactory.cs`).
 
 ### Consequence in the CLI
 

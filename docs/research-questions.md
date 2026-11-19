@@ -20,7 +20,7 @@ Tally at the end of the file.
 | FMT-02 | Answered | Selection is per whole partition, not per block: the general and storage counters inside one partition must agree, and a file whose blocks come from different partitions is not loadable (`save.c:483-515`; crafted case `cross-partition` gives TOTAL_FAIL). All 29 corpus saves report `IS_GOOD` and PKHeX's per-block pick equals the partition the game loads in 29/29 (`research/save-selection.json`), so the corpus alone cannot separate the two rules. |
 | FMT-03 | Answered | Two no-op saves from `Lyra - Pichu.sav`, one per boot: counters 10/9 -> 10/11 -> 12/11 with all four chunk CRCs valid at every step. C1->C2 changes 28 bytes: play time (`+0x86..+0x89`), one u16 at `+0x44`, three script variables (`+0xE4A`, `+0xE5C`, `+0xE66`), five timestamps at `+0x4434..+0x4513`, the general footer count and CRC, and one byte of the storage footer count. The storage payload is byte-identical; only its counter moves. |
 | FMT-04 | Answered | A PKHeX no-op export of C2 changes 5 bytes (box mask `0x3FFFF` at storage+`0x12004` and one storage CRC, 0 semantic diff). Booted and saved twice: the mask survives the first save, which writes the other partition, and is cleared by the second, which writes the partition PKHeX touched (12/11 -> 12/13 -> 14/13, all CRCs valid). A PKHeX export is loadable as-is; nothing converges on load |
-| FMT-05 | Partly | The CLI now implements the game's rule and refuses any image that is not `IS_GOOD` (`src/HgssSave.PKHeX/Preflight.cs`, `tests/HgssSave.Tests/SelectionTests.cs`), instead of selecting general and storage independently. Not tested: whether a CLI/PKHeX write of a damaged file can be made loadable again. |
+| FMT-05 | Answered | The premise cannot hold: the game loads one partition, so a newer PC block never sits beside a different general block (`cross-partition` is `TOTAL_FAIL`). A general-only flag edit changes 8 bytes - the flag, both CRCs and the 3-byte box mask - and no box byte; it survives a boot and a save into the other partition with box data byte-identical. The CLI refuses every non-`IS_GOOD` image (exit 4, no output) |
 | FMT-06 | Not investigated | Auxiliary blocks are located and checksummed (`docs/save-format.md` §2); recovery behaviour not tested. |
 | FMT-07 | Not investigated | |
 | FMT-08 | Answered | `LOAD_STATUS` maps to `statusFlags` (`save.c:87-118`): SLOT_FAIL sets bit 0 and the game loads the older partition after "The save file is corrupted. The previous save file will be loaded."; TOTAL_FAIL sets bit 1, shows "The save file will be erased due to corruption or damage." and reinitialises the state (`Save_InitDynamicRegion`) so the intro runs; NOT_EXIST is silent. The first two were observed at frame ~1800, before the title screen. |
@@ -140,8 +140,8 @@ The repository stages Lugia and Ho-Oh states and checks their gates. It does not
 
 Counted per ID (98 questions), since some rows cover a range:
 
-- Answered: MAP-01, STORY-02, STORY-03, STORY-04, STORY-08, SYM-01, COH-01 (7).
-- Partly: FMT-02 to FMT-05 (4), LIFE-01 to LIFE-03 (3), MAP-02 to MAP-05 (4), STORY-01, STORY-05, STORY-06, STORY-07, STORY-10 (5), LUG-01, LUG-02, LUG-06, LUG-07, LUG-09, LUG-10 (6), SYM-02, SYM-03 (2), ITEM-01 to ITEM-04 (4), COH-02, COH-05, COH-07, COH-08 (4), TRACE-04, TRACE-05, TRACE-06 (3) = 35.
-- Not investigated: the remaining 56.
+- Answered: FMT-01 to FMT-05 (5), MAP-01, STORY-02, STORY-03, STORY-04, STORY-08, SYM-01, COH-01 (12).
+- Partly: LIFE-01 to LIFE-03 (3), MAP-02 to MAP-05 (4), STORY-01, STORY-05, STORY-06, STORY-07, STORY-10 (5), LUG-01, LUG-02, LUG-06, LUG-07, LUG-09, LUG-10 (6), SYM-02, SYM-03 (2), ITEM-01 to ITEM-04 (4), COH-02, COH-05, COH-07, COH-08 (4), TRACE-04, TRACE-05, TRACE-06 (3) = 31.
+- Not investigated: the remaining 55.
 
 The practical result: the project answered the questions that block generating verified saves at story points (badges, the Rocket takeover, Red, positions via warps) and none of the long-tail systems.

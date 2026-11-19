@@ -58,12 +58,9 @@ public sealed class HgssFactory : ISaveFactory
                 $"Not an HGSS save (game version {(int)sav.Version}). Only HeartGold and SoulSilver are supported.");
         }
 
-        if (!sav.ChecksumsValid)
-        {
-            throw HgssException.Structural("save-checksum",
-                $"Save failed checksum verification: {sav.ChecksumInfo}");
-        }
-
+        // The game's own selection runs first: PKHeX picks each block by counter
+        // without validating it, so on a damaged image it reports "small block
+        // checksum is invalid" where the useful answer is what the game would do.
         var preflight = Preflight.Scan(working);
         if (!Preflight.ActiveCopiesValid(preflight))
         {
@@ -71,6 +68,12 @@ public sealed class HgssFactory : ISaveFactory
             throw HgssException.Structural("save-preflight",
                 $"The save is not in the state the game would load (preflight status {preflight.LoadStatus}). "
                 + $"Refusing to edit a damaged save.{detail}");
+        }
+
+        if (!sav.ChecksumsValid)
+        {
+            throw HgssException.Structural("save-checksum",
+                $"Save failed checksum verification: {sav.ChecksumInfo}");
         }
 
         return new HgssSession(sav, (byte[])bytes.Clone(), origin, preflight, registry);

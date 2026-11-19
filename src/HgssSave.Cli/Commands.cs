@@ -976,6 +976,51 @@ internal static class Commands
         return RunPatch(input, doc, CanonicalPatchJson($"party.slot.clear:{slot}"), output, args);
     }
 
+    internal static int PartyCreate(string[] args)
+    {
+        var species = ParseInt(
+            Args.Option(args, "--species") ?? throw HgssException.BadArguments("args", "usage: hgss-save party create --species N --level N --out FILE.pk4 [--moves a,b,c,d] [--ot NAME] [--tid N] [--sid N] [--language N] [--nickname NAME]"),
+            "--species");
+        var level = ParseInt(
+            Args.Option(args, "--level") ?? throw HgssException.BadArguments("args", "party create requires --level N (1..100)."),
+            "--level");
+        var output = Args.Option(args, "--out") ?? throw HgssException.BadArguments("args", "party create requires --out FILE.pk4.");
+        var moves = ParseMoveList(Args.Option(args, "--moves"));
+        var ot = Args.Option(args, "--ot", "STAGE") ?? "STAGE";
+        var tid = ParseInt(Args.Option(args, "--tid", "4242"), "--tid");
+        var sid = ParseInt(Args.Option(args, "--sid", "1717"), "--sid");
+        var language = ParseInt(Args.Option(args, "--language", "2"), "--language");
+        var nickname = Args.Option(args, "--nickname");
+        var registry = TryLoadRegistry(args);
+
+        var (bytes, result) = Pk4Builder.Create(species, level, moves, ot, tid, sid, language, nickname);
+
+        // The generated file must pass the same size/parse/species/checksum validation an import
+        // will run, otherwise the command could hand the harness a file `party import` refuses.
+        var preview = HgssSession.PreviewPkBytes(bytes);
+        if (preview.Species != result.Species || !preview.ChecksumValid)
+            throw HgssException.Internal("party-create", $"Generated PK4 previews as species {preview.Species} checksum {preview.ChecksumValid}, expected {result.Species}/true.");
+
+        var warnings = Warnings(registry).ToList();
+        warnings.Add("A party created here is a staging entity: fixed trainer ids, IVs and met location, no legality verdict. Import it with `party import` to place it in a save.");
+        WriteOutputAtomic(output, bytes, Args.Flag(args, "--force"));
+        Emit(w => ReportWriter.WritePartyCreate(w, output, bytes, result, Factory.LibraryVersion, registry, warnings));
+        return 0;
+    }
+
+    private static int[]? ParseMoveList(string? raw)
+    {
+        if (raw is null)
+            return null;
+        var parts = raw.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (parts.Length == 0)
+            return null;
+        var moves = new int[parts.Length];
+        for (var i = 0; i < parts.Length; i++)
+            moves[i] = ParseInt(parts[i], "--moves");
+        return moves;
+    }
+
     internal static int BoxExport(string[] args)
     {
         var input = Args.Positional(args, 0) ?? throw HgssException.BadArguments("args", "usage: hgss-save box export INPUT BOX SLOT --out FILE.pk4");

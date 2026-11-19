@@ -53,6 +53,7 @@ hgss-save story check INPUT.sav [--strict]
 hgss-save story scene list [--kind gym|e4|legendary|event]
 hgss-save story scene apply legendary-ho-oh INPUT.sav --out OUT.sav
 hgss-save party export INPUT.sav 0 --out slot0.pk4
+hgss-save party create --species 157 --level 100 --out lead.pk4 [--moves 53,247,89,7]
 hgss-save dex set INPUT.sav 25 --seen true --caught true --out OUT.sav
 hgss-save location set INPUT.sav 73 459 246 3 --out OUT.sav [--safe-spawns PATH]
 hgss-save location warp INPUT.sav 73 2 --out OUT.sav [--direction 1] [--warp-spawns PATH]

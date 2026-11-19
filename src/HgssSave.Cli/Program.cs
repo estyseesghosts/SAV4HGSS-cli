@@ -118,13 +118,14 @@ internal static class Program
     private static int PartyVerb(string[] args)
     {
         if (args.Length == 0)
-            return Usage("usage: hgss-save party export|import|clear ...");
+            return Usage("usage: hgss-save party export|import|clear|create ...");
         return args[0].ToLowerInvariant() switch
         {
             "export" => Commands.PartyExport(args[1..]),
             "import" => Commands.PartyImport(args[1..]),
             "clear" => Commands.PartyClear(args[1..]),
-            _ => Usage("usage: hgss-save party export|import|clear ..."),
+            "create" => Commands.PartyCreate(args[1..]),
+            _ => Usage("usage: hgss-save party export|import|clear|create ..."),
         };
     }
 

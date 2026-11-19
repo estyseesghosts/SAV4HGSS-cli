@@ -65,6 +65,13 @@ Every non-zero save variable. Default limit 500.
 ### `party export INPUT SLOT --out FILE.pk4 [--force] [--symbols PATH]`
 Writes the 236-byte party-format Pokémon in SLOT (0..5) to FILE.pk4.
 
+### `party create --species N --level N --out FILE.pk4 [--moves a,b,c,d] [--ot NAME] [--tid N] [--sid N] [--language N] [--nickname NAME] [--force] [--symbols PATH]`
+Builds the 236-byte party-format file an emulator run needs, without an input save. SPECIES is 1..493, LEVEL 1..100.
+
+Without `--moves`, the moveset is the species' own level-up moves at that level (the last four, from the HGSS learn table), so move slot 1 — the one a bare A press selects — is legal for that species. `--moves` writes the four ids in order; `0` is an empty slot. Defaults: OT `STAGE`, TID 4242, SID 1717, language 2, no nickname (the nickname field still holds the species name, because a zeroed one renders as garbage in the battle box). `--nickname` sets one and marks the entity nicknamed.
+
+This is staging tooling, not a legality claim: trainer ids, IVs (31), EVs (6/252/0/0/0/252), ball and met location are fixed, and the report says so (`harness_entity: true`, `legality: "not-evaluated"`). The generated file passes the same size/parse/species/checksum validation `party import` runs. Recipes still take exported templates; nothing in the patch path synthesizes a Pokémon from a species id.
+
 ### `box export INPUT BOX SLOT --out FILE.pk4 [--force] [--symbols PATH]`
 Writes the 136-byte stored-format Pokémon in BOX (0..17), SLOT (0..29).
 

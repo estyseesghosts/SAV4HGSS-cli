@@ -484,6 +484,51 @@ public static class ReportWriter
         writer.WriteEndObject();
     }
 
+    public static void WritePartyCreate(
+        Utf8JsonWriter writer,
+        string path,
+        byte[] bytes,
+        PartyCreateResult result,
+        string libraryVersion,
+        SymbolRegistry? registry,
+        IReadOnlyList<string> warnings)
+    {
+        writer.WriteStartObject();
+        writer.WriteString("schema", ReportSchema);
+        writer.WriteString("operation", "party.create");
+        writer.WriteStartObject("output");
+        writer.WriteString("path", path);
+        writer.WriteString("sha256", HashUtil.Sha256(bytes));
+        writer.WriteNumber("bytes", bytes.Length);
+        writer.WriteEndObject();
+        writer.WriteStartObject("party");
+        writer.WriteNumber("species", result.Species);
+        writer.WriteString("species_name", result.SpeciesName);
+        writer.WriteNumber("level", result.Level);
+        writer.WriteNumber("hp", result.Hp);
+        writer.WriteBoolean("checksum_valid", result.ChecksumValid);
+        writer.WriteString("ot", result.OriginalTrainer);
+        writer.WriteNumber("tid", result.Tid);
+        writer.WriteNumber("sid", result.Sid);
+        writer.WriteNumber("language", result.Language);
+        writer.WriteBoolean("nicknamed", result.Nicknamed);
+        writer.WriteString("moves_source", result.MovesSource);
+        writer.WriteStartArray("moves");
+        foreach (var move in result.Moves)
+            writer.WriteNumberValue(move);
+        writer.WriteEndArray();
+        writer.WriteStartArray("move_names");
+        foreach (var name in result.MoveNames)
+            writer.WriteStringValue(name);
+        writer.WriteEndArray();
+        writer.WriteBoolean("harness_entity", true);
+        writer.WriteString("legality", "not-evaluated");
+        writer.WriteEndObject();
+        WriteSources(writer, libraryVersion, registry);
+        WriteWarnings(writer, warnings);
+        writer.WriteEndObject();
+    }
+
     public static void WriteUnwrap(
         Utf8JsonWriter writer,
         string inputPath,

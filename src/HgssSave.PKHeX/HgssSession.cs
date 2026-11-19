@@ -293,6 +293,12 @@ public sealed class HgssSession : ISaveSession
 
     public PkPreview PreviewPkFile(byte[] pkFileBytes) => PreviewPk(pkFileBytes);
 
+    /// <summary>
+    /// Runs the same size/parse/species/checksum validation an import will run, without a save.
+    /// Used by <c>party create</c> so a generated file cannot differ from what the import accepts.
+    /// </summary>
+    public static PkPreview PreviewPkBytes(byte[] pkFileBytes) => PreviewPk(pkFileBytes);
+
     public void SetLocation(int mapId, int x, int y, int z)
     {
         if ((uint)mapId > 0xFFFF)

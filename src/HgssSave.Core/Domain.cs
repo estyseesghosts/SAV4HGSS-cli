@@ -165,6 +165,26 @@ public sealed record PkPreview(
     bool ChecksumValid,
     int FileBytes);
 
+/// <summary>
+/// A <c>.pk4</c> built by <c>party create</c> for runtime staging. It is a harness entity: the
+/// trainer ids, IVs and met location are fixed and no legality verdict is implied.
+/// </summary>
+public sealed record PartyCreateResult(
+    int Species,
+    string SpeciesName,
+    int Level,
+    int Hp,
+    bool ChecksumValid,
+    int FileBytes,
+    IReadOnlyList<int> Moves,
+    IReadOnlyList<string> MoveNames,
+    string OriginalTrainer,
+    int Tid,
+    int Sid,
+    int Language,
+    bool Nicknamed,
+    string MovesSource);
+
 public sealed record DexSummary(int Seen, int Caught, int Total);
 
 /// <summary>Integrity of one physical block copy, computed independently of PKHeX's block selection.</summary>

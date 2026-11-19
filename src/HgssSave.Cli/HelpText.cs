@@ -43,6 +43,8 @@ READ-ONLY COMMANDS
   flags list INPUT [--limit N] [--symbols PATH]          all set persistent flags (default 5000)
   vars list INPUT [--limit N] [--symbols PATH]           all non-zero save variables (default 500)
   party export INPUT SLOT --out FILE.pk4 [--force]       SLOT 0..5
+  party create --species N --level N --out FILE.pk4 [--moves a,b,c,d] [--ot NAME]
+                                                         build a staging .pk4 (no input save; level-up moves by default)
   box export INPUT BOX SLOT --out FILE.pk4 [--force]     BOX 0..17, SLOT 0..29
 
 WRITING COMMANDS (all require --out OUT.sav; all accept the common patch options below)

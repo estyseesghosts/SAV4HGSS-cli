@@ -31,4 +31,21 @@ internal static class HgssNames
             return $"Species {species}";
         }
     }
+
+    public static string ForMove(ushort move)
+    {
+        if (move == 0)
+            return "(empty)";
+        try
+        {
+            var list = English.movelist;
+            if ((uint)move < (uint)list.Length && !string.IsNullOrWhiteSpace(list[move]))
+                return list[move];
+        }
+        catch (System.Exception)
+        {
+            // fall through to the numeric form
+        }
+        return $"Move {move}";
+    }
 }

@@ -487,7 +487,6 @@ internal static class Commands
         if (final is null)
             return (int)ExitCode.PreconditionFailed;
 
-        WriteOutputAtomic(output, final, Args.Flag(args, "--force"));
         var rules = BadgeRules.LoadDefault(rulesPath);
         using var result = Factory.OpenBytes(final, output);
         var violations = rules.Audit(result);
@@ -569,6 +568,12 @@ internal static class Commands
         }
 
         var passed = checks.All(c => c.Ok);
+
+        // Issue 13: the same rule as story build. A failed scene audit must not leave a save at
+        // --out, and --force must not replace an existing file when the checks fail.
+        if (passed)
+            WriteOutputAtomic(output, final, Args.Flag(args, "--force"));
+
         Emit(w =>
         {
             w.WriteStartObject();
@@ -584,6 +589,7 @@ internal static class Commands
             w.WriteNumber("badges_johto", johto);
             w.WriteNumber("badges_kanto", kanto);
             w.WriteBoolean("passed", passed);
+            w.WriteBoolean("written", passed);
             w.WriteStartArray("checks");
             foreach (var (name, expected, actual, ok) in checks)
             {

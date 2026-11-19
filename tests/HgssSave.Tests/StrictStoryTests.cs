@@ -18,8 +18,12 @@ public sealed class StrictStoryTests
 {
     private static readonly HgssFactory Factory = new();
 
-    private static string Rules() =>
-        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "registry", "hgss-us.badge-rules.json");
+    private static string Registry(string name) =>
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", "registry", name);
+
+    private static string Rules() => Registry("hgss-us.badge-rules.json");
+
+    private static string Scenes() => Registry("hgss-us.scenes.json");
 
     /// <summary>Path to the built CLI next to the test assembly, so exit codes are the real ones.</summary>
     private static string Exe()
@@ -329,6 +333,102 @@ public sealed class StrictStoryTests
             Assert.Equal(0, exit);
             Assert.Contains("\"coherent\": true", stdout);
             Assert.Contains("\"written\": true", stdout);
+        }
+        finally
+        {
+            if (File.Exists(input)) File.Delete(input);
+            if (File.Exists(output)) File.Delete(output);
+        }
+    }
+
+    // ----- issue 13: scene apply validates before committing -----
+
+    /// <summary>A scene table whose expectation the ops cannot satisfy, so the audit fails.</summary>
+    private static string BadSceneTable(string sceneId)
+    {
+        using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(Scenes()));
+        var scene = doc.RootElement.GetProperty("scenes").EnumerateArray()
+            .First(e => e.GetProperty("id").GetString() == "gym-01-zephyr-before");
+        var copy = System.Text.Json.Nodes.JsonNode.Parse(scene.GetRawText())!;
+        copy["id"] = sceneId;
+        // The scene's ops never set HM01's flag, so demanding it fails the check.
+        copy["expect"]!["flags_on"] = new System.Text.Json.Nodes.JsonArray("FLAG_GOT_HM01");
+        var table = new System.Text.Json.Nodes.JsonObject
+        {
+            ["schema"] = doc.RootElement.GetProperty("schema").GetString(),
+            ["source"] = System.Text.Json.Nodes.JsonNode.Parse(
+                doc.RootElement.GetProperty("source").GetRawText()),
+            ["counts"] = new System.Text.Json.Nodes.JsonObject { ["scenes"] = 1 },
+            ["scenes"] = new System.Text.Json.Nodes.JsonArray(copy),
+        };
+        var path = TempPath("scenes.json");
+        File.WriteAllText(path, table.ToJsonString());
+        return path;
+    }
+
+    /// <summary>Issue 13: a failed scene audit must not create the output.</summary>
+    [Fact]
+    public void FailedSceneApplyLeavesNoOutput()
+    {
+        var input = TempPath("in.sav");
+        var output = TempPath("out.sav");
+        var scenes = BadSceneTable("test-failing-scene");
+        try
+        {
+            File.WriteAllBytes(input, SessionTests.BlankHgBytes());
+            var (exit, stdout) = Run("story", "scene", "apply", "test-failing-scene", input,
+                "--scenes", scenes, "--out", output, "--badge-rules", Rules());
+            Assert.Equal(6, exit);
+            Assert.Contains("\"passed\": false", stdout);
+            Assert.Contains("\"written\": false", stdout);
+            Assert.False(File.Exists(output), "a failed scene apply left bytes at --out");
+        }
+        finally
+        {
+            foreach (var f in new[] { input, output, scenes })
+                if (File.Exists(f)) File.Delete(f);
+        }
+    }
+
+    /// <summary>Issue 13: --force must not replace an existing destination when the audit fails.</summary>
+    [Fact]
+    public void FailedSceneApplyPreservesExistingDestination()
+    {
+        var input = TempPath("in.sav");
+        var output = TempPath("out.sav");
+        var scenes = BadSceneTable("test-failing-scene");
+        try
+        {
+            File.WriteAllBytes(input, SessionTests.BlankHgBytes());
+            var sentinel = new byte[] { 9, 8, 7 };
+            File.WriteAllBytes(output, sentinel);
+            var (exit, _) = Run("story", "scene", "apply", "test-failing-scene", input,
+                "--scenes", scenes, "--out", output, "--force", "--badge-rules", Rules());
+            Assert.Equal(6, exit);
+            Assert.Equal(sentinel, File.ReadAllBytes(output));
+        }
+        finally
+        {
+            foreach (var f in new[] { input, output, scenes })
+                if (File.Exists(f)) File.Delete(f);
+        }
+    }
+
+    /// <summary>A scene whose checks all pass still writes a loadable save and exits 0.</summary>
+    [Fact]
+    public void PassingSceneApplyWritesOutput()
+    {
+        var input = TempPath("in.sav");
+        var output = TempPath("out.sav");
+        try
+        {
+            File.WriteAllBytes(input, SessionTests.BlankHgBytes());
+            var (exit, stdout) = Run("story", "scene", "apply", "gym-01-zephyr-before", input,
+                "--scenes", Scenes(), "--out", output, "--badge-rules", Rules());
+            Assert.True(exit == 0, stdout);
+            Assert.Contains("\"passed\": true", stdout);
+            Assert.Contains("\"written\": true", stdout);
+            Assert.Equal(0x80000, new FileInfo(output).Length);
         }
         finally
         {

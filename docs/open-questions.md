@@ -46,7 +46,7 @@ These are rules, not gaps (`docs/archive/story-state-field-knowledge.md` §6):
 
 ### Documentation state
 
-- Counts in older docs drift. `README.md` said 54 tests and `docs/artifacts-and-tools.md` said 69; the suite is 73. `docs/archive/coverage-gaps.md` and `docs/archive/story-state-field-knowledge.md` say 19 safe spawns (the file holds 20); `docs/archive/state-log.md` F9 says 17 presets (there are 18). The generated files and tools hold the current numbers.
+- Counts in older docs drift. `README.md` said 54 tests, `docs/artifacts-and-tools.md` said 69, then both said 73; the docs no longer restate a count and CI (`.github/workflows/ci.yml`) is the authority. `docs/archive/coverage-gaps.md` and `docs/archive/story-state-field-knowledge.md` say 19 safe spawns (the file holds 20); `docs/archive/state-log.md` F9 says 17 presets (there are 18). The generated files and tools hold the current numbers.
 - Raw agent transcripts at the repository root (`chatlog00.*`, `chatlog01.md`) are git-ignored and kept for provenance. `chatlog06.md` (the 2026-11-18 session record, 4 h, one build-agent session that added the scene layer) lives at the workspace root, one directory above this repo, not in it.
 
 ## Corrections

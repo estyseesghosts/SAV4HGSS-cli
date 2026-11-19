@@ -132,7 +132,7 @@ The repository stages Lugia and Ho-Oh states and checks their gates. It does not
 | TRACE-01 | Not investigated | The index covers `.s` scripts only. No instrumented comparison against runtime reads and writes. |
 | TRACE-02 | Not investigated | Changes are attributed to writer scripts by file (`tools/delta_by_script.py`), not by traced program counter. |
 | TRACE-03 | Not investigated | No hardware run and no emulator-versus-hardware comparison. |
-| TRACE-04 | Partly | The byte audit and 73 tests verify the CLI round trip against PKHeX; the game's own round trip was observed once (the play-to-fill loop). |
+| TRACE-04 | Partly | The byte audit and the test suite verify the CLI round trip against PKHeX; the game's own round trip was observed once (the play-to-fill loop). |
 | TRACE-05 | Partly | `docs/archive/coverage-matrix.md` and `docs/archive/coverage-gaps.md` list missing branches (Chikorita, pre-Blue, pre-Red, Lake pre-Gyarados, Mewtwo and Groudon pre-states). |
 | TRACE-06 | Partly | HG and SS were compared for the core; other languages were not. |
 

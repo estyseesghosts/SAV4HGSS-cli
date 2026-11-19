@@ -1,0 +1,72 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  portable:
+    name: portable suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The SDK version is pinned in global.json; setup-dotnet reads it from there.
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: toolchain versions
+        run: |
+          dotnet --version
+          dotnet --list-sdks
+          python3 --version
+          echo "commit: ${{ github.sha }}"
+
+      - name: restore
+        run: dotnet restore HgssSave.slnx
+
+      - name: build (Release, warnings are errors)
+        run: dotnet build HgssSave.slnx -c Release --no-restore
+
+      - name: test
+        run: dotnet test HgssSave.slnx -c Release --no-build --logger "console;verbosity=normal"
+
+      - name: registry and tool checks
+        run: python3 tools/registry_checks.py
+
+      - name: report test count
+        if: always()
+        run: |
+          # A hand-maintained count is what drifted before (54/69/73). Quote the
+          # number this run actually produced instead.
+          echo "### portable suite" >> "$GITHUB_STEP_SUMMARY"
+          echo "Commit: \`${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "The test counts for this run are in the 'test' step log above." >> "$GITHUB_STEP_SUMMARY"
+          echo "Registry checks: see the 'registry and tool checks' step." >> "$GITHUB_STEP_SUMMARY"
+
+  # Deliberately NOT part of `portable`.
+  #
+  # Everything under tools/ that boots melonDS (leveld_run.py, fault_matrix.py,
+  # save_once.py, aux_fault_matrix.py, scene_boot_check.py, boot_*) needs:
+  #   - a retail HG/SS ROM,
+  #   - real save files from the corpus under hgss-saves/,
+  #   - a native melonDS core plus its Python bindings under melonDS-mcp/,
+  #   - the pokeheartgold decomp checkout for make_scenes.py.
+  # None of that is in the repository, and none of it may be uploaded as an
+  # artifact. Those results are recorded under research/ and leveld-out/ and are
+  # verified by hand; CI does not and cannot reproduce them.
+  private-tier:
+    name: private tier (not run)
+    runs-on: ubuntu-latest
+    if: false
+    steps:
+      - run: echo "Runtime/ROM/save tier is manual; see docs/verification.md section 'Level D'."

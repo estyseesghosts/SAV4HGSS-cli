@@ -25,7 +25,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
      "path": [
-      "Compare VAR_TEMP_x4001, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00A7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007E]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _005B]",
       "GoTo _00A1"
      ],
      "entry": "ontransition"
@@ -36,8 +38,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00A7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007E]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _005B"
+      "GoToIfEq _005B",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfNe _0076]"
      ],
      "entry": "ontransition"
     },
@@ -47,8 +52,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00A7]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _007E"
+      "GoToIfEq _007E",
+      "NOT (Compare VAR_TEMP_x4001, 3) [GoToIfNe _0099]"
      ],
      "entry": "ontransition"
     },
@@ -89,7 +96,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
      "path": [
-      "Compare VAR_TEMP_x4001, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00A7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007E]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _005B]",
       "GoTo _00A1"
      ],
      "entry": "ontransition"
@@ -100,8 +109,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00A7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007E]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _005B"
+      "GoToIfEq _005B",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfNe _0076]"
      ],
      "entry": "ontransition"
     },
@@ -111,8 +123,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VIOLET_GYM_FALKNER",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00A7]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _007E"
+      "GoToIfEq _007E",
+      "NOT (Compare VAR_TEMP_x4001, 3) [GoToIfNe _0099]"
      ],
      "entry": "ontransition"
     },
@@ -152,7 +166,10 @@
      "at": 32,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
+      "NOT (GoToIfSet FLAG_GAME_CLEAR, _006C)"
+     ],
      "entry": "ontransition"
     },
     {
@@ -161,8 +178,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
-      "GoToIfSet FLAG_GAME_CLEAR, _006C"
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0096]",
+      "NOT (Compare VAR_TEMP_x4002, 4) [GoToIfNe _0096]"
      ],
      "entry": "ontransition"
     },
@@ -172,10 +191,14 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
       "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0096]",
       "Compare VAR_TEMP_x4002, 4",
-      "GoToIfNe _0096"
+      "GoToIfNe _0096",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00C7]",
+      "NOT (Compare VAR_TEMP_x4001, 3) [GoToIfEq _00C7]",
+      "NOT (Compare VAR_TEMP_x4001, 5) [GoToIfEq _00C7]"
      ],
      "entry": "ontransition"
     },
@@ -185,10 +208,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
       "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0096]",
       "Compare VAR_TEMP_x4002, 4",
       "GoToIfNe _0096",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00C7]",
+      "NOT (Compare VAR_TEMP_x4001, 3) [GoToIfEq _00C7]",
       "Compare VAR_TEMP_x4001, 5",
       "GoToIfEq _00C7"
      ],
@@ -230,7 +256,10 @@
      "at": 32,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
+      "NOT (GoToIfSet FLAG_GAME_CLEAR, _006C)"
+     ],
      "entry": "ontransition"
     },
     {
@@ -239,8 +268,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
-      "GoToIfSet FLAG_GAME_CLEAR, _006C"
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
+      "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0096]",
+      "NOT (Compare VAR_TEMP_x4002, 4) [GoToIfNe _0096]"
      ],
      "entry": "ontransition"
     },
@@ -250,10 +281,14 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
       "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0096]",
       "Compare VAR_TEMP_x4002, 4",
-      "GoToIfNe _0096"
+      "GoToIfNe _0096",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00C7]",
+      "NOT (Compare VAR_TEMP_x4001, 3) [GoToIfEq _00C7]",
+      "NOT (Compare VAR_TEMP_x4001, 5) [GoToIfEq _00C7]"
      ],
      "entry": "ontransition"
     },
@@ -263,10 +298,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_AZALEA_GYM_BUGSY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00CD]",
       "GoToIfSet FLAG_GAME_CLEAR, _006C",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0096]",
       "Compare VAR_TEMP_x4002, 4",
       "GoToIfNe _0096",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00C7]",
+      "NOT (Compare VAR_TEMP_x4001, 3) [GoToIfEq _00C7]",
       "Compare VAR_TEMP_x4001, 5",
       "GoToIfEq _00C7"
      ],
@@ -308,7 +346,12 @@
      "at": 25,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
+      "NOT (Compare VAR_TEMP_x4000, 12) [GoToIfNe _0062]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -317,8 +360,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
-      "GoToIfNe _0062"
+      "GoToIfNe _0062",
+      "NOT (Compare VAR_TEMP_x4000, 13) [GoToIfNe _0079]"
      ],
      "entry": "ontransition"
     },
@@ -328,10 +375,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _0062",
       "Compare VAR_TEMP_x4000, 13",
-      "GoToIfNe _0079"
+      "GoToIfNe _0079",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _0090]"
      ],
      "entry": "ontransition"
     },
@@ -341,12 +392,16 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _0062",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0079",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _0090"
+      "GoToIfNe _0090",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _00A7]"
      ],
      "entry": "ontransition"
     },
@@ -356,6 +411,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _0062",
       "Compare VAR_TEMP_x4000, 13",
@@ -374,8 +432,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00AF"
+      "GoToIfEq _00AF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _00CA]"
      ],
      "entry": "ontransition"
     },
@@ -385,10 +446,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AF",
       "Compare VAR_TEMP_x4000, 18",
-      "GoToIfNe _00CA"
+      "GoToIfNe _00CA",
+      "NOT (Compare VAR_TEMP_x4000, 19) [GoToIfNe _00E1]"
      ],
      "entry": "ontransition"
     },
@@ -398,12 +462,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AF",
       "Compare VAR_TEMP_x4000, 18",
       "GoToIfNe _00CA",
       "Compare VAR_TEMP_x4000, 19",
-      "GoToIfNe _00E1"
+      "GoToIfNe _00E1",
+      "NOT (Compare VAR_TEMP_x4000, 20) [GoToIfNe _00F8]"
      ],
      "entry": "ontransition"
     },
@@ -443,7 +510,12 @@
      "at": 25,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
+      "NOT (Compare VAR_TEMP_x4000, 12) [GoToIfNe _0062]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -452,8 +524,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
-      "GoToIfNe _0062"
+      "GoToIfNe _0062",
+      "NOT (Compare VAR_TEMP_x4000, 13) [GoToIfNe _0079]"
      ],
      "entry": "ontransition"
     },
@@ -463,10 +539,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _0062",
       "Compare VAR_TEMP_x4000, 13",
-      "GoToIfNe _0079"
+      "GoToIfNe _0079",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _0090]"
      ],
      "entry": "ontransition"
     },
@@ -476,12 +556,16 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _0062",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0079",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _0090"
+      "GoToIfNe _0090",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _00A7]"
      ],
      "entry": "ontransition"
     },
@@ -491,6 +575,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _0062",
       "Compare VAR_TEMP_x4000, 13",
@@ -509,8 +596,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00AF"
+      "GoToIfEq _00AF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _00CA]"
      ],
      "entry": "ontransition"
     },
@@ -520,10 +610,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AF",
       "Compare VAR_TEMP_x4000, 18",
-      "GoToIfNe _00CA"
+      "GoToIfNe _00CA",
+      "NOT (Compare VAR_TEMP_x4000, 19) [GoToIfNe _00E1]"
      ],
      "entry": "ontransition"
     },
@@ -533,12 +626,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_GOLDENROD_GYM_WHITNEY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0106]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _0100)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AF",
       "Compare VAR_TEMP_x4000, 18",
       "GoToIfNe _00CA",
       "Compare VAR_TEMP_x4000, 19",
-      "GoToIfNe _00E1"
+      "GoToIfNe _00E1",
+      "NOT (Compare VAR_TEMP_x4000, 20) [GoToIfNe _00F8]"
      ],
      "entry": "ontransition"
     },
@@ -584,7 +680,12 @@
      "at": 27,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0085]",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _0068]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -593,8 +694,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0085]",
       "Compare VAR_TEMP_x4000, 1",
-      "GoToIfNe _0068"
+      "GoToIfNe _0068",
+      "NOT (Compare VAR_TEMP_x4000, 2) [GoToIfNe _007F]"
      ],
      "entry": "ontransition"
     },
@@ -604,6 +709,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0085]",
       "Compare VAR_TEMP_x4000, 1",
       "GoToIfNe _0068",
       "Compare VAR_TEMP_x4000, 2",
@@ -617,8 +725,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _0085"
+      "GoToIfEq _0085",
+      "NOT (Compare VAR_TEMP_x4000, 5) [GoToIfNe _00A0]"
      ],
      "entry": "ontransition"
     },
@@ -628,6 +739,8 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _0085",
       "Compare VAR_TEMP_x4000, 5",
@@ -641,7 +754,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
       "GoToIfUnset FLAG_GAME_CLEAR, _00A6"
      ],
      "entry": "ontransition"
@@ -701,7 +814,12 @@
      "at": 27,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0085]",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _0068]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -710,8 +828,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0085]",
       "Compare VAR_TEMP_x4000, 1",
-      "GoToIfNe _0068"
+      "GoToIfNe _0068",
+      "NOT (Compare VAR_TEMP_x4000, 2) [GoToIfNe _007F]"
      ],
      "entry": "ontransition"
     },
@@ -721,6 +843,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _0085]",
       "Compare VAR_TEMP_x4000, 1",
       "GoToIfNe _0068",
       "Compare VAR_TEMP_x4000, 2",
@@ -734,8 +859,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _0085"
+      "GoToIfEq _0085",
+      "NOT (Compare VAR_TEMP_x4000, 5) [GoToIfNe _00A0]"
      ],
      "entry": "ontransition"
     },
@@ -745,6 +873,8 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00A6)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _0085",
       "Compare VAR_TEMP_x4000, 5",
@@ -758,7 +888,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ECRUTEAK_GYM_MORTY",
      "path": [
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AC]",
       "GoToIfUnset FLAG_GAME_CLEAR, _00A6"
      ],
      "entry": "ontransition"
@@ -850,7 +980,10 @@
      "at": 22,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)"
+     ],
      "entry": "ontransition"
     },
     {
@@ -858,7 +991,12 @@
      "at": 29,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
+      "NOT (Compare VAR_TEMP_x4000, 13) [GoToIfNe _0072]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -867,13 +1005,18 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0072",
       "GoTo _009D",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _015A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _00CB",
-      "Compare VAR_TEMP_x4000, 6",
-      "GoTo _0109"
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _00E8]",
+      "GoTo _0109",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _0124]"
      ],
      "entry": "ontransition"
     },
@@ -883,15 +1026,20 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0072",
       "GoTo _009D",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _015A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _00CB",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _00E8]",
       "GoTo _0109",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _0124"
+      "GoToIfNe _0124",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _013B]"
      ],
      "entry": "ontransition"
     },
@@ -901,17 +1049,22 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0072",
       "GoTo _009D",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _015A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _00CB",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _00E8]",
       "GoTo _0109",
       "Compare VAR_TEMP_x4000, 14",
       "GoToIfNe _0124",
       "Compare VAR_TEMP_x4000, 15",
-      "GoToIfNe _013B"
+      "GoToIfNe _013B",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _0152]"
      ],
      "entry": "ontransition"
     },
@@ -921,8 +1074,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _007A"
+      "GoToIfEq _007A",
+      "NOT (Compare VAR_TEMP_x4000, 12) [GoToIfNe _0095]"
      ],
      "entry": "ontransition"
     },
@@ -962,7 +1118,10 @@
      "at": 22,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)"
+     ],
      "entry": "ontransition"
     },
     {
@@ -970,7 +1129,12 @@
      "at": 29,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
+      "NOT (Compare VAR_TEMP_x4000, 13) [GoToIfNe _0072]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -979,13 +1143,18 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0072",
       "GoTo _009D",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _015A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _00CB",
-      "Compare VAR_TEMP_x4000, 6",
-      "GoTo _0109"
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _00E8]",
+      "GoTo _0109",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _0124]"
      ],
      "entry": "ontransition"
     },
@@ -995,15 +1164,20 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0072",
       "GoTo _009D",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _015A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _00CB",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _00E8]",
       "GoTo _0109",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _0124"
+      "GoToIfNe _0124",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _013B]"
      ],
      "entry": "ontransition"
     },
@@ -1013,17 +1187,22 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _007A]",
       "Compare VAR_TEMP_x4000, 13",
       "GoToIfNe _0072",
       "GoTo _009D",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _015A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _00CB",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _00E8]",
       "GoTo _0109",
       "Compare VAR_TEMP_x4000, 14",
       "GoToIfNe _0124",
       "Compare VAR_TEMP_x4000, 15",
-      "GoToIfNe _013B"
+      "GoToIfNe _013B",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _0152]"
      ],
      "entry": "ontransition"
     },
@@ -1033,8 +1212,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_JASMINE_IN_GYM",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _015C]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _015A)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _007A"
+      "GoToIfEq _007A",
+      "NOT (Compare VAR_TEMP_x4000, 12) [GoToIfNe _0095]"
      ],
      "entry": "ontransition"
     },
@@ -1075,7 +1257,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
-      "GoToIfUnset FLAG_UNK_189, _001B"
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _0067]"
      ],
      "entry": "ontransition"
     },
@@ -1086,8 +1272,12 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
-      "GoToIfNe _0067"
+      "GoToIfNe _0067",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _007E]"
      ],
      "entry": "ontransition"
     },
@@ -1098,10 +1288,14 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0067",
       "Compare VAR_TEMP_x4000, 7",
-      "GoToIfNe _007E"
+      "GoToIfNe _007E",
+      "NOT (Compare VAR_TEMP_x4000, 8) [GoToIfNe _0095]"
      ],
      "entry": "ontransition"
     },
@@ -1112,12 +1306,16 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0067",
       "Compare VAR_TEMP_x4000, 7",
       "GoToIfNe _007E",
       "Compare VAR_TEMP_x4000, 8",
-      "GoToIfNe _0095"
+      "GoToIfNe _0095",
+      "NOT (Compare VAR_TEMP_x4000, 9) [GoToIfNe _00AC]"
      ],
      "entry": "ontransition"
     },
@@ -1128,6 +1326,9 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0067",
       "Compare VAR_TEMP_x4000, 7",
@@ -1146,6 +1347,8 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00B2"
      ],
@@ -1189,7 +1392,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
-      "GoToIfUnset FLAG_UNK_189, _001B"
+      "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _0067]"
      ],
      "entry": "ontransition"
     },
@@ -1200,8 +1407,12 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
-      "GoToIfNe _0067"
+      "GoToIfNe _0067",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _007E]"
      ],
      "entry": "ontransition"
     },
@@ -1212,10 +1423,14 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0067",
       "Compare VAR_TEMP_x4000, 7",
-      "GoToIfNe _007E"
+      "GoToIfNe _007E",
+      "NOT (Compare VAR_TEMP_x4000, 8) [GoToIfNe _0095]"
      ],
      "entry": "ontransition"
     },
@@ -1226,12 +1441,16 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0067",
       "Compare VAR_TEMP_x4000, 7",
       "GoToIfNe _007E",
       "Compare VAR_TEMP_x4000, 8",
-      "GoToIfNe _0095"
+      "GoToIfNe _0095",
+      "NOT (Compare VAR_TEMP_x4000, 9) [GoToIfNe _00AC]"
      ],
      "entry": "ontransition"
     },
@@ -1242,6 +1461,9 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00B2]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0067",
       "Compare VAR_TEMP_x4000, 7",
@@ -1260,6 +1482,8 @@
      "flag": "FLAG_HIDE_MAHOGANY_GYM_PRYCE",
      "path": [
       "GoToIfUnset FLAG_UNK_189, _001B",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00B8]",
+      "NOT (GoToIfUnset FLAG_GAME_CLEAR, _00B2)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00B2"
      ],
@@ -1303,8 +1527,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
-      "GoToIfGe _0044"
+      "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _0072]"
      ],
      "entry": "ontransition"
     },
@@ -1314,10 +1541,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
-      "GoToIfNe _0072"
+      "GoToIfNe _0072",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _0089]"
      ],
      "entry": "ontransition"
     },
@@ -1327,12 +1557,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0072",
       "Compare VAR_TEMP_x4000, 7",
-      "GoToIfNe _0089"
+      "GoToIfNe _0089",
+      "NOT (Compare VAR_TEMP_x4000, 8) [GoToIfNe _00A0]"
      ],
      "entry": "ontransition"
     },
@@ -1342,14 +1575,17 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0072",
       "Compare VAR_TEMP_x4000, 7",
       "GoToIfNe _0089",
       "Compare VAR_TEMP_x4000, 8",
-      "GoToIfNe _00A0"
+      "GoToIfNe _00A0",
+      "NOT (Compare VAR_TEMP_x4000, 9) [GoToIfNe _00B7]"
      ],
      "entry": "ontransition"
     },
@@ -1359,8 +1595,10 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0072",
       "Compare VAR_TEMP_x4000, 7",
@@ -1378,10 +1616,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00BD"
+      "GoToIfEq _00BD",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _00D8]"
      ],
      "entry": "ontransition"
     },
@@ -1391,12 +1631,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00BD",
       "Compare VAR_TEMP_x4000, 16",
-      "GoToIfNe _00D8"
+      "GoToIfNe _00D8",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00EF]"
      ],
      "entry": "ontransition"
     },
@@ -1406,6 +1648,7 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
@@ -1413,7 +1656,8 @@
       "Compare VAR_TEMP_x4000, 16",
       "GoToIfNe _00D8",
       "Compare VAR_TEMP_x4000, 17",
-      "GoToIfNe _00EF"
+      "GoToIfNe _00EF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _0106]"
      ],
      "entry": "ontransition"
     },
@@ -1423,6 +1667,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
@@ -1473,8 +1718,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
-      "GoToIfGe _0044"
+      "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _0072]"
      ],
      "entry": "ontransition"
     },
@@ -1484,10 +1732,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
-      "GoToIfNe _0072"
+      "GoToIfNe _0072",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _0089]"
      ],
      "entry": "ontransition"
     },
@@ -1497,12 +1748,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0072",
       "Compare VAR_TEMP_x4000, 7",
-      "GoToIfNe _0089"
+      "GoToIfNe _0089",
+      "NOT (Compare VAR_TEMP_x4000, 8) [GoToIfNe _00A0]"
      ],
      "entry": "ontransition"
     },
@@ -1512,14 +1766,17 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0072",
       "Compare VAR_TEMP_x4000, 7",
       "GoToIfNe _0089",
       "Compare VAR_TEMP_x4000, 8",
-      "GoToIfNe _00A0"
+      "GoToIfNe _00A0",
+      "NOT (Compare VAR_TEMP_x4000, 9) [GoToIfNe _00B7]"
      ],
      "entry": "ontransition"
     },
@@ -1529,8 +1786,10 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00BD]",
       "Compare VAR_TEMP_x4000, 6",
       "GoToIfNe _0072",
       "Compare VAR_TEMP_x4000, 7",
@@ -1548,10 +1807,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00BD"
+      "GoToIfEq _00BD",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _00D8]"
      ],
      "entry": "ontransition"
     },
@@ -1561,12 +1822,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00BD",
       "Compare VAR_TEMP_x4000, 16",
-      "GoToIfNe _00D8"
+      "GoToIfNe _00D8",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00EF]"
      ],
      "entry": "ontransition"
     },
@@ -1576,6 +1839,7 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
@@ -1583,7 +1847,8 @@
       "Compare VAR_TEMP_x4000, 16",
       "GoToIfNe _00D8",
       "Compare VAR_TEMP_x4000, 17",
-      "GoToIfNe _00EF"
+      "GoToIfNe _00EF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _0106]"
      ],
      "entry": "ontransition"
     },
@@ -1593,6 +1858,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_BLACKTHORN_GYM_CLAIR",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _010C]",
       "Compare VAR_UNK_40FC, 2",
       "GoToIfGe _0044",
       "Compare VAR_TEMP_x4001, 1",
@@ -1643,7 +1909,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
-      "Compare VAR_TEMP_x4002, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
+      "NOT (Compare VAR_TEMP_x4002, 1) [GoToIfEq _0053]",
       "GoTo _00F5"
      ],
      "entry": "ontransition"
@@ -1654,8 +1922,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
       "Compare VAR_TEMP_x4002, 1",
-      "GoToIfEq _0053"
+      "GoToIfEq _0053",
+      "NOT (Compare VAR_TEMP_x4000, 12) [GoToIfNe _006E]"
      ],
      "entry": "ontransition"
     },
@@ -1665,10 +1936,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _0053",
       "Compare VAR_TEMP_x4000, 12",
-      "GoToIfNe _006E"
+      "GoToIfNe _006E",
+      "NOT (Compare VAR_TEMP_x4000, 13) [GoToIfNe _0085]"
      ],
      "entry": "ontransition"
     },
@@ -1678,12 +1952,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _0053",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _006E",
       "Compare VAR_TEMP_x4000, 13",
-      "GoToIfNe _0085"
+      "GoToIfNe _0085",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _009C]"
      ],
      "entry": "ontransition"
     },
@@ -1693,8 +1970,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00A4"
+      "GoToIfEq _00A4",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00BF]"
      ],
      "entry": "ontransition"
     },
@@ -1704,10 +1983,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00A4",
       "Compare VAR_TEMP_x4000, 17",
-      "GoToIfNe _00BF"
+      "GoToIfNe _00BF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _00D6]"
      ],
      "entry": "ontransition"
     },
@@ -1717,12 +1998,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00A4",
       "Compare VAR_TEMP_x4000, 17",
       "GoToIfNe _00BF",
       "Compare VAR_TEMP_x4000, 18",
-      "GoToIfNe _00D6"
+      "GoToIfNe _00D6",
+      "NOT (Compare VAR_TEMP_x4000, 19) [GoToIfNe _00ED]"
      ],
      "entry": "ontransition"
     },
@@ -1763,7 +2046,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
-      "Compare VAR_TEMP_x4002, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
+      "NOT (Compare VAR_TEMP_x4002, 1) [GoToIfEq _0053]",
       "GoTo _00F5"
      ],
      "entry": "ontransition"
@@ -1774,8 +2059,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
       "Compare VAR_TEMP_x4002, 1",
-      "GoToIfEq _0053"
+      "GoToIfEq _0053",
+      "NOT (Compare VAR_TEMP_x4000, 12) [GoToIfNe _006E]"
      ],
      "entry": "ontransition"
     },
@@ -1785,10 +2073,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _0053",
       "Compare VAR_TEMP_x4000, 12",
-      "GoToIfNe _006E"
+      "GoToIfNe _006E",
+      "NOT (Compare VAR_TEMP_x4000, 13) [GoToIfNe _0085]"
      ],
      "entry": "ontransition"
     },
@@ -1798,12 +2089,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00A4]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _0053",
       "Compare VAR_TEMP_x4000, 12",
       "GoToIfNe _006E",
       "Compare VAR_TEMP_x4000, 13",
-      "GoToIfNe _0085"
+      "GoToIfNe _0085",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _009C]"
      ],
      "entry": "ontransition"
     },
@@ -1813,8 +2107,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00A4"
+      "GoToIfEq _00A4",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00BF]"
      ],
      "entry": "ontransition"
     },
@@ -1824,10 +2120,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00A4",
       "Compare VAR_TEMP_x4000, 17",
-      "GoToIfNe _00BF"
+      "GoToIfNe _00BF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _00D6]"
      ],
      "entry": "ontransition"
     },
@@ -1837,12 +2135,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_GYM_BROCK",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00FB]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00A4",
       "Compare VAR_TEMP_x4000, 17",
       "GoToIfNe _00BF",
       "Compare VAR_TEMP_x4000, 18",
-      "GoToIfNe _00D6"
+      "GoToIfNe _00D6",
+      "NOT (Compare VAR_TEMP_x4000, 19) [GoToIfNe _00ED]"
      ],
      "entry": "ontransition"
     },
@@ -1893,7 +2193,14 @@
      "at": 34,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AD]",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _0090]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -1902,8 +2209,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AD]",
       "Compare VAR_TEMP_x4000, 16",
-      "GoToIfNe _0090"
+      "GoToIfNe _0090",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00A7]"
      ],
      "entry": "ontransition"
     },
@@ -1913,6 +2226,11 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AD]",
       "Compare VAR_TEMP_x4000, 16",
       "GoToIfNe _0090",
       "Compare VAR_TEMP_x4000, 17",
@@ -1926,8 +2244,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00AD"
+      "GoToIfEq _00AD",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _00C8]"
      ],
      "entry": "ontransition"
     },
@@ -1937,10 +2260,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AD",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _00C8"
+      "GoToIfNe _00C8",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _00DF]"
      ],
      "entry": "ontransition"
     },
@@ -1950,6 +2278,10 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AD",
       "Compare VAR_TEMP_x4000, 14",
@@ -1965,6 +2297,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
       "Compare VAR_SCENE_ROUTE_25, 2",
       "GoToIfEq _00E7"
      ],
@@ -1992,6 +2327,7 @@
       "_0204"
      ],
      "path": [
+      "NOT (Compare VAR_SPECIAL_RESULT, 0) [GoToIfEq _0179]",
       "Compare VAR_SPECIAL_RESULT, 1",
       "GoToIfEq _0159"
      ],
@@ -2048,7 +2384,14 @@
      "at": 34,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AD]",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _0090]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -2057,8 +2400,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AD]",
       "Compare VAR_TEMP_x4000, 16",
-      "GoToIfNe _0090"
+      "GoToIfNe _0090",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00A7]"
      ],
      "entry": "ontransition"
     },
@@ -2068,6 +2417,11 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AD]",
       "Compare VAR_TEMP_x4000, 16",
       "GoToIfNe _0090",
       "Compare VAR_TEMP_x4000, 17",
@@ -2081,8 +2435,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00AD"
+      "GoToIfEq _00AD",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _00C8]"
      ],
      "entry": "ontransition"
     },
@@ -2092,10 +2451,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AD",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _00C8"
+      "GoToIfNe _00C8",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _00DF]"
      ],
      "entry": "ontransition"
     },
@@ -2105,6 +2469,10 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 2) [GoToIfEq _00E7]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AD",
       "Compare VAR_TEMP_x4000, 14",
@@ -2120,6 +2488,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CERULEAN_GYM_POPULATION",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00ED]",
+      "NOT (Compare VAR_TEMP_x4000, 0) [GoToIfEq _00E5]",
+      "NOT (Compare VAR_SCENE_ROUTE_25, 1) [GoToIfEq _00E7]",
       "Compare VAR_SCENE_ROUTE_25, 2",
       "GoToIfEq _00E7"
      ],
@@ -2147,6 +2518,7 @@
       "_0204"
      ],
      "path": [
+      "NOT (Compare VAR_SPECIAL_RESULT, 0) [GoToIfEq _0179]",
       "Compare VAR_SPECIAL_RESULT, 1",
       "GoToIfEq _0159"
      ],
@@ -2193,7 +2565,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
-      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079"
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
+      "NOT (Compare VAR_TEMP_x4000, 9) [GoToIfNe _00C7]"
      ],
      "entry": "ontransition"
     },
@@ -2204,8 +2580,12 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
       "Compare VAR_TEMP_x4000, 9",
-      "GoToIfNe _00C7"
+      "GoToIfNe _00C7",
+      "NOT (Compare VAR_TEMP_x4000, 10) [GoToIfNe _00DE]"
      ],
      "entry": "ontransition"
     },
@@ -2216,10 +2596,14 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
       "Compare VAR_TEMP_x4000, 9",
       "GoToIfNe _00C7",
       "Compare VAR_TEMP_x4000, 10",
-      "GoToIfNe _00DE"
+      "GoToIfNe _00DE",
+      "NOT (Compare VAR_TEMP_x4000, 11) [GoToIfNe _00F5]"
      ],
      "entry": "ontransition"
     },
@@ -2230,6 +2614,9 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
       "Compare VAR_TEMP_x4000, 9",
       "GoToIfNe _00C7",
       "Compare VAR_TEMP_x4000, 10",
@@ -2246,8 +2633,11 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00FB"
+      "GoToIfEq _00FB",
+      "NOT (GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C)"
      ],
      "entry": "ontransition"
     },
@@ -2258,9 +2648,12 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00FB",
-      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C"
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
+      "NOT (Compare VAR_TEMP_x4000, 5) [GoToIfNe _0127]"
      ],
      "entry": "ontransition"
     },
@@ -2271,11 +2664,14 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00FB",
       "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
       "Compare VAR_TEMP_x4000, 5",
-      "GoToIfNe _0127"
+      "GoToIfNe _0127",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _013E]"
      ],
      "entry": "ontransition"
     },
@@ -2286,6 +2682,8 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00FB",
       "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
@@ -2303,7 +2701,7 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
       "GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144"
      ],
      "entry": "ontransition"
@@ -2346,7 +2744,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
-      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079"
+      "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
+      "NOT (Compare VAR_TEMP_x4000, 9) [GoToIfNe _00C7]"
      ],
      "entry": "ontransition"
     },
@@ -2357,8 +2759,12 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
       "Compare VAR_TEMP_x4000, 9",
-      "GoToIfNe _00C7"
+      "GoToIfNe _00C7",
+      "NOT (Compare VAR_TEMP_x4000, 10) [GoToIfNe _00DE]"
      ],
      "entry": "ontransition"
     },
@@ -2369,10 +2775,14 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
       "Compare VAR_TEMP_x4000, 9",
       "GoToIfNe _00C7",
       "Compare VAR_TEMP_x4000, 10",
-      "GoToIfNe _00DE"
+      "GoToIfNe _00DE",
+      "NOT (Compare VAR_TEMP_x4000, 11) [GoToIfNe _00F5]"
      ],
      "entry": "ontransition"
     },
@@ -2383,6 +2793,9 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00FB]",
       "Compare VAR_TEMP_x4000, 9",
       "GoToIfNe _00C7",
       "Compare VAR_TEMP_x4000, 10",
@@ -2399,8 +2812,11 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00FB"
+      "GoToIfEq _00FB",
+      "NOT (GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C)"
      ],
      "entry": "ontransition"
     },
@@ -2411,9 +2827,12 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00FB",
-      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C"
+      "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
+      "NOT (Compare VAR_TEMP_x4000, 5) [GoToIfNe _0127]"
      ],
      "entry": "ontransition"
     },
@@ -2424,11 +2843,14 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00FB",
       "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
       "Compare VAR_TEMP_x4000, 5",
-      "GoToIfNe _0127"
+      "GoToIfNe _0127",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _013E]"
      ],
      "entry": "ontransition"
     },
@@ -2439,6 +2861,8 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
+      "NOT (GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144)",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00FB",
       "GoToIfSet FLAG_TRADE_LT_SURGE_PIKACHU, _010C",
@@ -2456,7 +2880,7 @@
      "flag": "FLAG_HIDE_VERMILION_GYM_LT_SURGE",
      "path": [
       "GoToIfSet FLAG_HIDE_VERMILION_GYM_STOPS, _0079",
-      "Compare VAR_TEMP_x4001, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _014A]",
       "GoToIfUnset FLAG_CAUGHT_ZAPDOS, _0144"
      ],
      "entry": "ontransition"
@@ -2499,7 +2923,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
-      "Compare VAR_TEMP_x4002, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
+      "NOT (Compare VAR_TEMP_x4002, 1) [GoToIfEq _004F]",
       "GoTo _0101"
      ],
      "entry": "ontransition"
@@ -2510,10 +2936,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _004F",
-      "Compare VAR_TEMP_x4000, 6",
-      "GoTo _008D"
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _006C]",
+      "GoTo _008D",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _00A8]"
      ],
      "entry": "ontransition"
     },
@@ -2523,12 +2952,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _004F",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _006C]",
       "GoTo _008D",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _00A8"
+      "GoToIfNe _00A8",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _00BF]"
      ],
      "entry": "ontransition"
     },
@@ -2538,14 +2970,17 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _004F",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _006C]",
       "GoTo _008D",
       "Compare VAR_TEMP_x4000, 14",
       "GoToIfNe _00A8",
       "Compare VAR_TEMP_x4000, 15",
-      "GoToIfNe _00BF"
+      "GoToIfNe _00BF",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _00D6]"
      ],
      "entry": "ontransition"
     },
@@ -2555,8 +2990,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00DE"
+      "GoToIfEq _00DE",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _00F9]"
      ],
      "entry": "ontransition"
     },
@@ -2597,7 +3034,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
-      "Compare VAR_TEMP_x4002, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
+      "NOT (Compare VAR_TEMP_x4002, 1) [GoToIfEq _004F]",
       "GoTo _0101"
      ],
      "entry": "ontransition"
@@ -2608,10 +3047,13 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _004F",
-      "Compare VAR_TEMP_x4000, 6",
-      "GoTo _008D"
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _006C]",
+      "GoTo _008D",
+      "NOT (Compare VAR_TEMP_x4000, 14) [GoToIfNe _00A8]"
      ],
      "entry": "ontransition"
     },
@@ -2621,12 +3063,15 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _004F",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _006C]",
       "GoTo _008D",
       "Compare VAR_TEMP_x4000, 14",
-      "GoToIfNe _00A8"
+      "GoToIfNe _00A8",
+      "NOT (Compare VAR_TEMP_x4000, 15) [GoToIfNe _00BF]"
      ],
      "entry": "ontransition"
     },
@@ -2636,14 +3081,17 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00DE]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _004F",
-      "Compare VAR_TEMP_x4000, 6",
+      "NOT (Compare VAR_TEMP_x4000, 6) [GoToIfNe _006C]",
       "GoTo _008D",
       "Compare VAR_TEMP_x4000, 14",
       "GoToIfNe _00A8",
       "Compare VAR_TEMP_x4000, 15",
-      "GoToIfNe _00BF"
+      "GoToIfNe _00BF",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _00D6]"
      ],
      "entry": "ontransition"
     },
@@ -2653,8 +3101,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_CELADON_GYM_ERIKA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0107]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00DE"
+      "GoToIfEq _00DE",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _00F9]"
      ],
      "entry": "ontransition"
     },
@@ -2700,7 +3150,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
-      "Compare VAR_TEMP_x4002, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
+      "NOT (Compare VAR_TEMP_x4002, 0) [GoToIfNe _006D]",
       "GoTo _00E9"
      ],
      "entry": "ontransition"
@@ -2711,9 +3163,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4002, 0",
       "GoToIfNe _006D",
-      "GoTo _0075"
+      "GoTo _0075",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _0090]"
      ],
      "entry": "ontransition"
     },
@@ -2723,11 +3178,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4002, 0",
       "GoToIfNe _006D",
       "GoTo _0075",
       "Compare VAR_TEMP_x4000, 16",
-      "GoToIfNe _0090"
+      "GoToIfNe _0090",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00A7]"
      ],
      "entry": "ontransition"
     },
@@ -2737,8 +3195,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00AF"
+      "GoToIfEq _00AF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _00CA]"
      ],
      "entry": "ontransition"
     },
@@ -2748,10 +3208,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AF",
       "Compare VAR_TEMP_x4000, 18",
-      "GoToIfNe _00CA"
+      "GoToIfNe _00CA",
+      "NOT (Compare VAR_TEMP_x4000, 19) [GoToIfNe _00E1]"
      ],
      "entry": "ontransition"
     },
@@ -2797,7 +3259,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
-      "Compare VAR_TEMP_x4002, 0",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
+      "NOT (Compare VAR_TEMP_x4002, 0) [GoToIfNe _006D]",
       "GoTo _00E9"
      ],
      "entry": "ontransition"
@@ -2808,9 +3272,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4002, 0",
       "GoToIfNe _006D",
-      "GoTo _0075"
+      "GoTo _0075",
+      "NOT (Compare VAR_TEMP_x4000, 16) [GoToIfNe _0090]"
      ],
      "entry": "ontransition"
     },
@@ -2820,11 +3287,14 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _00AF]",
       "Compare VAR_TEMP_x4002, 0",
       "GoToIfNe _006D",
       "GoTo _0075",
       "Compare VAR_TEMP_x4000, 16",
-      "GoToIfNe _0090"
+      "GoToIfNe _0090",
+      "NOT (Compare VAR_TEMP_x4000, 17) [GoToIfNe _00A7]"
      ],
      "entry": "ontransition"
     },
@@ -2834,8 +3304,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _00AF"
+      "GoToIfEq _00AF",
+      "NOT (Compare VAR_TEMP_x4000, 18) [GoToIfNe _00CA]"
      ],
      "entry": "ontransition"
     },
@@ -2845,10 +3317,12 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_FUCHSIA_GYM_JANINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00EF]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _00AF",
       "Compare VAR_TEMP_x4000, 18",
-      "GoToIfNe _00CA"
+      "GoToIfNe _00CA",
+      "NOT (Compare VAR_TEMP_x4000, 19) [GoToIfNe _00E1]"
      ],
      "entry": "ontransition"
     },
@@ -2889,7 +3363,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
      "path": [
-      "Compare VAR_TEMP_x4000, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0089]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _006C]",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfEq _0055]",
       "GoTo _0083"
      ],
      "entry": "ontransition"
@@ -2900,8 +3376,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0089]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _006C]",
       "Compare VAR_TEMP_x4000, 1",
-      "GoToIfEq _0055"
+      "GoToIfEq _0055",
+      "NOT (Compare VAR_TEMP_x4000, 5) [GoToIfNe _0083]"
      ],
      "entry": "ontransition"
     },
@@ -2911,8 +3390,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0089]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _006C"
+      "GoToIfEq _006C",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _0083]"
      ],
      "entry": "ontransition"
     },
@@ -2953,7 +3434,9 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
      "path": [
-      "Compare VAR_TEMP_x4000, 1",
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0089]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _006C]",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfEq _0055]",
       "GoTo _0083"
      ],
      "entry": "ontransition"
@@ -2964,8 +3447,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0089]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _006C]",
       "Compare VAR_TEMP_x4000, 1",
-      "GoToIfEq _0055"
+      "GoToIfEq _0055",
+      "NOT (Compare VAR_TEMP_x4000, 5) [GoToIfNe _0083]"
      ],
      "entry": "ontransition"
     },
@@ -2975,8 +3461,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SAFFRON_GYM_SABRINA",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0089]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _006C"
+      "GoToIfEq _006C",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfNe _0083]"
      ],
      "entry": "ontransition"
     },
@@ -3016,7 +3504,11 @@
      "at": 29,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _008A]",
+      "NOT (Compare VAR_TEMP_x4002, 1) [GoToIfEq _0069]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -3025,8 +3517,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _008A]",
       "Compare VAR_TEMP_x4002, 1",
-      "GoToIfEq _0069"
+      "GoToIfEq _0069",
+      "NOT (Compare VAR_TEMP_x4002, 2) [GoToIfNe _0084]"
      ],
      "entry": "ontransition"
     },
@@ -3036,6 +3531,8 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _008A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _0069",
       "Compare VAR_TEMP_x4002, 2",
@@ -3049,8 +3546,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _008A"
+      "GoToIfEq _008A",
+      "NOT (Compare VAR_TEMP_x4002, 4) [GoToIfNe _00A5]"
      ],
      "entry": "ontransition"
     },
@@ -3060,6 +3559,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _008A",
       "Compare VAR_TEMP_x4002, 4",
@@ -3103,7 +3603,11 @@
      "at": 29,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _008A]",
+      "NOT (Compare VAR_TEMP_x4002, 1) [GoToIfEq _0069]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -3112,8 +3616,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _008A]",
       "Compare VAR_TEMP_x4002, 1",
-      "GoToIfEq _0069"
+      "GoToIfEq _0069",
+      "NOT (Compare VAR_TEMP_x4002, 2) [GoToIfNe _0084]"
      ],
      "entry": "ontransition"
     },
@@ -3123,6 +3630,8 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
+      "NOT (Compare VAR_TEMP_x4001, 1) [GoToIfEq _008A]",
       "Compare VAR_TEMP_x4002, 1",
       "GoToIfEq _0069",
       "Compare VAR_TEMP_x4002, 2",
@@ -3136,8 +3645,10 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
       "Compare VAR_TEMP_x4001, 1",
-      "GoToIfEq _008A"
+      "GoToIfEq _008A",
+      "NOT (Compare VAR_TEMP_x4002, 4) [GoToIfNe _00A5]"
      ],
      "entry": "ontransition"
     },
@@ -3147,6 +3658,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_SEAFOAM_GYM_BLAINE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _00AB]",
       "Compare VAR_TEMP_x4001, 1",
       "GoToIfEq _008A",
       "Compare VAR_TEMP_x4002, 4",
@@ -3190,7 +3702,11 @@
      "at": 25,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0065]",
+      "NOT (Compare VAR_UNK_40FD, 0) [GoToIfEq _005F]",
+      "NOT (Compare VAR_TEMP_x4002, 5) [GoToIfNe _0059]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -3199,6 +3715,8 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0065]",
+      "NOT (Compare VAR_UNK_40FD, 0) [GoToIfEq _005F]",
       "Compare VAR_TEMP_x4002, 5",
       "GoToIfNe _0059"
      ],
@@ -3210,6 +3728,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0065]",
       "Compare VAR_UNK_40FD, 0",
       "GoToIfEq _005F"
      ],
@@ -3251,7 +3770,11 @@
      "at": 25,
      "op": "SetFlag",
      "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0065]",
+      "NOT (Compare VAR_UNK_40FD, 0) [GoToIfEq _005F]",
+      "NOT (Compare VAR_TEMP_x4002, 5) [GoToIfNe _0059]"
+     ],
      "entry": "ontransition"
     },
     {
@@ -3260,6 +3783,8 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0065]",
+      "NOT (Compare VAR_UNK_40FD, 0) [GoToIfEq _005F]",
       "Compare VAR_TEMP_x4002, 5",
       "GoToIfNe _0059"
      ],
@@ -3271,6 +3796,7 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_VIRIDIAN_GYM_BLUE",
      "path": [
+      "NOT (Compare VAR_TEMP_x4001, 0) [GoToIfNe _0065]",
       "Compare VAR_UNK_40FD, 0",
       "GoToIfEq _005F"
      ],
@@ -3819,9 +4345,11 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
      "path": [
-      "Compare VAR_TEMP_x4000, 7",
+      "NOT (Compare VAR_SCENE_EMBEDDED_TOWER, 4) [GoToIfGe _007C]",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _0038]",
       "GoTo _004A",
-      "Compare VAR_TEMP_x4000, 1",
+      "NOT (GoToIfSet FLAG_BEAT_OR_ESCAPED_FROM_GROUDON_OR_KYOGRE, _007C)",
+      "NOT (Compare VAR_TEMP_x4000, 1) [GoToIfGe _0072]",
       "GoTo _0040"
      ],
      "entry": "ontransition"
@@ -3832,8 +4360,10 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_EMBEDDED_TOWER_KYOGRE",
      "path": [
-      "Compare VAR_TEMP_x4000, 7",
+      "NOT (Compare VAR_SCENE_EMBEDDED_TOWER, 4) [GoToIfGe _007C]",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _0038]",
       "GoTo _004A",
+      "NOT (GoToIfSet FLAG_BEAT_OR_ESCAPED_FROM_GROUDON_OR_KYOGRE, _007C)",
       "Compare VAR_TEMP_x4000, 1",
       "GoToIfGe _0072"
      ],
@@ -3880,7 +4410,8 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
      "path": [
-      "Compare VAR_TEMP_x4000, 7",
+      "NOT (Compare VAR_SCENE_EMBEDDED_TOWER, 4) [GoToIfGe _007C]",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _0038]",
       "GoTo _0040"
      ],
      "entry": "ontransition"
@@ -3891,9 +4422,11 @@
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_EMBEDDED_TOWER_GROUDON",
      "path": [
+      "NOT (Compare VAR_SCENE_EMBEDDED_TOWER, 4) [GoToIfGe _007C]",
       "Compare VAR_TEMP_x4000, 7",
       "GoToIfNe _0038",
       "GoTo _004A",
+      "NOT (GoToIfSet FLAG_BEAT_OR_ESCAPED_FROM_GROUDON_OR_KYOGRE, _007C)",
       "Compare VAR_TEMP_x4000, 1",
       "GoToIfGe _0072"
      ],
@@ -3955,7 +4488,9 @@
      "at": 25,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_EMBEDDED_TOWER_RAYQUAZA",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_SCENE_EMBEDDED_TOWER, 7) [GoToIfGe _003C]"
+     ],
      "entry": "ontransition"
     }
    ],
@@ -4023,7 +4558,8 @@
       "GoToIfUnset FLAG_UNK_189, _004B",
       "GoTo _030E",
       "Compare VAR_UNK_4083, 4",
-      "GoToIfEq _0341"
+      "GoToIfEq _0341",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _035C]"
      ],
      "entry": "ontransition"
     },
@@ -4033,7 +4569,8 @@
      "op": "SetFlag",
      "flag": "FLAG_HIDE_PEWTER_CITY_LATIOS",
      "path": [
-      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _038C"
+      "GoToIfSet FLAG_ENGAGING_STATIC_POKEMON, _038C",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _03AB]"
      ],
      "entry": "onload"
     }
@@ -4060,7 +4597,7 @@
       "_0464"
      ],
      "path": [
-      "Compare VAR_TEMP_x4000, 7",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _03F1]",
       "GoTo _03F4"
      ],
      "entry": "frame",
@@ -4146,7 +4683,7 @@
       "_0464"
      ],
      "path": [
-      "Compare VAR_TEMP_x4000, 7",
+      "NOT (Compare VAR_TEMP_x4000, 7) [GoToIfNe _03F1]",
       "GoTo _03F4"
      ],
      "entry": "frame",
@@ -4420,7 +4957,7 @@
       "_0CB8"
      ],
      "path": [
-      "Compare VAR_SPECIAL_RESULT, 0",
+      "NOT (Compare VAR_SPECIAL_RESULT, 0) [GoToIfNe _0BEF]",
       "GoTo _0BF3"
      ],
      "entry": "frame",
@@ -4435,7 +4972,7 @@
       "_0CD4"
      ],
      "path": [
-      "Compare VAR_SPECIAL_RESULT, 0",
+      "NOT (Compare VAR_SPECIAL_RESULT, 0) [GoToIfNe _0BEF]",
       "GoTo _0BF3"
      ],
      "entry": "frame",
@@ -4840,8 +5377,10 @@
      "op": "SetFlag",
      "flag": "FLAG_UNK_25C",
      "path": [
-      "Compare VAR_SPECIAL_RESULT, 152",
-      "GoTo _007D"
+      "NOT (Compare VAR_SPECIAL_RESULT, 152) [GoToIfNe _005A]",
+      "GoTo _007D",
+      "CheckBattleWon VAR_SPECIAL_RESULT",
+      "NOT (Compare VAR_SPECIAL_RESULT, 0) [GoToIfEq _00C9]"
      ],
      "entry": "frame",
      "when": "VAR_UNK_40F5 == 0"
@@ -4911,7 +5450,9 @@
      "at": 17,
      "op": "ClearFlag",
      "flag": "FLAG_HIDE_ROCKET_TAKEOVER_1",
-     "path": [],
+     "path": [
+      "NOT (Compare VAR_SCENE_ROCKET_TAKEOVER, 4) [GoToIfNe _002D]"
+     ],
      "entry": "ontransition"
     }
    ],

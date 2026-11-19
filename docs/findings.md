@@ -27,7 +27,7 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | F14 | No story guards on badge or HM award scripts; order lives in access and triggers | SOURCE (path walk) | holds. Supersedes the `needs` edges in `story-atoms-hg.json` |
 | F15 | Map reachability pipeline built; collision semantics not calibrated (521 components, joins between blocks missing) | SOURCE, SAVE_DIFF | open. `tile_path.py` deleted after six probes. Free spawns shipped instead (F19); collision only still blocks the per-gym field-move gate analysis and walkability checks |
 | F16 | 80 scenes composed from preset, badges, scene ops, warp; 80/80 reach their tile | RUNTIME | holds. Table of story battles corrected (see `docs/open-questions.md`) |
-| F17 | Map-init scripts decide actor visibility and can move the player; version locks for legendaries | SOURCE | holds. Checker over-reports one write (`CheckBattleWon`) |
+| F17 | Map-init scripts decide actor visibility and can move the player; version locks for legendaries | SOURCE | holds. The `CheckBattleWon` over-report is fixed: the walker records the opcode and the negated fall-through guard |
 | F18 | Mt. Silver and Red are a five-write unlock chain | SOURCE, SAVE_DIFF (end state only) | holds. Scenes rewritten to carry it |
 | F19 | The dynamic warp can spawn on any tile: `warpId == -1` keeps stored x/y (`field_warp_tasks.c:206-209`) | SOURCE, RUNTIME (7 maps) | holds. Shipped as `location warp MAP -1 --x X --y Y`. Tile walkability unchecked |
 | F20 | Latios and Latias are gated on `VAR_UNK_4043 == 0x06F2`, the Mystery Gift Enigma Stone var; the item alone is silent | SOURCE, RUNTIME (both fought) | holds. Both scenes write `VAR_UNK_4043 = 1778` |

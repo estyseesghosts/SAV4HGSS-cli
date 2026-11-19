@@ -75,6 +75,11 @@ def entry_label(target: str) -> str | None:
     return f"scr_seq_{m.group(1)}_{m.group(2)}" if m else None
 
 
+def fallthrough(text: str, pending: str | None) -> str:
+    """Why execution continued past a conditional jump: the test was false, not absent."""
+    return f"NOT ({pending}) [{text}]" if pending else f"NOT ({text})"
+
+
 def walk(labels, start: str):
     """Yield (label, line, op, args, path) for every instruction reachable from `start`.
 
@@ -97,7 +102,12 @@ def walk(labels, start: str):
             n, op, args = block[idx]
             text = f"{op} {', '.join(args)}".strip()
             yield name, n, op, args, conds
-            if op in ("Compare", "CheckBadge", "GetGameVersion"):
+            if op == "CheckBattleWon":
+                # Sets its operand var to 1 when the battle was won (scrcmd_battle.c:205-210). Record
+                # it in the path itself: a write that needs it only happens after a win.
+                conds = conds + (text,)
+                pending = text
+            elif op in ("Compare", "CheckBadge", "GetGameVersion"):
                 pending = text
             elif op == "End":
                 break
@@ -107,7 +117,13 @@ def walk(labels, start: str):
                 if target:
                     stack.append((target, 0, branch))
                 if op.startswith("GoToIf") or op.startswith("CallIf"):
-                    continue  # fall-through of a conditional jump
+                    # The next instruction is reached because the test failed, not in spite of
+                    # it. Without recording that, a write on the win-only branch looks
+                    # unconditional - which is how the Mt. Moon SetFlag got over-reported.
+                    conds = conds + (fallthrough(text, pending),)
+                    pending = None
+                    continue
+                pending = None
                 break
 
 

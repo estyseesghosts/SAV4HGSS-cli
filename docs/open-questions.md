@@ -18,7 +18,7 @@ Two lists. The first is what is not known or not done, with what would unblock i
 | Lake of Rage pre-Gyarados | No fixture. The trek reached Route 43 (524,149) mid-battle | Resume from `hg-6gyn-surf.sav` and the banked `.mcpr` anchors (local `leveld-out/`) |
 | Unmodelled general-block tables | `0x23B8-0x2740` and `0x4434-0x4510` (F6) | Compute chunk sizes from decomp structs and place each cluster |
 | Named flags | Unnamed flags that move between HG milestones (`tools/unk_flags.py`) | Attribution from the writer script plus runtime tests |
-| Actor checker | Does not model `CheckBattleWon`; over-reports one Mt. Moon write | Add the opcode to the walker |
+| Actor checker | **Closed.** The walker now records `CheckBattleWon` in the path and the negated `Compare` for every conditional fall-through, so the Mt. Moon write at `scr_seq_0007_D02R0101.s:52` reports the win gate instead of looking unconditional. Same 224 writes across 80 scenes; only the guard paths changed | — |
 | `variable.set VAR_TEMP_*` | **Closed.** The named form applies with the same map-load warning as `variable.set 0x4000` (`PatchPlanner.cs:229-246`); the message now says only special vars (`0x8000+`) are excluded. `diff`, `vars list` and `var get` resolve temp-var names too (`SymbolRegistry.VarNameFor`) | — |
 | Facing field | The u16 at +16 of the live `Location` lagged once | More observations |
 | Unexplained tooling | A long combined input hold freezes after the first hold | Root cause unknown; use short holds |

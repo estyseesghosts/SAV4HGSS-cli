@@ -4863,7 +4863,7 @@
    "player_moves": []
   },
   {
-   "id": "event-victory-road-rival",
+   "id": "event-league-gate-rival",
    "kind": "event",
    "map": 300,
    "map_symbol": "MAP_POKEMON_LEAGUE_ENTRANCE",

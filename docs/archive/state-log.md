@@ -267,7 +267,7 @@ Underground" and then "Victory Road 2F"; both are wrong. `registry/hgss-us.warp-
 | Rival, Burned Tower 1F | `scr_seq_0023_D18R0101.s:25,31,35` (`SILVER_8/11/4`) | 7 `MAP_BURNED_TOWER_1F` (`005_D18R0101.json`) | `event-rival-burned-tower` |
 | Rival, Goldenrod Tunnel B2F | `scr_seq_0096_D37R0104.s:425,431,435` (`SILVER_18/12/17`) | 201 `MAP_GOLDENROD_TUNNEL_B2F` (`194_D37R0104.json`) | `event-rival-goldenrod-tunnel` |
 | Rival, Victory Road 3F | `scr_seq_0110_D43R0103.s:53,59,63` (`SILVER_9/13/5`) | 179 `MAP_VICTORY_ROAD_3F` (`172_D43R0103.json`) | `event-rival-victory-road` |
-| Rival, League entrance | `scr_seq_0819_T10R0101.s:100,106,110` (`SILVER_20/21/19`) | 300 `MAP_POKEMON_LEAGUE_ENTRANCE` (`271_T10R0101.json`) | `event-victory-road-rival` (the id predates the correction; the title names the entrance) |
+| Rival, League entrance | `scr_seq_0819_T10R0101.s:100,106,110` (`SILVER_20/21/19`) | 300 `MAP_POKEMON_LEAGUE_ENTRANCE` (`271_T10R0101.json`) | `event-league-gate-rival` (renamed from `event-victory-road-rival`; armed only on weekdays 1 and 3) |
 | Rival, Mt. Moon | `scr_seq_0007_D02R0101.s:28,34,38` (`SILVER_15/16/14`) | 107 `MAP_MOUNT_MOON` (`104_D02R0101.json`) | `event-rival-mount-moon` |
 | Petrel, Radio Tower 5F | `scr_seq_0033_D23R0105.s:123` | 189 `MAP_GOLDENROD_RADIO_TOWER_5F` (`182_D23R0105.json`) | `event-petrel-radio-tower` |
 | Archer, Radio Tower deck | `scr_seq_0034_D23R0106.s:28` | 190 `MAP_GOLDENROD_RADIO_TOWER_OBSERVATION_DECK` (`183_D23R0106.json`) | `event-archer-radio-tower` |

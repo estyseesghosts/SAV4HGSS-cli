@@ -29,6 +29,8 @@ Facts established about the harness:
 - Other copies exist (a mirror near `0x239aa40`, a copy at `0x2377a20`). After the player moves, the active copy changes and the mirrors keep the old tile.
 - Same-map NPCs have structs of the same shape. A scan that only asks "is there a struct on this map" can be satisfied by an NPC.
 - Reading facing from the struct's last field is unreliable; report it, never gate on it. Save Z is not facing either.
+- The emulated clock is not the host clock. melonDS's MCP core leaves the DS RTC at its reset state: 2000-01-01, week byte 6 (Saturday, 0=Sunday), and it only counts seconds from there (`RTC::ResetState`, melonDS `src/RTC.cpp:208-213`). Host sync lives in the Qt frontend (`EmuInstance::setDateTime`) and never runs here. Anything gated on `GetWeekday` will therefore see a fixed Saturday: `event-league-gate-rival` is the case in point (measured `VAR_TEMP_x4000 = 6`, `docs/archive/runtime-results.md`).
+- The live `SaveVarsFlags.vars[]` array is at `0x227d05c` when map 300 is loaded, and `VAR_TEMP_x4000` is its first entry. It can be found on any map by matching 32 bytes copied from the save's `EVENT_WORK` block (file `0x40DE4`, 736 bytes, then `flags`), because the loaded copy differs from the file only in what the scripts have written since the load.
 
 ### The spawn assertion
 
@@ -38,8 +40,8 @@ Facts established about the harness:
 
 1. **Boots, correct spawn.** The save loads and the live location equals the intended tile. 80 of 80 scenes do (`docs/scene-boot-matrix.md`).
 2. **Reaches the overworld.** Continue-to-overworld with screenshots. Violet, Lugia and Kanto fixtures, and the scene proofs.
-3. **Encounter fought.** The player walks to the actor, presses A and the battle begins. Done for all 16 gym leaders, all 5 Elite Four rooms, Ho-Oh, Lugia, Kyogre, Groudon, Rayquaza, Suicune, Articuno, Zapdos, Moltres, Mewtwo, Latios, Latias and Red (13/13), and the Mt. Moon, Azalea, Goldenrod Tunnel, Petrel (Radio Tower and Rocket HQ), Archer, Kimono chain, Burned Tower and Victory Road 3F story battles (`docs/archive/runtime-results.md`). Each row carries a frame number and the enemy or trainer string that was on screen.
-4. **Not done**: the League-entrance rival scene (`event-victory-road-rival`, map 300). Its actor position is still unread, so it needs `story triggers --map 300` before anything else. A scene's gate logic comes from source, so a boot row is evidence the state loads, not that the event plays.
+3. **Encounter fought.** The player walks to the actor, presses A and the battle begins. Done for all 16 gym leaders, all 5 Elite Four rooms, Ho-Oh, Lugia, Kyogre, Groudon, Rayquaza, Suicune, Articuno, Zapdos, Moltres, Mewtwo, Latios, Latias and Red (13/13), and the Mt. Moon, Azalea, Goldenrod Tunnel, Petrel (Radio Tower and Rocket HQ), Archer, Kimono chain, Burned Tower, Victory Road 3F and Indigo Plateau entrance story battles (`docs/archive/runtime-results.md`). Each row carries a frame number and the enemy or trainer string that was on screen.
+4. **Not done**: nothing at the story-battle level. One scene cannot arm in this harness: `event-league-gate-rival` arms its coord trigger only for `GetWeekday` 1 or 3 (`scr_seq_0819_T10R0101.s:34-47`), and the headless clock is fixed at 2000-01-01 with week byte 6 (`VAR_TEMP_x4000 = 6`, read from the live vars array), so the entry script clears `VAR_UNK_4119` every time. The fight was proved through the `VAR_UNK_40FC = 1` shortcut described in `docs/archive/runtime-results.md`. A scene's gate logic comes from source, so a boot row is evidence the state loads, not that the event plays.
 
 Event movies are observed from screenshots, not asserted frame by frame.
 

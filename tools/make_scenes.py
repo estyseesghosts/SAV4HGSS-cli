@@ -242,8 +242,19 @@ MILESTONES = [
       "scr_seq_0018_D15R0103.s:124 (the win sets FLAG_UNK_076, which the battle branch tests)"]),
     ("event-slowpoke-well", "Slowpoke Well B2F", "hg-01-zephyr",
      "MAP_SLOWPOKE_WELL_B2F", [], ["zone_event 174_D26R0103.json"]),
-    ("event-victory-road-rival", "Indigo Plateau entrance (rival battle)", "hg-e4-gate",
-     "MAP_POKEMON_LEAGUE_ENTRANCE", [], ["zone_event 271_T10R0101.json object SPRITE_GSRIVEL at 10,24"]),
+    # Renamed from event-victory-road-rival: the id differed from event-rival-victory-road
+    # (map 179, Victory Road 3F) only in word order while naming a different map and battle.
+    ("event-league-gate-rival", "Indigo Plateau entrance (rival battle)", "hg-e4-gate",
+     "MAP_POKEMON_LEAGUE_ENTRANCE", [("var", "VAR_UNK_40FC", 2)],
+     ["zone_event 271_T10R0101.json object SPRITE_GSRIVEL at (10,24) FLAG_HIDE_INDIGO_PLATEAU_RIVAL; "
+      "coord (10,14) 3x1 runs the battle while VAR_UNK_4119 == 1",
+      "scr_seq_0819_T10R0101.s:31-33 (_005 ends unless VAR_UNK_40FC > 1 and FLAG_UNK_AA9 is clear)",
+      "scr_seq_0111_D44R0102.s:465 (the Dragons Den departure sets VAR_UNK_40FC = 2, the only writer of 2)",
+      "scr_seq_0819_T10R0101.s:34-47 (every map entry re-derives VAR_UNK_4119 from GetWeekday: 1 or 3 only)",
+      "scr_seq_0819_T10R0101.s:100-110 (TRAINER_RIVAL_SILVER_20/21/19 by starter id)",
+      "scr_seq_0819_T10R0101.s:121-122 (the win zeroes VAR_UNK_4119 and sets FLAG_UNK_AA9)",
+      "runtime: the battle starts on the trigger tile and is won from this state "
+      "(docs/archive/runtime-results.md)"]),
     ("event-starter", "New Bark Town, Elm's lab (starter)", "hg-00-cherrygrove",
      "MAP_NEW_BARK_ELMS_LAB_1F", [], ["zone_event for MAP_NEW_BARK_ELMS_LAB_1F"]),
     ("event-mr-pokemon", "Route 30, Mr. Pokemon's house", "hg-00-cherrygrove",
@@ -273,6 +284,18 @@ MILESTONES = [
      "MAP_ROUTE_28", MT_SILVER_UNLOCK_EXTRAS,
      ["fixtures/event-prereqs.json kanto-arc (FLAG_UNLOCKED_MT_SILVER at 16 badges)"] + MT_SILVER_UNLOCK_SOURCES),
 ]
+
+# Milestones whose generic "state + spawn" note would hide a real condition. Keep the note next to
+# the entry it belongs to so a reader of the registry sees the same caveat the source shows.
+MILESTONE_NOTES = {
+    "event-league-gate-rival":
+        "State + spawn. VAR_UNK_40FC = 2 is the Dragons Den state and FLAG_UNK_AA9 stays clear; "
+        "with either one wrong, scr_seq_T10R0101_005 exits before it can arm the trigger. On every "
+        "map entry that script re-derives VAR_UNK_4119 from GetWeekday and arms the coord only when "
+        "the weekday is 1 or 3 (scr_seq_0819_T10R0101.s:34-47, GetWeekday in src/scrcmd_c.c:3553), "
+        "so a hand-written VAR_UNK_4119 does not survive the load. Spawn is warp 0 of the same map, "
+        "eleven tiles south of the (10..12,14) trigger row.",
+}
 
 
 # Rival and executive battles that are not gyms: each is a real map plus the gate the map's own
@@ -702,7 +725,10 @@ def make_milestone_scenes(reg: Registry) -> list[dict]:
             "expect": expect,
             "sources": sources + [
                 f"registry/hgss-us.warp-spawns.json map {m['map_id']} {map_sym} warp {warp} tile ({wx},{wy})"],
-            "note": "State + spawn. Cutscene triggers on the map are the game's own (docs/archive/state-log.md F11); this scene does not force a trigger variable.",
+            "note": MILESTONE_NOTES.get(
+                sid,
+                "State + spawn. Cutscene triggers on the map are the game's own "
+                "(docs/archive/state-log.md F11); this scene does not force a trigger variable."),
         })
     return scenes
 

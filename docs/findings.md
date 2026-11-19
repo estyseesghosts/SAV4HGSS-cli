@@ -73,5 +73,5 @@ Status: **holds** (no later contradiction), **corrected** (a later entry changed
 | All 16 gym leaders fought from composed saves | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
 | All 5 Elite Four rooms fought from composed saves | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
 | Legendaries and Red fought from composed saves: Ho-Oh, Lugia, Kyogre, Groudon, Rayquaza, Suicune, Articuno, Zapdos, Moltres, Mewtwo, Latios, Latias, Red (13/13) | RUNTIME (frame numbers, `docs/archive/runtime-results.md`) |
-| Story battles fought: Mt. Moon rival, Azalea rival, Goldenrod Tunnel rival, Petrel (Radio Tower), Archer, Kimono chain (five fights in one cutscene) | RUNTIME (frame numbers) |
-| Not fought: Burned Tower rival (actor on the raised level), Victory Road 3F rival, Rocket HQ Petrel (no actor position recorded), League-entrance rival (`event-victory-road-rival`, pre-existing) | open |
+| Story battles fought: Mt. Moon rival, Azalea rival, Goldenrod Tunnel rival, Petrel (Radio Tower), Archer, Kimono chain (five fights in one cutscene), Burned Tower rival, Victory Road 3F rival, Rocket HQ Petrel, League-entrance rival | RUNTIME (frame numbers) |
+| League-entrance rival gate | Fought from a `VAR_UNK_40FC = 1` test state. The scene's real state (`40FC = 2`) never arms: the headless clock reports weekday 6, and `scr_seq_0819_T10R0101.s:34-47` arms only for 1 or 3 | RUNTIME |

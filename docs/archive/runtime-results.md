@@ -349,6 +349,7 @@ base preset, map, saved tile, asserted tile and result.
 | `event-rival-burned-tower` | 7 (Burned Tower 1F) | scene warp 1 -> (22,16), four `down` steps to the coord trigger at (22,19) | frame 5401 `Barry: ...` fires, 6003 VS screen, 6407 `Go! TYPHLOSION!` into GASTLY Lv20, 22901 `Player defeated Rival Barry!` |
 | `event-rival-victory-road` | 179 (Victory Road 3F) | scene warp 0 -> (38,14), walk to the coord trigger at x 37..39, z 21 | frame 5451 `Hold it.`, battle vs `TRAINER_RIVAL_SILVER_13` SNEASEL Lv36, win ~20130, in-game save `B7795FAF` with `VAR_UNK_40C5` 0 -> 1 |
 | `event-petrel-rocket-hq` | 249 (Team Rocket HQ B3F) | scene warp 1 -> (10,10), east to x 16, south to z 17, east to x 23, north to the corridor door at (23,15), A to open it, north to the coord trigger at (23,12) | cutscene runs (Giovanni, then Petrel's `...Huh? I don't sound anything like Giovanni?`), frame 8457 `Executive Petrel sent out ZUBAT!`, battle won, in-game save `E0B56B9C` with `VAR_UNK_40AC` 3 -> 4 |
+| `event-league-gate-rival` | 300 (Indigo Plateau entrance) | free spawn (11,15), one step north onto the coord row (10..12, 14) | frame 3022 `: Hold it.` (the rival name is empty in that save), VS screen, SNEASEL Lv55, six-ball party, win, in-game save `8FEE3EBE` with `FLAG_UNK_AA9` off -> on |
 
 Burned Tower is the first of these whose win was saved in-game and diffed, so it carries more than
 a message string. The composed input was `47FFCB20` (scene warp 1 plus a Lv100 Typhlosion in party
@@ -481,6 +482,91 @@ player before Giovanni's dialogue (`:257-261`).
 
 The staged party carried a second member (Hoothoot Lv3) and the opponent has three Pokémon, so the
 Shift prompt appeared after each KO; `down` + `A` declines it and keeps the Lv100 lead in.
+
+### Indigo Plateau entrance rival: the gate is a weekday, not a variable
+
+`event-league-gate-rival` (renamed from `event-victory-road-rival`, whose id differed from
+`event-rival-victory-road` - map 179, Victory Road 3F - only in word order) composes `hg-e4-gate`,
+sets `VAR_UNK_40FC = 2` and warps to 300's warp 0 tile (11,25), eleven tiles south of the trigger.
+
+The battle is the coord row (10..12, 14) of `271_T10R0101.json`, live while `VAR_UNK_4119 == 1`. The
+on-transition script decides that variable on every map entry, and it is stricter than the earlier
+scene claimed:
+
+- `Compare VAR_UNK_40FC, 1` / `GoToIfLe` ends it unless the counter is at least 2
+  (`scr_seq_0819_T10R0101.s:31-32`). `VAR_UNK_40FC = 2` is written only by the Dragons Den
+  departure (`scr_seq_0111_D44R0102.s:465`), so this rival is a post-Dragons-Den rematch, not the
+  pre-League battle; that one is `event-rival-victory-road` on map 179.
+- `GoToIfSet FLAG_UNK_AA9` ends it while the "already beaten" flag is set (`:33`).
+- `GetWeekday VAR_TEMP_x4000` then arms the coord only for week 1 or 3 and clears it otherwise
+  (`:34-47`; `ScrCmd_GetWeekday` is `src/scrcmd_c.c:3553-3560`). A hand-written
+  `VAR_UNK_4119 = 1` therefore does not survive the load.
+
+That last rule is what blocked the first attempt. A composed save with `VAR_UNK_40FC = 2` and
+`VAR_UNK_4119 = 1` booted cleanly at (11,15), the player walked across the trigger row twice, and
+nothing fired; changing `VAR_UNK_40FC` to 1 - which makes `_005` exit before the weekday branch and
+leaves the stored `VAR_UNK_4119 = 1` alone - fired it on the first step. The reason is not the host
+clock: the harness clock never leaves 2000-01-01. The measurement is at the end of this section.
+
+The fight itself was played from the `VAR_UNK_40FC = 1` test state, since that is the only
+composition the emulator's clock allows:
+
+- Save: `hgss-saves\Gen 4 - Pokemon HeartGold (ENG).sav` (Ash, money 3,444, starter 155), party
+  reduced to one slot and refilled with `party create --species 157 --level 100 --moves 53,247,89,7`,
+  badges `--johto 255` (a Lv100 traded Pokémon disobeys - it used Struggle - at 0 badges), free
+  spawn (11,15) on map 300. Input SHA-256 `D36383BE`.
+- Frame 3022 the trigger fires and the rival walks in; the party is six (`trainers.json[490]`, the
+  155 starter branch at `:104-106`): Sneasel 55, Crobat 58, Magneton 55, Gengar 56, Alakazam 56,
+  Feraligatr 60. The in-game save screen shows BADGES 8, and the battle text names the donor's rival
+  (`Rival Barry`), because the composed save keeps the donor's name.
+- Won, saved in-game, `heartgold.sav` SHA-256 `8FEE3EBE`. The game-written delta:
+
+| Field | Before | After | Justification |
+| --- | --- | --- | --- |
+| `FLAG_UNK_AA9` (0xAA9) | off | on | `scr_seq_0819_T10R0101.s:122` (the win path) |
+| `VAR_UNK_4119` (0x4119) | 1 | 0 | `:121` |
+| `VAR_BATTLE_RESULT` (0x4013) | 0 | 1 | `Encounter_GetResult`, `src/encounter.c:106` |
+| money | 3,444 | 7,284 | 3,840 = 60 x 4 x 16: Feraligatr Lv60 is the last member and `sPrizeMoneyTbl[TRAINERCLASS_RIVAL]` is 16 (`asm/overlay_12_battle_command.s:216`) |
+| `VAR_FRIENDSHIP_STEPS` (0x404B) | 88 | 90 | one step event: the walk onto the trigger row |
+| `FLAG_UNK_966` (0x966) | on | off | `location warp`'s dynamic-warp flag, consumed on load |
+| `location.map_id` / x / y | 67 / 564 / 392 | 300 / 12 / 16 | the trigger walk plus the script's `WalkNormalSouth` (`:144`) |
+
+`FLAG_HIDE_INDIGO_PLATEAU_RIVAL` is deliberately absent from that table: the cutscene clears it at
+`:82` to make the object appear, and `HidePerson` at `:123` sets it again, because
+`MapObject_Delete` sets the object's own event flag before removing it
+(`src/map_object.c:289-293`). The save therefore ends with the same value it started with.
+
+The saved tile is (12,16), one south and one east of where the cutscene leaves the player. The south
+step is `_01E8` (`:142-145`); the east step is the save-menu navigation: the emulator's `right` and
+`down` presses reached the field before the menu accepted buttons (see the touch note in
+`docs/verification.md`).
+
+### The emulated clock is 2000-01-01, week byte 6
+
+A fresh compose of the renamed scene (`story scene apply event-league-gate-rival`, every check
+passes, `VAR_UNK_40FC` reads back 2) booted to (11,25) with two agreeing `Location` copies
+(`0x227d4ac` and `0x227d4e8`, map 300, warp 0), the tile the matrix row records. The same boot then
+gave the weekday from two sides:
+
+- Game side. The live `SaveVarsFlags.vars[]` array is at `0x227d05c`, found by matching the save's
+  own 32-byte run (`EVENT_WORK` is `0xDE4` of the general block, i.e. file `0x40DE4`; a
+  `var set VAR_UNK_40FC 3` moves exactly `0x40FDC`, and `0xDE4 + 0x1F8 = 0xFDC` pins the layout).
+  It reads `vars[0]` (`VAR_TEMP_x4000`) = 6, `VAR_UNK_40FC` = 2, `VAR_UNK_4119` = 0. Only
+  `GetWeekday` writes `VAR_TEMP_x4000` (`scr_seq_0819_T10R0101.s:34`) and the composed save has the
+  whole temp window zeroed, so 6 is what the game read from the RTC; `4119 = 0` is the `:45-47`
+  branch for "neither 1 nor 3".
+- Emulator side. A savestate's `RTC.` section carries `State.DateTime = 00 01 01 06 04 07 01`:
+  2000-01-01 04:07:01, week byte 6. melonDS derives that byte as `(6 + days since 2000-01-01) % 7`,
+  "01/01/2000 is a Saturday, so the starting value is 6" (melonDS `src/RTC.cpp:186-187`), under the
+  DS firmware's 0=Sunday count (`:176`). `RTC::ResetState` only forces month and day to 1
+  (`src/RTC.cpp:208-213`), so a clock nobody syncs stays on that value.
+
+The MCP core does not run the frontend's host sync (`EmuInstance::setDateTime`,
+`src/frontend/qt_sdl/EmuInstance.cpp:1206-1214`). That path would store `(6 + 9818) % 7 = 3`, i.e.
+Wednesday, and the gate would arm. Consequence for the scene: in this harness `_005` clears
+`VAR_UNK_4119` on every entry, so the scene's own state can never fire, and the fight proof above
+uses `VAR_UNK_40FC = 1`, which exits at `:32` before the weekday branch. Days 1 and 3 are Monday and
+Wednesday.
 
 ## Kimono Girls: five fights in one cutscene (2026-11-18)
 

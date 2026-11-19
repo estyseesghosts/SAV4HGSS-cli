@@ -97,6 +97,7 @@ Dropped (no longer in the registry): `legendary-rotom`
 | `event-kimono-battles` | HG | `hg-08-rising` | 86 | (7,17) | (7,7) | ok |
 | `event-kimono-dance` | HG | `hg-08-rising` | 86 | (7,17) | (7,17) | ok |
 | `event-lake-of-rage` | HG | `hg-06-mineral` | 88 | (497,42) | (497,42) | ok |
+| `event-league-gate-rival` | HG | `hg-e4-gate` | 300 | (11,25) | (11,25) | ok |
 | `event-mr-pokemon` | HG | `hg-00-cherrygrove` | 143 | (4,9) | (4,9) | ok |
 | `event-mt-silver` | HG | `hg-kanto-4` | 32 | (887,266) | (887,266) | ok |
 | `event-olivine-lighthouse` | HG | `hg-05-storm` | 225 | (9,10) | (9,10) | ok |
@@ -113,5 +114,4 @@ Dropped (no longer in the registry): `legendary-rotom`
 | `event-sprout-tower` | HG | `hg-00-cherrygrove` | 156 | (15,27) | (15,27) | ok |
 | `event-starter` | HG | `hg-00-cherrygrove` | 61 | (4,14) | (4,14) | ok |
 | `event-sudowoodo` | HG | `hg-03-plain` | 40 | (374,238) | (374,238) | ok |
-| `event-victory-road-rival` | HG | `hg-e4-gate` | 300 | (11,25) | (11,25) | ok |
 

@@ -347,6 +347,7 @@ base preset, map, saved tile, asserted tile and result.
 | `event-petrel-radio-tower` | 189 | scene warp 0 -> (3,5), walk to (4,13) beside the seated director | frame 6722 `Ahem, do you hear me?`, 8192 `Petrel: No, no, no!` reveal, 9062 `You are challenged by Executive Petrel!`, 9282 KOFFING Lv30 |
 | `event-archer-radio-tower` | 190 | free spawn (8,4), A on Archer at (8,3) | frame 5716 `Archer: Oh? You managed to get this far...?`, 7396 `You are challenged by Executive Archer!`, 8086 HOUNDOUR Lv35 |
 | `event-rival-burned-tower` | 7 (Burned Tower 1F) | scene warp 1 -> (22,16), four `down` steps to the coord trigger at (22,19) | frame 5401 `Barry: ...` fires, 6003 VS screen, 6407 `Go! TYPHLOSION!` into GASTLY Lv20, 22901 `Player defeated Rival Barry!` |
+| `event-rival-victory-road` | 179 (Victory Road 3F) | scene warp 0 -> (38,14), walk to the coord trigger at x 37..39, z 21 | frame 5451 `Hold it.`, battle vs `TRAINER_RIVAL_SILVER_13` SNEASEL Lv36, win ~20130, in-game save `B7795FAF` with `VAR_UNK_40C5` 0 -> 1 |
 
 Burned Tower is the first of these whose win was saved in-game and diffed, so it carries more than
 a message string. The composed input was `47FFCB20` (scene warp 1 plus a Lv100 Typhlosion in party
@@ -368,6 +369,51 @@ The saved tile is also independent proof: the script's own `_00E8` movement at `
 `VAR_BATTLE_RESULT` printing as `"name": null` in the first diff is what exposed a second instance
 of the temp-var bug: `SaveDiff` asked the registry for `SymbolKind.SaveWork` only, but `0x4013` is
 registered as `temporary_var`. Fixed alongside this recording.
+
+### Victory Road 3F rival: won on the third attempt
+
+Same shape as Burned Tower - scene warp 0 lands at (38,14), the battle is the coord trigger over
+x 37..39 at z 21 while `VAR_UNK_40C5 == 0` (`scr_seq_0110_D43R0103.s:16`), so it is a walk, not an
+A-press. Trigger fired at frame 5451 (`Hold it.`), VS screen, battle against SNEASEL Lv36.
+
+The opponent is `TRAINER_RIVAL_SILVER_13` (id 272), not `SILVER_5`. `:50-63` branches on
+`GetStarterChoice`: 152 -> `SILVER_9`, 155 -> `SILVER_13`, anything else -> `SILVER_5`. This save
+takes the 155 branch. Two independent checks agree: `trainers.json[272]` is Sneasel 36, Golbat 38,
+Magneton 37, Haunter 37, Kadabra 37, Feraligatr 40, and the prize money below is 40 x 4 x 16, which
+only fits the Lv40 Feraligatr in the last array slot.
+
+Won at frame ~20130 (the rival's loss line `I'm going to find out why I can't win and become
+stronger...`), saved in-game, SHA-256 `B7795FAF`. The input actually loaded was `vr3f-won.sav`
+(`7F9FD2C8`, the mid-approach save at (38,18) left by the aborted second attempt), so that is the
+diff baseline:
+
+| Field | Before | After | Justification |
+| --- | --- | --- | --- |
+| `VAR_UNK_40C5` | 0 | 1 | `scr_seq_0110_D43R0103.s:90` (the win write) |
+| `VAR_BATTLE_RESULT` (0x4013) | 0 | 1 | `Encounter_GetResult`, `src/encounter.c:106` |
+| `VAR_TEMP_x4000` | 0 | 38 | `GetPlayerCoords VAR_TEMP_x4000, VAR_TEMP_x4001` at `:71` |
+| `VAR_TEMP_x4001` | 0 | 22 | same call |
+| money | 3,444 | 6,004 | 2,560 = 40 x 4 x 16 (last array member Lv40) |
+| `VAR_FRIENDSHIP_STEPS` | 92 | 94 | two step events: the walk (3 tiles) plus the scripted `WalkSlowSouth` only counted twice |
+| `location.y` | 18 | 22 | three walked tiles plus the script's one-tile slow step |
+
+`FLAG_UNK_966` was already cleared by the previous load, so it does not appear here.
+
+The saved tile is (38,22), one south of the trigger tile, which is the script's own doing:
+`ApplyMovement obj_player, _0178` at `:42` runs before the battle and `_0178` is `WalkSlowSouth`
+(`:109-111`). The post-battle `GetPlayerCoords` at `:71` then reads (38,22) into the two temp vars,
+and the save stores map 179 at x 38, y 22 - all three agree.
+
+Two earlier attempts at this scene failed and both failures are worth keeping:
+
+- **A-spam picks move slot 1.** The lead had Earthquake first, and Ground is immune on Haunter
+  (Ghost) and Golbat (Flying). Four wasted turns let Haunter's Curse chip the lead 298 -> 0. The
+  fix was ordering moves by coverage for the actual roster, not by power: Flamethrower has no
+  immunity on this team.
+- **Victory Road has wild encounters.** A seven-step walk stopped after four tiles at (38,18)
+  because a wild Golbat battle ate the rest of the presses. `VAR_FRIENDSHIP_STEPS` 88 -> 92 counted
+  the four steps and exposed it. Walking the remaining tiles one press at a time, checking the
+  screen between, is the working method.
 
 Three entries needed correction from what the earlier free spawns assumed:
 
